@@ -1,0 +1,83 @@
+/// cities : [{"id":"779","name":"Abrama","state_id":"12"},{"id":"780","name":"Adalaj","state_id":"12"},{"id":"781","name":"Adityana","state_id":"12"},{"id":"782","name":"Advana","state_id":"12"},{"id":"783","name":"Ahmedabad","state_id":"12"},{"id":"784","name":"Ahwa","state_id":"12"},{"id":"785","name":"Alang","state_id":"12"},{"id":"786","name":"Ambaji","state_id":"12"},{"id":"787","name":"Ambaliyasan","state_id":"12"},{"id":"788","name":"Amod","state_id":"12"},{"id":"789","name":"Amreli","state_id":"12"},{"id":"790","name":"Amroli","state_id":"12"},{"id":"791","name":"Anand","state_id":"12"},{"id":"792","name":"Andada","state_id":"12"},{"id":"793","name":"Anjar","state_id":"12"},{"id":"794","name":"Anklav","state_id":"12"},{"id":"795","name":"Ankleshwar","state_id":"12"},{"id":"796","name":"Anklesvar INA","state_id":"12"},{"id":"797","name":"Antaliya","state_id":"12"},{"id":"798","name":"Arambhada","state_id":"12"},{"id":"799","name":"Asarma","state_id":"12"},{"id":"800","name":"Atul","state_id":"12"},{"id":"801","name":"Babra","state_id":"12"},{"id":"802","name":"Bag-e-Firdosh","state_id":"12"},{"id":"803","name":"Bagasara","state_id":"12"},{"id":"804","name":"Bahadarpar","state_id":"12"},{"id":"805","name":"Bajipura","state_id":"12"},{"id":"806","name":"Bajva","state_id":"12"},{"id":"807","name":"Balasinor","state_id":"12"},{"id":"808","name":"Banaskantha","state_id":"12"},{"id":"809","name":"Bansda","state_id":"12"},{"id":"810","name":"Bantva","state_id":"12"},{"id":"811","name":"Bardoli","state_id":"12"},{"id":"812","name":"Barwala","state_id":"12"},{"id":"813","name":"Bayad","state_id":"12"},{"id":"814","name":"Bechar","state_id":"12"},{"id":"815","name":"Bedi","state_id":"12"},{"id":"816","name":"Beyt","state_id":"12"},{"id":"817","name":"Bhachau","state_id":"12"},{"id":"818","name":"Bhanvad","state_id":"12"},{"id":"819","name":"Bharuch","state_id":"12"},{"id":"820","name":"Bharuch INA","state_id":"12"},{"id":"821","name":"Bhavnagar","state_id":"12"},{"id":"822","name":"Bhayavadar","state_id":"12"},{"id":"823","name":"Bhestan","state_id":"12"},{"id":"824","name":"Bhuj","state_id":"12"},{"id":"825","name":"Bilimora","state_id":"12"},{"id":"826","name":"Bilkha","state_id":"12"},{"id":"827","name":"Billimora","state_id":"12"},{"id":"828","name":"Bodakdev","state_id":"12"},{"id":"829","name":"Bodeli","state_id":"12"},{"id":"830","name":"Bopal","state_id":"12"},{"id":"831","name":"Boria","state_id":"12"},{"id":"832","name":"Boriavi","state_id":"12"},{"id":"833","name":"Borsad","state_id":"12"},{"id":"834","name":"Botad","state_id":"12"},{"id":"835","name":"Cambay","state_id":"12"},{"id":"836","name":"Chaklasi","state_id":"12"},{"id":"837","name":"Chala","state_id":"12"},{"id":"838","name":"Chalala","state_id":"12"},{"id":"839","name":"Chalthan","state_id":"12"},{"id":"840","name":"Chanasma","state_id":"12"},{"id":"841","name":"Chandisar","state_id":"12"},{"id":"842","name":"Chandkheda","state_id":"12"},{"id":"843","name":"Chanod","state_id":"12"},{"id":"844","name":"Chaya","state_id":"12"},{"id":"845","name":"Chenpur","state_id":"12"},{"id":"846","name":"Chhapi","state_id":"12"},{"id":"847","name":"Chhaprabhatha","state_id":"12"},{"id":"848","name":"Chhatral","state_id":"12"},{"id":"849","name":"Chhota Udepur","state_id":"12"},{"id":"850","name":"Chikhli","state_id":"12"},{"id":"851","name":"Chiloda","state_id":"12"},{"id":"852","name":"Chorvad","state_id":"12"},{"id":"853","name":"Chotila","state_id":"12"},{"id":"854","name":"Dabhoi","state_id":"12"},{"id":"855","name":"Dadara","state_id":"12"},{"id":"856","name":"Dahod","state_id":"12"},{"id":"857","name":"Dakor","state_id":"12"},{"id":"858","name":"Damnagar","state_id":"12"},{"id":"859","name":"Deesa","state_id":"12"},{"id":"860","name":"Delvada","state_id":"12"},{"id":"861","name":"Devgadh Baria","state_id":"12"},{"id":"862","name":"Devsar","state_id":"12"},{"id":"863","name":"Dhandhuka","state_id":"12"},{"id":"864","name":"Dhanera","state_id":"12"},{"id":"865","name":"D\n2022-08-16 18:23:40.096 26332-10402/com.coronation.kuber I/okhttp.OkHttpClient: hangdhra","state_id":"12"},{"id":"866","name":"Dhansura","state_id":"12"},{"id":"867","name":"Dharampur","state_id":"12"},{"id":"868","name":"Dhari","state_id":"12"},{"id":"869","name":"Dhola","state_id":"12"},{"id":"870","name":"Dholka","state_id":"12"},{"id":"871","name":"Dholka Rural","state_id":"12"},{"id":"872","name":"Dhoraji","state_id":"12"},{"id":"873","name":"Dhrangadhra","state_id":"12"},{"id":"874","name":"Dhrol","state_id":"12"},{"id":"875","name":"Dhuva","state_id":"12"},{"id":"876","name":"Dhuwaran","state_id":"12"},{"id":"877","name":"Digvijaygram","state_id":"12"},{"id":"878","name":"Disa","state_id":"12"},{"id":"879","name":"Dungar","state_id":"12"},{"id":"880","name":"Dungarpur","state_id":"12"},{"id":"881","name":"Dungra","state_id":"12"},{"id":"882","name":"Dwarka","state_id":"12"},{"id":"883","name":"Flelanganj","state_id":"12"},{"id":"884","name":"GSFC Complex","state_id":"12"},{"id":"885","name":"Gadhda","state_id":"12"},{"id":"886","name":"Gandevi","state_id":"12"},{"id":"887","name":"Gandhidham","state_id":"12"},{"id":"888","name":"Gandhinagar","state_id":"12"},{"id":"889","name":"Gariadhar","state_id":"12"},{"id":"890","name":"Ghogha","state_id":"12"},{"id":"891","name":"Godhra","state_id":"12"},{"id":"892","name":"Gondal","state_id":"12"},{"id":"893","name":"Hajira INA","state_id":"12"},{"id":"894","name":"Halol","state_id":"12"},{"id":"895","name":"Halvad","state_id":"12"},{"id":"896","name":"Hansot","state_id":"12"},{"id":"897","name":"Harij","state_id":"12"},{"id":"898","name":"Himatnagar","state_id":"12"},{"id":"899","name":"Ichchhapor","state_id":"12"},{"id":"900","name":"Idar","state_id":"12"},{"id":"901","name":"Jafrabad","state_id":"12"},{"id":"902","name":"Jalalpore","state_id":"12"},{"id":"903","name":"Jambusar","state_id":"12"},{"id":"904","name":"Jamjodhpur","state_id":"12"},{"id":"905","name":"Jamnagar","state_id":"12"},{"id":"906","name":"Jasdan","state_id":"12"},{"id":"907","name":"Jawaharnagar","state_id":"12"},{"id":"908","name":"Jetalsar","state_id":"12"},{"id":"909","name":"Jetpur","state_id":"12"},{"id":"910","name":"Jodiya","state_id":"12"},{"id":"911","name":"Joshipura","state_id":"12"},{"id":"912","name":"Junagadh","state_id":"12"},{"id":"913","name":"Kadi","state_id":"12"},{"id":"914","name":"Kadodara","state_id":"12"},{"id":"915","name":"Kalavad","state_id":"12"},{"id":"916","name":"Kali","state_id":"12"},{"id":"917","name":"Kaliawadi","state_id":"12"},{"id":"918","name":"Kalol","state_id":"12"},{"id":"919","name":"Kalol INA","state_id":"12"},{"id":"920","name":"Kandla","state_id":"12"},{"id":"921","name":"Kanjari","state_id":"12"},{"id":"922","name":"Kanodar","state_id":"12"},{"id":"923","name":"Kapadwanj","state_id":"12"},{"id":"924","name":"Karachiya","state_id":"12"},{"id":"925","name":"Karamsad","state_id":"12"},{"id":"926","name":"Karjan","state_id":"12"},{"id":"927","name":"Kathial","state_id":"12"},{"id":"928","name":"Kathor","state_id":"12"},{"id":"929","name":"Katpar","state_id":"12"},{"id":"930","name":"Kavant","state_id":"12"},{"id":"931","name":"Keshod","state_id":"12"},{"id":"932","name":"Kevadiya","state_id":"12"},{"id":"933","name":"Khambhaliya","state_id":"12"},{"id":"934","name":"Khambhat","state_id":"12"},{"id":"935","name":"Kharaghoda","state_id":"12"},{"id":"936","name":"Khed Brahma","state_id":"12"},{"id":"937","name":"Kheda","state_id":"12"},{"id":"938","name":"Kheralu","state_id":"12"},{"id":"939","name":"Kodinar","state_id":"12"},{"id":"940","name":"Kosamba","state_id":"12"},{"id":"941","name":"Kundla","state_id":"12"},{"id":"942","name":"Kutch","state_id":"12"},{"id":"943","name":"Kutiyana","state_id":"12"},{"id":"944","name":"Lakhtar","state_id":"12"},{"id":"945","name":"Lalpur","state_id":"12"},{"id":"946","name":"Lambha","state_id":"12"},{"id":"947","name":"Lathi","state_id":"12"},{"id":"948","name":"Limbdi","state_id":"12"},{"id":"949","name":"Limla","state_id":"12"},{"id":"950","name":"Lunavada","state_id":"12"},{"id":"951","name":"Madhapar","s\n2022-08-16 18:23:40.096 26332-10402/com.coronation.kuber I/okhttp.OkHttpClient: tate_id":"12"},{"id":"952","name":"Maflipur","state_id":"12"},{"id":"953","name":"Mahemdavad","state_id":"12"},{"id":"954","name":"Mahudha","state_id":"12"},{"id":"955","name":"Mahuva","state_id":"12"},{"id":"956","name":"Mahuvar","state_id":"12"},{"id":"957","name":"Makarba","state_id":"12"},{"id":"958","name":"Makarpura","state_id":"12"},{"id":"959","name":"Makassar","state_id":"12"},{"id":"960","name":"Maktampur","state_id":"12"},{"id":"961","name":"Malia","state_id":"12"},{"id":"962","name":"Malpur","state_id":"12"},{"id":"963","name":"Manavadar","state_id":"12"},{"id":"964","name":"Mandal","state_id":"12"},{"id":"965","name":"Mandvi","state_id":"12"},{"id":"966","name":"Mangrol","state_id":"12"},{"id":"967","name":"Mansa","state_id":"12"},{"id":"968","name":"Meghraj","state_id":"12"},{"id":"969","name":"Mehsana","state_id":"12"},{"id":"970","name":"Mendarla","state_id":"12"},{"id":"971","name":"Mithapur","state_id":"12"},{"id":"972","name":"Modasa","state_id":"12"},{"id":"973","name":"Mogravadi","state_id":"12"},{"id":"974","name":"Morbi","state_id":"12"},{"id":"975","name":"Morvi","state_id":"12"},{"id":"976","name":"Mundra","state_id":"12"},{"id":"977","name":"Nadiad","state_id":"12"},{"id":"978","name":"Naliya","state_id":"12"},{"id":"979","name":"Nanakvada","state_id":"12"},{"id":"980","name":"Nandej","state_id":"12"},{"id":"981","name":"Nandesari","state_id":"12"},{"id":"982","name":"Nandesari INA","state_id":"12"},{"id":"983","name":"Naroda","state_id":"12"},{"id":"984","name":"Navagadh","state_id":"12"},{"id":"985","name":"Navagam Ghed","state_id":"12"},{"id":"986","name":"Navsari","state_id":"12"},{"id":"987","name":"Ode","state_id":"12"},{"id":"988","name":"Okaf","state_id":"12"},{"id":"989","name":"Okha","state_id":"12"},{"id":"990","name":"Olpad","state_id":"12"},{"id":"991","name":"Paddhari","state_id":"12"},{"id":"992","name":"Padra","state_id":"12"},{"id":"993","name":"Palanpur","state_id":"12"},{"id":"994","name":"Palej","state_id":"12"},{"id":"995","name":"Pali","state_id":"12"},{"id":"996","name":"Palitana","state_id":"12"},{"id":"997","name":"Paliyad","state_id":"12"},{"id":"998","name":"Pandesara","state_id":"12"},{"id":"999","name":"Panoli","state_id":"12"},{"id":"1000","name":"Pardi","state_id":"12"},{"id":"1001","name":"Parnera","state_id":"12"},{"id":"1002","name":"Parvat","state_id":"12"},{"id":"1003","name":"Patan","state_id":"12"},{"id":"1004","name":"Patdi","state_id":"12"},{"id":"1005","name":"Petlad","state_id":"12"},{"id":"1006","name":"Petrochemical Complex","state_id":"12"},{"id":"1007","name":"Porbandar","state_id":"12"},{"id":"1008","name":"Prantij","state_id":"12"},{"id":"1009","name":"Radhanpur","state_id":"12"},{"id":"1010","name":"Raiya","state_id":"12"},{"id":"1011","name":"Rajkot","state_id":"12"},{"id":"1012","name":"Rajpipla","state_id":"12"},{"id":"1013","name":"Rajula","state_id":"12"},{"id":"1014","name":"Ramod","state_id":"12"},{"id":"1015","name":"Ranavav","state_id":"12"},{"id":"1016","name":"Ranoli","state_id":"12"},{"id":"1017","name":"Rapar","state_id":"12"},{"id":"1018","name":"Sahij","state_id":"12"},{"id":"1019","name":"Salaya","state_id":"12"},{"id":"1020","name":"Sanand","state_id":"12"},{"id":"1021","name":"Sankheda","state_id":"12"},{"id":"1022","name":"Santrampur","state_id":"12"},{"id":"1023","name":"Saribujrang","state_id":"12"},{"id":"1024","name":"Sarigam INA","state_id":"12"},{"id":"1025","name":"Sayan","state_id":"12"},{"id":"1026","name":"Sayla","state_id":"12"},{"id":"1027","name":"Shahpur","state_id":"12"},{"id":"1028","name":"Shahwadi","state_id":"12"},{"id":"1029","name":"Shapar","state_id":"12"},{"id":"1030","name":"Shivrajpur","state_id":"12"},{"id":"1031","name":"Siddhapur","state_id":"12"},{"id":"1032","name":"Sidhpur","state_id":"12"},{"id":"1033","name":"Sihor","state_id":"12"},{"id":"1034","name":"Sika","state_id":"12"},{"id":"1035","name":"Singarva","state_id":"12"},{"id":"1036","name":"Sinor","state_id":"12"},{"id":"1037","name":"Sojitra","stat\n2022-08-16 18:23:40.096 26332-10402/com.coronation.kuber I/okhttp.OkHttpClient: e_id":"12"},{"id":"1038","name":"Sola","state_id":"12"},{"id":"1039","name":"Songadh","state_id":"12"},{"id":"1040","name":"Suraj Karadi","state_id":"12"},{"id":"1041","name":"Surat","state_id":"12"},{"id":"1042","name":"Surendranagar","state_id":"12"},{"id":"1043","name":"Talaja","state_id":"12"},{"id":"1044","name":"Talala","state_id":"12"},{"id":"1045","name":"Talod","state_id":"12"},{"id":"1046","name":"Tankara","state_id":"12"},{"id":"1047","name":"Tarsali","state_id":"12"},{"id":"1048","name":"Thangadh","state_id":"12"},{"id":"1049","name":"Tharad","state_id":"12"},{"id":"1050","name":"Thasra","state_id":"12"},{"id":"1051","name":"Udyognagar","state_id":"12"},{"id":"1052","name":"Ukai","state_id":"12"},{"id":"1053","name":"Umbergaon","state_id":"12"},{"id":"1054","name":"Umbergaon INA","state_id":"12"},{"id":"1055","name":"Umrala","state_id":"12"},{"id":"1056","name":"Umreth","state_id":"12"},{"id":"1057","name":"Un","state_id":"12"},{"id":"1058","name":"Una","state_id":"12"},{"id":"1059","name":"Unjha","state_id":"12"},{"id":"1060","name":"Upleta","state_id":"12"},{"id":"1061","name":"Utran","state_id":"12"},{"id":"1062","name":"Uttarsanda","state_id":"12"},{"id":"1063","name":"V.U. Nagar","state_id":"12"},{"id":"1064","name":"V.V. Nagar","state_id":"12"},{"id":"1065","name":"Vadia","state_id":"12"},{"id":"1066","name":"Vadla","state_id":"12"},{"id":"1067","name":"Vadnagar","state_id":"12"},{"id":"1068","name":"Vadodara","state_id":"12"},{"id":"1069","name":"Vaghodia INA","state_id":"12"},{"id":"1070","name":"Valbhipur","state_id":"12"},{"id":"1071","name":"Vallabh Vidyanagar","state_id":"12"},{"id":"1072","name":"Valsad","state_id":"12"},{"id":"1073","name":"Valsad INA","state_id":"12"},{"id":"1074","name":"Vanthali","state_id":"12"},{"id":"1075","name":"Vapi","state_id":"12"},{"id":"1076","name":"Vapi INA","state_id":"12"},{"id":"1077","name":"Vartej","state_id":"12"},{"id":"1078","name":"Vasad","state_id":"12"},{"id":"1079","name":"Vasna Borsad INA","state_id":"12"},{"id":"1080","name":"Vaso","state_id":"12"},{"id":"1081","name":"Veraval","state_id":"12"},{"id":"1082","name":"Vidyanagar","state_id":"12"},{"id":"1083","name":"Vijalpor","state_id":"12"},{"id":"1084","name":"Vijapur","state_id":"12"},{"id":"1085","name":"Vinchhiya","state_id":"12"},{"id":"1086","name":"Vinzol","state_id":"12"},{"id":"1087","name":"Virpur","state_id":"12"},{"id":"1088","name":"Visavadar","state_id":"12"},{"id":"1089","name":"Visnagar","state_id":"12"},{"id":"1090","name":"Vyara","state_id":"12"},{"id":"1091","name":"Wadhwan","state_id":"12"},{"id":"1092","name":"Waghai","state_id":"12"},{"id":"1093","name":"Waghodia","state_id":"12"},{"id":"1094","name":"Wankaner","state_id":"12"},{"id":"1095","name":"Zalod","state_id":"12"}]
+/// success : 1
+
+class CityResponseModel {
+  CityResponseModel({
+      List<Cities>? cities, 
+      int? success,}){
+    _cities = cities;
+    _success = success;
+}
+
+  CityResponseModel.fromJson(dynamic json) {
+    if (json['cities'] != null) {
+      _cities = [];
+      json['cities'].forEach((v) {
+        _cities?.add(Cities.fromJson(v));
+      });
+    }
+    _success = json['success'];
+  }
+  List<Cities>? _cities;
+  int? _success;
+CityResponseModel copyWith({  List<Cities>? cities,
+  int? success,
+}) => CityResponseModel(  cities: cities ?? _cities,
+  success: success ?? _success,
+);
+  List<Cities>? get cities => _cities;
+  int? get success => _success;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (_cities != null) {
+      map['cities'] = _cities?.map((v) => v.toJson()).toList();
+    }
+    map['success'] = _success;
+    return map;
+  }
+
+}
+
+/// id : "779"
+/// name : "Abrama"
+/// state_id : "12"
+
+class Cities {
+  Cities({
+      String? id, 
+      String? name, 
+      String? stateId,}){
+    _id = id;
+    _name = name;
+    _stateId = stateId;
+}
+
+  Cities.fromJson(dynamic json) {
+    _id = json['id'];
+    _name = json['name'];
+    _stateId = json['state_id'];
+  }
+  String? _id;
+  String? _name;
+  String? _stateId;
+Cities copyWith({  String? id,
+  String? name,
+  String? stateId,
+}) => Cities(  id: id ?? _id,
+  name: name ?? _name,
+  stateId: stateId ?? _stateId,
+);
+  String? get id => _id;
+  String? get name => _name;
+  String? get stateId => _stateId;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = _id;
+    map['name'] = _name;
+    map['state_id'] = _stateId;
+    return map;
+  }
+
+}

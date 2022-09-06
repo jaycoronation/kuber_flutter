@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "951814205337",
+    "project_id": "kuber-167ed",
+    "storage_bucket": "kuber-167ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951814205337:android:35b198da77b1704ff52d08",
+        "android_client_info": {
+          "package_name": "com.coronation.kuber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951814205337-j58r037vc1pfp6hsr9dkj43eaolcpooh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coronation.kuber",
+            "certificate_hash": "618306352f4ba803ab3e0398fdf5aea03120a35b"
+          }
+        },
+        {
+          "client_id": "951814205337-n6l228uvsi952087s2o1dbhv0egkkccs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coronation.kuber",
+            "certificate_hash": "b6b40305cee333677928e469620143868b878ceb"
+          }
+        },
+        {
+          "client_id": "951814205337-13k5hcfo294qrkq2ktuvla63sin0j4ol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8NgvQs8XyzK5goK3yMRB50bsYKsskVFY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951814205337-13k5hcfo294qrkq2ktuvla63sin0j4ol.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951814205337:android:0cdf82abe0a61431f52d08",
+        "android_client_info": {
+          "package_name": "com.coronation.kuber.kuber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951814205337-ge84mljggt2dv40quks38dk41o20sdiq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coronation.kuber.kuber",
+            "certificate_hash": "b6b40305cee333677928e469620143868b878ceb"
+          }
+        },
+        {
+          "client_id": "951814205337-13k5hcfo294qrkq2ktuvla63sin0j4ol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8NgvQs8XyzK5goK3yMRB50bsYKsskVFY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951814205337-13k5hcfo294qrkq2ktuvla63sin0j4ol.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
