@@ -17,6 +17,7 @@ import 'package:kuber/model/CommonResponseModel.dart';
 import 'package:kuber/model/CountryResponseModel.dart';
 import 'package:kuber/model/StateResponseModel.dart';
 import 'package:kuber/model/VerifyOtpResponseModel.dart';
+import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/MyAccountScreen.dart';
 import 'package:kuber/screen/SelectionScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
@@ -65,6 +66,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
   var profilePicNew = "";
   var certificatePath = File("");
   var certificateName = "";
+  var profilepicName="";
   String selectedDate = "Date of birth";
   var kGoogleApiKey = "AIzaSyB9HMvtsM0RcwXMLleDydO1_95KoZBi_jI";
   final TextEditingController textControllerForState = TextEditingController();
@@ -103,7 +105,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
                             color: white_blue),
-                        child:  TextField(
+                        child: TextField(
                           controller: firstNameController,
                           keyboardType: TextInputType.text,
                           cursorColor: title,
@@ -155,11 +157,11 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
                             color: white_blue),
-                        child:  TextField(
+                        child: TextField(
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           cursorColor: title,
-                          readOnly: emailController.value.text.isEmpty ? false : true,
+                          readOnly: sessionManager.getEmail().toString().length>0 ,
                           style: const TextStyle(
                             color: text_dark,
                             fontSize: 14,
@@ -179,7 +181,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                         alignment: Alignment.center,
                         margin: const EdgeInsets.only(
                             top: 10, right: 10, left: 10),
-                        padding: const EdgeInsets.only(left: 14, right: 10),
+                        padding: const EdgeInsets.only(left: 14, right: 14),
                         decoration: const BoxDecoration(
                           color: white_blue,
                           borderRadius: BorderRadius.all(
@@ -199,7 +201,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                       fontSize: 14)),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(left: 10),
+                              margin: const EdgeInsets.only(left: 10,right:10),
                               height: 20,
                               width: 1,
                               color: text_light,
@@ -376,18 +378,11 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                               components: [],
                               strictbounds: false,
                               region: "",
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: 'Search',
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  borderSide: const BorderSide(
-                                    color: Colors.white,
-                                  ),
-                                ),
                               ),
                                 types: [],
                                 language: "en",);
-
                             displayPrediction(prediction,context);
                           },
                           style: const TextStyle(
@@ -667,8 +662,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
   Widget setUpTextDate() {
     return Container(
-      padding: const EdgeInsets.only(left: 12),
-      margin: const EdgeInsets.only(top: 10, right: 14, left: 14),
+      padding: const EdgeInsets.only(left: 14, right: 10),
+      margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: white_blue),
@@ -722,7 +717,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                 width: 130,
                 height: 130,
                 child: profilePath.path.isNotEmpty
-                    ? Image.file(profilePath,fit: BoxFit.cover):sessionManager.getImagePic().toString().isNotEmpty
+                    ? Image.file(profilePath,fit: BoxFit.cover)
+                    : sessionManager.getImagePic().toString().isNotEmpty
                     ? FadeInImage.assetNetwork(image:sessionManager.getImagePic().toString(),fit:BoxFit.cover,
                       placeholder:"assets/images/ic_user_placeholder.png")
                     : Image.asset("assets/images/ic_user_placeholder.png",fit: BoxFit.cover,)
@@ -772,7 +768,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         profilePath = File(result.files.single.path!);
         profilePicNew = "";
         profilePic = result.files.single.path!;
-        print("Data Response Profile"+ profilePath.path);
+        print("Data Response Profile"+ profilePic.trimRight());
+
       }
     });
         _callProfileUpdateWithImage();
@@ -869,7 +866,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       var dataResponse = CommonResponseModel.fromJson(user);
 
       if (statusCode == 200 && dataResponse.success == 1) {
-
         _getUserProfileDetails();
       }
       else
@@ -1042,6 +1038,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           "experience_other":"",
           "pathshala":"",
           "gurukul":"",
+          "profile_pic_name":""
         };
 
         final response = await http.post(url, body: jsonBody);
@@ -1053,17 +1050,18 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         var dataResponse = CommonResponseModel.fromJson(user);
 
         if (statusCode == 200 && dataResponse.success == 1) {
-          if (dataResponse.success != null) {
 
-          }
           setState(() {
             _isLoading = false;
           });
-        } else {
-          setState(() {
+        }
+        else
+        {
+          setState(()
+          {
             _isLoading = false;
           });
-          showSnackBar(dataResponse.message, context);
+          showToast(dataResponse.message, context);
         }
       }
       else if (sessionManager.getIsTemple() ?? false)
@@ -1086,6 +1084,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           "address":"",
           "birthdate":"",
           "birthplace":"",
+          "profile_pic_name":""
         };
 
         final response = await http.post(url, body: jsonBody);
@@ -1107,7 +1106,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           setState(() {
             _isLoading = false;
           });
-          showSnackBar(dataResponse.message, context);
+          showToast(dataResponse.message, context);
         }
       }
     else
@@ -1115,6 +1114,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
           HttpLogger(logLevel: LogLevel.BODY),
         ]);
+
 
         final url = Uri.parse(MAIN_URL + updateProfileForUser);
 
@@ -1130,6 +1130,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           "address":addressController.value.text,
           "birthdate": universalDateConverter("dd MMM,yyyy", "yyyy-MM-dd", bdyController.value.text),
           "birthplace":addressController.value.text,
+          "profile_pic_name":profilepicName
         };
 
         final response = await http.post(url, body: jsonBody);
@@ -1141,6 +1142,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         var dataResponse = CommonResponseModel.fromJson(user);
 
         if (statusCode == 200 && dataResponse.success == 1) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
           if (dataResponse.success != null) {
             // _countryList = dataResponse.countries!;
           }
@@ -1154,7 +1156,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           {
             _isLoading = false;
           });
-          showSnackBar(dataResponse.message, context);
+          showToast(dataResponse.message, context);
         }
       }
   }
@@ -1199,6 +1201,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             countryId = getSet?.country ?? "";
             stateId = getSet?.state ?? "";
             cityId = getSet?.city ?? "";
+            profilepicName = getSet?.profilePicName??"";
 
           setState(() {
             _isLoading = false;
@@ -1209,7 +1212,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           setState(() {
             _isLoading = false;
           });
-          showSnackBar(dataResponse.message, context);
+          showToast(dataResponse.message, context);
         }
       }
     else if (sessionManager.getIsTemple() ?? false)
@@ -1252,6 +1255,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           countryId = getSet.country ?? "";
           stateId = getSet.state ?? "";
           cityId = getSet.city ?? "";
+          profilepicName = getSet.profilePicName ?? "";
 
           var getSetData = Profile();
           getSetData.id = getSet.id;
@@ -1266,6 +1270,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           getSetData.email = getSet.email;
           getSet.firstName = getSet.firstName;
           getSetData.lastName = getSet.lastName;
+          getSetData.profilePicName= getSet.profilePicName;
 
           await sessionManager.createLoginSession(getSet);
 
@@ -1300,7 +1305,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                 return Container(
                   height: MediaQuery.of(context).size.height * 0.88,
                   decoration: const BoxDecoration(
-                      color: white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12.0),
                         topRight: Radius.circular(12.0),
@@ -1459,4 +1463,5 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         }
     );
   }
+
 }

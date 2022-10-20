@@ -38,268 +38,259 @@ class _BookingDetailsScreen extends State<BookingDetailsScreen> {
           body: _isLoading
               ? const LoadingWidget()
               : SingleChildScrollView(
-                  child: IntrinsicHeight(
-                      child: Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                  Container(
+                      margin: const EdgeInsets.only(
+                          left: 16, top: 20, right: 10, bottom: 10),
+                      child: const Text(
+                        'Booking Details',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: black,
+                            fontWeight: FontWeight.bold),
+                      )),
+                  Container(
+                      margin: const EdgeInsets.only(
+                          top: 10, left: 16, right: 10, bottom: 12),
+                      child: const Text(
+                        'User Details : ',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: black,
+                            fontWeight: FontWeight.w700),
+                      )),
+                  Container(
+                    padding: const EdgeInsets.only(
+                        left: 4, right: 4, top: 6, bottom: 6),
+                    alignment: Alignment.centerLeft,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(left: 14, right: 14),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: white_blue),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
                           margin: const EdgeInsets.only(
-                              left: 16, top: 20, right: 10, bottom: 10),
-                          child: const Text(
-                            'Booking Details',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: black,
-                                fontWeight: FontWeight.bold),
-                          )),
-                      Container(
-                          margin: const EdgeInsets.only(
-                              top: 10, left: 16, right: 10, bottom: 12),
-                          child: const Text(
-                            'User Details : ',
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: black,
-                                fontWeight: FontWeight.w700),
-                          )),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 4, right: 4, top: 6, bottom: 6),
-                        alignment: Alignment.centerLeft,
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.only(left: 14, right: 14),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: white_blue),
-                        child: Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 4, bottom: 4),
-                                child: Text(
-                                  _bookingDetail.username.toString(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: title),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 4, bottom: 4),
-                                child: Text(
-                                  _bookingDetail.email.toString(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                      color: title),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, bottom: 4),
-                                child: Text(
-                                  _bookingDetail.mobile.toString(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                      color: title),
-                                  textAlign: TextAlign.start,
-                                ),
-                              )
-                            ],
+                              left: 10, right: 10, top: 4, bottom: 4),
+                          child: Text(
+                            _bookingDetail.username.toString(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: title),
+                            textAlign: TextAlign.start,
                           ),
                         ),
-                      ),
-                      Container(
+                        Container(
                           margin: const EdgeInsets.only(
-                              top: 10, left: 16, right: 10, bottom: 12),
-                          child: const Text(
-                            'Puja Details :',
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: black,
-                                fontWeight: FontWeight.w700),
-                          )),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 4, right: 4, top: 6, bottom: 6),
-                        alignment: Alignment.centerLeft,
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.only(left: 14, right: 14),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: white_blue),
-                        child: Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 4, bottom: 4),
-                                child: Text(
-                                  _bookingDetail.pujaName.toString(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: title),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 4, bottom: 4),
-                                child: Text(
-                                  _bookingDetail.pujaDescription.toString(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                      color: title),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                            ],
+                              left: 10, right: 10, top: 4, bottom: 4),
+                          child: Text(
+                            _bookingDetail.email.toString(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                                color: title),
+                            textAlign: TextAlign.start,
                           ),
                         ),
-                      ),
-                      Container(
+                        Container(
                           margin: const EdgeInsets.only(
-                              top: 10, left: 16, right: 10, bottom: 12),
-                          child: const Text(
-                            'Puja Date & Time :',
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: black,
-                                fontWeight: FontWeight.w700),
-                          )),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 4, right: 4, top: 6, bottom: 6),
-                        alignment: Alignment.centerLeft,
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.only(left: 14, right: 14),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: white_blue),
-                        child: Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 4, bottom: 4),
-                                child: Text(
-                                  _bookingDetail.pujaDay.toString() +
-                                      "," +
-                                      _bookingDetail.pujaDate.toString() +
-                                      _bookingDetail.pujaTime.toString(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                      color: title),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                            ],
+                              left: 10, right: 10, bottom: 4),
+                          child: Text(
+                            _bookingDetail.mobile.toString(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                                color: title),
+                            textAlign: TextAlign.start,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                      margin: const EdgeInsets.only(
+                          top: 10, left: 16, right: 10, bottom: 12),
+                      child: const Text(
+                        'Puja Details :',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: black,
+                            fontWeight: FontWeight.w700),
+                      )),
+                  Container(
+                    padding: const EdgeInsets.only(
+                        left: 4, right: 4, top: 6, bottom: 6),
+                    alignment: Alignment.centerLeft,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(left: 14, right: 14),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: white_blue),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                              left: 10, right: 10, top: 4, bottom: 4),
+                          child: Text(
+                            _bookingDetail.pujaName.toString(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: title),
+                            textAlign: TextAlign.start,
                           ),
                         ),
-                      ),
-                      Container(
+                        Container(
                           margin: const EdgeInsets.only(
-                              top: 10, left: 16, right: 10, bottom: 12),
-                          child: const Text(
-                            'Address Details :',
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: black,
-                                fontWeight: FontWeight.w700),
-                          )),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 4, right: 4, top: 6, bottom: 6),
-                        alignment: Alignment.centerLeft,
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.only(left: 14, right: 14),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: white_blue),
-                        child: Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 4, bottom: 4),
-                                child: Text(
-                                  _bookingDetail.bookingAddress.toString(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                      color: title),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                            ],
+                              left: 10, right: 10, top: 4, bottom: 4),
+                          child: Text(
+                            _bookingDetail.pujaDescription.toString(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                                color: title),
+                            textAlign: TextAlign.start,
                           ),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            top: 10, left: 18, right: 10, bottom: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            const Text(
-                              "Will you pick up priest? ",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(fontWeight: FontWeight.normal),
-                            ),
-                            Text(
-                              _bookingDetail.pickupByUser == "1" ? "Yes" : "No",
-                              textDirection: TextDirection.ltr,
-                              textAlign: TextAlign.left,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: title,
-                                  fontSize: 14),
-                            )
-                          ],
+                      ],
+                    ),
+                  ),
+                  Container(
+                      margin: const EdgeInsets.only(
+                          top: 10, left: 16, right: 10, bottom: 12),
+                      child: const Text(
+                        'Puja Date & Time :',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: black,
+                            fontWeight: FontWeight.w700),
+                      )),
+                  Container(
+                    padding: const EdgeInsets.only(
+                        left: 4, right: 4, top: 6, bottom: 6),
+                    alignment: Alignment.centerLeft,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(left: 14, right: 14),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: white_blue),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                              left: 10, right: 10, top: 4, bottom: 4),
+                          child: Text(
+                            _bookingDetail.pujaDay.toString() +
+                                "," +
+                                _bookingDetail.pujaDate.toString()+"  "+
+                                _bookingDetail.pujaTime.toString(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                                color: title),
+                            textAlign: TextAlign.start,
+                          ),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                            top: 10, left: 18, right: 10, bottom: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            const Text(
-                              "Will you provide Pooja goods?",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(fontWeight: FontWeight.normal),
-                            ),
-                            Text(
-                              _bookingDetail.pickupByUser == "1" ? "Yes" : "No",
-                              textDirection: TextDirection.ltr,
-                              textAlign: TextAlign.left,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: title,
-                                  fontSize: 14),
-                            )
-                          ],
+                      ],
+                    ),
+                  ),
+                  Container(
+                      margin: const EdgeInsets.only(
+                          top: 10, left: 16, right: 10, bottom: 12),
+                      child: const Text(
+                        'Address Details :',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: black,
+                            fontWeight: FontWeight.w700),
+                      )),
+                  Container(
+                    padding: const EdgeInsets.only(
+                        left: 4, right: 4, top: 6, bottom: 6),
+                    alignment: Alignment.centerLeft,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(left: 14, right: 14),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: white_blue),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                              left: 10, right: 10, top: 4, bottom: 4),
+                          child: Text(
+                            _bookingDetail.bookingAddress.toString(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                                color: title),
+                            textAlign: TextAlign.start,
+                          ),
                         ),
-                      ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(
+                        top: 10, left: 18, right: 10, bottom: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        const Text(
+                          "Will you pick up priest? ",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontWeight: FontWeight.normal),
+                        ),
+                        Text(
+                          _bookingDetail.pickupByUser == "1" ? "Yes" : "No",
+                          textDirection: TextDirection.ltr,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: title,
+                              fontSize: 14),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(
+                        top: 10, left: 18, right: 10, bottom: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        const Text(
+                          "Will you provide Pooja goods?",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontWeight: FontWeight.normal),
+                        ),
+                        Text(
+                          _bookingDetail.pickupByUser == "1" ? "Yes" : "No",
+                          textDirection: TextDirection.ltr,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: title,
+                              fontSize: 14),
+                        )
+                      ],
+                    ),
+                  ),
                     ],
-                  )),
+                  ),
                 )),
       onWillPop: () {
         Navigator.pop(context);

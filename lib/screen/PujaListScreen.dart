@@ -25,7 +25,6 @@ class _PujaListScreen extends State<PujaListScreen> {
   List<PujaList> _pujaList = List<PujaList>.empty(growable: true);
   List<PujaList> listPujaSearch = List<PujaList>.empty(growable: true);
   bool _isLoading = false;
-  bool _isNoDataVisible = false;
   SessionManager sessionManager = SessionManager();
   @override
   void initState() {
@@ -63,15 +62,7 @@ class _PujaListScreen extends State<PujaListScreen> {
         ),
         body: _isLoading
             ? const LoadingWidget()
-            : _isNoDataVisible
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Text("No Bookings Found",style: TextStyle(color: text_dark,fontSize: 18,fontWeight: FontWeight.bold),)
-                ],
-              )
-            : Column(
+            :Column(
                 children: [
                   Container(
                     margin: const EdgeInsets.fromLTRB(12, 8, 12, 6),
@@ -152,11 +143,9 @@ class _PujaListScreen extends State<PujaListScreen> {
                                   elevation: 6,
                                   child: Padding(
                                     padding: const EdgeInsets.all(14.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(listPujaSearch.isNotEmpty? listPujaSearch[i].pujaName.toString():_pujaList[i].pujaName.toString(),
                                           style: const TextStyle(
@@ -165,35 +154,29 @@ class _PujaListScreen extends State<PujaListScreen> {
                                               color: black),
                                           textAlign: TextAlign.start,
                                         ),
-                                        Row(
-                                          children: [
-                                            const Spacer(),
-                                            InkWell(
-                                              onTap: (){
-                                                Navigator.push(context, MaterialPageRoute(builder: (context) =>  PujaDetailsScreen(_pujaList[i].pujaId.toString())));
-                                              //  Navigator.push(context, MaterialPageRoute(builder: (context)=> PujaDetailsScreen(listPujaSearch.isNotEmpty? listPujaSearch[i]:_pujaList[i].pujaId.toString())));
-                                              },
-                                              child: Container(
-                                                alignment: Alignment.bottomRight,
-                                                height: 50,
-                                                child: Card(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(20.0),
-                                                  ),
-                                                  color: light_yellow,
-                                                  elevation: 10,
-                                                  child: const Padding(
-                                                    padding: EdgeInsets.all(6.0),
-                                                    child: Text("Pooja Info",
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          color: black,
-                                                          fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
-                                                  ),
-                                                ),
+                                        InkWell(
+                                          onTap: (){
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) =>  PujaDetailsScreen(_pujaList[i].pujaId.toString())));
+                                          //  Navigator.push(context, MaterialPageRoute(builder: (context)=> PujaDetailsScreen(listPujaSearch.isNotEmpty? listPujaSearch[i]:_pujaList[i].pujaId.toString())));
+                                          },
+                                          child: Container(
+                                            alignment: Alignment.bottomRight,
+                                            child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(20.0),
                                               ),
-                                            )
-                                          ],
+                                              color: light_yellow,
+                                              elevation: 10,
+                                              child: const Padding(
+                                                padding: EdgeInsets.all(6.0),
+                                                child: Text("Pooja Info",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: black,
+                                                      fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
+                                              ),
+                                            ),
+                                          ),
                                         )
                                       ],
                                     ),
@@ -238,15 +221,7 @@ class _PujaListScreen extends State<PujaListScreen> {
     if (statusCode == 200 && dataResponse.success == 1) {
       _pujaList = [];
       _pujaList = dataResponse.pujaList!;
-
-      if (_pujaList.isEmpty)
-        {
-          _isNoDataVisible = true;
-        }
-      else
-        {
-          _isNoDataVisible = false;
-        }
+      _pujaList.reversed.toList();
 
       setState(() {
         _isLoading = false;
@@ -254,9 +229,7 @@ class _PujaListScreen extends State<PujaListScreen> {
     } else {
       setState(() {
         _isLoading = false;
-        _isNoDataVisible = false;
       });
-      showToast(dataResponse.message, context);
     }
   }
 

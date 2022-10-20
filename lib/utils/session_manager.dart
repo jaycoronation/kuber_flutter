@@ -167,6 +167,7 @@ class SessionManager {
   async {
     await SessionManagerMethods.setString(city, apiCity);
   }
+
   String? getCity() {
     return SessionManagerMethods.getString(city);
   }
@@ -215,5 +216,6 @@ class SessionManager {
   String? getImagePic() {
     return SessionManagerMethods.getString(image);
   }
+
 
 }

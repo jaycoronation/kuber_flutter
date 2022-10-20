@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kuber/constant/colors.dart';
@@ -34,6 +35,9 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
   TextEditingController prayerNotesController = TextEditingController();
   List<Prayers> _prayerList = List<Prayers>.empty(growable: true);
   String prayerID = "";
+  String selectedDate = "Pick Date";
+  String selectedTime = "Pick Time";
+  String selectdateOfBirth = "Date Of Birth";
 
   @override
   void initState() {
@@ -124,16 +128,17 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                         ],
                                       ),
                                       Visibility(
-                                        visible: false,
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Container(height: 4,),
-                                              const Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
-                                              Text(_listPrayers[i].dateOfBirth,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
-                                              Container(height: 4,),
-                                            ],
+                                        visible:false,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                 Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
+                                                Text(_listPrayers[i].dateOfBirth,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
+                                              ],
+                                            ),
                                           )
                                       ),
                                     ],
@@ -316,7 +321,9 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                   controller:prayerDOBController,
                                   cursorColor: text_dark,
                                   onTap: () async {
-                                    DateTime? pickedDate = await showDatePicker(
+                                    _setDatePicker(prayerDOBController);
+
+                                 /*   DateTime? pickedDate = await showDatePicker(
                                         context: context,
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime(1900),
@@ -343,7 +350,8 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                       setState(() {
                                         prayerDOBController.text = formattedDate;
                                       });
-                                    }
+                                    }*/
+
                                   },
                                   style: const TextStyle(
                                       color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
@@ -516,7 +524,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                         }
                                         else
                                         {
-                                          _confirmPrayerRequest();
+                                          _confirmPrayerRequest(getSet);
                                         }
                                       },
                                     ),
@@ -697,7 +705,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                                         width: MediaQuery.of(context).size.width,
                                                         margin: const EdgeInsets.only(top: 6, right: 6, left: 8),
                                                         child: Text(
-                                                            _prayerList[i].prayer.toString(),
+                                                            toDisplayCase( _prayerList[i].prayer.toString()),
                                                             style: const TextStyle(
                                                                 fontSize: 16,
                                                                 fontWeight:
@@ -707,7 +715,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                                       ),
                                                       onTap: (){
                                                         prayerID = _prayerList[i].prayerId.toString();
-                                                        pPrayerForController.text = _prayerList[i].prayer.toString();
+                                                        pPrayerForController.text = toDisplayCase(_prayerList[i].prayer.toString());
                                                         updateState((){});
                                                         Navigator.pop(context);
                                                       },
@@ -730,7 +738,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
         });
   }
 
-  void _confirmPrayerRequest() {
+  void _confirmPrayerRequest(Requests getSet) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -754,6 +762,8 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                     child: Container(
                       margin: const EdgeInsets.only(left: 14,right: 14),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                               width: 50,
@@ -772,12 +782,13 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                             ),
                           ),
                           Container(
-                            alignment: Alignment.center,
                             padding: const EdgeInsets.only(left: 14, right: 10,top: 10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20.0),
                                 color: white_blue),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
                                   children: [
@@ -849,6 +860,17 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                     )
                                   ],
                                 ),
+                                Visibility(
+                                  visible: false,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Notes",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w700,color: text_light),),
+                                      Text(prayerNotesController.value.text, style:const TextStyle(fontWeight: FontWeight.w700,color: text_dark,fontSize: 14))
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -882,7 +904,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                 GestureDetector(
                                   onTap: (){
                                     Navigator.pop(context);
-                                    _savePrayerRequest();
+                                    _savePrayerRequest(getSet);
                                   },
                                   child: Card(
                                     shape: RoundedRectangleBorder(
@@ -916,7 +938,34 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
     );
   }
 
-  _savePrayerRequest() async {
+  _setDatePicker(TextEditingController controller){
+    showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext builder) {
+          return Container(
+            height: MediaQuery.of(context).copyWith().size.height*0.25,
+            color: Colors.white,
+            child: CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.date,
+              onDateTimeChanged: (value) {
+                if (value != null && value != selectedDate) {
+                  setState(()
+                  {
+                    String formattedDate = DateFormat('dd MMM,yyyy').format(value);
+                    controller.text = formattedDate;
+                  });
+                }
+              },
+              initialDateTime: DateTime.now(),
+              minimumYear: 1900,
+              maximumYear: 2022,
+            ),
+          );
+        }
+    );
+  }
+
+  _savePrayerRequest(Requests getSet) async {
     setState(() {
       _isLoading = true;
     });
@@ -936,6 +985,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
       'email' : prayerEmailController.value.text,
       'prayer_id' : prayerID,
       'notes' : prayerNotesController.value.text,
+      'request_id': getSet.requestId.toString()
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -1025,7 +1075,6 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
       setState(() {
         _isLoading = false;
       });
-      showSnackBar(prayerResponse.message, context);
     }
   }
 

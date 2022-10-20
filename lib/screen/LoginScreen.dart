@@ -1,18 +1,28 @@
 
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/constant/colors.dart';
+import 'package:kuber/model/LoginResponseModel.dart';
+import 'package:kuber/model/SocialResponseModel.dart';
 import 'package:kuber/screen/LoginWithEmailScreen.dart';
 import 'package:kuber/screen/LoginWithOtpScreen.dart';
 import 'package:kuber/screen/SignUpScreen.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:kuber/utils/session_manager.dart';
+import 'package:pretty_http_logger/pretty_http_logger.dart';
 
+import '../constant/api_end_point.dart';
+import '../model/VerifyOtpResponseModel.dart';
 import '../utils/app_utils.dart';
+import 'DashboardScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -23,21 +33,21 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreen extends State<LoginScreen> {
   final fb = FacebookLogin();
-
+  String _keyHash = 'Unknown';
+  SessionManager sessionManager = SessionManager();
+  var  loginType = "";
+  bool _isLoading = false;
+  
   @override
   initState() {
-    //printKeyHash();
+
+    getKeyHash();
+
     super.initState();
   }
 
- /* void printKeyHash() async{
-    String? key= await FlutterFacebookKeyhash.getFaceBookKeyHash ?? 'Unknown platform version';
-    print(key??"");
-  }*/
-
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
         onWillPop: () {
           SystemNavigator.pop();
@@ -97,7 +107,7 @@ class _LoginScreen extends State<LoginScreen> {
                                   style: TextStyle(
                                       color: black,
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w400),
+                                      fontWeight: FontWeight.w500),
                                 ))
                           ],
                         ),
@@ -140,7 +150,7 @@ class _LoginScreen extends State<LoginScreen> {
                                   style: TextStyle(
                                       color: black,
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w400),
+                                      fontWeight: FontWeight.w500),
                                 ))
                           ],
                         ),
@@ -180,8 +190,8 @@ class _LoginScreen extends State<LoginScreen> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
                                 ))
                           ],
                         ),
@@ -416,9 +426,9 @@ class _LoginScreen extends State<LoginScreen> {
               lastName = splitted[1];
             }
           }
-          print("<><> FACEBOOK EMAIL: " + email.toString());
-          print("<><> FACEBOOK NAME: " + profile.name!.toString());
-          //_makeSocialLoginRequest("facebook",firstName,lastName,email,"");
+          print("<><> FACEBOOK EMAIL: $email");
+          print("<><> FACEBOOK NAME: ${profile.name!}");
+          _makeSocialLoginRequest("1",firstName,lastName,email,"");
         }
         else
         {
@@ -435,7 +445,7 @@ class _LoginScreen extends State<LoginScreen> {
     }
   }
 
-  static Future<User?> signInWithGoogle({required BuildContext context}) async {
+  Future<User?> signInWithGoogle({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
 
@@ -446,14 +456,15 @@ class _LoginScreen extends State<LoginScreen> {
         await auth.signInWithPopup(authProvider);
 
         user = userCredential.user;
+
       } catch (e) {
         print(e);
       }
-    } else {
+    }
+    else
+    {
       final GoogleSignIn googleSignIn = GoogleSignIn();
-
-      final GoogleSignInAccount? googleSignInAccount =
-      await googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
 
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
@@ -462,18 +473,37 @@ class _LoginScreen extends State<LoginScreen> {
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
-
-        try {
+        try
+        {
           final UserCredential userCredential =
           await auth.signInWithCredential(credential);
           user = userCredential.user;
-        } on FirebaseAuthException catch (e) {
+
+          print("User GetSet $user");
+          String? firstName = "";
+          String? lastName = "";
+          String? email ="";
+          String? profilePic ="";
+          firstName = user?.displayName ?? "";
+          lastName = user?.displayName ?? "";
+          email = user?.email ?? "";
+          profilePic = user?.photoURL ?? "";
+
+          _makeSocialLoginRequest("2",firstName,lastName,email,profilePic);
+        }
+        on FirebaseAuthException catch (e)
+        {
+          print(e);
           if (e.code == 'account-exists-with-different-credential') {
             // ...
-          } else if (e.code == 'invalid-credential') {
+
+          }
+          else if (e.code == 'invalid-credential')
+          {
             // ...
           }
-        } catch (e) {
+        } catch (e)
+        {
           // ...
         }
       }
@@ -496,5 +526,88 @@ class _LoginScreen extends State<LoginScreen> {
     }
   }
 
+  Future<void> getKeyHash() async {
+    String keyHash;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    // We also handle the message potentially returning null.
+    try {
+      keyHash = await FlutterFacebookKeyhash.getFaceBookKeyHash ??
+          'Unknown platform KeyHash';
+    } on PlatformException {
+      keyHash = 'Failed to get Kay Hash.';
+    }
 
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+     _keyHash = keyHash;
+    });
+
+    print("++++++HAshKey$_keyHash");
+  }
+
+  _makeSocialLoginRequest(String loginType, String firstName, String lastName, String email, String image) async {
+
+    setState(()
+    {
+      _isLoading = true;
+    });
+
+    signOut(context: context);
+
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    final url = Uri.parse(MAIN_URL + socialLogin);
+
+    Map<String, String> jsonBody = {
+      'name': firstName + ""+ lastName,
+      'mobile':" ",
+      'login_type': loginType,
+      'from_app': "true",
+      'email': email,
+      'profile_pic': image,
+    };
+
+    final response = await http.post(url, body: jsonBody);
+    final statusCode = response.statusCode;
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+    var dataResponse = SocialResponseModel.fromJson(user);
+
+    if (statusCode == 200 && dataResponse.success == 1) {
+
+      var getSet = Profile();
+      getSet.id = dataResponse.user?.id;
+      getSet.mobile = dataResponse.user?.mobile;
+      getSet.profileType = "User";
+      getSet.profilePic = dataResponse.user?.profilePic;
+      getSet.city = dataResponse.user?.cityName;
+      getSet.state = dataResponse.user?.stateName;
+      getSet.country = dataResponse.user?.countryName;
+      getSet.countryId = dataResponse.user?.countryId;
+      getSet.stateId = dataResponse.user?.stateId;
+      getSet.cityId = dataResponse.user?.stateId;
+      getSet.email = dataResponse.user?.email;
+      getSet.firstName = dataResponse.user?.firstName;
+      getSet.lastName = dataResponse.user?.lastName;
+
+      await sessionManager.createLoginSession(getSet);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardScreen()),(route) => false);
+
+      setState(() {
+        _isLoading = false;
+      });
+    } else {
+      setState(()
+      {
+        _isLoading = false;
+      });
+      showToast(dataResponse.message, context);
+    }
+  }
 }

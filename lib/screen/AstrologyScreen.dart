@@ -1,17 +1,15 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:intl/intl.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/AstrologyResponseModel.dart';
-import 'package:kuber/model/AstrologyResponseModel.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import '../constant/api_end_point.dart';
-import '../model/AstrologyResponseModel.dart';
-import '../model/AstrologyResponseModel.dart';
 import '../model/AstrologyResponseModel.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
@@ -41,6 +39,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
   bool _isNoDataVisible = false;
   SessionManager sessionManager = SessionManager();
   List<Astrology> _listAstrology = [];
+
   String selectedDate = "Pick Date";
   String selectdateOfBirth = "Date Of Birth";
   String selectedTime = "Pick Time";
@@ -54,7 +53,8 @@ class _AstrologyScreen extends State<AstrologyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return WillPopScope
+      (
         child: Scaffold(
           backgroundColor: bg_skin,
           appBar: AppBar(
@@ -88,13 +88,13 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                     Expanded(
                       child: ListView.builder(
                         shrinkWrap: true,
-                        reverse: true,
+                        reverse: false,
                         physics: const AlwaysScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         itemCount: _listAstrology.length,
                         itemBuilder: (context, i) {
                           return Container(
-                              margin: const EdgeInsets.fromLTRB(12, 4, 12, 4),
+                              margin: const EdgeInsets.fromLTRB(12, 6, 12, 6),
                               child: Card(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(6.0),
@@ -105,6 +105,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                   onTap: (){
                                     _openAstrologyDialog(_listAstrology[i]);
                                     astroId = _listAstrology[i].astrologyId;
+                                    print(_listAstrology.length);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
@@ -142,15 +143,16 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                         ),
                                         Visibility(
                                             visible: _listAstrology[i].notes.isNotEmpty,
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Container(height: 4,),
-                                                const Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
-                                                Text(_listAstrology[i].notes,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
-                                                Container(height: 4,),
-                                              ],
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
+                                                  Text(_listAstrology[i].notes,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
+                                                ],
+                                              ),
                                             )
                                         ),
                                       ],
@@ -358,7 +360,9 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                 Container(height: 10),
                                 TextField(
                                   onTap: () async {
-                                    FocusScope.of(context).requestFocus(FocusNode());
+                                    _setDatePicker(astroGirlBirthDateController);
+
+                            /*        FocusScope.of(context).requestFocus(FocusNode());
 
                                     DateTime? pickedDate = await showDatePicker(
                                         context: context,
@@ -387,7 +391,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                       setState(() {
                                         astroGirlBirthDateController.text = formattedDate;
                                       });
-                                    }
+                                    }*/
                                   },
                                   controller: astroGirlBirthDateController,
                                   keyboardType: TextInputType.text,
@@ -420,9 +424,9 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                   cursorColor: text_dark,
                                   readOnly: true,
                                   onTap: () async {
+                                    _setTimePicker(astroBirthTimeController);
 
-                                    FocusScope.of(context).requestFocus(FocusNode());
-
+                                   /* FocusScope.of(context).requestFocus(FocusNode());
                                     final TimeOfDay? picked_s = await showTimePicker(
                                         context: context,
                                         initialTime: TimeOfDay.now(),
@@ -446,7 +450,8 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                         selectedTime = ("${picked_s.hour}:${picked_s.minute} ${picked_s.period.name}").toString();
                                         astroBirthTimeController.text = selectedTime;
                                       });
-                                    }
+                                    }*/
+
                                   },
                                   style: const TextStyle(
                                       color: title,
@@ -562,7 +567,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                       Container(width: 12,),
                                       InkWell(
                                         onTap: (){
-                                          _validation(astroId);
+                                          _validation(getSet);
                                         },
                                         child: Card(
                                           shape: RoundedRectangleBorder(
@@ -596,7 +601,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
     );
   }
 
-  _validation(String astroId){
+  _validation(Astrology getSet){
     if(astroFnameController.text.isEmpty)
     {
       showToast("Please enter first name", context);
@@ -627,11 +632,11 @@ class _AstrologyScreen extends State<AstrologyScreen> {
     }
     else
     {
-      callAstrologySaveApi();
+      callAstrologySaveApi(getSet);
     }
   }
 
-  callAstrologySaveApi() async {
+  callAstrologySaveApi(Astrology getSet) async {
 
     setState(() {
       _isLoading = true;
@@ -653,7 +658,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
       "address": astroBirthPlaceController.value.text,
       "comments": astroNotesController.value.text,
       "user_id": sessionManager.getUserId().toString(),
-      "astrology_id": astroId,
+      "astrology_id": getSet.astrologyId.toString(),
       "email": astroEmailController.value.text,
       "mobile": astroMobileNumberController.value.text,
       "notes": astroNotesController.value.text,
@@ -707,6 +712,8 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                         topRight: Radius.circular(12.0),
                       )),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children:  [
                       Container(
                           width: 50,
@@ -727,7 +734,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 20,bottom: 10,left: 14,right: 14),
+                        margin: const EdgeInsets.only(bottom: 10,left: 14,right: 14),
                         child: TextField(
                           controller: countryCodeSeachController,
                           keyboardType: TextInputType.text,
@@ -793,7 +800,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                     Navigator.pop(context);
                                   },
                                   child: Container(
-                                    margin: const EdgeInsets.only(left: 14, right: 14),
+                                    margin: const EdgeInsets.only(right: 14,left: 14,top: 6,bottom: 6),
                                     child: Column(
                                       children: [
                                         Padding(
@@ -913,6 +920,60 @@ class _AstrologyScreen extends State<AstrologyScreen> {
         _isNoDataVisible = false;
       });
     }
+  }
+
+  _setDatePicker(TextEditingController controller){
+    showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext builder) {
+          return Container(
+            height: MediaQuery.of(context).copyWith().size.height*0.25,
+            color: Colors.white,
+            child: CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.date,
+              onDateTimeChanged: (value) {
+                if (value != null && value != selectedDate) {
+                  setState(()
+                  {
+                    String formattedDate = DateFormat('dd MMM,yyyy').format(value);
+                    controller.text = formattedDate;
+                  });
+                }
+              },
+              initialDateTime: DateTime.now(),
+              minimumYear: 1900,
+              maximumYear: 2022,
+            ),
+          );
+        }
+    );
+  }
+
+  _setTimePicker(TextEditingController controller){
+    showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext builder) {
+          return Container(
+            height: MediaQuery.of(context).copyWith().size.height*0.25,
+            color: Colors.white,
+            child: CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.time,
+              onDateTimeChanged: (value) {
+                if (value != null && value != selectedTime)
+                  setState(()
+                  {
+                    selectedTime = ("${value.hour}:${value.minute}${value.timeZoneName}").toString();
+                    selectedTime = DateFormat("h:mm a").format(value);
+                    print(selectedTime);
+                    controller.text =  DateFormat("h:mm a").format(value);
+                  });
+              },
+              initialDateTime: DateTime.now(),
+              use24hFormat: false,
+            ),
+          );
+        }
+    );
   }
 
   Future<void> showDeleteDialog(Astrology getSet) async {

@@ -9,6 +9,7 @@ import 'package:kuber/model/CommonResponseModel.dart';
 import 'package:kuber/screen/LoginScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
+import 'package:kuber/utils/session_manager_methods.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
@@ -54,15 +55,15 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
               Container(
                 alignment: Alignment.centerLeft,
                 margin: const EdgeInsets.only(left: 12),
-                child: Text("You're about to delete your account", style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 17),),
+                child: const Text("You're about to delete your account", style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 17),),
               ),
               Container(
-                margin: EdgeInsets.only(top:12,left: 12,right: 6),
+                margin: const EdgeInsets.only(top:12,left: 12,right: 6),
                 child: const Text("All the data associated with it(including your profile,photo, reviews and subscriptions) will be permanently deleted in 30 days. this information can't be recovered once the account is deleted.",
                   style: TextStyle(color: text_light,fontSize: 12,fontWeight: FontWeight.w400),),
               ),
               Container(
-                  margin: EdgeInsets.all(12),
+                  margin: const EdgeInsets.all(12),
                   width: MediaQuery.of(context).size.width,
                   child: TextButton(
                     style: ButtonStyle(
@@ -76,16 +77,16 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
                     onPressed: (){
                       _getDeleteAccountApi();
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Text("Delete my account now",style: TextStyle(color: text_dark,fontWeight: FontWeight.w600,fontSize: 15),),
                     ),
                   )
               ),
               Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(top:12,left: 12,right: 6),
-                child: Text("Back to Settings",style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 14)),
+                margin: const EdgeInsets.only(top:12,left: 12,right: 6),
+                child: const Text("Back to Settings",style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 14)),
               )
             ],
           )
@@ -101,14 +102,26 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
       _isLoading = true;
     });
 
+    print("User Id"+ sessionManager.getUserId().toString());
+
+    var  userType = "";
+    if(sessionManager.getIsPujrai() == true){
+      userType = "Pujari";
+    } else if(sessionManager.getIsTemple() == true){
+      userType =  "Temples";
+    }else {
+      userType =  "User";
+    }
+
     HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
       HttpLogger(logLevel: LogLevel.BODY),
     ]);
 
-    final url = Uri.parse(MAIN_URL + deletAccount  );
+    final url = Uri.parse(MAIN_URL + deletAccount);
 
     Map<String, String> jsonBody = {
-      'user_id': sessionManager.getUserId().toString(),
+      'id':sessionManager.getUserId().toString(),
+      'type': userType
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -121,14 +134,19 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
 
     if (statusCode == 200 && bookingResponse.success == 1) {
 
-      setState(() {
+      SessionManagerMethods.clear();
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginScreen()), (Route<dynamic> route) => false);
+      setState(()
+      {
         _isLoading = false;
       });
-    } else {
-      setState(() {
+    }
+    else {
+      setState(()
+      {
         _isLoading = false;
       });
-      showSnackBar(bookingResponse.message, context);
+      showToast(bookingResponse.message, context);
     }
   }
 

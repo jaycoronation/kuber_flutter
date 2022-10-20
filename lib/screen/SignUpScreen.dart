@@ -43,7 +43,7 @@ class _SignUpScreen extends State<SignUpScreen> {
     super.initState();
   }
 
-  @override
+  @overrid
   Widget build(BuildContext context) {
     return WillPopScope(
       child: Scaffold(
@@ -73,8 +73,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                 },
                 child: Column(
                   children: [
-                    Expanded(
-                        child: SingleChildScrollView(
+                    Expanded(child: SingleChildScrollView(
                       child: Column(
                         children: [
                           Container(
@@ -363,10 +362,6 @@ class _SignUpScreen extends State<SignUpScreen> {
                                   else if(emailController.text.isEmpty)
                                   {
                                     showToast('Please enter email address', context);
-                                  }
-                                  else if(!isValidEmail(emailController.value.text.toString()))
-                                  {
-                                    showToast("Please enter valid email address", context);
                                   }
                                   else if(numberController.text.isEmpty)
                                   {

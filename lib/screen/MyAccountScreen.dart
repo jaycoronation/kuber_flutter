@@ -72,38 +72,43 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(top: 4,right: 22,left: 22),
-                          child:Column(
-                              children:[
-                                _sessionManager.getImagePic() != null
-                                    ? Container(
-                                        width: 100,
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                              color: light_yellow,
-                                              width: 1
+                          child:GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfileScreen()));
+                            },
+                            child: Column(
+                                children:[
+                                  _sessionManager.getImagePic() != null
+                                      ? Container(
+                                          width: 100,
+                                          height: 100,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                color: light_yellow,
+                                                width: 1
+                                            ),
+                                            image: DecorationImage(
+                                                image: NetworkImage(_sessionManager.getImagePic().toString()) ,
+                                                fit: BoxFit.cover
+                                            ),
                                           ),
-                                          image: DecorationImage(
-                                              image: NetworkImage(_sessionManager.getImagePic().toString()) ,
-                                              fit: BoxFit.cover
-                                          ),
-                                        ),
-                                      )
-                                    : Image.asset("assets/images/ic_user_placeholder.png",height: 100,),
-                                Container(
-                                    margin: const EdgeInsets.only(top: 6),
-                                    child:  Text(
-                                      "${_sessionManager.getName()} ${_sessionManager.getLastName()}",textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 14),)),
-                                Container(
-                                    margin: const EdgeInsets.only(top: 6),
-                                    child: Text(
-                                      _sessionManager.getEmail().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),)),
-                                Container(
-                                    margin: const EdgeInsets.only(top: 6),
-                                    child: Text(
-                                      _sessionManager.getPhone().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),))
-                                ]
+                                        )
+                                      : Image.asset("assets/images/ic_user_placeholder.png",height: 100,),
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 6),
+                                      child:  Text(
+                                        "${_sessionManager.getName()} ${_sessionManager.getLastName() }",textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 14),)),
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 6),
+                                      child: Text(
+                                        _sessionManager.getEmail().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),)),
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 6),
+                                      child: Text(
+                                        _sessionManager.getPhone().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),))
+                                  ]
+                            ),
                           ),
                         ),
                         Container(
@@ -525,7 +530,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                         flex: 1,
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.all(12),
+                          margin: const EdgeInsets.only(left:12,right: 12,bottom: 30,top:12),
                           child: TextButton(
                             onPressed: () {
                               Navigator.pop(context);
@@ -552,7 +557,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                         flex: 1,
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.all(12),
+                          margin: const EdgeInsets.only(left:12,right: 12,bottom: 30,top:12),
                           child: TextButton(
                             onPressed: () {
                               Navigator.pop(context);

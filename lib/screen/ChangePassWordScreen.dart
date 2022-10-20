@@ -204,16 +204,19 @@ class _ChangePassWordScreen extends State<ChangePassWordScreen> {
    }
 
   changePasswordApi() async {
-    setState(() {
+    setState(()
+    {
       _isLoading = true;
     });
 
     var  userType = "";
     if(sessionManager.getIsPujrai() == true){
+
       userType = "Pujari";
     } else if(sessionManager.getIsTemple() == true){
       userType =  "Temples";
-    }else {
+    }else
+    {
       userType =  "User";
     }
 

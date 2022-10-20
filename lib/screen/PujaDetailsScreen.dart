@@ -118,16 +118,18 @@ class _PujaDetailsScreen extends State<PujaDetailsScreen> {
     if (statusCode == 200 && dataResponse.success == 1) {
       if (dataResponse.success != null) {
         puja = dataResponse.puja!;
-
       }
       setState(() {
         _isLoading = false;
       });
-    } else {
-      setState(() {
+    }
+    else
+    {
+      setState(()
+      {
         _isLoading = false;
       });
-      showSnackBar(dataResponse.message, context);
+      showToast(dataResponse.message, context);
     }
   }
 }

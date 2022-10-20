@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:kuber/model/RashiListResponseModel.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
@@ -25,13 +28,16 @@ class _RashiScreen extends State<RashiScreen> {
   bool _isGirl = false;
   final SessionManager _sessionManager = SessionManager();
   List<Requests> _listRashi = [];
+  String selectedDate = "Pick Date";
+  String selectedTime = "Pick Time";
+  String selectdateOfBirth = "Date Of Birth";
 
   TextEditingController rashiMothersNameController = TextEditingController();
   TextEditingController rashiFathersNameController = TextEditingController();
   TextEditingController rashiEmailController = TextEditingController();
   TextEditingController rashiTOBController = TextEditingController();
   TextEditingController rashiPOBController = TextEditingController();
-  TextEditingController rashiNotesController = TextEditingController();
+  TextEditingController rashiController = TextEditingController();
   TextEditingController rashiDOBController = TextEditingController();
 
   @override
@@ -132,8 +138,8 @@ class _RashiScreen extends State<RashiScreen> {
                                           ),
                                           Visibility(
                                               visible: _listRashi[i].notes.isNotEmpty,
-                                              child: Container(
-                                                margin: const EdgeInsets.only(top: 10,bottom: 10),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(4.0),
                                                 child: Column(
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,17 +171,15 @@ class _RashiScreen extends State<RashiScreen> {
   }
 
   void _openRashiCalculatorDialog(Requests getSet){
-
     rashiEmailController.text = getSet.email;
     rashiMothersNameController.text = getSet.motherName;
     rashiFathersNameController.text = getSet.fatherName;
     rashiTOBController.text = getSet.timeOfBirth;
     rashiPOBController.text = getSet.placeOfBirth;
-    rashiNotesController.text = getSet.notes;
+    rashiController.text = getSet.notes;
     rashiDOBController.text = universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", getSet.dateOfBirth);
     _isBoy = getSet.childGender == "0";
     _isGirl = getSet.childGender == "1";
-
 
     showModalBottomSheet(
         context: context,
@@ -297,6 +301,9 @@ class _RashiScreen extends State<RashiScreen> {
                                     alignment: Alignment.center,
                                     margin: const EdgeInsets.only(top: 10, right: 18, left: 18),
                                     child: TextField(
+                                      onTap: (){
+                                        _setDatePicker(rashiDOBController);
+                                      },
                                       controller: rashiDOBController,
                                       keyboardType: TextInputType.text,
                                       cursorColor: text_dark,
@@ -323,6 +330,9 @@ class _RashiScreen extends State<RashiScreen> {
                                     alignment: Alignment.center,
                                     margin: const EdgeInsets.only(top: 10, right: 18, left: 18),
                                     child: TextField(
+                                      onTap: (){
+                                        _setTimePicker(rashiTOBController);
+                                      },
                                       controller: rashiTOBController,
                                       keyboardType: TextInputType.text,
                                       cursorColor: text_dark,
@@ -377,7 +387,7 @@ class _RashiScreen extends State<RashiScreen> {
                                     child: TextField(
                                       minLines: 4,
                                       maxLines: 4,
-                                      controller: rashiNotesController,
+                                      controller: rashiController,
                                       keyboardType: TextInputType.text,
                                       cursorColor: text_dark,
                                       style: const TextStyle(
@@ -490,7 +500,7 @@ class _RashiScreen extends State<RashiScreen> {
                               Container(width: 12,),
                               InkWell(
                                 onTap: (){
-                                  reviewRashiDialog();
+                                  reviewRashiDialog(getSet);
                                 },
                                 child: Card(
                                   shape: RoundedRectangleBorder(
@@ -518,7 +528,7 @@ class _RashiScreen extends State<RashiScreen> {
         }) ;
   }
 
-  void reviewRashiDialog(){
+  void reviewRashiDialog(Requests getSet){
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -560,209 +570,207 @@ class _RashiScreen extends State<RashiScreen> {
                             fontSize: 18),
                       ),
                     ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.only(left: 14, right: 14, top: 6, bottom: 10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color:sky_blue),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  const Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12),
-                                      child: Text(
-                                        "Mother Name",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                            color: text_light),
-                                      ),
+                    SingleChildScrollView(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(left: 14, right: 14, top: 6, bottom: 10),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color:sky_blue),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12),
+                                    child: Text(
+                                      "Mother Name",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: text_light),
                                     ),
                                   ),
-                                  Expanded(
+                                ),
+                                Expanded(
+                                  child: Text(
+                                      rashiMothersNameController.value.text,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: title,
+                                          fontSize: 14)),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12),
                                     child: Text(
-                                        rashiMothersNameController.value.text,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: title,
-                                            fontSize: 14)),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12),
-                                      child: Text(
-                                        "Father Name",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                            color: text_light),
-                                      ),
+                                      "Father Name",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: text_light),
                                     ),
                                   ),
-                                  Expanded(
+                                ),
+                                Expanded(
+                                  child: Text(
+                                      rashiFathersNameController.value.text,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: title,
+                                          fontSize: 14)),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12),
                                     child: Text(
-                                        rashiFathersNameController.value.text,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: title,
-                                            fontSize: 14)),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12),
-                                      child: Text(
-                                        "Date of Birth",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                            color: text_light),
-                                      ),
+                                      "Date of Birth",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: text_light),
                                     ),
                                   ),
-                                  Expanded(
+                                ),
+                                Expanded(
+                                  child: Text(
+                                      rashiDOBController.value.text,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: title,
+                                          fontSize: 14)),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12),
                                     child: Text(
-                                        rashiDOBController.value.text,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: title,
-                                            fontSize: 14)),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12),
-                                      child: Text(
-                                        "Email",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                            color: text_light),
-                                      ),
+                                      "Email",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: text_light),
                                     ),
                                   ),
-                                  Expanded(
+                                ),
+                                Expanded(
+                                  child: Text(
+                                      rashiEmailController.value.text,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: title,
+                                          fontSize: 14)),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12),
                                     child: Text(
-                                        rashiEmailController.value.text,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: title,
-                                            fontSize: 14)),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12),
-                                      child: Text(
-                                        "Time of Birth",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                            color: text_light),
-                                      ),
+                                      "Time of Birth",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: text_light),
                                     ),
                                   ),
-                                  Expanded(
+                                ),
+                                Expanded(
+                                  child: Text(
+                                      rashiTOBController.value.text,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: title,
+                                          fontSize: 14)),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12),
                                     child: Text(
-                                        rashiTOBController.value.text,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: title,
-                                            fontSize: 14)),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12),
-                                      child: Text(
-                                        "Place of Birth",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                            color: text_light),
-                                      ),
+                                      "Place of Birth",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: text_light),
                                     ),
                                   ),
-                                  Expanded(
+                                ),
+                                Expanded(
+                                  child: Text(
+                                      rashiPOBController.value.text,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: title,
+                                          fontSize: 14)),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12),
                                     child: Text(
-                                        rashiPOBController.value.text,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: title,
-                                            fontSize: 14)),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12),
-                                      child: Text(
-                                        "Gender of Baby",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                            color: text_light),
-                                      ),
+                                      "Gender of Baby",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: text_light),
                                     ),
                                   ),
-                                  Expanded(
+                                ),
+                                Expanded(
+                                  child: Text(
+                                      _isBoy ? "Boy" : "Girl" ,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: title,
+                                          fontSize: 14)),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12),
                                     child: Text(
-                                        _isBoy ? "Boy" : "Girl" ,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: title,
-                                            fontSize: 14)),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12),
-                                      child: Text(
-                                        "Notes",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                            color: text_light),
-                                      ),
+                                      "Notes",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: text_light),
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Text(
-                                        rashiNotesController.value.text,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: title,
-                                            fontSize: 14)),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                      rashiController.value.text ,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: title,
+                                          fontSize: 14)),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -799,7 +807,7 @@ class _RashiScreen extends State<RashiScreen> {
                           GestureDetector(
                             onTap: (){
                               Navigator.pop(context);
-                              saveRashiRequestApi();
+                              saveRashiRequestApi(getSet);
                             },
                             child: Card(
                               shape: RoundedRectangleBorder(
@@ -829,7 +837,7 @@ class _RashiScreen extends State<RashiScreen> {
         });
   }
 
-  void saveRashiRequestApi() async {
+  void saveRashiRequestApi(Requests getSet) async {
     setState(() {
       _isLoading = true;
     });
@@ -863,7 +871,8 @@ class _RashiScreen extends State<RashiScreen> {
       'user_id' : _sessionManager.getUserId().toString(),
       'child_gender' : _isBoy ? "0" : "1" ,
       'email' : rashiEmailController.value.text,
-      'notes' : rashiNotesController.value.text,
+      'notes' : rashiController.value.text,
+      'request_id':getSet.requestId.toString()
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -876,6 +885,8 @@ class _RashiScreen extends State<RashiScreen> {
 
     if (statusCode == 200 && dataResponse.success == 1) {
       showSnackBar(dataResponse.message, context);
+      getRashiListApi();
+
       setState(() {
         _isLoading = false;
       });
@@ -927,12 +938,13 @@ class _RashiScreen extends State<RashiScreen> {
       setState(() {
         _isLoading = false;
       });
-    } else {
-      setState(() {
+    } else
+    {
+      setState(()
+      {
         _isLoading = false;
         _isNoDataVisible = true;
       });
-      showSnackBar(dataResponse.message, context);
     }
   }
 
@@ -1035,6 +1047,60 @@ class _RashiScreen extends State<RashiScreen> {
           ],
         );
       },
+    );
+  }
+
+  _setDatePicker(TextEditingController controller){
+    showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext builder) {
+          return Container(
+            height: MediaQuery.of(context).copyWith().size.height*0.25,
+            color: Colors.white,
+            child: CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.date,
+              onDateTimeChanged: (value) {
+                if (value != null && value != selectedDate) {
+                  setState(()
+                  {
+                    String formattedDate = DateFormat('dd MMM,yyyy').format(value);
+                    controller.text = formattedDate;
+                  });
+                }
+              },
+              initialDateTime: DateTime.now(),
+              minimumYear: 1900,
+              maximumYear: 2022,
+            ),
+          );
+        }
+    );
+  }
+
+  _setTimePicker(TextEditingController controller){
+    showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext builder) {
+          return Container(
+            height: MediaQuery.of(context).copyWith().size.height*0.25,
+            color: Colors.white,
+            child: CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.time,
+              onDateTimeChanged: (value) {
+                if (value != null && value != selectedTime)
+                  setState(()
+                  {
+                    selectedTime = ("${value.hour}:${value.minute}${value.timeZoneName}").toString();
+                    selectedTime = DateFormat("h:mm a").format(value);
+                    print(selectedTime);
+                    controller.text =  DateFormat("h:mm a").format(value);
+                  });
+              },
+              initialDateTime: DateTime.now(),
+              use24hFormat: false,
+            ),
+          );
+        }
     );
   }
 

@@ -117,7 +117,8 @@ class _MyAddresses extends State<MyAddresses> {
                                             const Text("Edit",style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w600,color: title),)
                                           ],
                                         ),
-                                        onTap: (){
+                                        onTap: ()
+                                        {
                                           addressController.text = _listAddress[i].address1.toString();
                                           openAddAddressDialog(_listAddress[i]);
                                         },
@@ -201,7 +202,7 @@ class _MyAddresses extends State<MyAddresses> {
         _isNoDataVisible = true;
       });
       placesDialog();
-      showSnackBar(dataResponse.message, context);
+      showToast(dataResponse.message, context);
     }
   }
 
@@ -356,6 +357,7 @@ class _MyAddresses extends State<MyAddresses> {
     setState(() {
       _isLoading = true;
     });
+
     HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
       HttpLogger(logLevel: LogLevel.BODY),
     ]);
@@ -381,7 +383,6 @@ class _MyAddresses extends State<MyAddresses> {
     };
 
     final response = await http.post(url, body: jsonBody);
-
     final statusCode = response.statusCode;
 
     final body = response.body;
@@ -393,12 +394,14 @@ class _MyAddresses extends State<MyAddresses> {
       setState(() {
         _isLoading = false;
       });
-
-    } else {
-      setState(() {
+    }
+    else
+    {
+      setState(()
+      {
         _isLoading = false;
       });
-      showSnackBar(dataResponse.message, context);
+      showToast(dataResponse.message, context);
     }
   }
 
@@ -441,7 +444,7 @@ class _MyAddresses extends State<MyAddresses> {
       setState(() {
         _isLoading = false;
       });
-      showSnackBar(dataResponse.message, context);
+      showToast(dataResponse.message, context);
     }
   }
 
@@ -547,7 +550,6 @@ class _MyAddresses extends State<MyAddresses> {
   }
 
   deleteAddressApi(Address getSet) async {
-
     setState(() {
       _isLoading = true;
     });

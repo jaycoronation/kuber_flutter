@@ -33,6 +33,7 @@ class _TempleListScreen extends State<TempleListScreen> {
   late LocationPermission permission;
   late Position position;
   List<Results> _listTemples = [];
+  bool _isNoDataVisible = false;
 
   @override
   void initState() {
@@ -269,14 +270,27 @@ class _TempleListScreen extends State<TempleListScreen> {
     {
       _listTemples = [];
       _listTemples = dataResponse.results ?? [];
+      _listTemples.reversed.toList();
+
+      if (_listTemples.isNotEmpty)
+      {
+        _isNoDataVisible = false;
+      }
+      else
+      {
+        _isNoDataVisible = true;
+      }
+
       setState(() {
         _isLoading = false;
       });
     }
     else
     {
-      setState(() {
+      setState(()
+      {
         _isLoading = false;
+        _isNoDataVisible = false;
       });
     }
   }

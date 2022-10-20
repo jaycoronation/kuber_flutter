@@ -23,6 +23,7 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
   bool _isLoading = false;
   List<BookingList> _bookingList = List<BookingList>.empty(growable: true);
   SessionManager sessionManager = SessionManager();
+  bool _isNoDataVisible = false;
 
   @override
   void initState() {
@@ -39,6 +40,14 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
         appBar: setUpNavigationBar(),
         body: _isLoading
             ? const LoadingWidget()
+            : _isNoDataVisible
+            ? Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
+            Center(child: Text("No Booking Found",style: TextStyle(color: text_dark,fontSize: 18,fontWeight: FontWeight.bold),textAlign: TextAlign.center,))
+          ],
+        )
             : ListView.builder(
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
@@ -218,18 +227,28 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
     var bookingResponse = BookingListResponseModel.fromJson(user);
 
     if (statusCode == 200 && bookingResponse.success == 1) {
-      if (bookingResponse.bookingList != null) {
-        _bookingList = bookingResponse.bookingList!;
-      }
 
+      if (bookingResponse.bookingList != null) {
+        _bookingList =[];
+        _bookingList = bookingResponse.bookingList!;
+        _bookingList.reversed.toList();
+      }
+      if (_bookingList.isEmpty)
+      {
+        _isNoDataVisible = true;
+      }
+      else
+      {
+        _isNoDataVisible = false;
+      }
       setState(() {
         _isLoading = false;
       });
     } else {
       setState(() {
         _isLoading = false;
+        _isNoDataVisible = true;
       });
-      showSnackBar(bookingResponse.message, context);
     }
   }
 

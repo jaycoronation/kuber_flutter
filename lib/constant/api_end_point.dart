@@ -8,6 +8,7 @@ const String API_KEY = "AIzaSyB9HMvtsM0RcwXMLleDydO1_95KoZBi_jI";
 
 /*Login*/
 String generateOtp = "users_services/generateOTP";
+String socialLogin = "users_services/user/social_login";
 String verifyOtp = "users_services/verifyOTP";
 String signUp = "mobile_services/user/signup";
 String bookingList = "users_services/bookings/list";
