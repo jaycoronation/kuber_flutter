@@ -10,8 +10,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/constant/colors.dart';
-import 'package:kuber/model/LoginResponseModel.dart';
-import 'package:kuber/model/SocialResponseModel.dart';
+import 'package:kuber/model/SocialResponseModel.dart' as social;
 import 'package:kuber/screen/LoginWithEmailScreen.dart';
 import 'package:kuber/screen/LoginWithOtpScreen.dart';
 import 'package:kuber/screen/SignUpScreen.dart';
@@ -577,7 +576,7 @@ class _LoginScreen extends State<LoginScreen> {
     final statusCode = response.statusCode;
     final body = response.body;
     Map<String, dynamic> user = jsonDecode(body);
-    var dataResponse = SocialResponseModel.fromJson(user);
+    var dataResponse = social.SocialResponseModel.fromJson(user);
 
     if (statusCode == 200 && dataResponse.success == 1) {
 

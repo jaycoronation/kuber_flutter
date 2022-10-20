@@ -43,7 +43,7 @@ class _SignUpScreen extends State<SignUpScreen> {
     super.initState();
   }
 
-  @overrid
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       child: Scaffold(
