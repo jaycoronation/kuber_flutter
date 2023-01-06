@@ -62,366 +62,361 @@ class _SignUpScreen extends State<SignUpScreen> {
               Navigator.pop(context);
             },
           ),
-          title: Text("Sign Up",style: TextStyle(color: black,fontWeight: FontWeight.bold,fontSize: 18),textAlign: TextAlign.start,),
+          title: const Text("Sign Up",style: TextStyle(color: black,fontWeight: FontWeight.bold,fontSize: 18),textAlign: TextAlign.start,),
         ),
         body: _isLoading
             ? const LoadingWidget()
-            : WillPopScope(
-                onWillPop: () {
-                  Navigator.pop(context);
-                  return Future.value(true);
-                },
-                child: Column(
-                  children: [
-                    Expanded(child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            height: 55,
-                            margin: const EdgeInsets.only(
-                                top: 28, right: 30, left: 30),
-                            padding: const EdgeInsets.only(left: 14, right: 10),
-                            decoration: const BoxDecoration(
-                              color: white_blue,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(18),
-                              ),
-                            ),
-                            child:  TextField(
-                              controller: firstNameController,
-                                textAlign: TextAlign.start,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: const InputDecoration(
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText: "First Name",
-                                    hintStyle: TextStyle(
-                                      color: text_dark,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    ))),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            height: 55,
-                            margin: const EdgeInsets.only(
-                                top: 18, right: 30, left: 30),
-                            padding: const EdgeInsets.only(left: 14, right: 10),
-                            decoration: const BoxDecoration(
-                              color: white_blue,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(18),
-                              ),
-                            ),
-                            child: TextField(
-                                controller: lastNameController,
-                                textAlign: TextAlign.start,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: const InputDecoration(
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText: "Last Name",
-                                    hintStyle: TextStyle(
-                                      color: text_dark,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    ))),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            height: 55,
-                            margin: const EdgeInsets.only(
-                                top: 18, right: 30, left: 30),
-                            padding: const EdgeInsets.only(left: 14, right: 10),
-                            decoration: const BoxDecoration(
-                              color: white_blue,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(18),
-                              ),
-                            ),
-                            child: TextField(
-                              controller: emailController,
-                                textAlign: TextAlign.start,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: const InputDecoration(
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText: "Email",
-                                    hintStyle: TextStyle(
-                                      color: text_dark,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    ))),
-                          ),
-                          Container(
-                            height: 55,
-                            margin: const EdgeInsets.only(top: 14, right: 30, left: 30),
-                            padding: const EdgeInsets.only(left: 14, right: 10),
-                            decoration: const BoxDecoration(
-                              color: white_blue,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(18),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: (){
-                                    countryDialog();
-                                  },
-                                  child: Text(countryCode.toString(),
-                                      style: const TextStyle(
-                                          color: text_dark,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14)),
-                                ),
-                                Container(
-                                  margin:
-                                  const EdgeInsets.only(left: 10, right: 10),
-                                  child: const VerticalDivider(
-                                    thickness: 1,
-                                    color: text_light,
-                                    indent: 18,
-                                    endIndent: 18,
-                                  ),
-                                ),
-                                Flexible(
-                                  child: TextField(
-                                      controller: numberController,
-                                      keyboardType: TextInputType.number,
-                                      cursorColor: text_dark,
-                                      maxLength: 12,
-                                      style: const TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      decoration: const InputDecoration(
-                                          counterText: "",
-                                          border: InputBorder.none,
-                                          hintText: "Mobile number",
-                                          hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                          ))),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            height: 55,
-                            margin: const EdgeInsets.only(
-                                top: 18, right: 30, left: 30),
-                            padding: const EdgeInsets.only(left: 14, right: 10),
-                            decoration: const BoxDecoration(
-                              color: white_blue,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(18),
-                              ),
-                            ),
-                            child:  TextField(
-                              onTap: () async {
-                                DateTime? pickedDate = await showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(1900),
-                                    //DateTime.now() - not to allow to choose before today.
-                                    lastDate: DateTime.now(),
-                                    helpText: 'Preferred Move Date',
-                                    builder: (BuildContext context, Widget? child) {
-                                      return Theme(
-                                        data: ThemeData.dark().copyWith(
-                                          colorScheme:  const ColorScheme.dark(
-                                            primary: black,
-                                            onPrimary: white,
-                                            surface: text_light,
-                                            onSurface: title,
-                                          ),
-                                          dialogBackgroundColor: white,
-                                        ),
-                                        child: child!,
-                                      );
-                                    });
-                                if (pickedDate != null) {
-                                  String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
-                                  //you can implement different kind of Date Format here according to your requirement
-                                  setState(() {
-                                    selectedDate = formattedDate;
-                                    dobController.text = formattedDate;
-                                  });
-                                }
-                              },
-                              controller: dobController,
-                                readOnly: true,
-                                textAlign: TextAlign.start,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: const InputDecoration(
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText: "Date of Birth",
-                                    hintStyle: TextStyle(
-                                      color: text_dark,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    ))),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            height: 55,
-                            margin: const EdgeInsets.only(
-                                top: 18, right: 30, left: 30),
-                            padding: const EdgeInsets.only(left: 14, right: 10),
-                            decoration: const BoxDecoration(
-                              color: white_blue,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(18),
-                              ),
-                            ),
-                            child: TextField(
-                              keyboardType: TextInputType.visiblePassword,
-                              controller: passwordController,
-                                textAlign: TextAlign.start,
-                                obscureText: _passwordVisible ? true : false,
-                                enableSuggestions: false,
-                                autocorrect: false,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: InputDecoration(
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText: "Password",
-                                    hintStyle: const TextStyle(
-                                      color: text_dark,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              suffixIcon:IconButton(
-                                icon: Icon(
-                                    _passwordVisible
-                                        ?Icons.visibility
-                                        :Icons.visibility_off,color: text_dark,),
-                                onPressed: () {
-                                  setState(() {
-                                    _passwordVisible = !_passwordVisible;
-                                  });
-                              },
-                              ),
-                                )
-                            ),
-                          ),
-                          Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 55,
-                              margin: const EdgeInsets.only(top: 44, right: 30, left: 30),
-                              decoration: const BoxDecoration(
-                                color: light_yellow,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(18),
-                                ),
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  if (firstNameController.text.isEmpty)
-                                  {
-                                    showToast('Please enter first name', context);}
-                                  else if (lastNameController.text.isEmpty)
-                                  {
-                                    showToast('please enter valid last name', context);
-                                  }
-                                  else if(emailController.text.isEmpty)
-                                  {
-                                    showToast('Please enter email address', context);
-                                  }
-                                  else if(numberController.text.isEmpty)
-                                  {
-                                    showToast('Please enter mobile number', context);
-                                  }else if (numberController.text.length <= 7)
-                                  {
-                                    showToast('Please enter valid mobile number', context);
-                                  }
-                                  else if (numberController.text.length >= 13)
-                                  {
-                                    showToast('Please enter valid mobile number', context);
-                                  }
-                                  else if(passwordController.text.isEmpty)
-                                  {
-                                    showToast('Please enter your password', context);
-                                  }
-                                  else
-                                  {
-                                    setState(() {
-                                      _isLoading = true;
-                                    });
-                                    _signUpApi();
-                                  }
-                                },
-                                child: const Text("Sign Up",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: text_dark,
-                                        fontWeight: FontWeight.w400)),
-                              )),
-                        ],
+            : Column(
+          children: [
+            Expanded(child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: 55,
+                    margin: const EdgeInsets.only(
+                        top: 28, right: 30, left: 30),
+                    padding: const EdgeInsets.only(left: 14, right: 10),
+                    decoration: const BoxDecoration(
+                      color: white_blue,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(18),
                       ),
-                    )),
-                    Container(
-                        margin: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 18),
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(children: <TextSpan>[
-                            const TextSpan(
-                              text:
-                              "Already have an account?",
-                              style: TextStyle(
-                                  color: title,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            TextSpan(
-                                text: " Log In",
-                                style: const TextStyle(
-                                    color: black,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w900),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () => {
-                                  Navigator.pop(context, MaterialPageRoute(builder: (context) => LoginScreen()))
-                                  }),
-                          ]),
-                        )),
-                  ],
+                    ),
+                    child:  TextField(
+                        controller: firstNameController,
+                        textAlign: TextAlign.start,
+                        keyboardType: TextInputType.text,
+                        cursorColor: text_dark,
+                        style: const TextStyle(
+                          color: text_dark,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        decoration: const InputDecoration(
+                            counterText: "",
+                            border: InputBorder.none,
+                            hintText: "First Name",
+                            hintStyle: TextStyle(
+                              color: text_dark,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ))),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 55,
+                    margin: const EdgeInsets.only(
+                        top: 18, right: 30, left: 30),
+                    padding: const EdgeInsets.only(left: 14, right: 10),
+                    decoration: const BoxDecoration(
+                      color: white_blue,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(18),
+                      ),
+                    ),
+                    child: TextField(
+                        controller: lastNameController,
+                        textAlign: TextAlign.start,
+                        keyboardType: TextInputType.text,
+                        cursorColor: text_dark,
+                        style: const TextStyle(
+                          color: text_dark,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        decoration: const InputDecoration(
+                            counterText: "",
+                            border: InputBorder.none,
+                            hintText: "Last Name",
+                            hintStyle: TextStyle(
+                              color: text_dark,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ))),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 55,
+                    margin: const EdgeInsets.only(
+                        top: 18, right: 30, left: 30),
+                    padding: const EdgeInsets.only(left: 14, right: 10),
+                    decoration: const BoxDecoration(
+                      color: white_blue,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(18),
+                      ),
+                    ),
+                    child: TextField(
+                        controller: emailController,
+                        textAlign: TextAlign.start,
+                        keyboardType: TextInputType.text,
+                        cursorColor: text_dark,
+                        style: const TextStyle(
+                          color: text_dark,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        decoration: const InputDecoration(
+                            counterText: "",
+                            border: InputBorder.none,
+                            hintText: "Email",
+                            hintStyle: TextStyle(
+                              color: text_dark,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ))),
+                  ),
+                  Container(
+                    height: 55,
+                    margin: const EdgeInsets.only(top: 14, right: 30, left: 30),
+                    padding: const EdgeInsets.only(left: 14, right: 10),
+                    decoration: const BoxDecoration(
+                      color: white_blue,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(18),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            countryDialog();
+                          },
+                          child: Text(countryCode.toString(),
+                              style: const TextStyle(
+                                  color: text_dark,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14)),
+                        ),
+                        Container(
+                          margin:
+                          const EdgeInsets.only(left: 10, right: 10),
+                          child: const VerticalDivider(
+                            thickness: 1,
+                            color: text_light,
+                            indent: 18,
+                            endIndent: 18,
+                          ),
+                        ),
+                        Flexible(
+                          child: TextField(
+                              controller: numberController,
+                              keyboardType: TextInputType.number,
+                              cursorColor: text_dark,
+                              maxLength: 12,
+                              style: const TextStyle(
+                                color: text_dark,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              decoration: const InputDecoration(
+                                  counterText: "",
+                                  border: InputBorder.none,
+                                  hintText: "Mobile number",
+                                  hintStyle: TextStyle(
+                                    color: text_dark,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ))),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 55,
+                    margin: const EdgeInsets.only(
+                        top: 18, right: 30, left: 30),
+                    padding: const EdgeInsets.only(left: 14, right: 10),
+                    decoration: const BoxDecoration(
+                      color: white_blue,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(18),
+                      ),
+                    ),
+                    child:  TextField(
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              //DateTime.now() - not to allow to choose before today.
+                              lastDate: DateTime.now(),
+                              helpText: 'Preferred Move Date',
+                              builder: (BuildContext context, Widget? child) {
+                                return Theme(
+                                  data: ThemeData.dark().copyWith(
+                                    colorScheme:  const ColorScheme.dark(
+                                      primary: black,
+                                      onPrimary: white,
+                                      surface: text_light,
+                                      onSurface: title,
+                                    ),
+                                    dialogBackgroundColor: white,
+                                  ),
+                                  child: child!,
+                                );
+                              });
+                          if (pickedDate != null) {
+                            String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                            //you can implement different kind of Date Format here according to your requirement
+                            setState(() {
+                              selectedDate = formattedDate;
+                              dobController.text = formattedDate;
+                            });
+                          }
+                        },
+                        controller: dobController,
+                        readOnly: true,
+                        textAlign: TextAlign.start,
+                        keyboardType: TextInputType.text,
+                        cursorColor: text_dark,
+                        style: const TextStyle(
+                          color: text_dark,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        decoration: const InputDecoration(
+                            counterText: "",
+                            border: InputBorder.none,
+                            hintText: "Date of Birth",
+                            hintStyle: TextStyle(
+                              color: text_dark,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ))),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 55,
+                    margin: const EdgeInsets.only(
+                        top: 18, right: 30, left: 30),
+                    padding: const EdgeInsets.only(left: 14, right: 10),
+                    decoration: const BoxDecoration(
+                      color: white_blue,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(18),
+                      ),
+                    ),
+                    child: TextField(
+                        keyboardType: TextInputType.visiblePassword,
+                        controller: passwordController,
+                        textAlign: TextAlign.start,
+                        obscureText: _passwordVisible ? true : false,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        cursorColor: text_dark,
+                        style: const TextStyle(
+                          color: text_dark,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        decoration: InputDecoration(
+                          counterText: "",
+                          border: InputBorder.none,
+                          hintText: "Password",
+                          hintStyle: const TextStyle(
+                            color: text_dark,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          suffixIcon:IconButton(
+                            icon: Icon(
+                              _passwordVisible
+                                  ?Icons.visibility
+                                  :Icons.visibility_off,color: text_dark,),
+                            onPressed: () {
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                              });
+                            },
+                          ),
+                        )
+                    ),
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 55,
+                      margin: const EdgeInsets.only(top: 44, right: 30, left: 30),
+                      decoration: const BoxDecoration(
+                        color: light_yellow,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(18),
+                        ),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          if (firstNameController.text.isEmpty)
+                          {
+                            showToast('Please enter first name', context);}
+                          else if (lastNameController.text.isEmpty)
+                          {
+                            showToast('please enter valid last name', context);
+                          }
+                          else if(emailController.text.isEmpty)
+                          {
+                            showToast('Please enter email address', context);
+                          }
+                          else if(numberController.text.isEmpty)
+                          {
+                            showToast('Please enter mobile number', context);
+                          }else if (numberController.text.length <= 7)
+                          {
+                            showToast('Please enter valid mobile number', context);
+                          }
+                          else if (numberController.text.length >= 13)
+                          {
+                            showToast('Please enter valid mobile number', context);
+                          }
+                          else if(passwordController.text.isEmpty)
+                          {
+                            showToast('Please enter your password', context);
+                          }
+                          else
+                          {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            _signUpApi();
+                          }
+                        },
+                        child: const Text("Sign Up",
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: text_dark,
+                                fontWeight: FontWeight.w400)),
+                      )),
+                ],
+              ),
+            )),
+            Container(
+                margin: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 18),
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(children: <TextSpan>[
+                    const TextSpan(
+                      text:
+                      "Already have an account?",
+                      style: TextStyle(
+                          color: title,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    TextSpan(
+                        text: " Log In",
+                        style: const TextStyle(
+                            color: black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w900),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => {
+                            Navigator.pop(context, MaterialPageRoute(builder: (context) => const LoginScreen()))
+                          }),
+                  ]),
                 )),
+          ],
+        )
       ),
       onWillPop: () {
         Navigator.pop(context);
@@ -451,7 +446,7 @@ class _SignUpScreen extends State<SignUpScreen> {
       'type':widget.strtype,
       'lat': numberController.value.text,
       'lng': "",
-      'locationv': "",
+      'location': "",
       'birthdate': dobController.value.text,
     };
 
@@ -464,7 +459,7 @@ class _SignUpScreen extends State<SignUpScreen> {
     if (statusCode == 200 && dataResponse.success == 1) {
 
       showToast(dataResponse.message, context);
-      Navigator.pop(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      Navigator.pop(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
       setState(() {
         _isLoading = false;
       });
@@ -519,7 +514,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 20,bottom: 10,left: 14,right: 14),
+                        margin: const EdgeInsets.only(top: 20,bottom: 10,left: 14,right: 14),
                         child: TextField(
                           controller: countryCodeSeachController,
                           keyboardType: TextInputType.text,
@@ -588,8 +583,8 @@ class _SignUpScreen extends State<SignUpScreen> {
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Flexible(child: Text(listCountryCode[i].name.toString(),style: TextStyle(fontSize: 14,fontWeight: FontWeight.w200,color: title), textAlign: TextAlign.start,)),
-                                              Text(listCountryCode[i].dialCode.toString(),style: TextStyle(fontWeight: FontWeight.w300,color: text_new,fontSize: 16),)
+                                              Flexible(child: Text(listCountryCode[i].name.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w200,color: title), textAlign: TextAlign.start,)),
+                                              Text(listCountryCode[i].dialCode.toString(),style: const TextStyle(fontWeight: FontWeight.w300,color: text_new,fontSize: 16),)
                                             ],
                                           ),
                                         ),

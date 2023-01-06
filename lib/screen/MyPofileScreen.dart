@@ -23,6 +23,7 @@ import 'package:kuber/screen/SelectionScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/places.dart';
@@ -68,7 +69,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
   var certificateName = "";
   var profilepicName="";
   String selectedDate = "Date of birth";
-  var kGoogleApiKey = "AIzaSyB9HMvtsM0RcwXMLleDydO1_95KoZBi_jI";
   final TextEditingController textControllerForState = TextEditingController();
   final TextEditingController textControllerForCity = TextEditingController();
 
@@ -96,7 +96,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                       Container(
                         margin: const EdgeInsets.only(top: 16,right: 14,left: 14),
                         alignment: Alignment.topLeft,
-                        child: const Text("Profile Details",style: TextStyle(fontWeight: FontWeight.bold,color: black,fontSize: 20),),
+                        child:  Text("Profile Details",
+                          style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20) ),
                       ),
                       Container(
                         alignment: Alignment.center,
@@ -233,13 +234,13 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                       ),
                       Visibility(visible: sessionManager.getIsTemple() ?? false ? false : true,child: setUpTextDate()),
                       Container(
-                        margin: const EdgeInsets.only(top: 14,right: 14,left: 14,bottom: 14),
+                        margin: const EdgeInsets.only(top: 16,right: 14,left: 14,bottom: 16),
                         alignment: Alignment.topLeft,
-                        child: const Text("Address",style: TextStyle(fontWeight: FontWeight.bold,color: black,fontSize: 20),),
+                        child: Text("Address",style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20)),
                       ),
                       Container(
                         alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: 10,right: 10,left: 10),
+                        margin: const EdgeInsets.only(right: 10,left: 10),
                         padding: const EdgeInsets.only(left: 14, right: 10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
@@ -373,7 +374,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                           onTap: () async {
                             Prediction? prediction = await PlacesAutocomplete.show(
                                 context: context,
-                                apiKey: kGoogleApiKey,
+                                apiKey: API_KEY,
                                 mode: Mode.fullscreen,
                               components: [],
                               strictbounds: false,
@@ -637,7 +638,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                           )),
                     ],
                   ),
-                ),),
+                ),
+      ),
         onWillPop: () {
         Navigator.pop(context,true);
         return Future.value(true);
@@ -649,7 +651,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
     if (p != null) {
       // get detail (lat/lng)
       GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: kGoogleApiKey,
+        apiKey: API_KEY,
         apiHeaders: await const GoogleApiHeaders().getHeaders(),
       );
       PlacesDetailsResponse detail =
@@ -752,27 +754,31 @@ class _MyProfileScreen extends State<MyProfileScreen> {
   dynamic fileBytes;
 
   void pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
-    if (result == null) return;
+    await Permission.storage.request();
+    var status = await Permission.storage.request();
+    if (status.isDenied)
+      {
 
-    setState(() {
-
-      if(kIsWeb){
-        fileBytes = result.files.first.bytes;
-        profilePicNew = "";
-        profilePic = result.files.single.path!;
-        profilePath = result.files.first.path as File;
+        showSnackBar("Please grant storage permission to upload the profile picture", context);
       }
-      else{
-
-        profilePath = File(result.files.single.path!);
-        profilePicNew = "";
-        profilePic = result.files.single.path!;
-        print("Data Response Profile"+ profilePic.trimRight());
-
+    else if (status.isPermanentlyDenied)
+      {
+        Permission.storage.request();
+        showSnackBar("Please grant storage permission to upload the profile picture", context);
       }
-    });
+    else if (status.isGranted)
+      {
+        FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
+        if (result == null) return;
+
+        setState(() {
+          profilePath = File(result.files.single.path!);
+          profilePicNew = "";
+          profilePic = result.files.single.path!;
+          print("Data Response Profile === ${profilePic.trimRight()}");
+        });
         _callProfileUpdateWithImage();
+      }
 
   }
 
@@ -916,10 +922,10 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       ),
       title: const Text(
         "My Profile",
-        style:
-            TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: black),
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: black),
         textAlign: TextAlign.center,
       ),
+      titleSpacing: 0,
     );
   }
 
@@ -1457,7 +1463,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
               },
               initialDateTime: DateTime.now(),
               minimumYear: 1900,
-              maximumYear: 2022,
+              maximumYear: int.parse(getCurrentYear()),
             ),
           );
         }

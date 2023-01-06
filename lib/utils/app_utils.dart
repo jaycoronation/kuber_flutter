@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:kuber/constant/colors.dart';
 
@@ -20,6 +21,27 @@ showSnackBar(String? message,BuildContext? context) {
       print(e);
     }
   }
+}
+
+TextStyle getTextStyle({required FontWeight fontWeight, required Color color, required double fontSize}){
+  return GoogleFonts.rubik(fontWeight: fontWeight, color: color, fontSize: fontSize);
+}
+
+TextStyle getTitleFontStyle(){
+  return GoogleFonts.rubik(fontWeight: FontWeight.w600, color: black, fontSize: 18);
+}
+
+TextStyle getSecondaryTitleFontStyle(){
+  return GoogleFonts.rubik(fontWeight: FontWeight.w400, color: black, fontSize: 14);
+}
+
+String getCurrentYear() {
+  String formattedDate = "0";
+  var now = DateTime.now();
+  var formatter = DateFormat('yyyy');
+  formattedDate = formatter.format(now);
+  return formattedDate;
+  print(formattedDate); // 2016-01-25
 }
 
 showToast(String? message,BuildContext? context){

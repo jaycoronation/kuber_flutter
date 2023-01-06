@@ -221,7 +221,6 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
 
   PreferredSizeWidget setUpNavigationBar() {
     return AppBar(
-      // systemOverlayStyle: SystemUiOverlayStyle.dark,
       toolbarHeight: 50,
       automaticallyImplyLeading: false,
       backgroundColor: bg_skin,
@@ -235,11 +234,11 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
               MaterialPageRoute(builder: (context) => const LoginScreen()));
         },
       ),
-      title: const Text(
+      title: Text(
         "Login With Otp",
-        style:
-            const TextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 18),
+        style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 18)
       ),
+      titleSpacing: 0,
     );
   }
 
@@ -268,9 +267,9 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
                     child: Column(
                       children:  [
                         Container(
-                          margin: const EdgeInsets.only(left: 10),
-                          height: 20,
-                          width: 1,
+                          margin: const EdgeInsets.only(top: 12),
+                          height: 1,
+                          width: 40,
                           color: text_light,
                         ),
                         Container(

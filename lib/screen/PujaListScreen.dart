@@ -1,13 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/PujaListResponseModel.dart';
-import 'package:kuber/screen/DashboardScreen.dart';
-import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
@@ -144,15 +140,17 @@ class _PujaListScreen extends State<PujaListScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(14.0),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        Text(listPujaSearch.isNotEmpty? listPujaSearch[i].pujaName.toString():_pujaList[i].pujaName.toString(),
-                                          style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: black),
-                                          textAlign: TextAlign.start,
+                                        Expanded(
+                                          child: Text(listPujaSearch.isNotEmpty? listPujaSearch[i].pujaName.toString():_pujaList[i].pujaName.toString(),
+                                            style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: black),
+                                            textAlign: TextAlign.start,
+                                          ),
                                         ),
                                         InkWell(
                                           onTap: (){
@@ -171,7 +169,7 @@ class _PujaListScreen extends State<PujaListScreen> {
                                                 padding: EdgeInsets.all(6.0),
                                                 child: Text("Pooja Info",
                                                   style: TextStyle(
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       color: black,
                                                       fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
                                               ),

@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       title: 'Kuber',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)),
+          textTheme: GoogleFonts.rubikTextTheme(Theme.of(context).textTheme)),
       home: const MyHomePage(
         title: 'Kuber',
       ),

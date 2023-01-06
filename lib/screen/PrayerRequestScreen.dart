@@ -77,8 +77,16 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
               : SingleChildScrollView(
                 child: Column(
                   children:  [
-                    Container(alignment: Alignment.centerLeft,margin: const EdgeInsets.only(left: 12,right: 12),child: const Text("Prayer Request",style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 18),)),
-                    Container(margin: const EdgeInsets.only(left: 12,right: 12),child: const Text("In your difficult time, illness, accidents, children exam time you may request prayer, for your loved one.",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600,color: black),)),
+                    Container(
+                        alignment: Alignment.centerLeft,
+                        margin: const EdgeInsets.only(left: 12,right: 12),
+                        child: Text("Prayer Request",style: getTitleFontStyle())
+                    ),
+                    Container(
+                        margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
+                        child: Text("In your difficult time, illness, accidents, children exam time you may request prayer, for your loved one.",
+                          style: getSecondaryTitleFontStyle())
+                    ),
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),

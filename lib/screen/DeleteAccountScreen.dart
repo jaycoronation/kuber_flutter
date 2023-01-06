@@ -27,74 +27,76 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        child: Scaffold(
-          resizeToAvoidBottomInset: true,
-          backgroundColor: bg_skin,
-          appBar:AppBar(
-            // systemOverlayStyle: SystemUiOverlayStyle.dark,
-            toolbarHeight: 55,
-            automaticallyImplyLeading: false,
+          child: Scaffold(
+            resizeToAvoidBottomInset: true,
             backgroundColor: bg_skin,
-            elevation: 0,
-            leading:IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
-                Navigator.pop(context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen()));
-              },
-            ) ,
-          ),
-          body: _isLoading
-              ? const LoadingWidget()
-              : Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                margin: const EdgeInsets.only(left: 12),
-                child: const Text("You're about to delete your account", style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 17),),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top:12,left: 12,right: 6),
-                child: const Text("All the data associated with it(including your profile,photo, reviews and subscriptions) will be permanently deleted in 30 days. this information can't be recovered once the account is deleted.",
-                  style: TextStyle(color: text_light,fontSize: 12,fontWeight: FontWeight.w400),),
-              ),
-              Container(
-                  margin: const EdgeInsets.all(12),
-                  width: MediaQuery.of(context).size.width,
-                  child: TextButton(
-                    style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
+            appBar:AppBar(
+              // systemOverlayStyle: SystemUiOverlayStyle.dark,
+              toolbarHeight: 55,
+              automaticallyImplyLeading: false,
+              backgroundColor: bg_skin,
+              elevation: 0,
+              leading:IconButton(
+                icon: Image.asset("assets/images/ic_back_arrow.png",
+                    width: 18, height: 18),
+                iconSize: 28,
+                onPressed: () {
+                  Navigator.pop(context,
+                      MaterialPageRoute(builder: (context) => const LoginScreen()));
+                },
+              ) ,
+            ),
+            body: _isLoading
+                ? const LoadingWidget()
+                : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(left: 12),
+                      child: Text("You're about to delete your account",
+                        style: getTitleFontStyle()),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top:12,left: 12,right: 6),
+                      child: Text("All the data associated with it(including your profile,photo, reviews and subscriptions) will be permanently deleted in 30 days. this information can't be recovered once the account is deleted.",
+                        style: getSecondaryTitleFontStyle()),
+                    ),
+                    Container(
+                        margin: const EdgeInsets.all(12),
+                        width: MediaQuery.of(context).size.width,
+                        child: TextButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                              ),
+                              backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
                           ),
-                        ),
-                        backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
+                          onPressed: (){
+                            _getDeleteAccountApi();
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text("Delete my account now",style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 15),),
+                          ),
+                        )
                     ),
-                    onPressed: (){
-                      _getDeleteAccountApi();
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text("Delete my account now",style: TextStyle(color: text_dark,fontWeight: FontWeight.w600,fontSize: 15),),
-                    ),
-                  )
-              ),
-              Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.only(top:12,left: 12,right: 6),
-                child: const Text("Back to Settings",style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 14)),
-              )
-            ],
-          )
-        ),
-        onWillPop: (){
-          Navigator.pop(context);
-          return Future.value(true);
-        });
+                    Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.only(top:12,left: 12,right: 12),
+                      child: const Text("Back to Settings",style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 14)),
+                    )
+                  ],
+                )
+          ),
+          onWillPop: (){
+            Navigator.pop(context);
+            return Future.value(true);
+          }
+        );
   }
 
   _getDeleteAccountApi() async {

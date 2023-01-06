@@ -13,6 +13,7 @@ import 'package:kuber/screen/MyAddresses.dart';
 import 'package:kuber/screen/MyPofileScreen.dart';
 import 'package:kuber/screen/PrayerRequestScreen.dart';
 import 'package:kuber/screen/RashiScreen.dart';
+import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/utils/session_manager_methods.dart';
 import 'package:kuber/widget/loading.dart';
@@ -46,24 +47,18 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                   margin: const EdgeInsets.only(
                       left: 14, right: 14),
                   alignment: Alignment.centerLeft,
-                  child: const Text(
+                  child: Text(
                     "My Account",
-                    style: TextStyle(
-                        color: black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                    style: getTitleFontStyle()
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(
                       left: 14, right: 14, top: 4),
                   alignment: Alignment.centerLeft,
-                  child: const Text(
+                  child: Text(
                     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                    style: TextStyle(
-                        color: black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400),
+                    style: getSecondaryTitleFontStyle()
                   ),
                 ),
                 Expanded(
@@ -182,7 +177,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                         ),
                         Container(
                           alignment: Alignment.topLeft,
-                          margin: const EdgeInsets.only(left: 16,top: 10),
+                          margin: const EdgeInsets.only(left: 16,top: 16),
                           child: const Text('Inquiry',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
                         InkWell(
                           child: Container(
@@ -336,7 +331,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                         ),
                         Container(
                           alignment: Alignment.topLeft,
-                          margin: const EdgeInsets.only(left: 16),
+                          margin: const EdgeInsets.only(left: 16,top: 16),
                           child: const Text('About',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
                         InkWell(
                           child: Container(

@@ -63,7 +63,7 @@ class _TempleListScreen extends State<TempleListScreen> {
               ),
             ),
             body: _isLoading
-                ?const LoadingWidget()
+                ? const LoadingWidget()
                 : Column(
                   children: [
                     Expanded(
@@ -96,11 +96,15 @@ class _TempleListScreen extends State<TempleListScreen> {
                                       borderRadius: BorderRadius.circular(20.0),
                                     ),
                                     color: light_yellow,
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(10.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Text(
-                                        "20 Temple found",
-                                        style: TextStyle(
+                                        _isLoading
+                                            ? "0 Temple found"
+                                            : _listTemples.isEmpty
+                                            ? "0 Temple found"
+                                            : "${_listTemples.length} Temple found",
+                                        style: const TextStyle(
                                             fontSize: 14,
                                             color: title,
                                             fontWeight: FontWeight.bold),textAlign: TextAlign.center,),

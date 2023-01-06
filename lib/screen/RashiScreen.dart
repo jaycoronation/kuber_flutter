@@ -79,8 +79,16 @@ class _RashiScreen extends State<RashiScreen> {
               : SingleChildScrollView(
                 child: Column(
                     children:  [
-                      Container(alignment: Alignment.centerLeft,margin: const EdgeInsets.only(left: 12,right: 12),child: const Text("Rashi",style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 18),)),
-                      Container(margin: const EdgeInsets.only(left: 12,right: 12),child: const Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600,color: black),)),
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          margin: const EdgeInsets.only(left: 12,right: 12),
+                          child: Text("Rashi",style: getTitleFontStyle())
+                      ),
+                      Container(
+                          margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
+                          child: Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                            style: getSecondaryTitleFontStyle())
+                      ),
                       ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),

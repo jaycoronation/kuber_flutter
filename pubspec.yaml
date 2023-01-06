@@ -59,6 +59,9 @@ dependencies:
   flutter_login_facebook: ^1.6.0
   flutter_facebook_keyhash: ^0.0.4
 
+dependency_overrides:
+  firebase_core_platform_interface: 4.5.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

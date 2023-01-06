@@ -96,24 +96,16 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
                         children: [
                           Container(
                               alignment: Alignment.centerLeft,
-                              margin:
-                                  const EdgeInsets.only(left: 12, right: 12),
-                              child: const Text(
+                              margin: const EdgeInsets.only(left: 12, right: 12),
+                              child: Text(
                                 "Match Making",
-                                style: TextStyle(
-                                    color: black,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 18),
+                                style: getTitleFontStyle(),
                               )),
                           Container(
-                              margin:
-                                  const EdgeInsets.only(left: 12, right: 12),
-                              child: const Text(
+                              margin: const EdgeInsets.only(left: 12, top: 8,right: 12),
+                              child: Text(
                                 "Matchmaking is the process of matching of two people birth chart, usually for the purpose of marriage",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: black),
+                                style: getSecondaryTitleFontStyle(),
                               )),
                           ListView.builder(
                             shrinkWrap: true,
