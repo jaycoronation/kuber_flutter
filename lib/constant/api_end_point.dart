@@ -4,8 +4,8 @@ const String STATE = "State";
 const String CITY = "City";
 const String QULIFICATION = "Qualification";
 const String EXPRIENCE = "Exprience";
-//const String API_KEY = "AIzaSyB9HMvtsM0RcwXMLleDydO1_95KoZBi_jI"; // KUBER
-const String API_KEY = "AIzaSyAoqW5iG6Ez-kxsxi7RNPfP8CvFMk3yz8A"; // FOOD BOSS
+const String API_KEY = "AIzaSyBiwi0bSUa4QTj59ojKgmS8fc_pfBb6eaU"; // KUBER
+//const String API_KEY = "AIzaSyAoqW5iG6Ez-kxsxi7RNPfP8CvFMk3yz8A"; // FOOD BOSS
 
 /*Login*/
 String generateOtp = "users_services/generateOTP";
