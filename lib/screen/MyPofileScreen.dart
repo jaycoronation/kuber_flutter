@@ -635,7 +635,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                       color: text_dark,
                                       fontWeight: FontWeight.w600)),
                             ),
-                          )),
+                          )
+                      ),
                     ],
                   ),
                 ),

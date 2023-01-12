@@ -1,4 +1,10 @@
 PODS:
+  - AppAuth (1.6.0):
+    - AppAuth/Core (= 1.6.0)
+    - AppAuth/ExternalUserAgent (= 1.6.0)
+  - AppAuth/Core (1.6.0)
+  - AppAuth/ExternalUserAgent (1.6.0):
+    - AppAuth/Core
   - audioplayer (0.0.1):
     - Flutter
   - audioplayers_darwin (0.0.1):
@@ -34,10 +40,86 @@ PODS:
   - DKPhotoGallery/Resource (0.0.17):
     - SDWebImage
     - SwiftyGif
+  - FBAEMKit (15.1.0):
+    - FBSDKCoreKit_Basics (= 15.1.0)
+  - FBSDKCoreKit (15.1.0):
+    - FBAEMKit (= 15.1.0)
+    - FBSDKCoreKit_Basics (= 15.1.0)
+  - FBSDKCoreKit_Basics (15.1.0)
+  - FBSDKLoginKit (15.1.0):
+    - FBSDKCoreKit (= 15.1.0)
   - file_picker (0.0.1):
     - DKImagePickerController/PhotoGallery
     - Flutter
+  - Firebase (10.3.0):
+    - Firebase/Core (= 10.3.0)
+  - Firebase/Auth (10.3.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 10.3.0)
+  - Firebase/Core (10.3.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (~> 10.3.0)
+  - Firebase/CoreOnly (10.3.0):
+    - FirebaseCore (= 10.3.0)
+  - Firebase/Crashlytics (10.3.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 10.3.0)
+  - firebase_auth (4.2.5):
+    - Firebase/Auth (= 10.3.0)
+    - firebase_core
+    - Flutter
+  - firebase_core (2.4.1):
+    - Firebase/CoreOnly (= 10.3.0)
+    - Flutter
+  - firebase_crashlytics (3.0.9):
+    - Firebase/Crashlytics (= 10.3.0)
+    - firebase_core
+    - Flutter
+  - FirebaseAnalytics (10.3.0):
+    - FirebaseAnalytics/AdIdSupport (= 10.3.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseAnalytics/AdIdSupport (10.3.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleAppMeasurement (= 10.3.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseAuth (10.3.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
+  - FirebaseCore (10.3.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Logger (~> 7.8)
+  - FirebaseCoreInternal (10.3.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseCrashlytics (10.3.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/Environment (~> 7.8)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (~> 2.1)
+  - FirebaseInstallations (10.3.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - PromisesObjC (~> 2.1)
   - Flutter (1.0.0)
+  - flutter_login_facebook (1.7.0):
+    - FBSDKLoginKit (= 15.1.0)
+    - Flutter
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
@@ -45,15 +127,94 @@ PODS:
     - Flutter
   - geolocator_apple (1.2.0):
     - Flutter
+  - google_sign_in_ios (0.0.1):
+    - Flutter
+    - GoogleSignIn (~> 6.2)
+  - GoogleAppMeasurement (10.3.0):
+    - GoogleAppMeasurement/AdIdSupport (= 10.3.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (10.3.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.3.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/WithoutAdIdSupport (10.3.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - GoogleUtilities/Network (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleDataTransport (9.2.0):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleSignIn (6.2.4):
+    - AppAuth (~> 1.5)
+    - GTMAppAuth (~> 1.3)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.1)
+  - GoogleUtilities (7.10.0):
+    - GoogleUtilities/AppDelegateSwizzler (= 7.10.0)
+    - GoogleUtilities/Environment (= 7.10.0)
+    - GoogleUtilities/ISASwizzler (= 7.10.0)
+    - GoogleUtilities/Logger (= 7.10.0)
+    - GoogleUtilities/MethodSwizzler (= 7.10.0)
+    - GoogleUtilities/Network (= 7.10.0)
+    - "GoogleUtilities/NSData+zlib (= 7.10.0)"
+    - GoogleUtilities/Reachability (= 7.10.0)
+    - GoogleUtilities/SwizzlerTestHelpers (= 7.10.0)
+    - GoogleUtilities/UserDefaults (= 7.10.0)
+  - GoogleUtilities/AppDelegateSwizzler (7.10.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.10.0):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/ISASwizzler (7.10.0)
+  - GoogleUtilities/Logger (7.10.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (7.10.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (7.10.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.10.0)"
+  - GoogleUtilities/Reachability (7.10.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/SwizzlerTestHelpers (7.10.0):
+    - GoogleUtilities/MethodSwizzler
+  - GoogleUtilities/UserDefaults (7.10.0):
+    - GoogleUtilities/Logger
+  - GTMAppAuth (1.3.1):
+    - AppAuth/Core (~> 1.6)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.5)
+  - GTMSessionFetcher/Core (2.3.0)
+  - nanopb (2.30909.0):
+    - nanopb/decode (= 2.30909.0)
+    - nanopb/encode (= 2.30909.0)
+  - nanopb/decode (2.30909.0)
+  - nanopb/encode (2.30909.0)
   - package_info_plus (0.4.5):
     - Flutter
   - path_provider_ios (0.0.1):
     - Flutter
   - permission_handler_apple (9.0.4):
     - Flutter
-  - SDWebImage (5.13.1):
-    - SDWebImage/Core (= 5.13.1)
-  - SDWebImage/Core (5.13.1)
+  - PromisesObjC (2.1.1)
+  - Realm (3.21.0):
+    - Realm/Headers (= 3.21.0)
+  - Realm/Headers (3.21.0)
+  - RealmSwift (3.21.0):
+    - Realm (= 3.21.0)
+  - SDWebImage (5.14.3):
+    - SDWebImage/Core (= 5.14.3)
+  - SDWebImage/Core (5.14.3)
   - shared_preferences_ios (0.0.1):
     - Flutter
   - SwiftyGif (5.4.3)
@@ -64,21 +225,56 @@ PODS:
 DEPENDENCIES:
   - audioplayer (from `.symlinks/plugins/audioplayer/ios`)
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
+  - DKPhotoGallery
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
+  - Firebase
+  - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
+  - FirebaseCore
+  - FirebaseCoreInternal
   - Flutter (from `Flutter`)
+  - flutter_login_facebook (from `.symlinks/plugins/flutter_login_facebook/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - geocoding (from `.symlinks/plugins/geocoding/ios`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
+  - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
+  - GoogleUtilities
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - Realm (~> 3.17)
+  - RealmSwift (~> 3.17)
+  - SDWebImage
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
+    - AppAuth
     - DKImagePickerController
     - DKPhotoGallery
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
+    - FBSDKLoginKit
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseCoreInternal
+    - FirebaseCrashlytics
+    - FirebaseInstallations
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleSignIn
+    - GoogleUtilities
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - nanopb
+    - PromisesObjC
+    - Realm
+    - RealmSwift
     - SDWebImage
     - SwiftyGif
     - Toast
@@ -90,14 +286,24 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/audioplayers_darwin/ios"
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
+  firebase_auth:
+    :path: ".symlinks/plugins/firebase_auth/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_crashlytics:
+    :path: ".symlinks/plugins/firebase_crashlytics/ios"
   Flutter:
     :path: Flutter
+  flutter_login_facebook:
+    :path: ".symlinks/plugins/flutter_login_facebook/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   geocoding:
     :path: ".symlinks/plugins/geocoding/ios"
   geolocator_apple:
     :path: ".symlinks/plugins/geolocator_apple/ios"
+  google_sign_in_ios:
+    :path: ".symlinks/plugins/google_sign_in_ios/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_ios:
@@ -110,24 +316,51 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
+  AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
   audioplayer: 0584f31a697e4b0bbad405ae7903d7a93585e784
-  audioplayers_darwin: 387322cb364026a1782298c982693b1b6aa9fa1b
+  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
-  file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
-  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  fluttertoast: 16fbe6039d06a763f3533670197d01fc73459037
+  FBAEMKit: c7f82b5145d446bcbbcd50485c032689032fc6a2
+  FBSDKCoreKit: 7542746fc63a2a38dd6a865eeb54268341f37b83
+  FBSDKCoreKit_Basics: 92d6b26c0bed30ab09bbdd96dccaa26e6c9978d1
+  FBSDKLoginKit: 4e275d30cf90e92bdf3a7c82857a8642abf23037
+  file_picker: ce3938a0df3cc1ef404671531facef740d03f920
+  Firebase: f92fc551ead69c94168d36c2b26188263860acd9
+  firebase_auth: 3bab991fe1df91c2f948156e9dee976e01a19ab9
+  firebase_core: bf59c32d2e53814f558efa20840c1902fa2fe461
+  firebase_crashlytics: a45cced3521640e1e389d8b3662936ea9afd6055
+  FirebaseAnalytics: 036232b6a1e2918e5f67572417be1173576245f3
+  FirebaseAuth: 0e415d29d846c1dce2fb641e46f35e9888d9bec6
+  FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
+  FirebaseCoreInternal: 29b76f784d607df8b2a1259d73c3f04f1210137b
+  FirebaseCrashlytics: f20d956f8229010b645e534693c39e0b7843c268
+  FirebaseInstallations: e2f26126089dcf41e215f7b8925af8d953c7d602
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_login_facebook: eafd8b1aadbb3b0ccb5afd3e1ac57350bafe9d0a
+  fluttertoast: eb263d302cc92e04176c053d2385237e9f43fad0
   geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
+  google_sign_in_ios: 4f85eb9f937450765c8573bb85fd8cd6a5af675c
+  GoogleAppMeasurement: c7d6fff39bf2d829587d74088d582e32d75133c3
+  GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
+  GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
+  GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
+  GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
+  GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
+  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
-  SDWebImage: fb26a455eeda4c7a55e4dcb6172dbb258af7a4ca
+  PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  Realm: 38e9dcb19104b58407167d99f70d4995f7c16023
+  RealmSwift: 3183cc1ad48378fbcd634311b22c0e6c44021152
+  SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: 9317b2656831a6511377d618e59103b9d97f0df9
 
 COCOAPODS: 1.11.3

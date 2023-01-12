@@ -2,19 +2,20 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/SocialResponseModel.dart' as social;
 import 'package:kuber/screen/LoginWithEmailScreen.dart';
 import 'package:kuber/screen/LoginWithOtpScreen.dart';
 import 'package:kuber/screen/SignUpScreen.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
@@ -39,9 +40,7 @@ class _LoginScreen extends State<LoginScreen> {
   
   @override
   initState() {
-
-    getKeyHash();
-
+    //getKeyHash();
     super.initState();
   }
 
@@ -211,16 +210,8 @@ class _LoginScreen extends State<LoginScreen> {
                     margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
                     child: TextButton(
                       onPressed: () async {
-                        User? user =
-                        await signInWithGoogle(context: context);
-                        if (user != null) {
-                          /*_makeSocialLoginRequest(
-                                      "Google",
-                                      user.displayName.toString(),
-                                      user.displayName.toString(),
-                                      user.email.toString(),
-                                      user.photoURL.toString());*/
-                        }
+                        signInWithGoogle(context: context);
+                        //FirebaseCrashlytics.instance.crash();
                       },
                       style: ButtonStyle(
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -374,36 +365,36 @@ class _LoginScreen extends State<LoginScreen> {
         final profile = await fb.getUserProfile();
         print('Hello, ${profile?.name}! You ID: ${profile?.userId}');
 
-        /*// Get user profile image url
+        // Get user profile image url
           final imageUrl = await fb.getProfileImageUrl(width: 100);
-          print('Your profile image: $imageUrl');*/
+          print('Your profile image: $imageUrl');
 
         // Get email (since we request email permission)
         final email = await fb.getUserEmail();
         // But user can decline permission
 
         if(email != null && email.isNotEmpty)
-        {
-          String firstName = "";
-          String lastName = "";
-          if(profile!.name !=null && profile.name!.isNotEmpty)
           {
-            final splitted = profile.name.toString().split(' ');
-
-            if(splitted.length > 0)
+            String firstName = "";
+            String lastName = "";
+            if(profile!.name !=null && profile.name!.isNotEmpty)
             {
-              firstName = splitted[0];
-              lastName = splitted[1];
+              final splitted = profile.name.toString().split(' ');
+
+              if(splitted.length > 0)
+              {
+                firstName = splitted[0];
+                lastName = splitted[1];
+              }
             }
+            print("<><> FACEBOOK EMAIL: $email");
+            print("<><> FACEBOOK NAME: ${profile.name!}");
+            _makeSocialLoginRequest("1",firstName,lastName,email,"");
           }
-          print("<><> FACEBOOK EMAIL: $email");
-          print("<><> FACEBOOK NAME: ${profile.name!}");
-          _makeSocialLoginRequest("1",firstName,lastName,email,"");
-        }
         else
-        {
-          showSnackBar("Email not found.", context);
-        }
+          {
+            showSnackBar("Email not found.", context);
+          }
         break;
       case FacebookLoginStatus.cancel:
       // User cancel log in

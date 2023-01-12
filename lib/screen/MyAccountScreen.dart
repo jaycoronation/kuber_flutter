@@ -68,8 +68,12 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                         Container(
                           margin: const EdgeInsets.only(top: 4,right: 22,left: 22),
                           child:GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfileScreen()));
+                            onTap: () async {
+                              var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfileScreen()));
+                              if (value)
+                                {
+                                  setState(() {});
+                                }
                             },
                             child: Column(
                                 children:[
