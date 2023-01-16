@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/SocialResponseModel.dart' as social;
@@ -23,6 +24,8 @@ import '../constant/api_end_point.dart';
 import '../model/VerifyOtpResponseModel.dart';
 import '../utils/app_utils.dart';
 import 'DashboardScreen.dart';
+import 'package:the_apple_sign_in/the_apple_sign_in.dart' as appleSingin;
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -37,7 +40,8 @@ class _LoginScreen extends State<LoginScreen> {
   SessionManager sessionManager = SessionManager();
   var  loginType = "";
   bool _isLoading = false;
-  
+  String errorMessage = "";
+
   @override
   initState() {
     //getKeyHash();
@@ -276,6 +280,43 @@ class _LoginScreen extends State<LoginScreen> {
                     ),
                   ),
                   Container(
+                    margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
+                    child: TextButton(
+                      onPressed: () {
+                        logIn();
+                      },
+                      style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.black)
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children:  <Widget>[
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child:Container(
+                                margin: const EdgeInsets.all(6),
+                                child:  const Icon(
+                                  Icons.apple_sharp,
+                                  color: white,
+                                )),
+                          ),
+                          Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Continue with Apple",
+                                textAlign: TextAlign.center,
+                                style: getTextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 14),
+                              ))
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 14, bottom: 14, right: 30, left: 30),
                       child: TextButton(
@@ -325,7 +366,7 @@ class _LoginScreen extends State<LoginScreen> {
                   ),
                 ),
           bottomNavigationBar: Container(
-            padding: EdgeInsets.only(bottom: 18,top: 18),
+            padding: const EdgeInsets.only(bottom: 18,top: 18),
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
@@ -345,6 +386,67 @@ class _LoginScreen extends State<LoginScreen> {
           ),
         )
     );
+  }
+
+  void logIn() async {
+    final appleSingin.AuthorizationResult result = await appleSingin.TheAppleSignIn.performRequests([
+      const appleSingin.AppleIdRequest(requestedScopes: [appleSingin.Scope.email, appleSingin.Scope.fullName])
+    ]);
+
+    switch (result.status) {
+      case appleSingin.AuthorizationStatus.authorized:
+        var sessionSecure = const FlutterSecureStorage();
+        var firstName = "";
+        var lastName = "";
+        var email = "";
+        if (result.credential?.email != null) {
+          await sessionSecure.write(key: "userId", value: result.credential?.user);
+          await sessionSecure.write(key: "email", value: result.credential!.email.toString());
+          await sessionSecure.write(key: "givenName", value: result.credential!.fullName!.givenName.toString());
+          await sessionSecure.write(key: "familyName", value: result.credential!.fullName!.familyName.toString());
+          firstName = result.credential!.fullName!.givenName.toString();
+          lastName = result.credential!.fullName!.familyName.toString();
+          email = result.credential?.email ?? "";
+        } else {
+          email = await sessionSecure.read(key: "email") ?? "";
+          firstName = await sessionSecure.read(key: "givenName") ?? "";
+          lastName = await sessionSecure.read(key: "familyName") ?? "";
+        }
+
+        if (kDebugMode) {
+          print("Apple Login Email ==== ${result.credential!.email}");
+          print("Apple Login nameSuffix ==== ${result.credential!.fullName!.nameSuffix}");
+          print("Apple Login nameSuffix ==== ${result.credential!.fullName!.givenName}");
+          print("Apple Login nameSuffix ==== ${result.credential!.fullName!.nickname}");
+          print("Apple Login familyName ==== ${result.credential!.fullName!.familyName}");
+          print("Apple Login User ==== ${result.credential!.user}");
+        }
+
+        if (email.isNotEmpty) {
+          _makeSocialLoginRequest("apple", firstName, lastName, email, "");
+        } else {
+          if (mounted) {
+            showSnackBar("Email is needed", context);
+          }
+        }
+
+        break;
+
+      case appleSingin.AuthorizationStatus.error:
+        if (kDebugMode) {
+          print("Sign in failed: ${result.error?.localizedDescription}");
+        }
+        setState(() {
+          errorMessage = "Sign in failed";
+        });
+        break;
+
+      case appleSingin.AuthorizationStatus.cancelled:
+        if (kDebugMode) {
+          print('User cancelled');
+        }
+        break;
+    }
   }
 
   Future<void> loginWithFaceBook() async {
