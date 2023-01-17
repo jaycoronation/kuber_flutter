@@ -422,7 +422,8 @@ class _LoginScreen extends State<LoginScreen> {
           print("Apple Login User ==== ${result.credential!.user}");
         }
 
-        if (email.isNotEmpty) {
+        if (email.isNotEmpty)
+        {
           _makeSocialLoginRequest("apple", firstName, lastName, email, "");
         } else {
           if (mounted) {
