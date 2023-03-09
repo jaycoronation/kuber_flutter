@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -279,40 +280,43 @@ class _LoginScreen extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
-                    child: TextButton(
-                      onPressed: () {
-                        logIn();
-                      },
-                      style: ButtonStyle(
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
+                  Visibility(
+                    visible: Platform.isIOS,
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
+                      child: TextButton(
+                        onPressed: () {
+                          logIn();
+                        },
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
                             ),
-                          ),
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.black)
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children:  <Widget>[
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child:Container(
-                                margin: const EdgeInsets.all(6),
-                                child:  const Icon(
-                                  Icons.apple_sharp,
-                                  color: white,
-                                )),
-                          ),
-                          Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                "Continue with Apple",
-                                textAlign: TextAlign.center,
-                                style: getTextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 14),
-                              ))
-                        ],
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.black)
+                        ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children:  <Widget>[
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child:Container(
+                                  margin: const EdgeInsets.all(6),
+                                  child:  const Icon(
+                                    Icons.apple_sharp,
+                                    color: white,
+                                  )),
+                            ),
+                            Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Continue with Apple",
+                                  textAlign: TextAlign.center,
+                                  style: getTextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 14),
+                                ))
+                          ],
+                        ),
                       ),
                     ),
                   ),

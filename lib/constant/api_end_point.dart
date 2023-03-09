@@ -5,6 +5,8 @@ const String CITY = "City";
 const String QULIFICATION = "Qualification";
 const String EXPRIENCE = "Exprience";
 const String API_KEY = "AIzaSyBiwi0bSUa4QTj59ojKgmS8fc_pfBb6eaU"; // KUBER
+const String PAYPAL_CLIENT_ID = "AeYZUWJt5EZkyHcf2PzpzhMjt6H-KfQ5G35B0UvNcofNDn5Ewle8kyTbYEuaAeI7vtxNNPWbZ1ZDiyMt";
+const String PAYPAL_CLIENT_SECRET = "EP9ItIeLUhZ6TnIif7aKygizoqXs-GoUSGqDSlx8wg154XZ2UV8dAcKxjSOY_g_QRLN3JwJBA6E66I3-";
 //const String API_KEY = "AIzaSyAoqW5iG6Ez-kxsxi7RNPfP8CvFMk3yz8A"; // FOOD BOSS
 
 /*Login*/
