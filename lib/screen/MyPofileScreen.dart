@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/constant/colors.dart';
@@ -192,7 +193,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                         child: Row(
                           children: [
                             GestureDetector(
+                              behavior: HitTestBehavior.opaque,
                               onTap:(){
+                                print("IS DONE === ");
                                 countryDialog();
                               },
                               child: Text(countryCode,
@@ -232,7 +235,10 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                           ],
                         ),
                       ),
-                      Visibility(visible: sessionManager.getIsTemple() ?? false ? false : true,child: setUpTextDate()),
+                      Visibility(
+                          visible: sessionManager.getIsTemple() ?? false ? false : true,
+                          child: setUpTextDate()
+                      ),
                       Container(
                         margin: const EdgeInsets.only(top: 16,right: 14,left: 14,bottom: 16),
                         alignment: Alignment.topLeft,
@@ -703,7 +709,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         children: [
           GestureDetector(
             onTap: () {
-              pickFile();
+              _showBottomSheetForImagePicker();
             },
             child: Card(
               clipBehavior: Clip.antiAlias,
@@ -741,7 +747,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                 icon:Image.asset("assets/images/ic_fill_pen.png", width: 30, height: 30, color: text_dark,),
                 iconSize: 30,
                 onPressed: () {
-                  pickFile();
+                  _showBottomSheetForImagePicker();
                 },
               ),
             ),
@@ -759,7 +765,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
     var status = await Permission.storage.request();
     if (status.isDenied)
       {
-
+        Permission.storage.request();
         showSnackBar("Please grant storage permission to upload the profile picture", context);
       }
     else if (status.isPermanentlyDenied)
@@ -778,9 +784,136 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           profilePic = result.files.single.path!;
           print("Data Response Profile === ${profilePic.trimRight()}");
         });
-        _callProfileUpdateWithImage();
+
       }
 
+  }
+
+  _showBottomSheetForImagePicker() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Wrap(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Padding(
+                  padding: EdgeInsets.only(top: 22),
+                  child: SizedBox(
+                    width: 50,
+                    child: Divider(color: Colors.grey,height: 1.5,thickness: 1.5,),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 14,bottom: 8),
+                  child: Text('Select Image From?', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.all(14),
+                    child: Row(
+                      children: [
+                        Image.asset("assets/images/ic_camera.png",width: 24,height: 24,),
+                        Container(
+                            margin: const EdgeInsets.only(left: 8),
+                            child: const Text('Camera', style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),textAlign: TextAlign.start,)),
+                      ],
+                    ),
+                  ),
+                  onTap: (){
+                    Navigator.pop(context);
+                    pickImageFromCamera();
+                  },
+                ),
+                const Divider(thickness: 0.5,color: Colors.black,),
+                InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Row(
+                      children: [
+                        Image.asset("assets/images/ic_gallery.png",width: 24,height: 24,),
+                        Container(
+                            margin: const EdgeInsets.only(left: 8),
+                            child: const Text('Gallery', style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),)),
+                      ],
+                    ),
+                  ),
+                  onTap: (){
+                    Navigator.pop(context);
+                    pickImageFromGallery();
+                  },
+                ),
+                Container(height: 12)
+              ],
+            )
+
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> pickImageFromCamera() async {
+    try {
+      var pickedfiles = await ImagePicker().pickImage(source: ImageSource.camera,imageQuality: 50);
+      if(pickedfiles != null)
+      {
+        final filePath = pickedfiles.path;
+        File tempFile = File(filePath);
+
+        setState(() {
+          profilePath = File(filePath);
+          profilePicNew = "";
+          profilePic = filePath;
+        });
+        print("_pickImage picImgPath ====>$profilePic");
+        //_makeUploadProfilePic();
+        _callProfileUpdateWithImage();
+      }
+      else
+      {
+        print("No image is selected.");
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> pickImageFromGallery() async {
+    try {
+      var pickedfiles = await ImagePicker().pickImage(source: ImageSource.gallery,imageQuality: 50);
+      if(pickedfiles != null){
+        final filePath = pickedfiles.path;
+        File tempFile = File(filePath);
+
+        setState(() {
+          profilePath = File(filePath);
+          profilePicNew = "";
+          profilePic = filePath;
+        });
+        _callProfileUpdateWithImage();
+
+      }else{
+        print("No image is selected.");
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
   }
 
   _callProfileUpdateWithImage() async {
@@ -1036,7 +1169,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           "state": stateController.value.text,
           "city": cityController.value.text,
           "address": addressController.value.text,
-          "birthdate":universalDateConverter("dd MMM,yyyy", "yyyy-MM-dd",bdyController.value.text),
+          "birthdate":universalDateConverter("MMMM dd, yyyy", "yyyy-MM-dd",bdyController.value.text),
           "birthplace":"",
           "gender":"1",
           "qualification":"",
@@ -1135,7 +1268,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           "state":stateId,
           "city":cityId,
           "address":addressController.value.text,
-          "birthdate": universalDateConverter("dd MMM,yyyy", "yyyy-MM-dd", bdyController.value.text),
+          "birthdate": universalDateConverter("MMMM dd, yyyy", "yyyy-MM-dd", bdyController.value.text),
           "birthplace":addressController.value.text,
           "profile_pic_name":profilepicName
         };
@@ -1194,21 +1327,22 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
         if (statusCode == 200 && dataResponse.success == 1)
           {
-            var getSet = dataResponse.profile;
-            firstNameController.text = getSet?.firstName.toString() ?? "";
-            lastNameController.text = getSet?.lastName.toString() ?? "";
-            numberController.text = getSet?.mobile.toString() ?? "";
-            emailController.text = getSet?.email.toString() ?? "";
-            bdyController.text = universalDateConverter( "yyyy-MM-dd","dd MMM,yyyy", getSet?.birthdate.toString() ?? "");
-            addressController.text = getSet?.address.toString() ?? "";
-            countryController.text = getSet?.countryName ?? "";
-            stateController.text = getSet?.stateName ?? "";
-            cityController.text = getSet?.cityName ?? "";
-            profilePic = getSet?.profilePic ?? "";
-            countryId = getSet?.country ?? "";
-            stateId = getSet?.state ?? "";
-            cityId = getSet?.city ?? "";
-            profilepicName = getSet?.profilePicName??"";
+            var getSet = dataResponse.profile ?? Profile();
+            firstNameController.text = getSet.firstName.toString() ?? "";
+            lastNameController.text = getSet.lastName.toString() ?? "";
+            numberController.text = getSet.mobile.toString() ?? "";
+            emailController.text = getSet.email.toString() ?? "";
+            bdyController.text = universalDateConverter( "yyyy-MM-dd","MMMM dd, yyyy", getSet.birthdate.toString() ?? "");
+            addressController.text = getSet.address.toString() ?? "";
+            countryController.text = getSet.countryName ?? "";
+            stateController.text = getSet.stateName ?? "";
+            cityController.text = getSet.cityName ?? "";
+            profilePic = getSet.profilePic ?? "";
+            countryId = getSet.country ?? "";
+            stateId = getSet.state ?? "";
+            cityId = getSet.city ?? "";
+            profilepicName = getSet.profilePicName??"";
+            sessionManager.createLoginSession(getSet);
 
           setState(() {
             _isLoading = false;
@@ -1253,7 +1387,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           lastNameController.text = getSet.lastName.toString() ?? "";
           numberController.text = getSet.mobile.toString() ?? "";
           emailController.text = getSet.email.toString() ?? "";
-          bdyController.text = universalDateConverter("yyyy-MM-dd","dd MMM,yyyy",getSet.birthdate.toString() ?? "");
+          bdyController.text = universalDateConverter("yyyy-MM-dd","MMMM dd, yyyy",getSet.birthdate.toString() ?? "");
           addressController.text = getSet.address.toString() ?? "";
           countryController.text = getSet.countryName.toString() ?? "";
           stateController.text = getSet.stateName.toString() ?? "";
@@ -1304,14 +1438,14 @@ class _MyProfileScreen extends State<MyProfileScreen> {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: white,
         builder: (context){
           return StatefulBuilder(
-              builder:(context, setState)
-              {
+              builder:(context, setState) {
                 return Container(
                   height: MediaQuery.of(context).size.height * 0.88,
                   decoration: const BoxDecoration(
+                    color: white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12.0),
                         topRight: Radius.circular(12.0),
@@ -1457,7 +1591,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                 if (value != null && value != selectedDate) {
                   setState(()
                   {
-                    String formattedDate = DateFormat('dd MMM,yyyy').format(value);
+                    String formattedDate = DateFormat('MMMM dd, yyyy').format(value);
                     controller.text = formattedDate;
                   });
                 }

@@ -13,6 +13,7 @@ import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
 import '../model/CommonResponseModel.dart';
 import '../utils/app_utils.dart';
+import '../widget/no_data_new.dart';
 
 class RashiScreen extends StatefulWidget {
   const RashiScreen({Key? key}) : super(key: key);
@@ -69,13 +70,7 @@ class _RashiScreen extends State<RashiScreen> {
           body: _isLoading
               ? const LoadingWidget()
               : _isNoDataVisible
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Center(child: Text("No Rashi Request Found",style: TextStyle(color: text_dark,fontSize: 18,fontWeight: FontWeight.bold),))
-                  ],
-                )
+              ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_rashi_list.png', titleMSG: 'No Rashi Request Found')
               : SingleChildScrollView(
                 child: Column(
                     children:  [

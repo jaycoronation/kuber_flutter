@@ -22,6 +22,7 @@ class _PujaListScreen extends State<PujaListScreen> {
   List<PujaList> listPujaSearch = List<PujaList>.empty(growable: true);
   bool _isLoading = false;
   SessionManager sessionManager = SessionManager();
+
   @override
   void initState() {
     _getPujaListUser();
@@ -38,6 +39,7 @@ class _PujaListScreen extends State<PujaListScreen> {
           toolbarHeight: 60,
           automaticallyImplyLeading: false,
           backgroundColor: bg_skin,
+          titleSpacing: 0,
           elevation: 0,
           title: Row(
             children: [
@@ -58,7 +60,7 @@ class _PujaListScreen extends State<PujaListScreen> {
         ),
         body: _isLoading
             ? const LoadingWidget()
-            :Column(
+            : Column(
                 children: [
                   Container(
                     margin: const EdgeInsets.fromLTRB(12, 8, 12, 6),
@@ -194,6 +196,7 @@ class _PujaListScreen extends State<PujaListScreen> {
       },
     );
   }
+
   _getPujaListUser() async {
     setState(() {
       _isLoading = true;

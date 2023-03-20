@@ -10,6 +10,7 @@ import 'package:kuber/screen/MyAccountScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
+import 'package:kuber/widget/no_data_new.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 class BookedPujaScreen extends StatefulWidget {
@@ -41,13 +42,7 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
         body: _isLoading
             ? const LoadingWidget()
             : _isNoDataVisible
-            ? Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            Center(child: Text("No Booking Found",style: TextStyle(color: text_dark,fontSize: 18,fontWeight: FontWeight.bold),textAlign: TextAlign.center,))
-          ],
-        )
+            ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_booked_prayer.png', titleMSG: 'No Booked Puja Found')
             : ListView.builder(
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),

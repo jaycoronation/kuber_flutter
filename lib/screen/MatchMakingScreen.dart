@@ -17,6 +17,8 @@ import '../utils/session_manager.dart';
 import '../widget/loading.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 
+import '../widget/no_data_new.dart';
+
 class MatchMakingScreen extends StatefulWidget {
   const MatchMakingScreen({Key? key}) : super(key: key);
 
@@ -77,20 +79,7 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
           body: _isLoading
               ? const LoadingWidget()
               : _isNoDataVisible
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Center(
-                            child: Text(
-                          "Match Making request not found",
-                          style: TextStyle(
-                              color: text_dark,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ))
-                      ],
-                    )
+                  ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_match_making_list.png', titleMSG: 'No Match Making Found')
                   : SingleChildScrollView(
                       child: Column(
                         children: [

@@ -44,6 +44,16 @@ String getCurrentYear() {
   print(formattedDate); // 2016-01-25
 }
 
+String getDateFromTimestamp(String timeStamp){
+  int timestamp = int.parse(timeStamp); // example timestamp
+  DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000); // convert timestamp to DateTime object
+
+  String formattedDate = DateFormat('dd MMM, yyyy').format(date); // format DateTime object to desired date format
+
+  print(formattedDate); // output: 2022-03-09
+  return formattedDate;
+}
+
 showToast(String? message,BuildContext? context){
   Fluttertoast.showToast(
       msg: message.toString(),

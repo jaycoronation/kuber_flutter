@@ -13,6 +13,7 @@ import 'package:pretty_http_logger/pretty_http_logger.dart';
 import '../constant/api_end_point.dart';
 import '../utils/app_utils.dart';
 import '../widget/loading.dart';
+import '../widget/no_data_new.dart';
 
 class PrayerRequestScreen extends StatefulWidget {
   const PrayerRequestScreen({Key? key}) : super(key: key);
@@ -67,13 +68,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
           body: _isLoading
               ? const LoadingWidget()
               : _isNoDataVisible
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Center(child: Text("Prayer request not found",style: TextStyle(color: text_dark,fontSize: 18,fontWeight: FontWeight.bold),))
-                  ],
-                )
+              ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_prayer_request.png', titleMSG: 'No Prayer Request Found')
               : SingleChildScrollView(
                 child: Column(
                   children:  [

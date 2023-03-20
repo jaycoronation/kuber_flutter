@@ -18,6 +18,8 @@ import '../widget/loading.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 
+import '../widget/no_data_new.dart';
+
 class AstrologyScreen extends StatefulWidget {
   const AstrologyScreen({Key? key}) : super(key: key);
 
@@ -53,8 +55,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope
-      (
+    return WillPopScope(
         child: Scaffold(
           backgroundColor: bg_skin,
           appBar: AppBar(
@@ -74,13 +75,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
           body: _isLoading
               ? const LoadingWidget()
               : _isNoDataVisible
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Center(child: Text("No Astrology Request Found",style: TextStyle(color: text_dark,fontSize: 18,fontWeight: FontWeight.bold),textAlign: TextAlign.center,))
-                  ],
-                )
+              ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_astrology_list.png', titleMSG: 'No Astrology Request Found')
               : Column(
                   children:  [
                     Container(
