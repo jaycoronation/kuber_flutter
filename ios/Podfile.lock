@@ -71,7 +71,7 @@ PODS:
   - firebase_core (2.4.1):
     - Firebase/CoreOnly (= 10.3.0)
     - Flutter
-  - firebase_crashlytics (3.0.9):
+  - firebase_crashlytics (3.0.11):
     - Firebase/Crashlytics (= 10.3.0)
     - firebase_core
     - Flutter
@@ -119,6 +119,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_login_facebook (1.7.0):
     - FBSDKLoginKit (= 15.1.0)
+    - Flutter
+  - flutter_secure_storage (6.0.0):
     - Flutter
   - fluttertoast (0.0.2):
     - Flutter
@@ -195,6 +197,8 @@ PODS:
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 3.0, >= 1.5)
   - GTMSessionFetcher/Core (2.3.0)
+  - image_picker_ios (0.0.1):
+    - Flutter
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -202,8 +206,9 @@ PODS:
   - nanopb/encode (2.30909.0)
   - package_info_plus (0.4.5):
     - Flutter
-  - path_provider_ios (0.0.1):
+  - path_provider_foundation (0.0.1):
     - Flutter
+    - FlutterMacOS
   - permission_handler_apple (9.0.4):
     - Flutter
   - PromisesObjC (2.1.1)
@@ -215,11 +220,16 @@ PODS:
   - SDWebImage (5.14.3):
     - SDWebImage/Core (= 5.14.3)
   - SDWebImage/Core (5.14.3)
-  - shared_preferences_ios (0.0.1):
+  - shared_preferences_foundation (0.0.1):
     - Flutter
+    - FlutterMacOS
   - SwiftyGif (5.4.3)
+  - the_apple_sign_in (1.0.0):
+    - Flutter
   - Toast (4.0.0)
   - url_launcher_ios (0.0.1):
+    - Flutter
+  - webview_flutter_wkwebview (0.0.1):
     - Flutter
 
 DEPENDENCIES:
@@ -235,19 +245,23 @@ DEPENDENCIES:
   - FirebaseCoreInternal
   - Flutter (from `Flutter`)
   - flutter_login_facebook (from `.symlinks/plugins/flutter_login_facebook/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - geocoding (from `.symlinks/plugins/geocoding/ios`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
   - GoogleUtilities
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
-  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - Realm (~> 3.17)
   - RealmSwift (~> 3.17)
   - SDWebImage
-  - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
+  - the_apple_sign_in (from `.symlinks/plugins/the_apple_sign_in/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 SPEC REPOS:
   trunk:
@@ -296,6 +310,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_login_facebook:
     :path: ".symlinks/plugins/flutter_login_facebook/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   geocoding:
@@ -304,16 +320,22 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/geolocator_apple/ios"
   google_sign_in_ios:
     :path: ".symlinks/plugins/google_sign_in_ios/ios"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
-  path_provider_ios:
-    :path: ".symlinks/plugins/path_provider_ios/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/ios"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
-  shared_preferences_ios:
-    :path: ".symlinks/plugins/shared_preferences_ios/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/ios"
+  the_apple_sign_in:
+    :path: ".symlinks/plugins/the_apple_sign_in/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
@@ -329,7 +351,7 @@ SPEC CHECKSUMS:
   Firebase: f92fc551ead69c94168d36c2b26188263860acd9
   firebase_auth: 3bab991fe1df91c2f948156e9dee976e01a19ab9
   firebase_core: bf59c32d2e53814f558efa20840c1902fa2fe461
-  firebase_crashlytics: a45cced3521640e1e389d8b3662936ea9afd6055
+  firebase_crashlytics: b19405931669c882e0d08542e69ae9e86633c636
   FirebaseAnalytics: 036232b6a1e2918e5f67572417be1173576245f3
   FirebaseAuth: 0e415d29d846c1dce2fb641e46f35e9888d9bec6
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
@@ -338,6 +360,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: e2f26126089dcf41e215f7b8925af8d953c7d602
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_login_facebook: eafd8b1aadbb3b0ccb5afd3e1ac57350bafe9d0a
+  flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be
   fluttertoast: eb263d302cc92e04176c053d2385237e9f43fad0
   geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
@@ -348,19 +371,22 @@ SPEC CHECKSUMS:
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
+  image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
-  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   Realm: 38e9dcb19104b58407167d99f70d4995f7c16023
   RealmSwift: 3183cc1ad48378fbcd634311b22c0e6c44021152
   SDWebImage: 9c36e66c8ce4620b41a7407698dda44211a96764
-  shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
+  shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
   SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
+  the_apple_sign_in: 2e78c83cdb09eba07bb16dcc1f3bc12fcdc8263d
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
+  url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
+  webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
 
 PODFILE CHECKSUM: 9317b2656831a6511377d618e59103b9d97f0df9
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

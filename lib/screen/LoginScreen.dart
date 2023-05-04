@@ -42,7 +42,7 @@ class _LoginScreen extends State<LoginScreen> {
 
   @override
   initState() {
-    //getKeyHash();
+    getKeyHash();
     super.initState();
   }
 
@@ -87,6 +87,28 @@ class _LoginScreen extends State<LoginScreen> {
                           Expanded(
                             child: Column(
                               children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
+                                  child: Row(
+                                    children:  <Widget>[
+                                      Container(
+                                          margin: const EdgeInsets.all(6),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(12),
+                                            color: puja
+                                          ),
+                                          child: Image.asset("assets/images/ic_puja_plate.png",width: 50,height: 55,)),
+                                      Expanded(
+                                        child: Text(
+                                          "Your prayer bookings on your finger tips.",
+                                          overflow: TextOverflow.clip,
+                                          style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
                                 Container(
                                   margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
                                   child: TextButton(
@@ -267,6 +289,48 @@ class _LoginScreen extends State<LoginScreen> {
                               ),
                             ],
                           ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.only(top: 10, bottom: 3, right: 18, left: 18),
+                            decoration: const BoxDecoration(
+                              color: orange,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
+                              },
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: <Widget>[
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Container(
+                                      padding: const EdgeInsets.only(left: 20, right: 20),
+                                      child: Image.asset(
+                                        "assets/images/ic_priest_blank.png",
+                                        width: 55,
+
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: true,
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Priest/ Pandit",
+                                          textAlign: TextAlign.center,
+                                          style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                        )
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -311,53 +375,8 @@ class _LoginScreen extends State<LoginScreen> {
                               ),
                               Column(
                                 children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 10, bottom: 3, right: 12, left: 12),
-                                    decoration: const BoxDecoration(
-                                      color: orange,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(12),
-                                      ),
-                                    ),
-                                    child: InkWell(
-                                      onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
-                                      },
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: <Widget>[
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Container(
-                                              padding: const EdgeInsets.only(left: 20, right: 20),
-                                              child: Image.asset(
-                                                "assets/images/ic_priest_blank.png",
-                                                width: 55,
 
-                                              ),
-                                            ),
-                                          ),
-                                          Visibility(
-                                            visible: false,
-                                            child: Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  "Priest/ Pandit",
-                                                  textAlign: TextAlign.center,
-                                                  style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                                )
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
                                   Container(height: 6,),
-                                  Text(
-                                    "Priest / Pandit",
-                                    textAlign: TextAlign.center,
-                                    style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                  )
                                 ],
                               ),
                               Visibility(

@@ -1334,9 +1334,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             emailController.text = getSet.email.toString() ?? "";
             bdyController.text = universalDateConverter( "yyyy-MM-dd","MMMM dd, yyyy", getSet.birthdate.toString() ?? "");
             addressController.text = getSet.address.toString() ?? "";
-            countryController.text = getSet.countryName ?? "";
-            stateController.text = getSet.stateName ?? "";
-            cityController.text = getSet.cityName ?? "";
+            countryController.text = getSet.countryName == null ? "" : getSet.countryName ?? "";
+            stateController.text = getSet.stateName == null ? "" : getSet.stateName ?? "";
+            cityController.text = getSet.cityName == null ? "" : getSet.cityName ?? "";
             profilePic = getSet.profilePic ?? "";
             countryId = getSet.country ?? "";
             stateId = getSet.state ?? "";
@@ -1389,9 +1389,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           emailController.text = getSet.email.toString() ?? "";
           bdyController.text = universalDateConverter("yyyy-MM-dd","MMMM dd, yyyy",getSet.birthdate.toString() ?? "");
           addressController.text = getSet.address.toString() ?? "";
-          countryController.text = getSet.countryName.toString() ?? "";
-          stateController.text = getSet.stateName.toString() ?? "";
-          cityController.text = getSet.cityName.toString() ?? "";
+          countryController.text = getSet.countryName ?? "";
+          stateController.text = getSet.stateName ?? "";
+          cityController.text = getSet.cityName ?? "";
           profilePic = getSet.profilePic ?? "";
           countryId = getSet.country ?? "";
           stateId = getSet.state ?? "";

@@ -57,7 +57,7 @@ class _FeedDetailsScreen extends State<FeedDetailsScreen> {
                   ),
                   Image.network(getSet.mediaPath.toString(),fit: BoxFit.cover,width: MediaQuery.of(context).size.width,),
                   Container(
-                    color: skin_light,
+                    color: skinLight,
                     margin: const EdgeInsets.only(top: 12),
                     padding: const EdgeInsets.fromLTRB(6, 12, 6, 12),
                     child: Text(

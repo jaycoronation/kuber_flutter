@@ -1,4 +1,5 @@
-const String MAIN_URL = "https://php1.coronation.in/kuber/api/index.php/";
+const String MAIN_URL = "https://www.panditbookings.com/api/index.php/";
+const String WEBSITE_URL = "https://www.panditbookings.com/";
 const String COUNTRY = "Country";
 const String STATE = "State";
 const String CITY = "City";
@@ -54,3 +55,7 @@ String updateProfilePicTemple = "services/user/uploadTempleProfilePic";
 String changePassword = "services/user/set_password";
 String getUserFeed = "admin_services/manage_feeds/list";
 String getUserThoughts = "admin_services/manage_thoughts/list";
+
+/*JSON*/
+
+String priceJson = "prices.json";

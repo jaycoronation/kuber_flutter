@@ -77,6 +77,7 @@ bool isValidEmail(String? input) {
     return false;
   }
 }
+
 isValidPhoneNumber(String? input)
 {
   try {
@@ -89,7 +90,6 @@ isValidPhoneNumber(String? input)
     return false;
   }
 }
-
 
 /*convert string to CamelCase*/
 toDisplayCase (String str) {
