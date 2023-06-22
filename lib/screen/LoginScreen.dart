@@ -17,6 +17,7 @@ import 'package:kuber/screen/LoginWithEmailScreen.dart';
 import 'package:kuber/screen/LoginWithOtpScreen.dart';
 import 'package:kuber/screen/SignUpScreen.dart';
 import 'package:kuber/utils/session_manager.dart';
+import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../constant/api_end_point.dart';
@@ -39,12 +40,6 @@ class _LoginScreen extends State<LoginScreen> {
   var  loginType = "";
   bool _isLoading = false;
   String errorMessage = "";
-
-  @override
-  initState() {
-    getKeyHash();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,17 +70,18 @@ class _LoginScreen extends State<LoginScreen> {
                 )
             ),
           ),
-          body: LayoutBuilder(
+          body:  LayoutBuilder(
             builder: (context, constraints) {
               return SingleChildScrollView(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
-                    child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Column(
+                    child: _isLoading
+                        ? const LoadingWidget()
+                        : Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Column(
                               children: [
                                 Container(
                                   width: MediaQuery.of(context).size.width,
@@ -266,177 +262,176 @@ class _LoginScreen extends State<LoginScreen> {
                                 ),
                               ],
                             ),
-                          ),
-                          Row(
-                            children: [
-                              const Flexible(
-                                flex: 1,
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
-                                  child: Divider(color: black),
-                                ),
-                              ),
-                              Text(
-                                "Register as",
-                                style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 16),
-                              ),
-                              const Flexible(
-                                flex: 1,
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
-                                  child: Divider(color: black),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.only(top: 10, bottom: 3, right: 18, left: 18),
-                            decoration: const BoxDecoration(
-                              color: orange,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                            ),
-                            child: InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
-                              },
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Container(
-                                      padding: const EdgeInsets.only(left: 20, right: 20),
-                                      child: Image.asset(
-                                        "assets/images/ic_priest_blank.png",
-                                        width: 55,
-
-                                      ),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: true,
-                                    child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "Priest/ Pandit",
-                                          textAlign: TextAlign.center,
-                                          style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                        )
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Visibility(
-                                visible: false,
-                                child: Container(
-                                  margin: const EdgeInsets.only(top: 10, bottom: 4, right: 12, left: 12),
-                                  decoration: const BoxDecoration(color: yellow,
-                                    borderRadius: BorderRadius.all(Radius.circular(12),),),
-                                  child: InkWell(
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: <Widget>[
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Container(
-                                            padding: const EdgeInsets.only(left: 20, right: 20),
-                                            child: Image.asset(
-                                              "assets/images/ic_temple_blank.png",
-                                              width: 55,
-                                            ),
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: false,
-                                          child: Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                "Temple/ Mandir",
-                                                textAlign: TextAlign.center,
-                                                style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                              )),
-                                        )
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Temple")));
-                                    },
+                            Row(
+                              children: [
+                                const Flexible(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+                                    child: Divider(color: black),
                                   ),
                                 ),
+                                Text(
+                                  "Register as",
+                                  style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 16),
+                                ),
+                                const Flexible(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+                                    child: Divider(color: black),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.only(top: 10, bottom: 3, right: 18, left: 18),
+                              decoration: const BoxDecoration(
+                                color: orange,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(18),
+                                ),
                               ),
-                              Column(
-                                children: [
+                              child: InkWell(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
+                                },
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: <Widget>[
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(left: 20, right: 20),
+                                        child: Image.asset(
+                                          "assets/images/ic_priest_blank.png",
+                                          width: 55,
 
-                                  Container(height: 6,),
-                                ],
-                              ),
-                              Visibility(
-                                visible: false,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          top: 10, bottom: 3, right: 12, left: 12),
-                                      decoration: const BoxDecoration(
-                                        color: blue,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(12),
                                         ),
                                       ),
-                                      child: InkWell(
-                                        onTap: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Yajman")));
-                                        },
-                                        child: Stack(
+                                    ),
+                                    Visibility(
+                                      visible: true,
+                                      child: Align(
                                           alignment: Alignment.center,
-                                          children: <Widget>[
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Container(
-                                                padding: const EdgeInsets.only(left: 20, right: 20),
-                                                child: Image.asset(
-                                                  "assets/images/ic_host.png",
-                                                  width: 55,
-
-                                                ),
-                                              ),
-                                            ),
-                                            Visibility(
-                                              visible: false,
-                                              child: Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    "Host / Yajman",
-                                                    textAlign: TextAlign.center,
-                                                    style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                                  )),
-                                            )
-                                          ],
-                                        ),
+                                          child: Text(
+                                            "Priest/ Pandit",
+                                            textAlign: TextAlign.center,
+                                            style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                          )
                                       ),
-                                    ),
-                                    Container(height: 6,),
-                                    Text(
-                                      "Host / Yajman",
-                                      textAlign: TextAlign.center,
-                                      style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
                                     )
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ]
-                    ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Visibility(
+                                  visible: false,
+                                  child: Container(
+                                    margin: const EdgeInsets.only(top: 10, bottom: 4, right: 12, left: 12),
+                                    decoration: const BoxDecoration(color: yellow,
+                                      borderRadius: BorderRadius.all(Radius.circular(12),),),
+                                    child: InkWell(
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: <Widget>[
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Container(
+                                              padding: const EdgeInsets.only(left: 20, right: 20),
+                                              child: Image.asset(
+                                                "assets/images/ic_temple_blank.png",
+                                                width: 55,
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: false,
+                                            child: Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  "Temple/ Mandir",
+                                                  textAlign: TextAlign.center,
+                                                  style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                                )),
+                                          )
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Temple")));
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  children: [
+
+                                    Container(height: 6,),
+                                  ],
+                                ),
+                                Visibility(
+                                  visible: false,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(
+                                            top: 10, bottom: 3, right: 12, left: 12),
+                                        decoration: const BoxDecoration(
+                                          color: blue,
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(12),
+                                          ),
+                                        ),
+                                        child: InkWell(
+                                          onTap: (){
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Yajman")));
+                                          },
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: <Widget>[
+                                              Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Container(
+                                                  padding: const EdgeInsets.only(left: 20, right: 20),
+                                                  child: Image.asset(
+                                                    "assets/images/ic_host.png",
+                                                    width: 55,
+
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: false,
+                                                child: Align(
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                      "Host / Yajman",
+                                                      textAlign: TextAlign.center,
+                                                      style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                                    )),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(height: 6,),
+                                      Text(
+                                        "Host / Yajman",
+                                        textAlign: TextAlign.center,
+                                        style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ]
+                     ),
                   ),
                 ),
               );
@@ -453,7 +448,7 @@ class _LoginScreen extends State<LoginScreen> {
                   TextSpan(text: 'Privacy Policy', style: getTextStyle(fontWeight: FontWeight.w500, color: orange, fontSize: 14),
                       recognizer: TapGestureRecognizer()..onTap = () => {}
                   ),
-                  const TextSpan(text: ' and '),
+                  TextSpan(text: ' and ',style: getTextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
                   TextSpan(text: 'Terms of Service', style: getTextStyle(fontWeight: FontWeight.w500, color: orange, fontSize: 14),
                       recognizer: TapGestureRecognizer()..onTap = () => {}
                   ),
@@ -700,7 +695,7 @@ class _LoginScreen extends State<LoginScreen> {
     final url = Uri.parse(MAIN_URL + socialLogin);
 
     Map<String, String> jsonBody = {
-      'name': firstName + ""+ lastName,
+      'name': "$firstName $lastName",
       'mobile':" ",
       'login_type': loginType,
       'from_app': "true",

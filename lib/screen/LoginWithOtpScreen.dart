@@ -293,27 +293,29 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600),
                             onChanged: (editable){
-                              if (listCountryCode != null && listCountryCode.length > 0)
-                              {
-                                listSearchCountryName = [];
 
-                                if (editable.length > 0)
-                                {
-                                  for (var i=0; i < listCountryCode.length; i++)
-                                  {
-                                    if (listCountryCode[i].name.toLowerCase().contains(editable.toString().toLowerCase()))
-                                    {
-                                      listSearchCountryName.add(listCountryCode[i]);
+                              setState((){
+                                if (listCountryCode != null && listCountryCode.length > 0) {
+                                  listSearchCountryName = [];
+
+                                  if (editable.length > 0) {
+                                    for (var i = 0; i <
+                                        listCountryCode.length; i++) {
+                                      if (listCountryCode[i].name.toLowerCase()
+                                          .contains(
+                                          editable.toString().toLowerCase())) {
+                                        listSearchCountryName.add(
+                                            listCountryCode[i]);
+                                      }
                                     }
                                   }
-                                }
-                                else
-                                {
+                                  else {
 
+                                  }
                                 }
+                              });
                                 /*adapterCountry = AdapterCountry(activity, listSearchCountryName, dialog)
                               rvCountry.adapter = adapterCountry*/
-                              }
                             },
                             decoration: InputDecoration(
                               fillColor: white_blue,
@@ -338,12 +340,12 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
                                 shrinkWrap: true,
                                 physics: const ScrollPhysics(),
                                 scrollDirection: Axis.vertical,
-                                itemCount: listCountryCode.length,
+                                itemCount: listSearchCountryName.isNotEmpty ? listSearchCountryName.length : listCountryCode.length,
                                 itemBuilder: (BuildContext context, int i) {
                                   return InkWell(
                                     onTap: (){
                                       setState((){
-                                        countryCode = listCountryCode[i].dialCode;
+                                        countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
                                       });
                                       Navigator.pop(context);
                                     },
@@ -356,8 +358,8 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Flexible(child: Text(listCountryCode[i].name.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w200,color: title), textAlign: TextAlign.start,)),
-                                                Text(listCountryCode[i].dialCode.toString(),style: const TextStyle(fontWeight: FontWeight.w300,color: text_new,fontSize: 16),)
+                                                Flexible(child: Text( listSearchCountryName.isNotEmpty ? listSearchCountryName[i].name : listCountryCode[i].name.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w200,color: title), textAlign: TextAlign.start,)),
+                                                Text(listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode.toString(),style: const TextStyle(fontWeight: FontWeight.w300,color: text_new,fontSize: 16),)
                                               ],
                                             ),
                                           ),
@@ -392,7 +394,7 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
       {
         name = data[i]['name'];
         code = data[i]['code'];
-        dial_code = data[i]['dial_code'] != null ? data[i]['dial_code'] : "";
+        dial_code = data[i]['dial_code'] ?? "";
         listCountryCode.add(CountryListResponseModel(name: name, dialCode: dial_code, code: code));
       }
     }
