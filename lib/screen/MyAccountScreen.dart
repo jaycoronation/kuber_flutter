@@ -143,36 +143,36 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                             ),
                           ),
                         ),
-                        InkWell(
-                          child: Container(
-                            alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/ic_address_new.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('My Addresses',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Divider(color: title,height: 0.5,),
-                                ),
-                              ],
-                            ),
-                          ),
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const MyAddresses()));
-                          },
-                        ),
+                        // InkWell(
+                        //   child: Container(
+                        //     alignment: Alignment.center,
+                        //       margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        //     child: Column(
+                        //       children: [
+                        //         Padding(
+                        //           padding: const EdgeInsets.only(top: 6,bottom: 6),
+                        //           child: Row(
+                        //             children: [
+                        //               Image.asset("assets/images/ic_address_new.png",height: 20,),
+                        //               Container(
+                        //                   margin: const EdgeInsets.only(left: 14,right: 14),
+                        //                   child: const Text('My Addresses',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                        //               const Spacer(),
+                        //               Image.asset("assets/images/ic_right.png",height: 14,),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //         Container(
+                        //           margin: const EdgeInsets.only(top: 14),
+                        //           child: const Divider(color: title,height: 0.5,),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        //   onTap: (){
+                        //     Navigator.push(context, MaterialPageRoute(builder: (context) => const MyAddresses()));
+                        //   },
+                        // ),
                         InkWell(
                           child: Container(
                             alignment: Alignment.center,
@@ -406,7 +406,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                                   padding: const EdgeInsets.only(top: 6,bottom: 6),
                                   child: Row(
                                     children: [
-                                      Image.asset("assets/images/ic_help.png",height: 20,),
+                                      Image.asset("assets/images/ic_delete_account.png",height: 20,),
                                       Container(
                                           margin: const EdgeInsets.only(left: 14,right: 14),
                                           child: const Text('Delete Account',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
