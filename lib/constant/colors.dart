@@ -25,3 +25,9 @@ const Color match_light = Color(0xffEFFDF0);
 const Color prayer_light = Color(0xffFFD9E8);
 const Color astro_light = Color(0xffE6EFB8);
 const Color puja = Color(0xffC9EFF9);
+const Color darkbrown= Color(0xff712b2c);
+const Color txtGrey= Color(0xff8d8a7f);
+const Color lighttxtGrey= Color(0xffb4b3ac);
+const Color bottomSheetBg= Color(0xfffbfbef);
+const Color bottomSheetline= Color(0xffedead1);
+
