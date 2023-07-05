@@ -11,7 +11,7 @@ const Color lightBlue= Color(0xffe0f9f6);
 const Color white_blue= Color(0xffedf1fb);
 const Color light_yellow= Color(0xffFFF294);
 const Color black= Color(0xff000000);
-const Color bg_skin= Color(0xffEBD8C7);
+const Color bg_skin= Color(0Xfffbfbef);
 const Color yellow= Color(0xfffee006);
 const Color orange= Color(0xffff7352);
 const Color blue= Color(0xff8fd2ff);
@@ -30,4 +30,9 @@ const Color txtGrey= Color(0xff8d8a7f);
 const Color lighttxtGrey= Color(0xffb4b3ac);
 const Color bottomSheetBg= Color(0xfffbfbef);
 const Color bottomSheetline= Color(0xffedead1);
+const Color gradient_start= Color(0xffffa900);
+const Color gradient_end= Color(0xffffe329);
+Color kuber = const Color(0Xfffbfbef);
+
+
 

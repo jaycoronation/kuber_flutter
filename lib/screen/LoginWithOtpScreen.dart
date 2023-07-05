@@ -41,7 +41,7 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
         },
         child: Scaffold(
           resizeToAvoidBottomInset: true,
-          backgroundColor: bg_skin,
+          backgroundColor: kuber,
           appBar: setUpNavigationBar(),
           body: _isLoading
               ? const LoadingWidget()
@@ -56,7 +56,8 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
                           child: Row(
                             children: [
                                GestureDetector(
-                                 child: Text(countryCode,
+                                 child: Text(
+                                     countryCode,
                                     style: const TextStyle(
                                         color: black,
                                         fontWeight: FontWeight.w400,

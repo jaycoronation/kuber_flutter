@@ -52,7 +52,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
     return WillPopScope(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: bg_skin,
+        backgroundColor: kuber,
         appBar: setUpNavigationBar(),
         body: _isLoading
             ? const LoadingWidget()
@@ -107,14 +107,14 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderWidth: 2,
                                 fieldHeight: 60,
-                                fieldWidth: 30,
+                                fieldWidth: 40,
                                 activeColor: black,
                                 selectedColor: black,
                                 disabledColor: text_dark,
                                 inactiveColor: text_light,
-                                activeFillColor: bg_skin,
-                                selectedFillColor: bg_skin,
-                                inactiveFillColor: bg_skin,
+                                activeFillColor: kuber,
+                                selectedFillColor: kuber,
+                                inactiveFillColor: kuber,
                               ),
                               cursorColor: Colors.black,
                               animationDuration:
@@ -222,7 +222,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       // systemOverlayStyle: SystemUiOverlayStyle.dark,
       toolbarHeight: 50,
       automaticallyImplyLeading: false,
-      backgroundColor: bg_skin,
+      backgroundColor: kuber,
       elevation: 0,
       leading: IconButton(
         icon: Image.asset("assets/images/ic_back_arrow.png", width: 18, height: 18),
