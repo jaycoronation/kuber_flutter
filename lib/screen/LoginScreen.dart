@@ -345,7 +345,7 @@ class _LoginScreen extends State<LoginScreen> {
                                     logIn();
                                   },
                                   child: Container(
-                                    margin: const EdgeInsets.only( right: 20, left: 20),
+                                    margin: const EdgeInsets.only( right: 20, left: 20, bottom: 18),
                                     decoration: BoxDecoration(
                                       color: kuber,
                                       border: Border.all(
