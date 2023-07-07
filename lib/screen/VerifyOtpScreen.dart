@@ -107,7 +107,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderWidth: 2,
                                 fieldHeight: 60,
-                                fieldWidth: 40,
+                                fieldWidth: 30,
                                 activeColor: black,
                                 selectedColor: black,
                                 disabledColor: text_dark,
