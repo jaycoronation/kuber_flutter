@@ -26,7 +26,7 @@ import '../model/CountryListResponseModel.dart';
 import '../model/VerifyOtpResponseModel.dart';
 import '../utils/app_utils.dart';
 import 'DashboardScreen.dart';
-import 'package:the_apple_sign_in/the_apple_sign_in.dart' as appleSingin;
+import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 import 'VerifyOtpScreen.dart';
 
@@ -787,12 +787,12 @@ class _LoginScreen extends State<LoginScreen> {
   }
 
   void logIn() async {
-    final appleSingin.AuthorizationResult result = await appleSingin.TheAppleSignIn.performRequests([
-      const appleSingin.AppleIdRequest(requestedScopes: [appleSingin.Scope.email, appleSingin.Scope.fullName])
+    final AuthorizationResult result = await TheAppleSignIn.performRequests([
+      const AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
     ]);
 
     switch (result.status) {
-      case appleSingin.AuthorizationStatus.authorized:
+      case AuthorizationStatus.authorized:
         var sessionSecure = const FlutterSecureStorage();
         var firstName = "";
         var lastName = "";
@@ -830,16 +830,20 @@ class _LoginScreen extends State<LoginScreen> {
 
         break;
 
-      case appleSingin.AuthorizationStatus.error:
+      case AuthorizationStatus.error:
         if (kDebugMode) {
           print("Sign in failed: ${result.error?.localizedDescription}");
         }
         setState(() {
+          _isLoading = false;
           errorMessage = "Sign in failed";
         });
         break;
 
-      case appleSingin.AuthorizationStatus.cancelled:
+      case AuthorizationStatus.cancelled:
+        setState(() {
+          _isLoading = false;
+        });
         if (kDebugMode) {
           print('User cancelled');
         }
@@ -991,7 +995,7 @@ class _LoginScreen extends State<LoginScreen> {
       _keyHash = keyHash;
     });
 
-    print("++++++HAshKey$_keyHash");
+    print("++++++HashKey$_keyHash");
   }
 
   _makeSocialLoginRequest(String loginType, String firstName, String lastName, String email, String image) async {
@@ -1065,7 +1069,6 @@ class _LoginScreen extends State<LoginScreen> {
     };
 
     final response = await http.post(url, body: jsonBody);
-
     final statusCode = response.statusCode;
 
     final body = response.body;
