@@ -1,10 +1,12 @@
 
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../constant/colors.dart';
+import 'WebViewContainer.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -103,17 +105,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Center(
                   child: Container(
-                    padding:  EdgeInsets.only(bottom: 18,top: 18),
+                    padding:  const EdgeInsets.only(bottom: 18,top: 18),
                     child: RichText(
                       textAlign: TextAlign.center,
-                      text: const TextSpan(
+                      text: TextSpan(
                         text: 'By signing up or operating an account,you agree to our \n ',
-                        style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14, height: 1.4),
+                        style: const TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14, height: 1.4),
                         children: <TextSpan>[
-                          TextSpan(text: 'Privacy Policy', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                          TextSpan(
+                              text: 'Privacy Policy', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                              recognizer: TapGestureRecognizer()..onTap = () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
+                              }
                           ),
-                          TextSpan(text: ' and ',style:TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
-                          TextSpan(text: 'Terms of Service.', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                          const TextSpan(text: ' and ',style:TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
+                          const TextSpan(text: 'Terms of Service.', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
 
                           ),
                         ],
@@ -217,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             margin: const EdgeInsets.all(12),
                             child: Image.asset("assets/image/ic_back_arrow.png",width: 25,height: 29,)),
                       ),
-                      Align(
+                      const Align(
                           alignment: Alignment.center,
                           child: Text(
                             "Continue with Apple",
@@ -247,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             margin: const EdgeInsets.all(12),
                             child: Image.asset("assets/image/ic_back_arrow.png",width: 25,height: 29,)),
                       ),
-                      Align(
+                      const Align(
                           alignment: Alignment.center,
                           child: Text(
                             "Continue with Google",

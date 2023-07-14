@@ -61,6 +61,13 @@ class _TempleListScreen extends State<TempleListScreen> {
                   Navigator.pop(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
                 },
               ),
+              title: Text("Temple List",
+                style: TextStyle(
+                    color: black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+              centerTitle: true,
             ),
             body: _isLoading
                 ? const LoadingWidget()
@@ -74,16 +81,6 @@ class _TempleListScreen extends State<TempleListScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  alignment: Alignment.centerLeft,
-                                  child: const Text("Temple List",
-                                    style: TextStyle(
-                                        color: black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
                                 Container(
                                    margin: const EdgeInsets.only(top: 10),
                                      child: const Text('Temple visit is spiritual experience that makes a person better.',style: TextStyle(fontWeight: FontWeight.w500,color: black,fontSize: 14),)),

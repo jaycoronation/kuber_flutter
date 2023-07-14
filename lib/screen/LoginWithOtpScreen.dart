@@ -14,6 +14,7 @@ import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../model/CountryListResponseModel.dart';
+import 'WebViewContainer.dart';
 
 class LoginWithOtpScreen extends StatefulWidget {
   const LoginWithOtpScreen({Key? key}) : super(key: key);
@@ -162,12 +163,11 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
                                   color: text_dark),
                               children: <TextSpan>[
                                 TextSpan(
-                                    text: 'Privacy Policy',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        color: black),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () => {}),
+                                    text: 'Privacy Policy', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                    recognizer: TapGestureRecognizer()..onTap = () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
+                                    }
+                                ),
                                 const TextSpan(text: ' and'),
                                 TextSpan(
                                     text: 'Terms of Service',

@@ -528,7 +528,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                             {
                               listSearchCountryName = [];
 
-                              if (editable.length > 0)
+                              if (editable.isNotEmpty)
                                 {
                                   for (var i=0; i < listCountryCode.length; i++)
                                   {
@@ -538,6 +538,11 @@ class _SignUpScreen extends State<SignUpScreen> {
                                     }
                                   }
                                 }
+                              else
+                                {
+                                  listSearchCountryName = [];
+                                }
+                              setState((){});
                               /*adapterCountry = AdapterCountry(activity, listSearchCountryName, dialog)
                               rvCountry.adapter = adapterCountry*/
                             }
@@ -560,41 +565,40 @@ class _SignUpScreen extends State<SignUpScreen> {
                         ),
                       ),
                       Expanded(
-                        child: SingleChildScrollView(
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const ScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              itemCount: listCountryCode.length,
-                              itemBuilder: (BuildContext context, int i) {
-                                return InkWell(
-                                  onTap: (){
-                                    setState((){
-                                      countryCode = listCountryCode[i].dialCode;
-                                    });
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.only(left: 14, right: 14),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Flexible(child: Text(listCountryCode[i].name.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w200,color: title), textAlign: TextAlign.start,)),
-                                              Text(listCountryCode[i].dialCode.toString(),style: const TextStyle(fontWeight: FontWeight.w300,color: text_new,fontSize: 16),)
-                                            ],
-                                          ),
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            itemCount: listSearchCountryName.isNotEmpty ? listSearchCountryName.length : listCountryCode.length,
+                            itemBuilder: (BuildContext context, int i) {
+                              return InkWell(
+                                onTap: (){
+                                  setState((){
+                                    countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
+                                  });
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 14, right: 14),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Flexible(child: Text( listSearchCountryName.isNotEmpty ? listSearchCountryName[i].name : listCountryCode[i].name.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w200,color: title), textAlign: TextAlign.start,)),
+                                            Text(listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode.toString(),style: const TextStyle(fontWeight: FontWeight.w300,color: text_new,fontSize: 16),)
+                                          ],
                                         ),
-                                        const Divider(height: 1,color: text_light,indent: 1,)
-                                      ],
-                                    ),
+                                      ),
+                                      const Divider(height: 1,color: text_light,indent: 1,)
+                                    ],
                                   ),
-                                );
-                              }
-                          ),
+
+                                ),
+                              );
+                            }
                         ),
                       )
                     ],

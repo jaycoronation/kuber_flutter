@@ -16,6 +16,7 @@ import 'package:kuber/model/SocialResponseModel.dart' as social;
 import 'package:kuber/screen/LoginWithEmailScreen.dart';
 import 'package:kuber/screen/LoginWithOtpScreen.dart';
 import 'package:kuber/screen/SignUpScreen.dart';
+import 'package:kuber/screen/WebViewContainer.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
@@ -188,11 +189,15 @@ class _LoginScreen extends State<LoginScreen> {
                                   padding: EdgeInsets.only(bottom: 18, top: 18),
                                   child: RichText(
                                     textAlign: TextAlign.center,
-                                    text: const TextSpan(
+                                    text: TextSpan(
                                       text: 'By signing up or operating an account,you agree to our \n ',
                                       style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14, height: 1.4),
                                       children: <TextSpan>[
-                                        TextSpan(text: 'Privacy Policy', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                        TextSpan(
+                                          text: 'Privacy Policy', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                          recognizer: TapGestureRecognizer()..onTap = () {
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
+                                          }
                                         ),
                                         TextSpan(text: ' and ', style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
                                         TextSpan(text: 'Terms of Service.', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
@@ -1241,7 +1246,6 @@ class _LoginScreen extends State<LoginScreen> {
                             }
                         ),
                       )
-
                     ],
                   ),
                 );
