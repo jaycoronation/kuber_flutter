@@ -254,7 +254,7 @@ class _TempleListScreen extends State<TempleListScreen> {
     Map<String, dynamic> jsonBody = {
       'location': location,
       'rankby': "distance",
-      'keyword': "Temple" ,
+      'type': "hindu_temple",
       'key': API_KEY,
     };
 
