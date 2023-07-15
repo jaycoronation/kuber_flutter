@@ -29,6 +29,7 @@ import '../utils/app_utils.dart';
 import 'DashboardScreen.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
+import 'MyPofileScreen.dart';
 import 'VerifyOtpScreen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -1048,8 +1049,16 @@ class _LoginScreen extends State<LoginScreen> {
       getSet.lastName = dataResponse.user?.lastName;
 
       await sessionManager.createLoginSession(getSet);
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
 
+      if(dataResponse.user!.mobile.toString().isEmpty || dataResponse.user!.email.toString().isEmpty)
+        {
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen()), (route) => false);
+        }
+      else
+        {
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+
+        }
       setState(() {
         _isLoading = false;
       });

@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/LoginScreen.dart';
+import 'package:kuber/screen/MyPofileScreen.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/utils/session_manager_methods.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -81,6 +82,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Future.delayed(Duration.zero,(){
       if(_sessionManager.checkIsLoggedIn() ?? false)
       {
+        if(_sessionManager.getPhone().toString().isEmpty || _sessionManager.getEmail().toString().isEmpty)
+        {
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen()), (route) => false);
+        }
+        else
+        {
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+        }
         Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardScreen())));
       }
       else
