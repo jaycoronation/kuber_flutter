@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
       {
         if(_sessionManager.getPhone().toString().isEmpty || _sessionManager.getEmail().toString().isEmpty)
         {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen()), (route) => false);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyProfileScreen(true)), (route) => false);
         }
         else
         {

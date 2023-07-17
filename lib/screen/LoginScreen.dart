@@ -1052,12 +1052,11 @@ class _LoginScreen extends State<LoginScreen> {
 
       if(dataResponse.user!.mobile.toString().isEmpty || dataResponse.user!.email.toString().isEmpty)
         {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen()), (route) => false);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) =>  MyProfileScreen(true)), (route) => false);
         }
       else
         {
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
-
         }
       setState(() {
         _isLoading = false;

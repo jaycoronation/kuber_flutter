@@ -64,7 +64,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                           margin: const EdgeInsets.only(top: 4,right: 22,left: 22),
                           child:GestureDetector(
                             onTap: () async {
-                              var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfileScreen()));
+                              var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
                               if (value)
                                 {
                                   setState(() {});
@@ -111,7 +111,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                           child: const Text('General',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
                         InkWell(
                           onTap:() async {
-                            var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfileScreen()));
+                            var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
 
                             if (value)
                               {

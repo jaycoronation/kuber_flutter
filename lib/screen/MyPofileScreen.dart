@@ -32,7 +32,8 @@ import 'package:google_maps_webservice/places.dart';
 import '../model/CountryListResponseModel.dart';
 
 class MyProfileScreen extends StatefulWidget {
-  const MyProfileScreen({Key? key}) : super(key: key);
+  final bool isFromLogin;
+  const MyProfileScreen(this.isFromLogin, {Key? key}) : super(key: key);
 
   @override
   State<MyProfileScreen> createState() => _MyProfileScreen();
@@ -77,7 +78,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
   void initState() {
     super.initState();
     getCountryData();
-   _getUserProfileDetails();
+   _getUserProfileDetails(false);
   }
 
   @override
@@ -608,7 +609,15 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
                             ),
                             onPressed: () {
-                              if(emailController.text.isEmpty)
+                              if(firstNameController.text.isEmpty)
+                              {
+                                showToast('Please enter first address', context);
+                              }
+                              else if(lastNameController.text.isEmpty)
+                              {
+                                showToast('Please enter last address', context);
+                              }
+                              else if(emailController.text.isEmpty)
                                 {
                                   showToast('Please enter email address', context);
                                 }
@@ -616,17 +625,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 {
                                   showToast("Please enter valid email address", context);
                                 }
-                              else if(countryController.text.isEmpty)
-                                {
-                                showToast("Please select your country", context);
-                              }
-                              else if(stateController.text.isEmpty)
+                              else if(numberController.text.isEmpty)
                               {
-                                showToast("Please select your state", context);
-                              }
-                              else if(cityController.text.isEmpty)
-                              {
-                                showToast("Please select your city", context);
+                                showToast("Please enter contact number", context);
                               }
                               else
                                 {
@@ -648,7 +649,14 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                 ),
       ),
         onWillPop: () {
-        Navigator.pop(context,true);
+          if(widget.isFromLogin)
+          {
+            showToast("Please update profile first", context);
+          }
+          else
+          {
+            Navigator.pop(context,true);
+          }
         return Future.value(true);
       },
     );
@@ -1006,7 +1014,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       var dataResponse = CommonResponseModel.fromJson(user);
 
       if (statusCode == 200 && dataResponse.success == 1) {
-        _getUserProfileDetails();
+        _getUserProfileDetails(false);
       }
       else
       {
@@ -1051,7 +1059,15 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             width: 18, height: 18),
         iconSize: 28,
         onPressed: () {
-          Navigator.pop(context,true);
+          if(widget.isFromLogin)
+            {
+              showToast("Please update profile first", context);
+            }
+          else
+            {
+              Navigator.pop(context,true);
+            }
+
         },
       ),
       title: const Text(
@@ -1282,7 +1298,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         var dataResponse = CommonResponseModel.fromJson(user);
 
         if (statusCode == 200 && dataResponse.success == 1) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
+          _getUserProfileDetails(true);
           if (dataResponse.success != null) {
             // _countryList = dataResponse.countries!;
           }
@@ -1301,7 +1317,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       }
   }
 
-  void _getUserProfileDetails() async {
+  void _getUserProfileDetails(bool isSaveData) async {
     setState(() {
       _isLoading = true;
     });
@@ -1426,6 +1442,10 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           });
           showSnackBar(dataResponse.message, context);
         }
+      }
+    if(isSaveData)
+      {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
       }
   }
 

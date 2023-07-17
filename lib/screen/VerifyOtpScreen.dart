@@ -16,6 +16,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../model/CommonResponseModel.dart';
+import 'MyPofileScreen.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
  String mobileNumber="";
@@ -267,8 +268,20 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
         _isLoading = false;
       });
       await sessionManager.createLoginSession(dataResponse.profile!);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
-    } else {
+      print(dataResponse.profile!.mobile.toString());
+      print(dataResponse.profile!.email.toString());
+      if(dataResponse.profile!.mobile.toString().isEmpty || dataResponse.profile!.email.toString().isEmpty)
+      {
+        print("running if");
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
+      }
+      else
+      {
+        print("running else");
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+      }
+    }
+    else {
       setState(() {
         _isLoading = false;
       });
