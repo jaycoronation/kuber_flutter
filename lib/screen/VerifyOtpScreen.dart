@@ -152,15 +152,20 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
                             const EdgeInsets.only(left: 26, right: 26, top: 32, bottom: 12),
                             child: TextButton(
                               style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                                primary: black,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18)
+                                ),
+                                backgroundColor: black,
                                 minimumSize: const Size.fromHeight(55),
                               ),
                               onPressed: () {
                                 FocusScope.of(context).unfocus();
-                                if (otp.isEmpty) {
+                                if (otp.isEmpty)
+                                {
                                   showSnackBar('Please enter otp', context);
-                                } else if (otp.length != 4) {
+                                }
+                                else if (otp.length != 4)
+                                {
                                   showSnackBar('Please enter valid otp', context);
                                 } else {
                                   setState(() {
