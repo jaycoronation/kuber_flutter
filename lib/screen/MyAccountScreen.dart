@@ -21,6 +21,7 @@ import 'package:kuber/utils/session_manager_methods.dart';
 import 'package:kuber/widget/loading.dart';
 
 import '../model/CountryListResponseModel.dart';
+import 'DonationListScreen.dart';
 import 'MatchMakingScreen.dart';
 import 'WebViewContainer.dart';
 
@@ -393,6 +394,37 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                             ),
                           ),
                         ),
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const DonationListScreen()));
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
+                                  child: Row(
+                                    children: [
+                                      Image.asset("assets/images/ic_prayer_request.png",height: 20,),
+                                      Container(
+                                          margin: const EdgeInsets.only(left: 14,right: 14),
+                                          child: const Text('Donation List',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                      const Spacer(),
+                                      Image.asset("assets/images/ic_right.png",height: 14,),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 14),
+                                  child: const Divider(color: title,height: 0.5,),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
                         Container(
                           alignment: Alignment.topLeft,
                           margin: const EdgeInsets.only(left: 16,top: 16),

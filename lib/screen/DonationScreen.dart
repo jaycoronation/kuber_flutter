@@ -1,11 +1,17 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:kuber/utils/session_manager.dart';
+import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
+import '../model/CommonResponseModel.dart';
 import '../model/DonateResponseModel.dart';
+import '../utils/app_utils.dart';
 
 class DonationScreen extends StatefulWidget {
   const DonationScreen({super.key});
@@ -15,9 +21,12 @@ class DonationScreen extends StatefulWidget {
 
 class _DonationScreenState extends State<DonationScreen> {
   TextEditingController donateController = TextEditingController();
+  TextEditingController reasonController = TextEditingController();
   bool customSelection = false;
   String selectedItem = "";
   SessionManager sessionManager = SessionManager();
+  bool _isLoading = false;
+
 
 
   List<DonateResponseModel> donatePrice = [];
@@ -121,7 +130,9 @@ class _DonationScreenState extends State<DonationScreen> {
                     },
                     ).toList(),
                   ),
-                  Container(height: 18,),
+
+
+
                   Visibility(
                     visible: customSelection,
                     child: Container(
@@ -144,13 +155,38 @@ class _DonationScreenState extends State<DonationScreen> {
                         )
                     ),
                   ),
+
+                  Container(
+                      margin: const EdgeInsets.only(top: 16),
+                      child: TextField(
+                        textAlignVertical: TextAlignVertical.top,
+                        textAlign: TextAlign.start,
+                        // expands: true,
+                        maxLines: 4,
+                        controller: reasonController,
+                        keyboardType: TextInputType.text,
+                        cursorColor: Colors.grey,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(color: Colors.grey)
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(color: Colors.grey,),
+                          ),
+                          labelText: "Reason For Donation ",
+                          labelStyle: const TextStyle(color: text_new),
+                        ),
+                      )
+                  ),
                   Container(height: 18,),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) => UsePaypal(
-                              sandboxMode: false,
+                              sandboxMode: true,
                               clientId: PAYPAL_CLIENT_ID,
                               secretKey:PAYPAL_CLIENT_SECRET,
                               returnURL: "https://panditbookings.com/return",
@@ -158,10 +194,10 @@ class _DonationScreenState extends State<DonationScreen> {
                               transactions: [
                                 {
                                   "amount": {
-                                    "total": selectedItem,
+                                    "total": selectedItem == "Custom" ? donateController.value.text : selectedItem,
                                     "currency": "USD",
-                                    "details": const {
-                                      "subtotal": '1',
+                                    "details": {
+                                      "subtotal": selectedItem == "Custom" ? donateController.value.text : selectedItem,
                                       "shipping": '0',
                                       "shipping_discount": 0
                                     }
@@ -172,11 +208,11 @@ class _DonationScreenState extends State<DonationScreen> {
                                   //       "INSTANT_FUNDING_SOURCE"
                                   // },
                                   "item_list": {
-                                    "items": const [
+                                    "items": [
                                       {
-                                        "name": "Astrology Request",
+                                        "name": "Donation",
                                         "quantity": 1,
-                                        "price": '1',
+                                        "price": selectedItem == "Custom" ? donateController.value.text : selectedItem,
                                         "currency": "USD"
                                       }
                                     ],
@@ -199,6 +235,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                 print("onSuccess: $params");
                                 String paymentId = "";
                                 paymentId = params['paymentId'];
+                                callsDonationAPI(paymentId);
                               },
                               onError: (error) {
                                 print("onError: $error");
@@ -237,5 +274,85 @@ class _DonationScreenState extends State<DonationScreen> {
       ),
     );
   }
+
+
+  callsDonationAPI(String paymentId) async {
+    setState(() {
+      _isLoading = true;
+    });
+    Navigator.pop(context);
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    final url = Uri.parse(MAIN_URL + donationSave);
+
+    Map<String, String> jsonBody = {
+      'reason_for_donation': reasonController.value.text,
+      'amount': selectedItem == "Custom" ? donateController.value.text : selectedItem,
+      'first_name': sessionManager.getName().toString(),
+      'last_name': sessionManager.getLastName().toString(),
+      'email': sessionManager.getEmail().toString(),
+      'contact_no': sessionManager.getPhone().toString(),
+      'user_id': sessionManager.getUserId().toString()
+    };
+
+    final response = await http.post(url, body: jsonBody);
+
+    final statusCode = response.statusCode;
+
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+    var astroResponse = CommonResponseModel.fromJson(user);
+
+    if (statusCode == 200 && astroResponse.success == 1) {
+
+      _showAlertDialog("assets/images/ic_astro_only.png","Your request\nfor astrology is received,\nwill contact you shortly.");
+      setState(() {
+        _isLoading = false;
+      });
+    }
+    else
+    {
+      setState(() {
+        _isLoading = false;
+      });
+      showToast(astroResponse.message, context);
+    }
+  }
+
+  _showAlertDialog(String image, String text) {
+    Widget okButton = Image.asset(image,height: 160,width:160);
+
+    AlertDialog alert = AlertDialog(
+      content: Wrap(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.only(left: 12,right: 12),
+            child: Column(
+              children: [
+                okButton,
+                Container(height: 12,),
+                Text(text,style: const TextStyle(fontSize: 18,color: text_new,fontWeight: FontWeight.w900),textAlign: TextAlign.center),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+
+    Timer(const Duration(seconds: 3), () {
+      Navigator.pop(context);
+    },);
+  }
+
 
 }

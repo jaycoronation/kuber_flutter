@@ -6,9 +6,18 @@ const String CITY = "City";
 const String QULIFICATION = "Qualification";
 const String EXPRIENCE = "Experience";
 const String API_KEY = "AIzaSyBiwi0bSUa4QTj59ojKgmS8fc_pfBb6eaU"; // KUBER
-const String PAYPAL_CLIENT_ID = "AUQiip1nmdXa4N_Igtsu6kG0lQOYHtq_63pb_hDcckOgQOr6kGaxHf0JwPzuyOdA4lO904urH8lkpWBy";
-const String PAYPAL_CLIENT_SECRET = "EKWbMBN0C295I8y9Zd-fuestKwdq46l3Kq5Q2JOjYduKSvCVqvx1kvONKWNLXapZ2xMG0trMtOrNRfo7";
+//LOCAL
+const String PAYPAL_CLIENT_ID = "AeYZUWJt5EZkyHcf2PzpzhMjt6H-KfQ5G35B0UvNcofNDn5Ewle8kyTbYEuaAeI7vtxNNPWbZ1ZDiyMt";
+const String PAYPAL_CLIENT_SECRET = "EP9ItIeLUhZ6TnIif7aKygizoqXs-GoUSGqDSlx8wg154XZ2UV8dAcKxjSOY_g_QRLN3JwJBA6E66I3-";
+
+//Live
+//const String PAYPAL_CLIENT_ID = "AUQiip1nmdXa4N_Igtsu6kG0lQOYHtq_63pb_hDcckOgQOr6kGaxHf0JwPzuyOdA4lO904urH8lkpWBy";
+//const String PAYPAL_CLIENT_SECRET = "EKWbMBN0C295I8y9Zd-fuestKwdq46l3Kq5Q2JOjYduKSvCVqvx1kvONKWNLXapZ2xMG0trMtOrNRfo7";
 //const String API_KEY = "AIzaSyAoqW5iG6Ez-kxsxi7RNPfP8CvFMk3yz8A"; // FOOD BOSS
+
+
+
+
 
 /*Login*/
 String generateOtp = "users_services/generateOTP";
@@ -36,10 +45,12 @@ String getRashiList = "services/rashi_calculator/list";
 String getMatchList = "users_services/match_making/list";
 String getPrayerRequestList = "services/prayer_requests/list";
 String getAstrologyList = "users_services/astrology/list";
+String getDonationList = "admin_services/manage_donations/list";
 String deletePrayerRequest = "services/prayer_requests/delete";
 String saveRashiRequest = "services/rashi_calculator/save";
 String deleteRashiRequest = "services/rashi_calculator/delete";
 String astrologySave = "users_services/astrology/save";
+String donationSave = "admin_services/manage_donations/save";
 String addAddress = "users_services/address/newAddress";
 String deleteAddress = "users_services/address/deleteAddress";
 String updateAddress = "users_services/address/updateAddress";
