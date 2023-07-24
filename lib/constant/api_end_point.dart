@@ -15,10 +15,6 @@ const String PAYPAL_CLIENT_SECRET = "EP9ItIeLUhZ6TnIif7aKygizoqXs-GoUSGqDSlx8wg1
 //const String PAYPAL_CLIENT_SECRET = "EKWbMBN0C295I8y9Zd-fuestKwdq46l3Kq5Q2JOjYduKSvCVqvx1kvONKWNLXapZ2xMG0trMtOrNRfo7";
 //const String API_KEY = "AIzaSyAoqW5iG6Ez-kxsxi7RNPfP8CvFMk3yz8A"; // FOOD BOSS
 
-
-
-
-
 /*Login*/
 String generateOtp = "users_services/generateOTP";
 String socialLogin = "users_services/user/social_login";
@@ -45,12 +41,10 @@ String getRashiList = "services/rashi_calculator/list";
 String getMatchList = "users_services/match_making/list";
 String getPrayerRequestList = "services/prayer_requests/list";
 String getAstrologyList = "users_services/astrology/list";
-String getDonationList = "admin_services/manage_donations/list";
 String deletePrayerRequest = "services/prayer_requests/delete";
 String saveRashiRequest = "services/rashi_calculator/save";
 String deleteRashiRequest = "services/rashi_calculator/delete";
 String astrologySave = "users_services/astrology/save";
-String donationSave = "admin_services/manage_donations/save";
 String addAddress = "users_services/address/newAddress";
 String deleteAddress = "users_services/address/deleteAddress";
 String updateAddress = "users_services/address/updateAddress";
@@ -66,6 +60,10 @@ String updateProfilePicTemple = "services/user/uploadTempleProfilePic";
 String changePassword = "services/user/set_password";
 String getUserFeed = "admin_services/manage_feeds/list";
 String getUserThoughts = "admin_services/manage_thoughts/list";
+
+String getDonationList = "admin_services/manage_donations/list";
+String donationSave = "admin_services/manage_donations/save";
+
 
 /*JSON*/
 
