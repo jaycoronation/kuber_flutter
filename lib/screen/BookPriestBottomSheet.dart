@@ -72,21 +72,22 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
     return Padding(
       padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: SingleChildScrollView(
-              child: Wrap(
-                children: [
-               StatefulBuilder(
-                 builder: (context, setState) {
-                   return Container(
-                     height: MediaQuery.of(context).size.height * 0.88,
-                     decoration: const BoxDecoration(
-                       color: bottomSheetBg,
-                       borderRadius: BorderRadius.only(
-                         topLeft: Radius.circular(22.0),
-                         topRight: Radius.circular(22.0),
-                       ),
+            child: Wrap(
+              children: [
+             StatefulBuilder(
+               builder: (context, setState) {
+                 return Container(
+                   height: MediaQuery.of(context).size.height * 0.88,
+                   decoration: const BoxDecoration(
+                     color: bottomSheetBg,
+                     borderRadius: BorderRadius.only(
+                       topLeft: Radius.circular(22.0),
+                       topRight: Radius.circular(22.0),
                      ),
-                     child: Padding(
+                   ),
+                   child: SingleChildScrollView(
+                     scrollDirection: Axis.vertical,
+                     child:Padding(
                        padding: const EdgeInsets.only(left:14,right:14),
                        child: Column(
                          children: [
@@ -1093,11 +1094,11 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                          ],
                        ),
                      ),
-                   );
-                 },
-               ),
+                   ),
+                 );
+               },
+             ),
         ]),
-      ),
     );
   }
 
