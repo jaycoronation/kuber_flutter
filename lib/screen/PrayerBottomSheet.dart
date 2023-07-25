@@ -59,6 +59,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
 
   @override
   void initState() {
+    _callListPrayer();
     super.initState();
   }
 
@@ -938,6 +939,43 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
     },);
   }
 
+  _callListPrayer() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    final url = Uri.parse(MAIN_URL + getPrayerList);
+
+    Map<String, String> jsonBody = {
+
+    };
+
+    final response = await http.post(url, body: jsonBody);
+
+    final statusCode = response.statusCode;
+
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+    var prayerResponse = PrayerListResponseModel.fromJson(user);
+
+    if (statusCode == 200 && prayerResponse.success == 1) {
+      if (prayerResponse.prayers != null) {
+        _prayerList = prayerResponse.prayers!;
+      }
+
+      setState(() {
+        _isLoading = false;
+      });
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
 
 }
