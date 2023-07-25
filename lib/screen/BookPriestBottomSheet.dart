@@ -77,7 +77,6 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
              StatefulBuilder(
                builder: (context, setState) {
                  return Container(
-                   height: MediaQuery.of(context).size.height * 0.88,
                    decoration: const BoxDecoration(
                      color: bottomSheetBg,
                      borderRadius: BorderRadius.only(
