@@ -245,13 +245,16 @@ class _TempleListScreen extends State<TempleListScreen> {
       HttpLogger(logLevel: LogLevel.BODY),
     ]);
 
+    lat = -26.0989794;
+    long = 28.0322951;
+
     var location = "$lat,$long";
     print("Test$location");
 
     Map<String, dynamic> jsonBody = {
       'location': location,
       'rankby': "distance",
-      'type': "hindu_temple",
+      'keyword': "hindu temple",
       'key': API_KEY,
     };
 
