@@ -71,7 +71,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
     astroLnameController.text= sessionManager.getLastName().toString();
     astroMobileNumberController.text= sessionManager.getPhone().toString();
     astroEmailController.text= sessionManager.getEmail().toString();
-    astroGirlBirthDateController.text= sessionManager.getDob().toString();
+    //astroGirlBirthDateController.text= sessionManager.getDob().toString();
 
     super.initState();
   }
