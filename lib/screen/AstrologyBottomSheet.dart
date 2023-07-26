@@ -18,6 +18,7 @@ import '../model/PrayerListResponseModel.dart';
 import '../model/PujaListResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/session_manager.dart';
+import '../widget/loading.dart';
 import 'PujaListScreen.dart';
 
 class AstrologyBottomSheet extends StatefulWidget {
@@ -65,47 +66,52 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
 
   @override
   void initState() {
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom),
-      child: SingleChildScrollView(
-        child: Wrap(
-            children: [
-              StatefulBuilder(builder:(context,setState)
-              {
+    return Wrap(
+        children: [
+          StatefulBuilder(
+              builder: (context,setState){
                 return Container(
-                    height: MediaQuery.of(context).size.height * 0.82,
-                    decoration: const BoxDecoration(
-                        color: bottomSheetBg,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(22.0),
-                          topRight: Radius.circular(22.0),
-                        )),
-                    child:Column(
-                      children: [
-                        Container(
-                            width: 50,
-                            margin: const EdgeInsets.only(top: 12),
-                            child: const Divider(
-                              height: 2,
-                              thickness: 2,
-                              color: bottomSheetline,
-                            )),
-                        Container(
-                          margin: const EdgeInsets.only(top: 20),
-                          child: const Text(
-                            "Astrology",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w900, color: darkbrown, fontSize: 18),
+                  height: MediaQuery.of(context).size.height * 0.84,
+                  decoration: const BoxDecoration(
+                    color:bottomSheetBg,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(22.0),
+                      topRight: Radius.circular(22.0),
+                    ),
+                  ),
+                  child:  _isLoading
+                      ? Expanded(child: const LoadingWidget())
+                      :SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: Column(
+                        children: [
+                          Container(
+                              width: 50,
+                              margin: const EdgeInsets.only(top: 12),
+                              child: const Divider(
+                                height: 2,
+                                thickness: 2,
+                                color: bottomSheetline,
+                              )),
+                          Container(
+                            margin: const EdgeInsets.only(top: 20),
+                            child: const Text(
+                              "Astrology",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w900, color: darkbrown, fontSize: 18),
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Container(
+                          Container(height: 12,),
+                          Container(
                             margin: const EdgeInsets.only(left: 14,right:14,),
                             child: Column(
                                 children:[
@@ -713,15 +719,14 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                   Container(height: 22,),
                                 ]
                             ),
-                          ),
-                        )
-                      ],
-                    )
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 );
               }),
-            ]),
-      ),
-    );
+        ]);
   }
 
   countryDialog(StateSetter updateState) {
@@ -1234,7 +1239,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                         InkWell(
                           onTap:(){
                             callAstrologySaveApi("");
-                            Navigator.pop(context);
 
                             /*Navigator.of(context).push(
                             MaterialPageRoute(
@@ -1366,8 +1370,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
     var astroResponse = CommonResponseModel.fromJson(user);
 
     if (statusCode == 200 && astroResponse.success == 1) {
-
-      _showAlertDialog("assets/images/ic_astro_only.png","Your request\nfor astrology is received,\nwill contact you shortly.");
+      Navigator.pop(context, true);
       setState(() {
         _isLoading = false;
       });

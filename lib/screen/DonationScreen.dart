@@ -12,6 +12,7 @@ import '../constant/colors.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/DonateResponseModel.dart';
 import '../utils/app_utils.dart';
+import '../widget/loading.dart';
 
 class DonationScreen extends StatefulWidget {
   const DonationScreen({super.key});
@@ -100,7 +101,9 @@ class _DonationScreenState extends State<DonationScreen> {
     return Padding(
         padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom),
-      child: SingleChildScrollView(
+      child:  _isLoading
+          ? Expanded(child: const LoadingWidget())
+          : SingleChildScrollView(
         child:  Wrap(
           children: [
             Padding(
@@ -109,7 +112,8 @@ class _DonationScreenState extends State<DonationScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(height: 12,),
+
+                  Container(height: 8,),
                   Center(
                     child: Container(
                       width: 50,
@@ -121,7 +125,15 @@ class _DonationScreenState extends State<DonationScreen> {
                       ),
                     ),
                   ),
-                  Container(height: 12,),
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    child: const Text(
+                      "Donation",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w900, color: darkbrown, fontSize: 18),
+                    ),
+                  ),
+                  Container(height: 18,),
                   Wrap(
                     runSpacing: 6,
                     spacing: 6,
@@ -180,7 +192,13 @@ class _DonationScreenState extends State<DonationScreen> {
                         ),
                       )
                   ),
-                  Container(height: 18,),
+                  Container(height: 22,),
+                  Align(
+                    alignment: Alignment.centerRight,
+                      child: Text("* Donation amount is in USD", style: TextStyle(color: lighttxtGrey),)
+                  ),
+                  Container(height: 8,),
+
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).push(
@@ -306,8 +324,7 @@ class _DonationScreenState extends State<DonationScreen> {
     var astroResponse = CommonResponseModel.fromJson(user);
 
     if (statusCode == 200 && astroResponse.success == 1) {
-
-      _showAlertDialog("assets/images/ic_astro_only.png","Your request\nfor astrology is received,\nwill contact you shortly.");
+      Navigator.pop(context, true);
       setState(() {
         _isLoading = false;
       });

@@ -17,6 +17,7 @@ import '../model/PrayerListResponseModel.dart';
 import '../model/PujaListResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/session_manager.dart';
+import '../widget/loading.dart';
 import 'PujaListScreen.dart';
 
 class PrayerBottomSheet extends StatefulWidget {
@@ -59,6 +60,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
 
   @override
   void initState() {
+
     _callListPrayer();
     super.initState();
   }
@@ -68,7 +70,9 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
     return Padding(
       padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom),
-      child: SingleChildScrollView(
+      child: _isLoading
+          ? Expanded(child: const LoadingWidget())
+          : SingleChildScrollView(
         child: Wrap(
             children: [
               StatefulBuilder(
@@ -83,7 +87,9 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                               topRight: Radius.circular(22.0),
                             ),
                           ),
-                          child: Container(
+                          child:  _isLoading
+                              ? const LoadingWidget()
+                              :Container(
                             margin: const EdgeInsets.only(left: 14,right: 14),
                             child: Column(
                               children: [
@@ -827,7 +833,6 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                   margin: const EdgeInsets.only(left: 12),
                                   child: GestureDetector(
                                     onTap: (){
-                                      Navigator.pop(context);
                                       _savePrayerRequest();
                                     },
                                     child: Card(
@@ -894,7 +899,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
     var dataResponse = CommonResponseModel.fromJson(user);
 
     if (statusCode == 200 && dataResponse.success == 1) {
-      _showAlertDialog("assets/images/ic_prayer_only.png", "Your request\nfor prayer request is received,\nwill contact you shortly.");
+      afterMethod();
       setState(() {
         _isLoading = false;
       });
@@ -940,6 +945,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
   }
 
   _callListPrayer() async {
+
     setState(() {
       _isLoading = true;
     });
@@ -975,6 +981,10 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
         _isLoading = false;
       });
     }
+  }
+
+  void afterMethod() {
+    Navigator.pop(context, true);
   }
 
 

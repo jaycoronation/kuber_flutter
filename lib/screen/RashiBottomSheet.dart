@@ -17,6 +17,7 @@ import '../model/PrayerListResponseModel.dart';
 import '../model/PujaListResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/session_manager.dart';
+import '../widget/loading.dart';
 import 'PujaListScreen.dart';
 
 class RashiBottomSheet extends StatefulWidget {
@@ -66,469 +67,531 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom),
-      child: Wrap(
-          children: [
-            StatefulBuilder(
-                builder: (context,setState){
-                  return Container(
-                    height: MediaQuery.of(context).size.height * 0.84,
-                    decoration: const BoxDecoration(
-                      color:bottomSheetBg,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(22.0),
-                        topRight: Radius.circular(22.0),
-                      ),
+    return Wrap(
+        children: [
+          StatefulBuilder(
+              builder: (context,setState){
+                return Container(
+                  height: MediaQuery.of(context).size.height * 0.84,
+                  decoration: const BoxDecoration(
+                    color:bottomSheetBg,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(22.0),
+                      topRight: Radius.circular(22.0),
                     ),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right:14,left:14),
-                        child: Column(
-                          children: [
-                            Container(
-                                width: 50,
-                                margin: const EdgeInsets.only(top: 12,right: 14,left:14),
-                                child: const Divider(
-                                  height: 2,
-                                  thickness: 2,
-                                  color: bottomSheetline,
-                                )),
-                            Container(
-                              margin: const EdgeInsets.only(top: 20, bottom: 16),
-                              child: const Text(
-                                "Rashi Calculator",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w900, color: darkbrown, fontSize: 18),
-                              ),
-                            ),
-
-                            Container(
-                                margin: const EdgeInsets.only(top: 14),
-                                child: TextField(
-                                  onTap: (){
-                                  },
-                                  controller: rashiMothersNameController,
-                                  keyboardType: TextInputType.text,
-                                  cursorColor: Colors.grey,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: const BorderSide(color: Colors.grey)
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(color: Colors.grey,),
-                                    ),
-                                    labelText: "Mother's Name",
-                                    labelStyle: const TextStyle(color: text_new),                                     ),
-                                )
-                            ),
-
-                            /* Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.0),
-                                color: white_blue),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                              child: TextField(
-                                controller: rashiMothersNameController,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                    color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                decoration: const InputDecoration(
-                                    fillColor: white_blue,
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText: "Mother's Name",
-                                    hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w900)),
-                              ),
-                            ),
-                          ), */
-
-                            Container(
-                                margin: const EdgeInsets.only(top: 16),
-                                child: TextField(
-                                  onTap: (){
-                                  },
-                                  controller: rashiFathersNameController,
-                                  keyboardType: TextInputType.text,
-                                  cursorColor: Colors.grey,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: const BorderSide(color: Colors.grey)
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(color: Colors.grey,),
-                                    ),
-                                    labelText: "Father's Name",
-                                    labelStyle: const TextStyle(color: text_new),                                     ),
-                                )
-                            ),
-
-                            /* Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.0),
-                                color: white_blue),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                              child: TextField(
-                                controller: rashiFathersNameController,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                    color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                decoration: const InputDecoration(
-                                    fillColor: white_blue,
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText: "Father's Name",
-                                    hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w900)),
-                              ),
-                            ),
-                          ),*/
-
-
-                            Container(
-                                margin: const EdgeInsets.only(top: 16),
-                                child: TextField(
-                                  onTap: (){
-                                  },
-                                  controller: rashiEmailController,
-                                  keyboardType: TextInputType.emailAddress,                                  cursorColor: Colors.grey,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: const BorderSide(color: Colors.grey)
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(color: Colors.grey,),
-                                    ),
-                                    labelText: "Email",
-                                    labelStyle: const TextStyle(color: text_new),                                     ),
-                                )
-                            ),
-
-                            /*  Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.0),
-                                color: white_blue),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                              child: TextField(
-                                controller: rashiEmailController,
-                                keyboardType: TextInputType.emailAddress,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                    color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                decoration: const InputDecoration(
-                                    fillColor: white_blue,
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText: "Email",
-                                    hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w900)),
-                              ),
-                            ),
-                          ), */
-
-
-                            Container(
-                                margin: const EdgeInsets.only(top: 16),
-                                child: TextField(
-                                  readOnly: true,
-                                  onTap: () async {
-                                    _setDatePicker(rashiDOBController);
-                                  },
-                                  controller: rashiDOBController,
-                                  keyboardType: TextInputType.text,
-                                  cursorColor: Colors.grey,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: const BorderSide(color: Colors.grey)
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(color: Colors.grey,),
-                                    ),
-                                    labelText: "Date of Birth",
-                                    labelStyle: const TextStyle(color: text_new),                                     ),
-                                )
-                            ),
-
-                            /*  Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.0),
-                                color: white_blue),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                              child: TextField(
-                                controller: rashiDOBController,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                readOnly: true,
-                                onTap: () async {
-                                  _setDatePicker(rashiDOBController);
-                                },
-                                style: const TextStyle(
-                                    color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                decoration: const InputDecoration(
-                                    fillColor: white_blue,
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText: "Date of Birth",
-                                    hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w900)),
-                              ),
-                            ),
-                          ), */
-
-
-                            Container(
-                                margin: const EdgeInsets.only(top: 16),
-                                child: TextField(
-                                  readOnly: true,
-                                  onTap: () async {
-                                    _setTimePicker(rashiTOBController,setState);
-                                  },
-                                  controller: rashiTOBController,
-                                  keyboardType: TextInputType.text,
-                                  cursorColor: Colors.grey,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: const BorderSide(color: Colors.grey)
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(color: Colors.grey,),
-                                    ),
-                                    labelText: "Time of Birth",
-                                    labelStyle: const TextStyle(color: text_new),                                     ),
-                                )
-                            ),
-
-
-                            /*  Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.0),
-                                color: white_blue),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                              child: TextField(
-                                controller: rashiTOBController,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                readOnly: true,
-                                onTap: () async {
-                                  _setTimePicker(rashiTOBController);
-                                },
-                                style: const TextStyle(
-                                    color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                decoration: const InputDecoration(
-                                    fillColor: white_blue,
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText:  "Time of Birth",
-                                    hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w900)),
-                              ),
-                            ),
-                          ), */
-
-                            Container(
-                                margin: const EdgeInsets.only(top: 16),
-                                child: TextField(
-                                  readOnly: true,
-                                  onTap: () async {
-                                    placesDialog(rashiPOBController,setState);
-                                  },
-                                  controller: rashiPOBController,
-                                  keyboardType: TextInputType.text,
-                                  cursorColor: Colors.grey,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: const BorderSide(color: Colors.grey)
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(color: Colors.grey,),
-                                    ),
-                                    labelText: "Place of Birth",
-                                    labelStyle: const TextStyle(color: text_new),                                     ),
-                                )
-                            ),
-
-                            /* Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.0),
-                                color: white_blue),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                              child: TextField(
-                                controller: rashiPOBController,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                readOnly: true,
-                                onTap: () async {
-                                  placesDialog(rashiPOBController,setState);
-                                },
-                                style: const TextStyle(
-                                    color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                decoration: const InputDecoration(
-                                    fillColor: white_blue,
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText: "Place of Birth",
-                                    hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w900)),
-                              ),
-                            ),
-                          ),*/
-
-                            Container(
-                                margin: const EdgeInsets.only(top: 16),
-                                child: TextField(
-                                  minLines: 4,
-                                  maxLines: 4,
-                                  controller: rashiNotesController,
-                                  keyboardType: TextInputType.text,
-                                  cursorColor: Colors.grey,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: const BorderSide(color: Colors.grey)
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: const BorderSide(color: Colors.grey,),
-                                    ),
-                                    labelText: "Leave Your Detail",
-                                    labelStyle: const TextStyle(color: text_new),                                     ),
-                                )
-                            ),
-
-                            /* Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.0),
-                                color: white_blue),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                              child: TextField(
-                                minLines: 4,
-                                maxLines: 4,
-                                controller: rashiNotesController,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                    color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                decoration: const InputDecoration(
-                                    fillColor: white_blue,
-                                    counterText: "",
-                                    border: InputBorder.none,
-                                    hintText: "Leave Your Detail",
-                                    hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w900)),
-                              ),
-                            ),
-                          ), */
-
-                            Container(
-                                alignment: Alignment.topLeft,
-                                margin: const EdgeInsets.only(top:16,bottom:6),
-                                child: const Text("Gender",style: TextStyle(fontWeight: FontWeight.w400,color: brown,fontSize: 16),)),
-                            Row(
+                  ),
+                  child:  _isLoading
+                      ? Expanded(child: const LoadingWidget())
+                      : SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 14.0, right: 14),
+                            child: Column(
                               children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isGirl = false;
-                                      isBoy = true;
-                                    });
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                          margin: const EdgeInsets.only(top: 4, right: 5,bottom: 8),
-                                          child: isBoy ?
-                                          const Image(image: AssetImage("assets/images/ic_radio_selected.png"), width: 20, height: 20, color: title) :
-                                          const Image(image: AssetImage("assets/images/ic_radio_unselected.png"),  width: 20, height: 20, color:title,)
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(left: 4),
-                                        alignment: Alignment.centerLeft,
-                                        child: const Text("Boy", style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500, color: black),),
-                                      ),
-                                    ],
+                                Container(
+                                    width: 50,
+                                    margin: const EdgeInsets.only(top: 12,right: 14,left:14),
+                                    child: const Divider(
+                                      height: 2,
+                                      thickness: 2,
+                                      color: bottomSheetline,
+                                    )),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 20, bottom: 16),
+                                  child: const Text(
+                                    "Rashi Calculator",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w900, color: darkbrown, fontSize: 18),
                                   ),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isGirl = true;
-                                      isBoy = false;
-                                    });
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                          margin: const EdgeInsets.only(top: 4, right: 5,bottom: 8,left:10),
-                                          child: isGirl ?
-                                          const Image(image: AssetImage("assets/images/ic_radio_selected.png"), width: 20, height: 20, color: title) :
-                                          const Image(image: AssetImage("assets/images/ic_radio_unselected.png"), width: 20, height: 20, color: title)
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(left: 4),
-                                        alignment: Alignment.centerLeft,
-                                        child: const Text("Girl", style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500, color: black),),
-                                      ),
-                                    ],
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: (){
+                                      },
+                                      controller: rashiMothersNameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Mother's Name",
+                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                    )
+                                ),
+
+                                /* Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    color: white_blue),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                  child: TextField(
+                                    controller: rashiMothersNameController,
+                                    keyboardType: TextInputType.text,
+                                    cursorColor: text_dark,
+                                    style: const TextStyle(
+                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                    decoration: const InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        border: InputBorder.none,
+                                        hintText: "Mother's Name",
+                                        hintStyle: TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900)),
                                   ),
-                                )
+                                ),
+                        ), */
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 16),
+                                    child: TextField(
+                                      onTap: (){
+                                      },
+                                      controller: rashiFathersNameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Father's Name",
+                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                    )
+                                ),
+
+                                /* Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    color: white_blue),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                  child: TextField(
+                                    controller: rashiFathersNameController,
+                                    keyboardType: TextInputType.text,
+                                    cursorColor: text_dark,
+                                    style: const TextStyle(
+                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                    decoration: const InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        border: InputBorder.none,
+                                        hintText: "Father's Name",
+                                        hintStyle: TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900)),
+                                  ),
+                                ),
+                        ),*/
+
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 16),
+                                    child: TextField(
+                                      onTap: (){
+                                      },
+                                      controller: rashiEmailController,
+                                      keyboardType: TextInputType.emailAddress,                                  cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Email",
+                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                    )
+                                ),
+
+                                /*  Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    color: white_blue),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                  child: TextField(
+                                    controller: rashiEmailController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    cursorColor: text_dark,
+                                    style: const TextStyle(
+                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                    decoration: const InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        border: InputBorder.none,
+                                        hintText: "Email",
+                                        hintStyle: TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900)),
+                                  ),
+                                ),
+                        ), */
+
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 16),
+                                    child: TextField(
+                                      readOnly: true,
+                                      onTap: () async {
+                                        _setDatePicker(rashiDOBController);
+                                      },
+                                      controller: rashiDOBController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Date of Birth",
+                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                    )
+                                ),
+
+                                /*  Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    color: white_blue),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                  child: TextField(
+                                    controller: rashiDOBController,
+                                    keyboardType: TextInputType.text,
+                                    cursorColor: text_dark,
+                                    readOnly: true,
+                                    onTap: () async {
+                                      _setDatePicker(rashiDOBController);
+                                    },
+                                    style: const TextStyle(
+                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                    decoration: const InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        border: InputBorder.none,
+                                        hintText: "Date of Birth",
+                                        hintStyle: TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900)),
+                                  ),
+                                ),
+                        ), */
+
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 16),
+                                    child: TextField(
+                                      readOnly: true,
+                                      onTap: () async {
+                                        _setTimePicker(rashiTOBController,setState);
+                                      },
+                                      controller: rashiTOBController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Time of Birth",
+                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                    )
+                                ),
+
+
+                                /*  Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    color: white_blue),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                  child: TextField(
+                                    controller: rashiTOBController,
+                                    keyboardType: TextInputType.text,
+                                    cursorColor: text_dark,
+                                    readOnly: true,
+                                    onTap: () async {
+                                      _setTimePicker(rashiTOBController);
+                                    },
+                                    style: const TextStyle(
+                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                    decoration: const InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        border: InputBorder.none,
+                                        hintText:  "Time of Birth",
+                                        hintStyle: TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900)),
+                                  ),
+                                ),
+                        ), */
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 16),
+                                    child: TextField(
+                                      readOnly: true,
+                                      onTap: () async {
+                                        placesDialog(rashiPOBController,setState);
+                                      },
+                                      controller: rashiPOBController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Place of Birth",
+                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                    )
+                                ),
+
+                                /* Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    color: white_blue),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                  child: TextField(
+                                    controller: rashiPOBController,
+                                    keyboardType: TextInputType.text,
+                                    cursorColor: text_dark,
+                                    readOnly: true,
+                                    onTap: () async {
+                                      placesDialog(rashiPOBController,setState);
+                                    },
+                                    style: const TextStyle(
+                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                    decoration: const InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        border: InputBorder.none,
+                                        hintText: "Place of Birth",
+                                        hintStyle: TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900)),
+                                  ),
+                                ),
+                        ),*/
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 16),
+                                    child: TextField(
+                                      minLines: 4,
+                                      maxLines: 4,
+                                      controller: rashiNotesController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Leave Your Detail",
+                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                    )
+                                ),
+
+                                /* Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    color: white_blue),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                  child: TextField(
+                                    minLines: 4,
+                                    maxLines: 4,
+                                    controller: rashiNotesController,
+                                    keyboardType: TextInputType.text,
+                                    cursorColor: text_dark,
+                                    style: const TextStyle(
+                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                    decoration: const InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        border: InputBorder.none,
+                                        hintText: "Leave Your Detail",
+                                        hintStyle: TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900)),
+                                  ),
+                                ),
+                        ), */
+
+                                Container(
+                                    alignment: Alignment.topLeft,
+                                    margin: const EdgeInsets.only(top:16,bottom:6),
+                                    child: const Text("Gender",style: TextStyle(fontWeight: FontWeight.w400,color: brown,fontSize: 16),)),
+                                Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isGirl = false;
+                                          isBoy = true;
+                                        });
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              margin: const EdgeInsets.only(top: 4, right: 5,bottom: 8),
+                                              child: isBoy ?
+                                              const Image(image: AssetImage("assets/images/ic_radio_selected.png"), width: 20, height: 20, color: title) :
+                                              const Image(image: AssetImage("assets/images/ic_radio_unselected.png"),  width: 20, height: 20, color:title,)
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.only(left: 4),
+                                            alignment: Alignment.centerLeft,
+                                            child: const Text("Boy", style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500, color: black),),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isGirl = true;
+                                          isBoy = false;
+                                        });
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              margin: const EdgeInsets.only(top: 4, right: 5,bottom: 8,left:10),
+                                              child: isGirl ?
+                                              const Image(image: AssetImage("assets/images/ic_radio_selected.png"), width: 20, height: 20, color: title) :
+                                              const Image(image: AssetImage("assets/images/ic_radio_unselected.png"), width: 20, height: 20, color: title)
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.only(left: 4),
+                                            alignment: Alignment.centerLeft,
+                                            child: const Text("Girl", style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500, color: black),),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+
+                                Container(height: 22,),
+                                TextButton(
+                                  onPressed: (){
+                                    if(rashiMothersNameController.text.isEmpty)
+                                    {
+                                      showToast('Please enter mother name', context);
+                                    }
+                                    else if(rashiFathersNameController.text.isEmpty)
+                                    {
+                                      showToast("Please enter father name", context);
+                                    }
+                                    else if(rashiEmailController.text.isEmpty)
+                                    {
+                                      showToast("Please enter email", context);
+                                    }
+                                    else if(rashiDOBController.text.isEmpty)
+                                    {
+                                      showToast("Please enter birth date ", context);
+                                    }
+                                    else if(rashiPOBController.text.isEmpty)
+                                    {
+                                      showToast("Please enter a place of birth", context);
+                                    }
+                                    else if(rashiTOBController.text.isEmpty)
+                                    {
+                                      showToast("Please enter your birth time", context);
+                                    }
+                                    else
+                                    {
+                                      reviewRashiDialog();
+                                    }
+                                  },
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
+                                  ),
+
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: const [
+                                        Text('Review Request', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(height: 22,),
                               ],
                             ),
+                          ),
 
-                            Container(height: 22,),
-                            TextButton(
-                              onPressed: (){
+                          /*   Padding(
+                          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: Container(
+                            alignment: Alignment.bottomRight,
+                            child: InkWell(
+                              onTap: (){
                                 if(rashiMothersNameController.text.isEmpty)
                                 {
                                   showToast('Please enter mother name', context);
@@ -558,90 +621,34 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                   reviewRashiDialog();
                                 }
                               },
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
-                                ),
-                                backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
-                              ),
-
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: const [
-                                    Text('Review Request', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(height: 22,),
-
-                            /*   Padding(
-                            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                            child: Container(
-                              alignment: Alignment.bottomRight,
-                              child: InkWell(
-                                onTap: (){
-                                  if(rashiMothersNameController.text.isEmpty)
-                                  {
-                                    showToast('Please enter mother name', context);
-                                  }
-                                  else if(rashiFathersNameController.text.isEmpty)
-                                  {
-                                    showToast("Please enter father name", context);
-                                  }
-                                  else if(rashiEmailController.text.isEmpty)
-                                  {
-                                    showToast("Please enter email", context);
-                                  }
-                                  else if(rashiDOBController.text.isEmpty)
-                                  {
-                                    showToast("Please enter birth date ", context);
-                                  }
-                                  else if(rashiPOBController.text.isEmpty)
-                                  {
-                                    showToast("Please enter a place of birth", context);
-                                  }
-                                  else if(rashiTOBController.text.isEmpty)
-                                  {
-                                    showToast("Please enter your birth time", context);
-                                  }
-                                  else
-                                  {
-                                    reviewRashiDialog();
-                                  }
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(bottom: 20),
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    color: light_yellow,
-                                    elevation: 10,
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(14.0,),
-                                      child: Text("Review Request",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: title,
-                                            fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                                    ),
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 20),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  color: light_yellow,
+                                  elevation: 10,
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(14.0,),
+                                    child: Text("Review Request",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: title,
+                                          fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                                   ),
                                 ),
                               ),
                             ),
-                          ) */
+                          ),
+                        ) */
 
-                          ],
-                        ),
+                        ],
                       ),
                     ),
-                  );
-                }),
-          ]),
-    );
+                  ),
+                );
+              }),
+        ]);
   }
 
 
@@ -1039,7 +1046,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                               saveRashiRequestApi();*/
                               saveRashiRequestApi("");
 
-                              Navigator.pop(context);
 
                               /*Navigator.of(context).push(
                                 MaterialPageRoute(
@@ -1184,7 +1190,7 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
     var dataResponse = CommonResponseModel.fromJson(user);
 
     if (statusCode == 200 && dataResponse.success == 1) {
-      _showAlertDialog("assets/images/ic_rashi_only.png","Your request\nfor rashi is received,\nwill contact you shortly.");
+      afterMethod();
       setState(() {
         _isLoading = false;
       });
@@ -1227,6 +1233,10 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
     Timer(const Duration(seconds: 3), () {
       Navigator.pop(context);
     },);
+  }
+
+  void afterMethod() {
+    Navigator.pop(context, true);
   }
 
   
