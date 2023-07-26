@@ -21,7 +21,7 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreen extends State<FeedScreen> {
   bool isLoading = false;
-  List<Records> listFeed = [];
+  List<Feeds> listFeed = [];
   bool _isLoadingMore = false;
   int _pageIndex = 0;
   final int _pageResult = 15;
@@ -197,7 +197,7 @@ class _FeedScreen extends State<FeedScreen> {
 
     if (statusCode == 200 && dataResponse.success == 1) {
 
-      List<Records>? _tempList = [];
+      List<Feeds>? _tempList = [];
       _tempList = dataResponse.records;
       listFeed.addAll(_tempList!);
 

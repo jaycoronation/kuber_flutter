@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,6 +72,12 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
 
   @override
   void initState() {
+    matchFnameController.text= sessionManager.getName().toString();
+    matchLnameController.text= sessionManager.getLastName().toString();
+    matchNumberController.text= sessionManager.getPhone().toString();
+    matchEmailcontroller.text= sessionManager.getEmail().toString();
+
+
     super.initState();
   }
 
@@ -91,7 +98,10 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                         topRight: Radius.circular(22.0),
                       )),
                   child:  _isLoading
-                      ? Expanded(child: const LoadingWidget())
+                      ? Container(
+                          height: MediaQuery.of(context).size.height * 0.88,
+                          child: const LoadingWidget()
+                      )
                       : SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Padding(
@@ -118,6 +128,13 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold, color: darkbrown, fontSize: 18),
                                   ),
+                                ),
+                                Container(height: 12,),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text("*Payment of \$11 required to avail "
+                                      "Match Making service. You will be guided to the payment process in the next steps.",
+                                    style: TextStyle(color: lighttxtGrey, fontSize: 14),),
                                 ),
                                 Container(
                                     alignment: Alignment.topLeft,
@@ -946,8 +963,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                           borderRadius: BorderRadius.circular(20),
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
-                                        labelText: "Note",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        hintText: "Note",
+                                        hintStyle: const TextStyle(color: text_new),                                     ),
                                     )
                                 ),
 
@@ -1060,7 +1077,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: const [
-                                        Text('Review Request', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
+                                        Text('Get For 11\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
                                       ],
                                     ),
                                   ),
@@ -1807,6 +1824,16 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                         ),
                       ),
                     ),
+                    Container(height: 18,),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 18.0, right: 18),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text("*By clicking submit, you will be redirected for "
+                            "payment of 11\$, and upon successful payment, your Match Making "
+                            "request will be submitted.", style: TextStyle(color: lighttxtGrey, fontSize: 14),),
+                      ),
+                    ),
                     Row(
                       children: [
                         Flexible(
@@ -1841,8 +1868,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                           margin: const EdgeInsets.only(top: 20,bottom: 20,right: 10),
                           child: GestureDetector(
                             onTap: (){
-                              _callsaveMatchdataAPI("");
-                              /* Navigator.of(context).push(
+                              // _callsaveMatchdataAPI("");
+                               Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) => UsePaypal(
                                     sandboxMode: true,
@@ -1853,10 +1880,10 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                     transactions: [
                                       {
                                         "amount": {
-                                          "total": matchMakingPrice,
+                                          "total": "11",
                                           "currency": "USD",
                                           "details": const {
-                                            "subtotal": '1',
+                                            "subtotal": '11',
                                             "shipping": '0',
                                             "shipping_discount": 0
                                           }
@@ -1872,7 +1899,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                             {
                                               "name": "Match Making Request",
                                               "quantity": 1,
-                                              "price": '1',
+                                              "price": '11',
                                               "currency": "USD"
                                             }
                                           ],
@@ -1906,7 +1933,6 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 ),
                               ),
                             );
-                              */
                             },
                             child: Card(
                               shape: RoundedRectangleBorder(

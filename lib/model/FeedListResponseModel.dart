@@ -11,7 +11,7 @@ class FeedListResponseModel {
       num? success, 
       String? message, 
       String? totalRecords, 
-      List<Records>? records,}){
+      List<Feeds>? records,}){
     _success = success;
     _message = message;
     _totalRecords = totalRecords;
@@ -25,18 +25,18 @@ class FeedListResponseModel {
     if (json['records'] != null) {
       _records = [];
       json['records'].forEach((v) {
-        _records?.add(Records.fromJson(v));
+        _records?.add(Feeds.fromJson(v));
       });
     }
   }
   num? _success;
   String? _message;
   String? _totalRecords;
-  List<Records>? _records;
+  List<Feeds>? _records;
 FeedListResponseModel copyWith({  num? success,
   String? message,
   String? totalRecords,
-  List<Records>? records,
+  List<Feeds>? records,
 }) => FeedListResponseModel(  success: success ?? _success,
   message: message ?? _message,
   totalRecords: totalRecords ?? _totalRecords,
@@ -45,7 +45,7 @@ FeedListResponseModel copyWith({  num? success,
   num? get success => _success;
   String? get message => _message;
   String? get totalRecords => _totalRecords;
-  List<Records>? get records => _records;
+  List<Feeds>? get records => _records;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -71,10 +71,10 @@ FeedListResponseModel copyWith({  num? success,
 /// timestamp : "1677757349"
 /// media_path : "https://php1.coronation.in/kuber/api/assets/uploads/feeds/1677757349_pjimage-2021-11-03T134534.455.jpg"
 
-Records recordsFromJson(String str) => Records.fromJson(json.decode(str));
-String recordsToJson(Records data) => json.encode(data.toJson());
-class Records {
-  Records({
+Feeds recordsFromJson(String str) => Feeds.fromJson(json.decode(str));
+String recordsToJson(Feeds data) => json.encode(data.toJson());
+class Feeds {
+  Feeds({
       String? id, 
       String? title, 
       String? mediaFile, 
@@ -97,7 +97,7 @@ class Records {
     _mediaPath = mediaPath;
 }
 
-  Records.fromJson(dynamic json) {
+  Feeds.fromJson(dynamic json) {
     _id = json['id'];
     _title = json['title'];
     _mediaFile = json['media_file'];
@@ -119,7 +119,7 @@ class Records {
   String? _isApproved;
   String? _timestamp;
   String? _mediaPath;
-Records copyWith({  String? id,
+Feeds copyWith({  String? id,
   String? title,
   String? mediaFile,
   String? mediaType,
@@ -129,7 +129,7 @@ Records copyWith({  String? id,
   String? isApproved,
   String? timestamp,
   String? mediaPath,
-}) => Records(  id: id ?? _id,
+}) => Feeds(  id: id ?? _id,
   title: title ?? _title,
   mediaFile: mediaFile ?? _mediaFile,
   mediaType: mediaType ?? _mediaType,

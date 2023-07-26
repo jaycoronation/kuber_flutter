@@ -34,14 +34,14 @@ class _DonationScreenState extends State<DonationScreen> {
 
   @override
   void initState(){
-    donatePrice.add(DonateResponseModel(isSelected: false, price: "11"));
-    donatePrice.add(DonateResponseModel(isSelected: false, price: "21"));
-    donatePrice.add(DonateResponseModel(isSelected: false, price: "51"));
-    donatePrice.add(DonateResponseModel(isSelected: false, price: "101"));
-    donatePrice.add(DonateResponseModel(isSelected: false, price: "201"));
-    donatePrice.add(DonateResponseModel(isSelected: false, price: "501"));
-    donatePrice.add(DonateResponseModel(isSelected: false, price: "701"));
-    donatePrice.add(DonateResponseModel(isSelected: false, price: "1001"));
+    donatePrice.add(DonateResponseModel(isSelected: false, price: "\$ 11"));
+    donatePrice.add(DonateResponseModel(isSelected: false, price: "\$ 21"));
+    donatePrice.add(DonateResponseModel(isSelected: false, price: "\$ 51"));
+    donatePrice.add(DonateResponseModel(isSelected: false, price: "\$ 101"));
+    donatePrice.add(DonateResponseModel(isSelected: false, price: "\$ 201"));
+    donatePrice.add(DonateResponseModel(isSelected: false, price: "\$ 501"));
+    donatePrice.add(DonateResponseModel(isSelected: false, price: "\$ 701"));
+    donatePrice.add(DonateResponseModel(isSelected: false, price: "\$ 1001"));
     donatePrice.add(DonateResponseModel(isSelected: false, price: "Custom"));
     super.initState();
   }
@@ -77,7 +77,7 @@ class _DonationScreenState extends State<DonationScreen> {
       child: Container(
         decoration: getSet.isSelected ?? false
             ? BoxDecoration(
-            color: blue,
+            color: darkbrown,
             borderRadius: BorderRadius.circular(32)
         )
             : BoxDecoration(
@@ -102,7 +102,9 @@ class _DonationScreenState extends State<DonationScreen> {
         padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom),
       child:  _isLoading
-          ? Expanded(child: const LoadingWidget())
+          ? Container(
+          height: MediaQuery.of(context).size.height * 0.88,
+          child: const LoadingWidget())
           : SingleChildScrollView(
         child:  Wrap(
           children: [
@@ -172,7 +174,6 @@ class _DonationScreenState extends State<DonationScreen> {
                       margin: const EdgeInsets.only(top: 16),
                       child: TextField(
                         textAlignVertical: TextAlignVertical.top,
-                        textAlign: TextAlign.start,
                         // expands: true,
                         maxLines: 4,
                         controller: reasonController,
@@ -187,8 +188,8 @@ class _DonationScreenState extends State<DonationScreen> {
                             borderRadius: BorderRadius.circular(20),
                             borderSide: const BorderSide(color: Colors.grey,),
                           ),
-                          labelText: "Reason For Donation ",
-                          labelStyle: const TextStyle(color: text_new),
+                          hintText: "Reason For Donation",
+                          hintStyle: const TextStyle(color: text_new),
                         ),
                       )
                   ),
@@ -212,10 +213,10 @@ class _DonationScreenState extends State<DonationScreen> {
                               transactions: [
                                 {
                                   "amount": {
-                                    "total": selectedItem == "Custom" ? donateController.value.text : selectedItem,
+                                    "total": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
                                     "currency": "USD",
                                     "details": {
-                                      "subtotal": selectedItem == "Custom" ? donateController.value.text : selectedItem,
+                                      "subtotal": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
                                       "shipping": '0',
                                       "shipping_discount": 0
                                     }
@@ -230,7 +231,7 @@ class _DonationScreenState extends State<DonationScreen> {
                                       {
                                         "name": "Donation",
                                         "quantity": 1,
-                                        "price": selectedItem == "Custom" ? donateController.value.text : selectedItem,
+                                        "price": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
                                         "currency": "USD"
                                       }
                                     ],
@@ -324,7 +325,7 @@ class _DonationScreenState extends State<DonationScreen> {
     var astroResponse = CommonResponseModel.fromJson(user);
 
     if (statusCode == 200 && astroResponse.success == 1) {
-      Navigator.pop(context, true);
+      afterMethod();
       setState(() {
         _isLoading = false;
       });
@@ -369,6 +370,10 @@ class _DonationScreenState extends State<DonationScreen> {
     Timer(const Duration(seconds: 3), () {
       Navigator.pop(context);
     },);
+  }
+
+  void afterMethod() {
+    Navigator.pop(context, true);
   }
 
 

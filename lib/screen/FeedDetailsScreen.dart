@@ -5,7 +5,7 @@ import 'package:kuber/model/FeedListResponseModel.dart';
 import '../utils/app_utils.dart';
 
 class FeedDetailsScreen extends StatefulWidget {
-  final Records getSet;
+  final Feeds getSet;
   const FeedDetailsScreen(this.getSet, {Key? key}) : super(key: key);
 
   @override
@@ -13,7 +13,7 @@ class FeedDetailsScreen extends StatefulWidget {
 }
 
 class _FeedDetailsScreen extends State<FeedDetailsScreen> {
-  Records getSet = Records();
+  Feeds getSet = Feeds();
 
   @override
   void initState(){

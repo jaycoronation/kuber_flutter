@@ -60,7 +60,11 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
 
   @override
   void initState() {
-
+    prayerFNameController.text= sessionManager.getName().toString();
+    prayerLNameController.text= sessionManager.getLastName().toString();
+    PrayerForController.text= sessionManager.getPhone().toString();
+    prayerEmailController.text= sessionManager.getEmail().toString();
+    prayerDOBController.text= sessionManager.getDob().toString();
     _callListPrayer();
     super.initState();
   }
@@ -70,9 +74,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
     return Padding(
       padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom),
-      child: _isLoading
-          ? Expanded(child: const LoadingWidget())
-          : SingleChildScrollView(
+      child:SingleChildScrollView(
         child: Wrap(
             children: [
               StatefulBuilder(
@@ -88,7 +90,10 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                             ),
                           ),
                           child:  _isLoading
-                              ? const LoadingWidget()
+                              ? Container(
+                              height: MediaQuery.of(context).size.height * 0.88,
+                                  child: const LoadingWidget()
+                              )
                               :Container(
                             margin: const EdgeInsets.only(left: 14,right: 14),
                             child: Column(
@@ -384,8 +389,8 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
                                         counterText: "",
-                                        labelText: 'Leave Your Detail',
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        hintText: 'Leave Your Detail',
+                                        hintStyle: const TextStyle(color: text_new),                                     ),
                                     )
                                 ),
 

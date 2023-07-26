@@ -62,6 +62,10 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
 
   @override
   void initState() {
+
+    rashiEmailController.text= sessionManager.getEmail().toString();
+
+
     super.initState();
   }
 
@@ -81,7 +85,10 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                     ),
                   ),
                   child:  _isLoading
-                      ? Expanded(child: const LoadingWidget())
+                      ? Container(
+                          height: MediaQuery.of(context).size.height * 0.88,
+                          child: const LoadingWidget()
+                      )
                       : SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Padding(
@@ -442,8 +449,8 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                           borderRadius: BorderRadius.circular(20),
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
-                                        labelText: "Leave Your Detail",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        hintText: "Leave Your Detail",
+                                        hintStyle: const TextStyle(color: text_new),                                     ),
                                     )
                                 ),
 

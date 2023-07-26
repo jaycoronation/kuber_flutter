@@ -407,7 +407,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                                   padding: const EdgeInsets.only(top: 6,bottom: 6),
                                   child: Row(
                                     children: [
-                                      Image.asset("assets/images/ic_prayer_request.png",height: 20,),
+                                      Image.asset("assets/images/Charity.png",height: 20,),
                                       Container(
                                           margin: const EdgeInsets.only(left: 14,right: 14),
                                           child: const Text('Donation List',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),

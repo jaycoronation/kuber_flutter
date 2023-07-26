@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 import 'package:flutter/cupertino.dart';
@@ -66,6 +67,11 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
 
   @override
   void initState() {
+    astroFnameController.text= sessionManager.getName().toString();
+    astroLnameController.text= sessionManager.getLastName().toString();
+    astroMobileNumberController.text= sessionManager.getPhone().toString();
+    astroEmailController.text= sessionManager.getEmail().toString();
+    astroGirlBirthDateController.text= sessionManager.getDob().toString();
 
     super.initState();
   }
@@ -86,7 +92,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                     ),
                   ),
                   child:  _isLoading
-                      ? Expanded(child: const LoadingWidget())
+                      ? Container(
+                          height: MediaQuery.of(context).size.height * 0.88,
+                          child: const LoadingWidget()
+                      )
                       :SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Padding(
@@ -111,6 +120,14 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                             ),
                           ),
                           Container(height: 12,),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 18,right:18),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Text("*Payment of \$21 required to avail Astrology service."
+                                  " You will be guided to the payment process in the next steps.", style: TextStyle(color: lighttxtGrey, fontSize: 14),),
+                            ),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(left: 14,right:14,),
                             child: Column(
@@ -566,8 +583,8 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                             borderRadius: BorderRadius.circular(20),
                                             borderSide: const BorderSide(color: Colors.grey,),
                                           ),
-                                          labelText: "Notes",
-                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                          hintText: "Notes",
+                                          hintStyle: const TextStyle(color: text_new),                                     ),
                                       )
                                   ),
                                   /*  TextField(
@@ -711,7 +728,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: const [
-                                          Text('Review Request', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
+                                          Text('Get For 21\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
                                         ],
                                       ),
                                     ),
@@ -1203,6 +1220,17 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                         ),
                       ),
                     ),
+                    Container(height: 18,),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 18.0, right: 18),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text("*By clicking submit, you will be redirected"
+                            " for payment of 21\$, and upon successful payment, your "
+                            "Astrology request will be submitted.",
+                          style: TextStyle(color: lighttxtGrey, fontSize: 14),),
+                      ),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -1240,7 +1268,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                           onTap:(){
                             callAstrologySaveApi("");
 
-                            /*Navigator.of(context).push(
+                            Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (BuildContext context) => UsePaypal(
                                   sandboxMode: true,
@@ -1251,10 +1279,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                   transactions: [
                                     {
                                       "amount": {
-                                        "total": astroPrice,
+                                        "total": "21",
                                         "currency": "USD",
                                         "details": const {
-                                          "subtotal": '1',
+                                          "subtotal": '21',
                                           "shipping": '0',
                                           "shipping_discount": 0
                                         }
@@ -1269,7 +1297,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                           {
                                             "name": "Astrology Request",
                                             "quantity": 1,
-                                            "price": '1',
+                                            "price": '21',
                                             "currency": "USD"
                                           }
                                         ],
@@ -1302,11 +1330,11 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                   }
                               ),
                             ),
-                          );*/
+                          );
                           },
                           child: Container(
                             alignment: Alignment.bottomRight,
-                            margin: const EdgeInsets.only(top: 20,bottom: 20),
+                            margin: const EdgeInsets.only(top: 20,bottom: 20, right: 10),
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0),

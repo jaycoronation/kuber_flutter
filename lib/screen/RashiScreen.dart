@@ -81,7 +81,10 @@ class _RashiScreen extends State<RashiScreen> {
                       ),
                       Container(
                           margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
-                          child: Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                          child: Text("Rashi, also known as the Zodiac sign, is a significant astrological "
+                              "aspect determined by the position of celestial bodies at the time of birth, "
+                              "providing valuable insights into an individual's personality traits and life "
+                              "path.",
                             style: getSecondaryTitleFontStyle())
                       ),
                       ListView.builder(
