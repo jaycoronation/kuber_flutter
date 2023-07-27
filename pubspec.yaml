@@ -65,6 +65,8 @@ dependencies:
   flutter_paypal: ^0.0.8
   image_picker: ^0.8.5+3
   webview_flutter: ^2.8.0
+  like_button: ^2.0.5
+
 
 dependency_overrides:
   firebase_core_platform_interface: 4.5.2

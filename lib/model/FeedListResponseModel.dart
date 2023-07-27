@@ -77,7 +77,8 @@ class Feeds {
   Feeds({
       String? id, 
       String? title, 
-      String? mediaFile, 
+      bool isLiked = false,
+      String? mediaFile,
       String? mediaType, 
       String? description, 
       String? userId, 
@@ -87,6 +88,7 @@ class Feeds {
       String? mediaPath,}){
     _id = id;
     _title = title;
+    _isLiked = isLiked;
     _mediaFile = mediaFile;
     _mediaType = mediaType;
     _description = description;
@@ -100,6 +102,7 @@ class Feeds {
   Feeds.fromJson(dynamic json) {
     _id = json['id'];
     _title = json['title'];
+    _isLiked = json['isLiked'];
     _mediaFile = json['media_file'];
     _mediaType = json['media_type'];
     _description = json['description'];
@@ -111,6 +114,7 @@ class Feeds {
   }
   String? _id;
   String? _title;
+  bool _isLiked =  false;
   String? _mediaFile;
   String? _mediaType;
   String? _description;
@@ -121,6 +125,7 @@ class Feeds {
   String? _mediaPath;
 Feeds copyWith({  String? id,
   String? title,
+  bool isLiked = false,
   String? mediaFile,
   String? mediaType,
   String? description,
@@ -131,6 +136,7 @@ Feeds copyWith({  String? id,
   String? mediaPath,
 }) => Feeds(  id: id ?? _id,
   title: title ?? _title,
+  isLiked: isLiked ?? _isLiked,
   mediaFile: mediaFile ?? _mediaFile,
   mediaType: mediaType ?? _mediaType,
   description: description ?? _description,
@@ -142,6 +148,7 @@ Feeds copyWith({  String? id,
 );
   String? get id => _id;
   String? get title => _title;
+  bool get isLiked => _isLiked;
   String? get mediaFile => _mediaFile;
   String? get mediaType => _mediaType;
   String? get description => _description;
@@ -155,6 +162,7 @@ Feeds copyWith({  String? id,
     final map = <String, dynamic>{};
     map['id'] = _id;
     map['title'] = _title;
+    map['isLiked'] = _isLiked;
     map['media_file'] = _mediaFile;
     map['media_type'] = _mediaType;
     map['description'] = _description;
