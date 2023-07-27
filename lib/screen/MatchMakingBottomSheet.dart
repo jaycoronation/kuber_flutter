@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
@@ -76,7 +77,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
     matchLnameController.text= sessionManager.getLastName().toString();
     matchNumberController.text= sessionManager.getPhone().toString();
     matchEmailcontroller.text= sessionManager.getEmail().toString();
-
+    getCountryData();
 
     super.initState();
   }
@@ -2020,6 +2021,24 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
       showToast(dataResponse.message, context);
     }
   }
+
+  List data = [];
+
+  Future<void> getCountryData() async {
+    var jsonText = await rootBundle.loadString('assets/countries.json');
+    setState(() => data = json.decode(jsonText));
+    var name = "";
+    var code = "";
+    var dialCode = "";
+    for (var i=0; i < data.length; i++)
+    {
+      name = data[i]['name'];
+      code = data[i]['code'];
+      dialCode = data[i]['dial_code'] != null ? data[i]['dial_code'] : "";
+      listCountryCode.add(CountryListResponseModel(name: name, dialCode: dialCode, code: code));
+    }
+  }
+
 
   _showAlertDialog(String image, String text) {
     Widget okButton = Image.asset(image,height: 160,width:160);

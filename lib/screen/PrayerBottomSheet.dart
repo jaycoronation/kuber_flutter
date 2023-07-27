@@ -62,9 +62,8 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
   void initState() {
     prayerFNameController.text= sessionManager.getName().toString();
     prayerLNameController.text= sessionManager.getLastName().toString();
-    //PrayerForController.text= sessionManager.getPhone().toString();
     prayerEmailController.text= sessionManager.getEmail().toString();
-    prayerDOBController.text= sessionManager.getDob() ?? '';
+    prayerDOBController.text= sessionManager.getDob().toString();
     _callListPrayer();
     super.initState();
   }

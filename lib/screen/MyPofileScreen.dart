@@ -939,7 +939,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       var request = MultipartRequest("POST", url);
       request.fields['user_id'] = sessionManager.getUserId().toString();
       request.fields['from_app'] = "true";
-      request.files.add(await MultipartFile.fromPath('profile_pic', profilePath.path));
+      request.files.add(await MultipartFile.fromPath('profile_pic', profilePic));
 
       var response = await request.send();
 
@@ -1003,8 +1003,11 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       var request = MultipartRequest("POST", url);
       request.fields['user_id'] = sessionManager.getUserId().toString();
       request.fields['from_app'] = "true";
-      request.files.add(await MultipartFile.fromPath('profile_pic', profilePath.path));
-
+      request.files.add(await MultipartFile.fromPath('profile_pic', profilePic));
+      print(profilePath.path);
+      print(request.fields);
+      print(request.files);
+      print(request.url);
       var response = await request.send();
       final statusCode = response.statusCode;
       var responseData = await response.stream.toBytes();
