@@ -1267,7 +1267,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                         ),
                         InkWell(
                           onTap:(){
-                            callAstrologySaveApi("");
+                            //callAstrologySaveApi("");
 
                             Navigator.of(context).push(
                             MaterialPageRoute(
