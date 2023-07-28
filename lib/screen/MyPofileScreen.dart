@@ -1025,6 +1025,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         setState(()
         {
           _isLoading = false;
+
         });
         showSnackBar(dataResponse.message, context);
       }

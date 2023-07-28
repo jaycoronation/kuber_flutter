@@ -99,6 +99,10 @@ class Feeds {
     _mediaPath = mediaPath;
 }
 
+  set isLiked(bool value) {
+    _isLiked = value;
+  }
+
   Feeds.fromJson(dynamic json) {
     _id = json['id'];
     _title = json['title'];
