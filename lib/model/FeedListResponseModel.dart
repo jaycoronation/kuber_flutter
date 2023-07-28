@@ -102,7 +102,6 @@ class Feeds {
   Feeds.fromJson(dynamic json) {
     _id = json['id'];
     _title = json['title'];
-    _isLiked = json['isLiked'];
     _mediaFile = json['media_file'];
     _mediaType = json['media_type'];
     _description = json['description'];

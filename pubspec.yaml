@@ -56,7 +56,7 @@ dependencies:
   google_sign_in: ^5.0.1
   flutter_login_facebook:
   firebase_auth: ^4.2.5
-  firebase_core: ^2.4.1
+  firebase_core: ^2.15.0
   flutter_facebook_keyhash: ^0.0.4
   firebase_crashlytics: ^3.0.9
   change_app_package_name: ^1.1.0
@@ -65,10 +65,9 @@ dependencies:
   flutter_paypal: ^0.0.8
   image_picker: ^0.8.5+3
   webview_flutter: ^2.8.0
+  like_button: ^2.0.5
 
 
-dependency_overrides:
-  firebase_core_platform_interface: 4.5.2
 
 dev_dependencies:
   flutter_test:
