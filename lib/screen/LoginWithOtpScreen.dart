@@ -197,6 +197,7 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
 
     Map<String, String> jsonBody = {
       'mobile': numberController.value.text,
+      'country_code': countryCode
     };
 
     final response = await http.post(url, body: jsonBody);

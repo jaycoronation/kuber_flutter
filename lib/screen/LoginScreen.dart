@@ -51,9 +51,19 @@ class _LoginScreen extends State<LoginScreen> {
 
   @override
   void initState() {
+    printKeyHash();
     super.initState();
     getCountryData();
   }
+
+  void printKeyHash() async{
+    String? key=await FlutterFacebookKeyhash.getFaceBookKeyHash ??
+        'Unknown platform version';
+    print(key??"");
+
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -201,8 +211,11 @@ class _LoginScreen extends State<LoginScreen> {
                                           }
                                         ),
                                         TextSpan(text: ' and ', style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
-                                        TextSpan(text: 'Terms of Service.', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-
+                                        TextSpan(
+                                            text: 'Terms of Service', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                            recognizer: TapGestureRecognizer()..onTap = () {
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Terms of Service')));
+                                            }
                                         ),
                                       ],
                                     ),
@@ -792,6 +805,8 @@ class _LoginScreen extends State<LoginScreen> {
     );
   }
 
+
+
   void logIn() async {
     final AuthorizationResult result = await TheAppleSignIn.performRequests([
       const AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
@@ -1079,6 +1094,8 @@ class _LoginScreen extends State<LoginScreen> {
 
     Map<String, String> jsonBody = {
       'mobile': numberController.value.text,
+      'country_code': countryCode
+
     };
 
     final response = await http.post(url, body: jsonBody);

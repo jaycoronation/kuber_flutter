@@ -69,7 +69,8 @@ class Profile {
   Profile({
       dynamic  id,
       String? firstName, 
-      String? lastName, 
+      String? countryCode,
+      String? lastName,
       String? email, 
       String? mobile, 
       String? birthdate, 
@@ -92,6 +93,7 @@ class Profile {
   }){
     _id = id;
     _firstName = firstName;
+    _countryCode = countryCode;
     _lastName = lastName;
     _email = email;
     _mobile = mobile;
@@ -117,6 +119,7 @@ class Profile {
   Profile.fromJson(dynamic json) {
     _id = json['id'];
     _firstName = json['first_name'];
+    _countryCode = json['countryCode'];
     _lastName = json['last_name'];
     _email = json['email'];
     _mobile = json['mobile'];
@@ -140,6 +143,7 @@ class Profile {
   }
   dynamic _id;
   String? _firstName;
+  String? _countryCode;
   String? _lastName;
   String? _email;
   String? _mobile;
@@ -162,6 +166,7 @@ class Profile {
   String? _profileType;
 Profile copyWith({  dynamic id,
   String? firstName,
+  String? countryCode,
   String? lastName,
   String? email,
   String? mobile,
@@ -184,6 +189,7 @@ Profile copyWith({  dynamic id,
   String? profileType,
 }) => Profile(  id: id ?? _id,
   firstName: firstName ?? _firstName,
+  countryCode: countryCode ?? _countryCode,
   lastName: lastName ?? _lastName,
   email: email ?? _email,
   mobile: mobile ?? _mobile,
@@ -212,6 +218,7 @@ Profile copyWith({  dynamic id,
 
   dynamic get id => _id;
   String? get firstName => _firstName;
+  String? get countryCode => _countryCode;
   String? get lastName => _lastName;
   String? get email => _email;
   String? get mobile => _mobile;
@@ -237,6 +244,7 @@ Profile copyWith({  dynamic id,
     final map = <String, dynamic>{};
     map['id'] = _id;
     map['first_name'] = _firstName;
+    map['countryCode'] = _countryCode;
     map['last_name'] = _lastName;
     map['email'] = _email;
     map['mobile'] = _mobile;

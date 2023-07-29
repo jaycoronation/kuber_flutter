@@ -76,6 +76,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
   @override
   void initState() {
+    countryCode = sessionManager.getCountryCode().toString();
     super.initState();
     getCountryData();
    _getUserProfileDetails(false);
@@ -1285,6 +1286,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           "email":emailController.value.text,
           "mobile":numberController.value.text,
           "country":countryId,
+          "country_code":countryCode,
           "state":stateId,
           "city":cityId,
           "address":addressController.value.text,

@@ -494,17 +494,22 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                             margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
                           child: Column(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                child: Row(
-                                  children: [
-                                    Image.asset("assets/images/ic_terms.png",height: 20,),
-                                    Container(
-                                        margin: const EdgeInsets.only(left: 14,right: 14),
-                                        child: const Text('Terms & Conditions',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                    const Spacer(),
-                                    Image.asset("assets/images/ic_right.png",height: 14,),
-                                  ],
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://www.panditbookings.com/terms-and-conditions/', 'Terms & Conditions')));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
+                                  child: Row(
+                                    children: [
+                                      Image.asset("assets/images/ic_terms.png",height: 20,),
+                                      Container(
+                                          margin: const EdgeInsets.only(left: 14,right: 14),
+                                          child: const Text('Terms & Conditions',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                      const Spacer(),
+                                      Image.asset("assets/images/ic_right.png",height: 14,),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Container(

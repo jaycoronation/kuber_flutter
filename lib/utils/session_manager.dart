@@ -38,6 +38,7 @@ class SessionManager {
   final String isPujari = "isPujari";
   final String isTemple = "isTemple";
   final String isSocial = "isSocial";
+  final String countryCode = "countryCode";
 
   //set data into shared preferences...
   Future createLoginSession(Profile getSet) async {
@@ -64,6 +65,8 @@ class SessionManager {
     await SessionManagerMethods.setBool(isPujari,getSet.profileType == "Pujari" ? true : false);
     await SessionManagerMethods.setBool(isTemple,getSet.profileType == "Temples" ? true : false);
     await SessionManagerMethods.setBool(isSocial,false);
+    await SessionManagerMethods.setString(countryCode, "+27");
+
   }
 
   bool? checkIsLoggedIn() {
@@ -80,6 +83,10 @@ class SessionManager {
 
   String? getUserId() {
     return SessionManagerMethods.getString(userId);
+  }
+
+  String? getCountryCode() {
+    return SessionManagerMethods.getString(countryCode);
   }
 
   Future<void> setName(String apiFirstName)

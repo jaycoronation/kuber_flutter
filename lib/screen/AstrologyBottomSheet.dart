@@ -68,6 +68,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
 
   @override
   void initState() {
+    // countryCode = sessionManager.getCountryCode().toString();
     astroFnameController.text= sessionManager.getName().toString();
     astroLnameController.text= sessionManager.getLastName().toString();
     astroMobileNumberController.text= sessionManager.getPhone().toString();

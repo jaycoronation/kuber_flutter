@@ -23,6 +23,7 @@ String signUp = "mobile_services/user/signup";
 String bookingList = "users_services/bookings/list";
 String bookingDetails = "users_services/bookings/detail";
 String login = "mobile_services/user/signin";
+String likeFeeds = "admin_services/manage_feeds/like";
 String forgotPassword = "services/user/forgot_password";
 String deletAccount = "services/user/delete";
 String getCountry = "services/get_countries";

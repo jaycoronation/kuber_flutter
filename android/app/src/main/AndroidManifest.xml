@@ -34,6 +34,7 @@
    <application
         android:label="Kuber"
         android:name="${applicationName}"
+
        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
 

@@ -293,6 +293,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       showSnackBar(dataResponse.message, context);
     }
   }
+
   void startTimer() {
     const oneSec = Duration(milliseconds: 1000);
     _timer = Timer.periodic(

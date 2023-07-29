@@ -73,6 +73,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
 
   @override
   void initState() {
+    // countryCode = sessionManager.getCountryCode().toString();
     matchFnameController.text= sessionManager.getName().toString();
     matchLnameController.text= sessionManager.getLastName().toString();
     matchNumberController.text= sessionManager.getPhone().toString();
@@ -1978,7 +1979,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
 
     Map<String, String> jsonBody = {
       "user_id": sessionManager.getUserId().toString(),
-      "bride_name": matchGirlLNameController.value.text,
+      "bride_name": matchGirlFnameController.value.text,
       "bride_surname": matchGirlLNameController.value.text,
       "bride_birth_date": universalDateConverter("MMMM dd, yyyy","dd-MM-yyyy", matchGirlBirthDateController.value.text),
       "bride_birth_time": matchGirlBirthTimeController.value.text,
