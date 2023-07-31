@@ -94,8 +94,8 @@ class _DonationListScreen extends State<DonationListScreen> {
                                                     margin: const EdgeInsets.only(
                                                         top: 12,
                                                         bottom: 2,
-                                                        right: 18,
-                                                        left: 18),
+                                                        right: 14,
+                                                        left: 14),
                                                     child: Text(
                                                       _listDonation[i]
                                                           .reasonForDonation
@@ -133,7 +133,7 @@ class _DonationListScreen extends State<DonationListScreen> {
                                               top: 8,
                                                 bottom: 12,
                                                 right: 18,
-                                                left: 18),
+                                                left: 14),
                                             child:  Text(
                                               "Thank You For Donation.",
                                               style: TextStyle(

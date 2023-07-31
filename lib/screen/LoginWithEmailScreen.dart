@@ -14,6 +14,7 @@ import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../model/Emal_login_response_model.dart';
 import '../model/VerifyOtpResponseModel.dart';
+import 'SignUpScreen.dart';
 
 class LoginWithEmailScreen extends StatefulWidget {
   const LoginWithEmailScreen({Key? key}) : super(key: key);
@@ -68,6 +69,8 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
+
+
                         Container(
                           alignment: Alignment.centerLeft,
                           margin: const EdgeInsets.only(left: 16, right: 16, top: 30),
@@ -80,18 +83,26 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600),
                             decoration:  InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
-                              fillColor: white_blue,
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  borderSide: const BorderSide(
-                                      width: 0, style: BorderStyle.none)),
+                                  borderRadius: BorderRadius.circular(18),
+                                  borderSide: const BorderSide(color: Colors.grey)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide: const BorderSide(color: Colors.grey,),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
+                              fillColor: Colors.transparent,
+                              // border: OutlineInputBorder(
+                              //     borderRadius: BorderRadius.circular(12.0),
+                              //     borderSide: const BorderSide(
+                              //         width: 0, style: BorderStyle.none)),
                               filled: true,
                               hintText: 'Email',
                               hintStyle: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900),
+                                  color: darkbrown,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400),
                             ),
                           ),
                         ),
@@ -99,8 +110,7 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                           alignment: Alignment.centerLeft,
                           margin: const EdgeInsets.only(left: 16, right: 16, top: 10),
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              color: white_blue),
+                              borderRadius: BorderRadius.circular(20.0),),
                           child: TextField(
                             controller: passwordController,
                             keyboardType: TextInputType.visiblePassword,
@@ -114,18 +124,27 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
-                                fillColor: white_blue,
-                                counterText: "",
+                                // fillColor: white_blue,
                                 border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
+                                    borderRadius: BorderRadius.circular(18),
+                                    borderSide: const BorderSide(color: Colors.grey)
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                  borderSide: const BorderSide(color: Colors.grey,),
+                                ),
+                                counterText: "",
+                                // border: OutlineInputBorder(
+                                //     borderRadius: BorderRadius.circular(12.0),
+                                //     borderSide: const BorderSide(
+                                //         width: 0, style: BorderStyle.none)),
                                 filled: true,
+                                fillColor: Colors.transparent,
                                 hintText: 'Password',
                                 hintStyle: const TextStyle(
-                                    color: title,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w900),
+                                    color: darkbrown,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400),
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     // Based on passwordVisible state choose the icon
@@ -161,7 +180,7 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                         Expanded(
                           child: Container(
                             width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.only(right: 30, left: 30),
+                              margin: const EdgeInsets.only(right: 18, left: 18),
                               child: TextButton(
                                 style: ButtonStyle(
                                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -195,6 +214,37 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                         fontWeight: FontWeight.w600)),
                               )),
                         ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
+                          },
+                          child: Container(
+                              margin: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 18),
+                              child: RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(children: <TextSpan>[
+                                  const TextSpan(
+                                    text:
+                                    "Already have an account?",
+                                    style: TextStyle(
+                                        color: title,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  TextSpan(
+                                      text: " Sing Up",
+                                      style: const TextStyle(
+                                          color: black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w900),
+                                      ),
+                                ]),
+                              )),
+                        ),
+
+
+
                       ],
                     ),
                   ),
@@ -232,13 +282,10 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
     if (statusCode == 200 && dataResponse.success == 1) {
 
       var getSet = Profile();
-      getSet.id = dataResponse.userId;
+      getSet.userId = dataResponse.userId;
       getSet.mobile = dataResponse.mobile;
-      getSet.profileType = dataResponse.type;
+      getSet.type = dataResponse.type;
       getSet.profilePic = dataResponse.profilePic;
-      getSet.city = dataResponse.cityName;
-      getSet.state = dataResponse.stateName;
-      getSet.country = dataResponse.countryName;
       getSet.countryId = dataResponse.countryId;
       getSet.stateId = dataResponse.stateId;
       getSet.cityId = dataResponse.stateId;

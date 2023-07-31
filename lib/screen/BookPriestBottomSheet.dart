@@ -84,7 +84,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
              ),
            ),
            child:  _isLoading
-               ? Expanded(child: const LoadingWidget())
+               ? const Expanded(child: LoadingWidget())
                : SingleChildScrollView(
              scrollDirection: Axis.vertical,
              child:Padding(
@@ -101,7 +101,8 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                            height: 2,
                            thickness: 2,
                            color: bottomSheetline,
-                         )),
+                         )
+                     ),
                      Container(
                        margin: const EdgeInsets.only(top: 10),
                        child: const Text(

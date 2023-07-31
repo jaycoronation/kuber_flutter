@@ -214,7 +214,7 @@ class _LoginScreen extends State<LoginScreen> {
                                         TextSpan(
                                             text: 'Terms of Service', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
                                             recognizer: TapGestureRecognizer()..onTap = () {
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Terms of Service')));
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/terms-and-conditions', 'Terms of Service')));
                                             }
                                         ),
                                       ],
@@ -394,6 +394,7 @@ class _LoginScreen extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
+/*
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginWithEmailScreen()));
@@ -428,6 +429,7 @@ class _LoginScreen extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
+*/
                               Container(height: 18,),
 
 
@@ -597,7 +599,8 @@ class _LoginScreen extends State<LoginScreen> {
                           Spacer(),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
+                              // Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginWithEmailScreen()));
                             },
                             child: Container(
                                 width: MediaQuery.of(context).size.width,
@@ -614,7 +617,7 @@ class _LoginScreen extends State<LoginScreen> {
                                 ),
                                 padding: const EdgeInsets.only(bottom: 18,top: 18),
                                 child: const Text(
-                                  "Register as Priest / Pandit",
+                                  "Login as Priest / Pandit",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 16),
                                 )
@@ -1049,13 +1052,10 @@ class _LoginScreen extends State<LoginScreen> {
 
     if (statusCode == 200 && dataResponse.success == 1) {
       var getSet = Profile();
-      getSet.id = dataResponse.user?.id;
+      getSet.userId = dataResponse.user?.id;
       getSet.mobile = dataResponse.user?.mobile;
-      getSet.profileType = "User";
+
       getSet.profilePic = dataResponse.user?.profilePic;
-      getSet.city = dataResponse.user?.cityName;
-      getSet.state = dataResponse.user?.stateName;
-      getSet.country = dataResponse.user?.countryName;
       getSet.countryId = dataResponse.user?.countryId;
       getSet.stateId = dataResponse.user?.stateId;
       getSet.cityId = dataResponse.user?.stateId;
@@ -1154,7 +1154,7 @@ class _LoginScreen extends State<LoginScreen> {
         backgroundColor: Colors.transparent,
         builder: (context){
           return StatefulBuilder(
-              builder:(context, setState)
+              builder:(context, updateState)
               {
                 return Container(
                   height: MediaQuery.of(context).size.height * 0.88,
@@ -1246,6 +1246,7 @@ class _LoginScreen extends State<LoginScreen> {
                                   setState((){
                                     countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
                                   });
+                                  print(countryCode);
                                   Navigator.pop(context);
                                 },
                                 child: Container(

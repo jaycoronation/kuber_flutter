@@ -273,6 +273,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
         _isLoading = false;
       });
       await sessionManager.createLoginSession(dataResponse.profile!);
+      sessionManager.setUserId(dataResponse.profile?.userId.toString() ?? "");
       print(dataResponse.profile!.mobile.toString());
       print(dataResponse.profile!.email.toString());
       if(dataResponse.profile!.mobile.toString().isEmpty || dataResponse.profile!.email.toString().isEmpty)

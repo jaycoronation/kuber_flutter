@@ -61,9 +61,8 @@ class _ChangePassWordScreen extends State<ChangePassWordScreen> {
                height: 55,
                margin: const EdgeInsets.only(
                    top: 18, right: 14 ,left: 14),
-               padding: const EdgeInsets.only(left: 14, right: 10),
+
                decoration: const BoxDecoration(
-                 color: white_blue,
                  borderRadius: BorderRadius.all(
                    Radius.circular(18),
                  ),
@@ -82,13 +81,21 @@ class _ChangePassWordScreen extends State<ChangePassWordScreen> {
                      fontWeight: FontWeight.w600,
                    ),
                    decoration: InputDecoration(
+                     focusedBorder: OutlineInputBorder(
+                       borderRadius: BorderRadius.circular(20),
+                       borderSide:  BorderSide(color: Colors.grey,),
+                     ),
+                     border: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(20),
+                         borderSide:  BorderSide(color: Colors.grey)
+                     ),
                      counterText: "",
-                     border: InputBorder.none,
+                     // border: InputBorder.none,
                      hintText: "Enter New Password",
                      hintStyle: const TextStyle(
-                       color: text_dark,
+                       color: darkbrown,
                        fontSize: 14,
-                       fontWeight: FontWeight.w600,
+                       fontWeight: FontWeight.w500,
                      ),
                      suffixIcon:IconButton(
                        icon: Icon(
@@ -109,9 +116,7 @@ class _ChangePassWordScreen extends State<ChangePassWordScreen> {
                height: 55,
                margin: const EdgeInsets.only(
                    top: 18, right: 14, left: 14),
-               padding: const EdgeInsets.only(left: 14, right: 10),
                decoration: const BoxDecoration(
-                 color: white_blue,
                  borderRadius: BorderRadius.all(
                    Radius.circular(18),
                  ),
@@ -130,13 +135,21 @@ class _ChangePassWordScreen extends State<ChangePassWordScreen> {
                      fontWeight: FontWeight.w600,
                    ),
                    decoration: InputDecoration(
+                     focusedBorder: OutlineInputBorder(
+                       borderRadius: BorderRadius.circular(20),
+                       borderSide:  BorderSide(color: Colors.grey,),
+                     ),
+                     border: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(20),
+                         borderSide:  BorderSide(color: Colors.grey)
+                     ),
                      counterText: "",
-                     border: InputBorder.none,
+                     // border: InputBorder.none,
                      hintText: "Enter Confirm Password",
                      hintStyle: const TextStyle(
-                       color: text_dark,
+                       color: darkbrown,
                        fontSize: 14,
-                       fontWeight: FontWeight.w600,
+                       fontWeight: FontWeight.w500,
                      ),
                      suffixIcon:IconButton(
                        icon: Icon(

@@ -1,270 +1,266 @@
-/// profile : {"id":"9","first_name":"zalak","last_name":"patel","email":"zalak@coronation.in","mobile":"9737388804","birthdate":"1997-06-24","gender":"0","gender_label":"Female","address":"506,pinaccle business  park,Prahlad Nagar, Ahmedabad, Gujarat 380015, India","timestamp":"","country":"101","city":"783","state":"12","country_id":"101","city_id":"783","state_id":"12","country_name":"INDIA","city_name":"Ahmedabad","state_name":"Gujarat","profile_pic":"https://php1.coronation.in/kuber/api/assets/images/default-user.png","profile_pic_name":""}
+import 'dart:convert';
 /// success : 1
-/// message : ""
+/// message : "You have logged in successfully."
+/// profile : {"user_id":"79","first_name":"pratiksha","last_name":"panchal","mobile":"9510831651","birthdate":"17-04-2000","birthplace":"","pathshala":"","gurukul":"","qualification":"","experiance":"","address":"New Maninagar, Ahmedabad, Gujarat, India","certificate":"","profile_pic":"https://www.panditbookings.com/api/assets/uploads/profile_pic/1690455911_Astrology.jpg","timestamp":"","country_id":"1","city_id":"5910","state_id":"42","country_name":"AFGHANISTAN","city_name":"Fayzabad","state_name":"Badakhshan","email":"panchalpratiksha99@gmail.com","type":"User"}
 
+VerifyOtpResponseModel verifyOtpResponseModelFromJson(String str) => VerifyOtpResponseModel.fromJson(json.decode(str));
+String verifyOtpResponseModelToJson(VerifyOtpResponseModel data) => json.encode(data.toJson());
 class VerifyOtpResponseModel {
   VerifyOtpResponseModel({
-      Profile? profile, 
-      int? success, 
-      String? message,}){
-    _profile = profile;
+      num? success, 
+      String? message, 
+      Profile? profile,}){
     _success = success;
     _message = message;
+    _profile = profile;
 }
 
   VerifyOtpResponseModel.fromJson(dynamic json) {
-    _profile = json['profile'] != null ? Profile.fromJson(json['profile']) : null;
     _success = json['success'];
     _message = json['message'];
+    _profile = json['profile'] != null ? Profile.fromJson(json['profile']) : null;
   }
-  Profile? _profile;
-  int? _success;
+  num? _success;
   String? _message;
-VerifyOtpResponseModel copyWith({  Profile? profile,
-  int? success,
+  Profile? _profile;
+VerifyOtpResponseModel copyWith({  num? success,
   String? message,
-}) => VerifyOtpResponseModel(  profile: profile ?? _profile,
-  success: success ?? _success,
+  Profile? profile,
+}) => VerifyOtpResponseModel(  success: success ?? _success,
   message: message ?? _message,
+  profile: profile ?? _profile,
 );
-  Profile? get profile => _profile;
-  int? get success => _success;
+  num? get success => _success;
   String? get message => _message;
+  Profile? get profile => _profile;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['success'] = _success;
+    map['message'] = _message;
     if (_profile != null) {
       map['profile'] = _profile?.toJson();
     }
-    map['success'] = _success;
-    map['message'] = _message;
     return map;
   }
 
 }
 
-/// id : "9"
-/// first_name : "zalak"
-/// last_name : "patel"
-/// email : "zalak@coronation.in"
-/// mobile : "9737388804"
-/// birthdate : "1997-06-24"
-/// gender : "0"
-/// gender_label : "Female"
-/// address : "506,pinaccle business  park,Prahlad Nagar, Ahmedabad, Gujarat 380015, India"
+/// user_id : "79"
+/// first_name : "pratiksha"
+/// last_name : "panchal"
+/// mobile : "9510831651"
+/// birthdate : "17-04-2000"
+/// birthplace : ""
+/// pathshala : ""
+/// gurukul : ""
+/// qualification : ""
+/// experiance : ""
+/// address : "New Maninagar, Ahmedabad, Gujarat, India"
+/// certificate : ""
+/// profile_pic : "https://www.panditbookings.com/api/assets/uploads/profile_pic/1690455911_Astrology.jpg"
 /// timestamp : ""
-/// country : "101"
-/// city : "783"
-/// state : "12"
-/// country_id : "101"
-/// city_id : "783"
-/// state_id : "12"
-/// country_name : "INDIA"
-/// city_name : "Ahmedabad"
-/// state_name : "Gujarat"
-/// profile_pic : "https://php1.coronation.in/kuber/api/assets/images/default-user.png"
-/// profile_pic_name : ""
+/// country_id : "1"
+/// city_id : "5910"
+/// state_id : "42"
+/// country_name : "AFGHANISTAN"
+/// city_name : "Fayzabad"
+/// state_name : "Badakhshan"
+/// email : "panchalpratiksha99@gmail.com"
+/// type : "User"
 
+Profile profileFromJson(String str) => Profile.fromJson(json.decode(str));
+String profileToJson(Profile data) => json.encode(data.toJson());
 class Profile {
   Profile({
-      dynamic  id,
+      String? userId, 
       String? firstName, 
-      String? countryCode,
-      String? lastName,
-      String? email, 
+      String? lastName, 
       String? mobile, 
       String? birthdate, 
-      String? gender, 
-      String? genderLabel, 
+      String? birthplace, 
+      String? pathshala, 
+      String? gurukul, 
+      String? qualification, 
+      String? experiance, 
       String? address, 
+      String? certificate, 
+      String? profilePic, 
       String? timestamp, 
-      String? country, 
-      String? city, 
-      String? state, 
       String? countryId, 
       String? cityId, 
       String? stateId, 
       String? countryName, 
       String? cityName, 
       String? stateName, 
-      String? profilePic, 
-      String? profilePicName,
-      String? profileType,
-  }){
-    _id = id;
+      String? email, 
+      String? type,}){
+    _userId = userId;
     _firstName = firstName;
-    _countryCode = countryCode;
     _lastName = lastName;
-    _email = email;
     _mobile = mobile;
     _birthdate = birthdate;
-    _gender = gender;
-    _genderLabel = genderLabel;
+    _birthplace = birthplace;
+    _pathshala = pathshala;
+    _gurukul = gurukul;
+    _qualification = qualification;
+    _experiance = experiance;
     _address = address;
+    _certificate = certificate;
+    _profilePic = profilePic;
     _timestamp = timestamp;
-    _country = country;
-    _city = city;
-    _state = state;
     _countryId = countryId;
     _cityId = cityId;
     _stateId = stateId;
     _countryName = countryName;
     _cityName = cityName;
     _stateName = stateName;
-    _profilePic = profilePic;
-    _profilePicName = profilePicName;
-    _profileType = profileType;
+    _email = email;
+    _type = type;
 }
 
+  set userId(String? value) {
+    _userId = value;
+  }
+
   Profile.fromJson(dynamic json) {
-    _id = json['id'];
+    _userId = json['user_id'];
     _firstName = json['first_name'];
-    _countryCode = json['countryCode'];
     _lastName = json['last_name'];
-    _email = json['email'];
     _mobile = json['mobile'];
     _birthdate = json['birthdate'];
-    _gender = json['gender'];
-    _genderLabel = json['gender_label'];
+    _birthplace = json['birthplace'];
+    _pathshala = json['pathshala'];
+    _gurukul = json['gurukul'];
+    _qualification = json['qualification'];
+    _experiance = json['experiance'];
     _address = json['address'];
+    _certificate = json['certificate'];
+    _profilePic = json['profile_pic'];
     _timestamp = json['timestamp'];
-    _country = json['country'];
-    _city = json['city'];
-    _state = json['state'];
     _countryId = json['country_id'];
     _cityId = json['city_id'];
     _stateId = json['state_id'];
     _countryName = json['country_name'];
     _cityName = json['city_name'];
     _stateName = json['state_name'];
-    _profilePic = json['profile_pic'];
-    _profilePicName = json['profile_pic_name'];
-    _profileType = json['type'];
+    _email = json['email'];
+    _type = json['type'];
   }
-  dynamic _id;
+  String? _userId;
   String? _firstName;
-  String? _countryCode;
   String? _lastName;
-  String? _email;
   String? _mobile;
   String? _birthdate;
-  String? _gender;
-  String? _genderLabel;
+  String? _birthplace;
+  String? _pathshala;
+  String? _gurukul;
+  String? _qualification;
+  String? _experiance;
   String? _address;
+  String? _certificate;
+  String? _profilePic;
   String? _timestamp;
-  String? _country;
-  String? _city;
-  String? _state;
   String? _countryId;
   String? _cityId;
   String? _stateId;
   String? _countryName;
   String? _cityName;
   String? _stateName;
-  String? _profilePic;
-  String? _profilePicName;
-  String? _profileType;
-Profile copyWith({  dynamic id,
+  String? _email;
+  String? _type;
+Profile copyWith({  String? userId,
   String? firstName,
-  String? countryCode,
   String? lastName,
-  String? email,
   String? mobile,
   String? birthdate,
-  String? gender,
-  String? genderLabel,
+  String? birthplace,
+  String? pathshala,
+  String? gurukul,
+  String? qualification,
+  String? experiance,
   String? address,
+  String? certificate,
+  String? profilePic,
   String? timestamp,
-  String? country,
-  String? city,
-  String? state,
   String? countryId,
   String? cityId,
   String? stateId,
   String? countryName,
   String? cityName,
   String? stateName,
-  String? profilePic,
-  String? profilePicName,
-  String? profileType,
-}) => Profile(  id: id ?? _id,
+  String? email,
+  String? type,
+}) => Profile(  userId: userId ?? _userId,
   firstName: firstName ?? _firstName,
-  countryCode: countryCode ?? _countryCode,
   lastName: lastName ?? _lastName,
-  email: email ?? _email,
   mobile: mobile ?? _mobile,
   birthdate: birthdate ?? _birthdate,
-  gender: gender ?? _gender,
-  genderLabel: genderLabel ?? _genderLabel,
+  birthplace: birthplace ?? _birthplace,
+  pathshala: pathshala ?? _pathshala,
+  gurukul: gurukul ?? _gurukul,
+  qualification: qualification ?? _qualification,
+  experiance: experiance ?? _experiance,
   address: address ?? _address,
+  certificate: certificate ?? _certificate,
+  profilePic: profilePic ?? _profilePic,
   timestamp: timestamp ?? _timestamp,
-  country: country ?? _country,
-  city: city ?? _city,
-  state: state ?? _state,
   countryId: countryId ?? _countryId,
   cityId: cityId ?? _cityId,
   stateId: stateId ?? _stateId,
   countryName: countryName ?? _countryName,
   cityName: cityName ?? _cityName,
   stateName: stateName ?? _stateName,
-  profilePic: profilePic ?? _profilePic,
-  profilePicName: profilePicName ?? _profilePicName,
-  profileType: profileType ?? _profileType,
+  email: email ?? _email,
+  type: type ?? _type,
 );
-
-  set id(dynamic value) {
-    _id = value;
-  }
-
-  dynamic get id => _id;
+  String? get userId => _userId;
   String? get firstName => _firstName;
-  String? get countryCode => _countryCode;
   String? get lastName => _lastName;
-  String? get email => _email;
   String? get mobile => _mobile;
   String? get birthdate => _birthdate;
-  String? get gender => _gender;
-  String? get genderLabel => _genderLabel;
+  String? get birthplace => _birthplace;
+  String? get pathshala => _pathshala;
+  String? get gurukul => _gurukul;
+  String? get qualification => _qualification;
+  String? get experiance => _experiance;
   String? get address => _address;
+  String? get certificate => _certificate;
+  String? get profilePic => _profilePic;
   String? get timestamp => _timestamp;
-  String? get country => _country;
-  String? get city => _city;
-  String? get state => _state;
   String? get countryId => _countryId;
   String? get cityId => _cityId;
   String? get stateId => _stateId;
   String? get countryName => _countryName;
   String? get cityName => _cityName;
   String? get stateName => _stateName;
-  String? get profilePic => _profilePic;
-  String? get profilePicName => _profilePicName;
-  String? get profileType => _profileType;
+  String? get email => _email;
+  String? get type => _type;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = _id;
+    map['user_id'] = _userId;
     map['first_name'] = _firstName;
-    map['countryCode'] = _countryCode;
     map['last_name'] = _lastName;
-    map['email'] = _email;
     map['mobile'] = _mobile;
     map['birthdate'] = _birthdate;
-    map['gender'] = _gender;
-    map['gender_label'] = _genderLabel;
+    map['birthplace'] = _birthplace;
+    map['pathshala'] = _pathshala;
+    map['gurukul'] = _gurukul;
+    map['qualification'] = _qualification;
+    map['experiance'] = _experiance;
     map['address'] = _address;
+    map['certificate'] = _certificate;
+    map['profile_pic'] = _profilePic;
     map['timestamp'] = _timestamp;
-    map['country'] = _country;
-    map['city'] = _city;
-    map['state'] = _state;
     map['country_id'] = _countryId;
     map['city_id'] = _cityId;
     map['state_id'] = _stateId;
     map['country_name'] = _countryName;
     map['city_name'] = _cityName;
     map['state_name'] = _stateName;
-    map['profile_pic'] = _profilePic;
-    map['profile_pic_name'] = _profilePicName;
-    map['type'] = _profileType;
+    map['email'] = _email;
+    map['type'] = _type;
     return map;
   }
 
@@ -276,10 +272,6 @@ Profile copyWith({  dynamic id,
     _lastName = value;
   }
 
-  set email(String? value) {
-    _email = value;
-  }
-
   set mobile(String? value) {
     _mobile = value;
   }
@@ -288,32 +280,40 @@ Profile copyWith({  dynamic id,
     _birthdate = value;
   }
 
-  set gender(String? value) {
-    _gender = value;
+  set birthplace(String? value) {
+    _birthplace = value;
   }
 
-  set genderLabel(String? value) {
-    _genderLabel = value;
+  set pathshala(String? value) {
+    _pathshala = value;
+  }
+
+  set gurukul(String? value) {
+    _gurukul = value;
+  }
+
+  set qualification(String? value) {
+    _qualification = value;
+  }
+
+  set experiance(String? value) {
+    _experiance = value;
   }
 
   set address(String? value) {
     _address = value;
   }
 
+  set certificate(String? value) {
+    _certificate = value;
+  }
+
+  set profilePic(String? value) {
+    _profilePic = value;
+  }
+
   set timestamp(String? value) {
     _timestamp = value;
-  }
-
-  set country(String? value) {
-    _country = value;
-  }
-
-  set city(String? value) {
-    _city = value;
-  }
-
-  set state(String? value) {
-    _state = value;
   }
 
   set countryId(String? value) {
@@ -340,15 +340,11 @@ Profile copyWith({  dynamic id,
     _stateName = value;
   }
 
-  set profilePic(String? value) {
-    _profilePic = value;
+  set email(String? value) {
+    _email = value;
   }
 
-  set profilePicName(String? value) {
-    _profilePicName = value;
-  }
-
-  set profileType(String? value) {
-    _profileType = value;
+  set type(String? value) {
+    _type = value;
   }
 }

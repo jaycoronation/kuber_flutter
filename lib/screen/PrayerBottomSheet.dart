@@ -851,7 +851,9 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                           style: TextStyle(
                                               fontSize: 14,
                                               color: title,
-                                              fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        ),
                                       ),
                                     ),
                                   ),

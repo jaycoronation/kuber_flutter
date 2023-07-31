@@ -36,6 +36,14 @@ class _MyAccountScreen extends State<MyAccountScreen> {
   final bool _isLoading = false;
   final SessionManager _sessionManager = SessionManager();
 
+
+@override
+  void initState(){
+  print(_sessionManager.getType().toString());
+    super.initState();
+}
+
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -459,35 +467,38 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountScreen()));
                           },
                         ),
-                        InkWell(
-                          child: Container(
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/ic_help.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('Change Password',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
+                        Visibility(
+                          visible: _sessionManager.getType().toString() == "User",
+                          child: InkWell(
+                            child: Container(
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 6,bottom: 6),
+                                    child: Row(
+                                      children: [
+                                        Image.asset("assets/images/ic_help.png",height: 20,),
+                                        Container(
+                                            margin: const EdgeInsets.only(left: 14,right: 14),
+                                            child: const Text('Change Password',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                        const Spacer(),
+                                        Image.asset("assets/images/ic_right.png",height: 14,),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Divider(color: title,height: 0.5,),
-                                ),
-                              ],
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: const Divider(color: title,height: 0.5,),
+                                  ),
+                                ],
+                              ),
                             ),
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePassWordScreen()));
+                            },
                           ),
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePassWordScreen()));
-                          },
                         ),
                         Container(
                           alignment: Alignment.center,
@@ -498,6 +509,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                                 onTap: (){
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://www.panditbookings.com/terms-and-conditions/', 'Terms & Conditions')));
                                 },
+                                behavior: HitTestBehavior.opaque,
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 6,bottom: 6),
                                   child: Row(

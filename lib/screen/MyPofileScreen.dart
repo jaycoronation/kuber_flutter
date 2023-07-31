@@ -96,91 +96,174 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                   child: Column(
                     children: [
                       cardProfileImage(),
+
                       Container(
                         margin: const EdgeInsets.only(top: 16,right: 14,left: 14),
                         alignment: Alignment.topLeft,
                         child:  Text("Profile Details",
                           style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20) ),
                       ),
+
                       Container(
+                          margin: const EdgeInsets.only(top: 14),
+                          child: TextField(
+                            onTap: (){
+                            },
+                            controller: firstNameController,
+                            keyboardType: TextInputType.text,
+                            cursorColor: Colors.grey,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: const BorderSide(color: Colors.grey)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: const BorderSide(color: Colors.grey,),
+                              ),
+                              labelText: "First Name",
+                              labelStyle: const TextStyle(color: text_new),                                     ),
+                          )
+                      ),
+
+                      Container(
+                          margin: const EdgeInsets.only(top: 14),
+                          child: TextField(
+                            onTap: (){
+                            },
+                            controller: lastNameController,
+                            keyboardType: TextInputType.text,
+                            cursorColor: Colors.grey,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: const BorderSide(color: Colors.grey)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: const BorderSide(color: Colors.grey,),
+                              ),
+                              labelText: "Last Name",
+                              labelStyle: const TextStyle(color: text_new),                                     ),
+                          )
+                      ),
+
+                     /* Container(
+                          margin: const EdgeInsets.only(top: 14),
+                          child: TextField(
+                            onTap: (){
+                            },
+                            controller: emailController,
+                            keyboardType: TextInputType.text,
+                            cursorColor: Colors.grey,
+                            readOnly: sessionManager.getEmail().toString().length>0 ,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: const BorderSide(color: Colors.grey)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: const BorderSide(color: Colors.grey,),
+                              ),
+                              labelText: "Email Address",
+                              labelStyle: const TextStyle(color: text_new),                                     ),
+                          )
+                      ),*/
+
+
+                      Container(
+                          margin: const EdgeInsets.only(top: 14),
+                          child: TextField(
+                            onTap: (){
+                            },
+                            controller: emailController,
+                            keyboardType: TextInputType.text,
+                            cursorColor: Colors.grey,
+                            readOnly: sessionManager.getEmail().toString().length>0 ,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: const BorderSide(color: Colors.grey)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: const BorderSide(color: Colors.grey,),
+                              ),
+                              labelText: "Email Address",
+                              labelStyle: const TextStyle(color: text_new),                                     ),
+                          )
+                      ),
+
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
                         alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: 18,right: 10,left: 10),
                         padding: const EdgeInsets.only(left: 14, right: 10),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: white_blue),
-                        child: TextField(
-                          controller: firstNameController,
-                          keyboardType: TextInputType.text,
-                          cursorColor: title,
-                          style: const TextStyle(
-                            color: text_dark,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 1,
                           ),
-                          decoration: const InputDecoration(
-                              counterText: "",
-                              border: InputBorder.none,
-                              hintText: 'First name',
-                              hintStyle: TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900)),
+
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(18),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              child: Text(countryCode,
+                                  style: const TextStyle(
+                                      color: text_dark,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14)
+                              ),
+                              onTap:(){
+                                print("IS DONE === ");
+                                countryDialog();
+                              },
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 10),
+                              height: 20,
+                              width: 1,
+                              color: text_light,
+                            ),
+                            Flexible(
+                              child:TextField(
+                                controller: numberController,
+                                maxLength: 12,
+                                keyboardType: TextInputType.number,
+                                cursorColor: text_dark,
+                                readOnly: numberController.value.text.isEmpty ? false : true,
+                                style: const TextStyle(
+                                    color: black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
+                                  fillColor: bottomSheetBg,
+                                  counterText: "",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(14.0),
+                                      borderSide: const BorderSide(
+                                          width: 0, style: BorderStyle.none)),
+                                  filled: true,
+                                  hintText: "Mobile Number",
+                                  hintStyle: const TextStyle(
+                                    color: text_dark,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: 10,right: 10,left: 10),
-                        padding: const EdgeInsets.only(left: 14, right: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: white_blue),
-                        child:  TextField(
-                          controller: lastNameController,
-                          keyboardType: TextInputType.text,
-                          cursorColor: title,
-                          style: const TextStyle(
-                            color: text_dark,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          decoration: const InputDecoration(
-                              counterText: "",
-                              border: InputBorder.none,
-                              hintText: 'Last name',
-                              hintStyle: TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900)),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: 10,right: 10,left: 10),
-                        padding: const EdgeInsets.only(left: 14, right: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: white_blue),
-                        child: TextField(
-                          controller: emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          cursorColor: title,
-                          readOnly: sessionManager.getEmail().toString().length>0 ,
-                          style: const TextStyle(
-                            color: text_dark,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          decoration: const InputDecoration(
-                              counterText: "",
-                              border: InputBorder.none,
-                              hintText: 'Email Address',
-                              hintStyle: TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900)),
-                        ),
-                      ),
+
+
+                    /*
                       Container(
                         alignment: Alignment.center,
                         margin: const EdgeInsets.only(
@@ -237,6 +320,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                           ],
                         ),
                       ),
+*/
                       Visibility(
                           visible: sessionManager.getIsTemple() ?? false ? false : true,
                           child: setUpTextDate()
@@ -248,12 +332,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        margin: const EdgeInsets.only(right: 10,left: 10),
-                        padding: const EdgeInsets.only(left: 14, right: 10),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: white_blue),
-                        child:  TextField(
+                            borderRadius: BorderRadius.circular(20.0),),
+                          child:  TextField(
                             controller: countryController,
                             onTap: () async {
                               _goForCountrySelection(context);
@@ -262,32 +343,41 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                             keyboardType: TextInputType.text,
                             cursorColor: title,
                             style: const TextStyle(
-                              color: text_dark,
+                              color: darkbrown,
                               fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                             ),
-                            decoration: const InputDecoration(
+
+                            decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: const BorderSide(color: Colors.grey,),
+                                ),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide:  BorderSide(color: Colors.grey)
+                                ),
                                 suffixIcon: Icon(
                                   Icons.keyboard_arrow_down_rounded,
-                                  color: title,),
+                                  color: title,
+                                ),
                                 counterText: "",
-                                border: InputBorder.none,
+                                // border: InputBorder.none,
                                 alignLabelWithHint: true,
                                 hintText: "Select country",
                                 hintStyle: TextStyle(
                                   color: text_dark,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                ))
+                                )
+                            )
                         ),
                       ),
+                      Container(height: 12,),
                       Container(
                         alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: 10,right: 10,left: 10),
-                        padding: const EdgeInsets.only(left: 14, right: 10),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: white_blue),
+                            borderRadius: BorderRadius.circular(20.0),),
                         child:  TextField(
                             controller: stateController,
                             onTap: (){
@@ -304,33 +394,39 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                             keyboardType: TextInputType.text,
                             cursorColor: title,
                             style: const TextStyle(
-                              color: text_dark,
+                              color: darkbrown,
                               fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                             ),
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide:  BorderSide(color: Colors.grey,),
+                                ),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide:  BorderSide(color: Colors.grey)
+                                ),
                                 suffixIcon: Icon(
                                   Icons.keyboard_arrow_down_rounded,
                                   color: title,
                                 ),
                                 counterText: "",
-                                border: InputBorder.none,
                                 alignLabelWithHint: true,
                                 hintText: "Select state",
                                 hintStyle: TextStyle(
                                   color: text_dark,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                ))
+                                )
+                            )
                         ),
                       ),
+                      Container(height: 12,),
                       Container(
                         alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: 10,right: 10,left: 10),
-                        padding: const EdgeInsets.only(left: 14, right: 10),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: white_blue),
+                            borderRadius: BorderRadius.circular(20.0)),
                         child:  TextField(
                             controller: cityController,
                             onTap: (){
@@ -346,17 +442,25 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                             keyboardType: TextInputType.text,
                             cursorColor: title,
                             style: const TextStyle(
-                              color: text_dark,
+                              color: darkbrown,
                               fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                             ),
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide:  BorderSide(color: Colors.grey,),
+                                ),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide:  BorderSide(color: Colors.grey)
+                                ),
                                 suffixIcon: Icon(
                                   Icons .keyboard_arrow_down_rounded,
                                   color: title,
                                 ),
                                 counterText: "",
-                                border: InputBorder.none,
+                                // border: InputBorder.none,
                                 alignLabelWithHint: true,
                                 hintText: "Select city",
                                 hintStyle: TextStyle(
@@ -366,12 +470,10 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 ))
                         ),
                       ),
+                      Container(height: 12,),
                       Container(
-                        margin: const EdgeInsets.only(top: 10,right: 10,left: 10),
-                        padding: const EdgeInsets.only(left: 14, right: 10),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: white_blue),
+                            borderRadius: BorderRadius.circular(20.0),),
                         child:  TextField(
                           controller: addressController,
                           keyboardType: TextInputType.text,
@@ -395,18 +497,28 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                             displayPrediction(prediction,context);
                           },
                           style: const TextStyle(
-                            color: text_dark,
+                            color: black,
                             fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
                           ),
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide:  BorderSide(color: Colors.grey,),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide:  BorderSide(color: Colors.grey)
+                              ),
                               counterText: "",
-                              border: InputBorder.none,
+                              // border: InputBorder.none,
                               hintText: 'Address',
-                              hintStyle: TextStyle(
-                                  color: text_dark,
+                              hintStyle: const TextStyle(
+                                  color: darkbrown,
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w900)),
+                                  fontWeight: FontWeight.w500
+                              )
+                          ),
                         ),
                       ),
                       Visibility(
@@ -599,12 +711,12 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                       ),
                       Container(
                           width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.only(top: 44, bottom: 20, right: 14, left: 14),
+                          margin: const EdgeInsets.only(bottom: 20, top: 22),
                           child: TextButton(
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
+                                    borderRadius: BorderRadius.circular(14.0),
                                   ),
                                 ),
                                 backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
@@ -678,32 +790,65 @@ class _MyProfileScreen extends State<MyProfileScreen> {
     }
   }
 
+
+
+  // Widget setUpTextDate() {
+  //   return Container(
+  //     padding: const EdgeInsets.only(left: 14, right: 10),
+  //     margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
+  //     decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(20.0),
+  //         color: white_blue),
+  //     child: TextField(
+  //       readOnly: true,
+  //       controller: bdyController,
+  //       keyboardType: TextInputType.number,
+  //       cursorColor: title,
+  //       style: const TextStyle(
+  //           color: title,
+  //           fontSize: 14,
+  //           fontWeight: FontWeight.w600),
+  //       decoration: const InputDecoration(
+  //           counterText: "",
+  //           border: InputBorder.none,
+  //           hintText: 'Date of birth',
+  //           hintStyle: TextStyle(
+  //               color: title,
+  //               fontSize: 14,
+  //               fontWeight: FontWeight.w900)),
+  //       onTap: () async {
+  //            _setDatePicker(bdyController);
+  //       },
+  //     ),
+  //   );
+  // }
+
   Widget setUpTextDate() {
     return Container(
-      padding: const EdgeInsets.only(left: 14, right: 10),
-      margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          color: white_blue),
+      margin: const EdgeInsets.only(top: 10,),
       child: TextField(
         readOnly: true,
         controller: bdyController,
         keyboardType: TextInputType.number,
         cursorColor: title,
         style: const TextStyle(
-            color: title,
+            color: black,
             fontSize: 14,
-            fontWeight: FontWeight.w600),
-        decoration: const InputDecoration(
-            counterText: "",
-            border: InputBorder.none,
-            hintText: 'Date of birth',
-            hintStyle: TextStyle(
-                color: title,
-                fontSize: 14,
-                fontWeight: FontWeight.w900)),
+            fontWeight: FontWeight.w500),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: const BorderSide(color: Colors.grey)
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Colors.grey,),
+          ),
+          labelText: "Date of birth",
+          labelStyle: const TextStyle(color: text_new, fontWeight: FontWeight.w500, fontSize: 16),
+        ),
         onTap: () async {
-             _setDatePicker(bdyController);
+          _setDatePicker(bdyController);
         },
       ),
     );
@@ -1003,6 +1148,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
       var request = MultipartRequest("POST", url);
       request.fields['user_id'] = sessionManager.getUserId().toString();
+      request.fields['type'] = sessionManager.getType().toString();
       request.fields['from_app'] = "true";
       request.files.add(await MultipartFile.fromPath('profile_pic', profilePic));
       print(profilePath.path);
@@ -1026,7 +1172,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         setState(()
         {
           _isLoading = false;
-
         });
         showSnackBar(dataResponse.message, context);
       }
@@ -1292,7 +1437,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           "address":addressController.value.text,
           "birthdate": universalDateConverter("MMMM dd, yyyy", "yyyy-MM-dd", bdyController.value.text),
           "birthplace":addressController.value.text,
-          "profile_pic_name":profilepicName
+          "profile_pic_name":profilepicName,
+          "type": sessionManager.getType().toString()
         };
 
         final response = await http.post(url, body: jsonBody);
@@ -1360,10 +1506,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             stateController.text = getSet.stateName == null ? "" : getSet.stateName ?? "";
             cityController.text = getSet.cityName == null ? "" : getSet.cityName ?? "";
             profilePic = getSet.profilePic ?? "";
-            countryId = getSet.country ?? "";
-            stateId = getSet.state ?? "";
-            cityId = getSet.city ?? "";
-            profilepicName = getSet.profilePicName??"";
             sessionManager.createLoginSession(getSet);
 
           setState(() {
@@ -1415,25 +1557,17 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           stateController.text = getSet.stateName ?? "";
           cityController.text = getSet.cityName ?? "";
           profilePic = getSet.profilePic ?? "";
-          countryId = getSet.country ?? "";
-          stateId = getSet.state ?? "";
-          cityId = getSet.city ?? "";
-          profilepicName = getSet.profilePicName ?? "";
 
           var getSetData = Profile();
-          getSetData.id = getSet.id;
+          getSetData.userId = getSet.userId;
           getSetData.mobile = getSet.mobile;
           getSetData.profilePic = getSet.profilePic;
-          getSetData.city = getSet.cityName;
-          getSetData.state = getSet.stateName;
-          getSetData.country = getSet.countryName;
           getSetData.countryId = getSet.countryId;
           getSetData.stateId = getSet.stateId;
           getSetData.cityId = getSet.stateId;
           getSetData.email = getSet.email;
           getSet.firstName = getSet.firstName;
           getSetData.lastName = getSet.lastName;
-          getSetData.profilePicName= getSet.profilePicName;
 
           await sessionManager.createLoginSession(getSet);
 

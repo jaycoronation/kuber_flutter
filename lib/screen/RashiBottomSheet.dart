@@ -107,7 +107,8 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                       height: 2,
                                       thickness: 2,
                                       color: bottomSheetline,
-                                    )),
+                                    )
+                                ),
                                 Container(
                                   margin: const EdgeInsets.only(top: 20, bottom: 16),
                                   child: const Text(
@@ -135,7 +136,8 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
                                         labelText: "Mother's Name",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
                                     )
                                 ),
 
@@ -184,7 +186,8 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
                                         labelText: "Father's Name",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
                                     )
                                 ),
 
@@ -222,7 +225,8 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                       onTap: (){
                                       },
                                       controller: rashiEmailController,
-                                      keyboardType: TextInputType.emailAddress,                                  cursorColor: Colors.grey,
+                                      keyboardType: TextInputType.emailAddress,
+                                      cursorColor: Colors.grey,
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(20),
@@ -233,7 +237,8 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
                                         labelText: "Email",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
                                     )
                                 ),
 
@@ -983,7 +988,9 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w700,
                                           color: title,
-                                          fontSize: 14)),
+                                          fontSize: 14
+                                      )
+                                  ),
                                 )
                               ],
                             ),
@@ -998,7 +1005,8 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w700,
-                                          color: text_light),
+                                          color: text_light
+                                      ),
                                     ),
                                   ),
                                   Padding(
@@ -1008,7 +1016,9 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w700,
                                             color: title,
-                                            fontSize: 14)),
+                                            fontSize: 14
+                                        )
+                                    ),
                                   )
                                 ],
                               ),
@@ -1040,7 +1050,8 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                   style: TextStyle(
                                       fontSize: 14,
                                       color: title,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold
+                                  ),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -1052,8 +1063,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                               /*Navigator.pop(context);
                               saveRashiRequestApi();*/
                               saveRashiRequestApi("");
-
-
                               /*Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (BuildContext context) => UsePaypal(
@@ -1133,7 +1142,8 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                   style: TextStyle(
                                       fontSize: 14,
                                       color: title,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold
+                                  ),
                                   textAlign: TextAlign.center,
                                 ),
                               ),

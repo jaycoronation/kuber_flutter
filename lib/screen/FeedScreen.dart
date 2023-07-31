@@ -121,16 +121,6 @@ class _FeedScreen extends State<FeedScreen> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(height: 12,),
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 12,right: 12),
-                                        child: Text(listFeed[index].title.toString(),style: const TextStyle(fontWeight: FontWeight.w900,color: black,fontSize: 14))),
-                                    Container(height: 12,),
-                                    Container(
-                                      alignment: Alignment.centerRight,
-                                        margin: const EdgeInsets.only(left: 12,right: 12),
-                                        child: Text(getDateFromTimestamp(listFeed[index].timestamp.toString()),style: const TextStyle(fontWeight: FontWeight.w900,color: black,fontSize: 14))),
-                                    Container(height: 12,),
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
                                       child: Image.network(
@@ -139,6 +129,19 @@ class _FeedScreen extends State<FeedScreen> {
                                         fit: BoxFit.cover,
                                       ),
                                     ),
+                                    Container(height: 12,),
+                                    Container(
+                                        margin: const EdgeInsets.only(left: 12,right: 12),
+                                        child: Text(listFeed[index].title.toString(),style: const TextStyle(fontWeight: FontWeight.w400,color: black,fontSize: 14))
+                                    ),
+                                    Container(height: 12,),
+                                    Container(
+                                        alignment: Alignment.centerLeft,
+                                        margin: const EdgeInsets.only(left: 12,right: 12),
+                                        child: Text(getDateFromTimestamp(listFeed[index].timestamp.toString()),
+                                            style: const TextStyle(fontWeight: FontWeight.w500,color: darkbrown,fontSize: 14))
+                                    ),
+                                    Container(height: 12,),
                                   ],
                                 ),
                               ),
@@ -148,7 +151,8 @@ class _FeedScreen extends State<FeedScreen> {
                       ),
                       Visibility(
                           visible: _isLoadingMore,
-                          child: const LoadingMoreWidget())
+                          child: const LoadingMoreWidget()
+                      )
                   ],
                 ),
               )
@@ -178,7 +182,8 @@ class _FeedScreen extends State<FeedScreen> {
 
     Map<String, String> jsonBody = {
       'page' : _pageIndex.toString(),
-      'limit' : _pageResult.toString()
+      'limit' : _pageResult.toString(),
+      'status'  : "1"
     };
 
     final response = await http.post(url, body: jsonBody);

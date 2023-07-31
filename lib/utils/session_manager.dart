@@ -39,22 +39,18 @@ class SessionManager {
   final String isTemple = "isTemple";
   final String isSocial = "isSocial";
   final String countryCode = "countryCode";
+  final String userType = "userType";
 
   //set data into shared preferences...
   Future createLoginSession(Profile getSet) async {
     await SessionManagerMethods.setBool(isLoggedIn, true);
-    await SessionManagerMethods.setString(userId, getSet.id.toString());
+    await SessionManagerMethods.setString(userId, getSet.userId.toString());
     await SessionManagerMethods.setString(firstName, getSet.firstName.toString());
     await SessionManagerMethods.setString(lastName, getSet.lastName.toString());
     await SessionManagerMethods.setString(email, getSet.email.toString());
     await SessionManagerMethods.setString(mobileNumber, getSet.mobile.toString());
     await SessionManagerMethods.setString(birthdate, getSet.birthdate.toString());
-    await SessionManagerMethods.setString(gender, getSet.gender.toString());
-    await SessionManagerMethods.setString(genederLabel, getSet.genderLabel.toString());
     await SessionManagerMethods.setString(address, getSet.address.toString());
-    await SessionManagerMethods.setString(country, getSet.country ?? "");
-    await SessionManagerMethods.setString(city, getSet.city  ?? "");
-    await SessionManagerMethods.setString(state, getSet.state ?? "");
     await SessionManagerMethods.setString(countryId, getSet.countryId.toString());
     await SessionManagerMethods.setString(cityId, getSet.cityId.toString());
     await SessionManagerMethods.setString(stateId, getSet.stateId.toString());
@@ -62,11 +58,18 @@ class SessionManager {
     await SessionManagerMethods.setString(cityName, getSet.cityName.toString());
     await SessionManagerMethods.setString(stateName, getSet.stateName.toString());
     await SessionManagerMethods.setString(image, getSet.profilePic.toString());
-    await SessionManagerMethods.setBool(isPujari,getSet.profileType == "Pujari" ? true : false);
-    await SessionManagerMethods.setBool(isTemple,getSet.profileType == "Temples" ? true : false);
     await SessionManagerMethods.setBool(isSocial,false);
-    await SessionManagerMethods.setString(countryCode, "+27");
+    await SessionManagerMethods.setString(userType, getSet.type.toString());
 
+  }
+
+  Future<void> setType(String apitype)
+  async {
+    await SessionManagerMethods.setString(userType, apitype);
+  }
+
+  String? getType() {
+    return SessionManagerMethods.getString(userType);
   }
 
   bool? checkIsLoggedIn() {
@@ -93,6 +96,12 @@ class SessionManager {
   async {
     await SessionManagerMethods.setString(firstName, apiFirstName);
   }
+
+  Future<void> setUserId(String apiUserId)
+  async {
+    await SessionManagerMethods.setString(userId, apiUserId);
+  }
+
 
   String? getName() {
     return SessionManagerMethods.getString(firstName);
