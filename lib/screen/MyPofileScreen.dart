@@ -76,6 +76,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
   @override
   void initState() {
+    print(sessionManager.getCountryCode().toString());
     countryCode = sessionManager.getCountryCode().toString();
     super.initState();
     getCountryData();

@@ -468,7 +468,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                           },
                         ),
                         Visibility(
-                          visible: _sessionManager.getType().toString() == "User",
+                          visible: _sessionManager.getType().toString() != "User",
                           child: InkWell(
                             child: Container(
                               alignment: Alignment.center,
