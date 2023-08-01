@@ -657,7 +657,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                 ),
               ),
             )),
-              Container(
+              /*Container(
                 margin: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 18),
                 child: RichText(
                   textAlign: TextAlign.center,
@@ -681,7 +681,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                             Navigator.pop(context, MaterialPageRoute(builder: (context) => const LoginScreen()))
                           }),
                   ]),
-                )),
+                )),*/
           ],
         )
       ),

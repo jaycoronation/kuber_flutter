@@ -20,7 +20,10 @@ import 'MyPofileScreen.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
  String mobileNumber="";
-  VerifyOtpScreen(this.mobileNumber, {Key? key}) : super(key: key);
+
+ final String countryCode;
+  VerifyOtpScreen(this.mobileNumber, this.countryCode  , {Key? key, }) : super(key: key);
+
 
   @override
   State<VerifyOtpScreen> createState() => _VerifyOtpScreen();
@@ -258,6 +261,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
     Map<String, String> jsonBody = {
       'mobile': widget.mobileNumber,
       'otp': otp,
+      'country_code' : widget.countryCode
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -322,6 +326,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
 
     Map<String, String> jsonBody = {
       'mobile': widget.mobileNumber,
+      'county_code' :widget.countryCode
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -336,7 +341,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       setState(() {
         _isLoading = false;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(widget.mobileNumber)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(widget.mobileNumber, widget.countryCode)));
     } else {
       setState(() {
         _isLoading = false;

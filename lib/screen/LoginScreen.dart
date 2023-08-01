@@ -210,7 +210,7 @@ class _LoginScreen extends State<LoginScreen> {
                                             Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
                                           }
                                         ),
-                                        TextSpan(text: ' and ', style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
+                                        const TextSpan(text: ' and ', style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
                                         TextSpan(
                                             text: 'Terms of Service', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
                                             recognizer: TapGestureRecognizer()..onTap = () {
@@ -1052,7 +1052,7 @@ class _LoginScreen extends State<LoginScreen> {
 
     if (statusCode == 200 && dataResponse.success == 1) {
       var getSet = Profile();
-      getSet.userId = dataResponse.user?.id;
+      getSet.userId = dataResponse.user?.id!;
       getSet.mobile = dataResponse.user?.mobile;
 
       getSet.profilePic = dataResponse.user?.profilePic;
@@ -1095,7 +1095,6 @@ class _LoginScreen extends State<LoginScreen> {
     Map<String, String> jsonBody = {
       'mobile': numberController.value.text,
       'country_code': countryCode
-
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -1109,7 +1108,7 @@ class _LoginScreen extends State<LoginScreen> {
       setState(() {
         _isLoading = false;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(numberController.value.text)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(numberController.value.text, countryCode)));
     } else {
       setState(() {
         _isLoading = false;

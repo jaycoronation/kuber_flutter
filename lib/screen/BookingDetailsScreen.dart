@@ -273,7 +273,7 @@ class _BookingDetailsScreen extends State<BookingDetailsScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         const Text(
-                          "Do You Wants goodfs from Kuber? ",
+                          "Do You Wants goods from Kuber? ",
                           textAlign: TextAlign.left,
                           style: TextStyle(fontWeight: FontWeight.normal),
                         ),

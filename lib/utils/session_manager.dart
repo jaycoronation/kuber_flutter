@@ -55,6 +55,7 @@ class SessionManager {
     await SessionManagerMethods.setString(cityId, getSet.cityId.toString());
     await SessionManagerMethods.setString(stateId, getSet.stateId.toString());
     await SessionManagerMethods.setString(countryName, getSet.countryName.toString());
+    await SessionManagerMethods.setString(countryCode, getSet.countryCode.toString());
     await SessionManagerMethods.setString(cityName, getSet.cityName.toString());
     await SessionManagerMethods.setString(stateName, getSet.stateName.toString());
     await SessionManagerMethods.setString(image, getSet.profilePic.toString());

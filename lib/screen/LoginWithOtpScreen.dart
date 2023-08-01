@@ -212,7 +212,7 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
       setState(() {
         _isLoading = false;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(numberController.value.text)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(numberController.value.text, countryCode)));
     } else {
       setState(() {
         _isLoading = false;

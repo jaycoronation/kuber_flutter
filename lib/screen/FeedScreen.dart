@@ -184,6 +184,7 @@ class _FeedScreen extends State<FeedScreen> {
       'page' : _pageIndex.toString(),
       'limit' : _pageResult.toString(),
       'status'  : "1"
+
     };
 
     final response = await http.post(url, body: jsonBody);

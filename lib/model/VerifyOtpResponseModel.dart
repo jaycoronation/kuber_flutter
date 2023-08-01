@@ -1,7 +1,7 @@
 import 'dart:convert';
 /// success : 1
 /// message : "You have logged in successfully."
-/// profile : {"user_id":"79","first_name":"pratiksha","last_name":"panchal","mobile":"9510831651","birthdate":"17-04-2000","birthplace":"","pathshala":"","gurukul":"","qualification":"","experiance":"","address":"New Maninagar, Ahmedabad, Gujarat, India","certificate":"","profile_pic":"https://www.panditbookings.com/api/assets/uploads/profile_pic/1690455911_Astrology.jpg","timestamp":"","country_id":"1","city_id":"5910","state_id":"42","country_name":"AFGHANISTAN","city_name":"Fayzabad","state_name":"Badakhshan","email":"panchalpratiksha99@gmail.com","type":"User"}
+/// profile : {"user_id":"79","first_name":"pratiksha","last_name":"panchal","mobile":"9510831651","country_code":"","birthdate":"17-04-2000","birthplace":"","pathshala":"","gurukul":"","qualification":"","experiance":"","address":"New Maninagar, Ahmedabad, Gujarat, India","certificate":"","profile_pic":"https://www.panditbookings.com/api/assets/uploads/profile_pic/1690455911_Astrology.jpg","timestamp":"","country_id":"1","city_id":"5910","state_id":"42","country_name":"AFGHANISTAN","city_name":"Fayzabad","state_name":"Badakhshan","email":"panchalpratiksha99@gmail.com","type":"User"}
 
 VerifyOtpResponseModel verifyOtpResponseModelFromJson(String str) => VerifyOtpResponseModel.fromJson(json.decode(str));
 String verifyOtpResponseModelToJson(VerifyOtpResponseModel data) => json.encode(data.toJson());
@@ -50,6 +50,7 @@ VerifyOtpResponseModel copyWith({  num? success,
 /// first_name : "pratiksha"
 /// last_name : "panchal"
 /// mobile : "9510831651"
+/// country_code : ""
 /// birthdate : "17-04-2000"
 /// birthplace : ""
 /// pathshala : ""
@@ -77,6 +78,7 @@ class Profile {
       String? firstName, 
       String? lastName, 
       String? mobile, 
+      String? countryCode, 
       String? birthdate, 
       String? birthplace, 
       String? pathshala, 
@@ -99,6 +101,7 @@ class Profile {
     _firstName = firstName;
     _lastName = lastName;
     _mobile = mobile;
+    _countryCode = countryCode;
     _birthdate = birthdate;
     _birthplace = birthplace;
     _pathshala = pathshala;
@@ -119,15 +122,12 @@ class Profile {
     _type = type;
 }
 
-  set userId(String? value) {
-    _userId = value;
-  }
-
   Profile.fromJson(dynamic json) {
     _userId = json['user_id'];
     _firstName = json['first_name'];
     _lastName = json['last_name'];
     _mobile = json['mobile'];
+    _countryCode = json['country_code'];
     _birthdate = json['birthdate'];
     _birthplace = json['birthplace'];
     _pathshala = json['pathshala'];
@@ -151,6 +151,7 @@ class Profile {
   String? _firstName;
   String? _lastName;
   String? _mobile;
+  String? _countryCode;
   String? _birthdate;
   String? _birthplace;
   String? _pathshala;
@@ -173,6 +174,7 @@ Profile copyWith({  String? userId,
   String? firstName,
   String? lastName,
   String? mobile,
+  String? countryCode,
   String? birthdate,
   String? birthplace,
   String? pathshala,
@@ -195,6 +197,7 @@ Profile copyWith({  String? userId,
   firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
   mobile: mobile ?? _mobile,
+  countryCode: countryCode ?? _countryCode,
   birthdate: birthdate ?? _birthdate,
   birthplace: birthplace ?? _birthplace,
   pathshala: pathshala ?? _pathshala,
@@ -218,6 +221,7 @@ Profile copyWith({  String? userId,
   String? get firstName => _firstName;
   String? get lastName => _lastName;
   String? get mobile => _mobile;
+  String? get countryCode => _countryCode;
   String? get birthdate => _birthdate;
   String? get birthplace => _birthplace;
   String? get pathshala => _pathshala;
@@ -227,6 +231,11 @@ Profile copyWith({  String? userId,
   String? get address => _address;
   String? get certificate => _certificate;
   String? get profilePic => _profilePic;
+
+  set userId(String? value) {
+    _userId = value;
+  }
+
   String? get timestamp => _timestamp;
   String? get countryId => _countryId;
   String? get cityId => _cityId;
@@ -243,6 +252,7 @@ Profile copyWith({  String? userId,
     map['first_name'] = _firstName;
     map['last_name'] = _lastName;
     map['mobile'] = _mobile;
+    map['country_code'] = _countryCode;
     map['birthdate'] = _birthdate;
     map['birthplace'] = _birthplace;
     map['pathshala'] = _pathshala;
@@ -264,6 +274,8 @@ Profile copyWith({  String? userId,
     return map;
   }
 
+
+
   set firstName(String? value) {
     _firstName = value;
   }
@@ -274,6 +286,10 @@ Profile copyWith({  String? userId,
 
   set mobile(String? value) {
     _mobile = value;
+  }
+
+  set countryCode(String? value) {
+    _countryCode = value;
   }
 
   set birthdate(String? value) {

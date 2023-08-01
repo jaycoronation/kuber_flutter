@@ -52,79 +52,38 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
               },
             ),
           ),
-          body: _isLoading
-              ? const LoadingWidget()
-              : SingleChildScrollView(
-                  child: IntrinsicHeight(
-                    child: Column(
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          margin: const EdgeInsets.only(top: 14, left: 16, right: 14),
-                          child: const Text(
-                            'Hi, Welcome Back',
-                            style: TextStyle(
-                                fontSize: 28,
-                                color: black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-
-
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          margin: const EdgeInsets.only(left: 16, right: 16, top: 30),
-                          child: TextField(
-                            controller: emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            cursorColor: title,
-                            style: const TextStyle(
-                                color: title,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                            decoration:  InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                  borderSide: const BorderSide(color: Colors.grey)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(18),
-                                borderSide: const BorderSide(color: Colors.grey,),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
-                              fillColor: Colors.transparent,
-                              // border: OutlineInputBorder(
-                              //     borderRadius: BorderRadius.circular(12.0),
-                              //     borderSide: const BorderSide(
-                              //         width: 0, style: BorderStyle.none)),
-                              filled: true,
-                              hintText: 'Email',
-                              hintStyle: const TextStyle(
-                                  color: darkbrown,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400),
+          body: LayoutBuilder(
+              builder: (context, constraints){
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        children: [
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            margin: const EdgeInsets.only(top: 14, left: 16, right: 14),
+                            child: const Text(
+                              'Hi, Welcome Back',
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  color: black,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          margin: const EdgeInsets.only(left: 16, right: 16, top: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),),
-                          child: TextField(
-                            controller: passwordController,
-                            keyboardType: TextInputType.visiblePassword,
-                            obscureText: _passwordVisible ? true : false,
-                            enableSuggestions: false,
-                            autocorrect: false,
-                            cursorColor: title,
-                            style: const TextStyle(
-                                color: title,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                            decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
-                                // fillColor: white_blue,
+
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            margin: const EdgeInsets.only(left: 16, right: 16, top: 30),
+                            child: TextField(
+                              controller: emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              cursorColor: title,
+                              style: const TextStyle(
+                                  color: title,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              decoration:  InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(18),
                                     borderSide: const BorderSide(color: Colors.grey)
@@ -133,53 +92,134 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                   borderRadius: BorderRadius.circular(18),
                                   borderSide: const BorderSide(color: Colors.grey,),
                                 ),
-                                counterText: "",
+                                contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
+                                fillColor: Colors.transparent,
                                 // border: OutlineInputBorder(
                                 //     borderRadius: BorderRadius.circular(12.0),
                                 //     borderSide: const BorderSide(
                                 //         width: 0, style: BorderStyle.none)),
                                 filled: true,
-                                fillColor: Colors.transparent,
-                                hintText: 'Password',
+                                hintText: 'Email',
                                 hintStyle: const TextStyle(
                                     color: darkbrown,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    // Based on passwordVisible state choose the icon
-                                    _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                                    color: text_dark,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _passwordVisible = !_passwordVisible;
-                                    });
-                                  },
-                                )),
-                          ),
-                        ),
-                        GestureDetector(
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 14,right: 16),
-                            padding: const EdgeInsets.all(4),
-                            alignment: Alignment.topRight,
-                            child: const Text(
-                              'Forgot your Password?',
-                              style: TextStyle(
-                                  color: text_dark,
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 14),
+                              ),
                             ),
                           ),
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()));
-                          },
-                        ),
-                        const Spacer(),
-                        Expanded(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            margin: const EdgeInsets.only(left: 16, right: 16, top: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),),
+                            child: TextField(
+                              controller: passwordController,
+                              keyboardType: TextInputType.visiblePassword,
+                              obscureText: _passwordVisible ? true : false,
+                              enableSuggestions: false,
+                              autocorrect: false,
+                              cursorColor: title,
+                              style: const TextStyle(
+                                  color: title,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
+                                  // fillColor: white_blue,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      borderSide: const BorderSide(color: Colors.grey)
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                    borderSide: const BorderSide(color: Colors.grey,),
+                                  ),
+                                  counterText: "",
+                                  // border: OutlineInputBorder(
+                                  //     borderRadius: BorderRadius.circular(12.0),
+                                  //     borderSide: const BorderSide(
+                                  //         width: 0, style: BorderStyle.none)),
+                                  filled: true,
+                                  fillColor: Colors.transparent,
+                                  hintText: 'Password',
+                                  hintStyle: const TextStyle(
+                                      color: darkbrown,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      // Based on passwordVisible state choose the icon
+                                      _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                                      color: text_dark,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _passwordVisible = !_passwordVisible;
+                                      });
+                                    },
+                                  )),
+                            ),
+                          ),
+                          GestureDetector(
+                            child: Container(
+                              margin: const EdgeInsets.only(top: 14,right: 16),
+                              padding: const EdgeInsets.all(4),
+                              alignment: Alignment.topRight,
+                              child: const Text(
+                                'Forgot your Password?',
+                                style: TextStyle(
+                                    color: text_dark,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 14),
+                              ),
+                            ),
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()));
+                            },
+                          ),
+                          Container(height: 26,),
+
+                          Container(
+                            margin: const EdgeInsets.only(right: 18, left: 18),
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(12),),
+                                gradient: LinearGradient(
+                                  colors: [gradient_start, gradient_end],
+                                )
+                            ),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if(emailController.text.isEmpty)
+                                {
+                                  showToast("Please enter email address", context);
+                                }
+                                else if(passwordController.text.isEmpty)
+                                {
+                                  showToast("Please enter password", context);
+                                }
+                                else
+                                {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  _loginApi();
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  shadowColor: Colors.transparent),
+                              child: const Text('Log in', style: TextStyle(color: darkbrown, fontSize: 16),),
+                            ),
+                          ),
+
+
+
+                         /* Container(
+                              width: MediaQuery.of(context).size.width,
                               margin: const EdgeInsets.only(right: 18, left: 18),
                               child: TextButton(
                                 style: ButtonStyle(
@@ -192,63 +232,94 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                 ),
                                 onPressed: () {
                                   if(emailController.text.isEmpty)
-                                    {
-                                      showToast("Please enter email address", context);
-                                    }
+                                  {
+                                    showToast("Please enter email address", context);
+                                  }
                                   else if(passwordController.text.isEmpty)
-                                    {
-                                      showToast("Please enter password", context);
-                                    }
+                                  {
+                                    showToast("Please enter password", context);
+                                  }
                                   else
-                                    {
-                                      setState(() {
-                                        _isLoading = true;
-                                      });
-                                      _loginApi();
-                                    }
+                                  {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    _loginApi();
+                                  }
                                 },
                                 child: const Text("Log In",
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: black,
                                         fontWeight: FontWeight.w600)),
-                              )),
-                        ),
-                        Spacer(),
-                        GestureDetector(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
-                          },
-                          child: Container(
-                              margin: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 18),
-                              child: RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(children: <TextSpan>[
-                                  const TextSpan(
-                                    text:
-                                    "Already have an account?",
-                                    style: TextStyle(
-                                        color: title,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600),
+                              )),*/
+                          Spacer(),
+
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
+                            },
+                            child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff702828),
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    topLeft:  Radius.circular(20),
                                   ),
-                                  TextSpan(
-                                      text: " Sing Up",
-                                      style: const TextStyle(
-                                          color: black,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w900),
+                                  border: Border.all(
+                                    color: const Color(0xff702828),
+                                    width: 1,
+                                  ),
+                                ),
+                                padding: const EdgeInsets.only(bottom: 18,top: 18),
+                                child: const Text(
+                                  "Register as Priest / Pandit",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 16),
+                                )
+                            ),
+                          )
+/*
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
+                              },
+                              child: Container(
+                                  margin: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 18),
+                                  child: RichText(
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(children: <TextSpan>[
+                                      const TextSpan(
+                                        text:
+                                        "Already have an account?",
+                                        style: TextStyle(
+                                            color: title,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600),
                                       ),
-                                ]),
-                              )),
-                        ),
+                                      TextSpan(
+                                          text: " Sing Up",
+                                          style: const TextStyle(
+                                              color: black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w900),
+                                          ),
+                                    ]),
+                                  )),
+                            ),
+*/
 
 
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                )),
+                );
+              }
+
+          )),
       onWillPop: () {
         Navigator.pop(context);
         return Future.value(true);

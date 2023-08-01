@@ -76,7 +76,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
   @override
   void initState() {
-    print(sessionManager.getCountryCode().toString());
+    print(sessionManager.getUserId().toString());
     countryCode = sessionManager.getCountryCode().toString();
     super.initState();
     getCountryData();
@@ -1025,7 +1025,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
   Future<void> pickImageFromCamera() async {
     try {
-      var pickedfiles = await ImagePicker().pickImage(source: ImageSource.camera,imageQuality: 50);
+      var pickedfiles = await ImagePicker().pickImage(source: ImageSource.camera,imageQuality: 0,);
       if(pickedfiles != null)
       {
         final filePath = pickedfiles.path;
@@ -1051,7 +1051,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
   Future<void> pickImageFromGallery() async {
     try {
-      var pickedfiles = await ImagePicker().pickImage(source: ImageSource.gallery,imageQuality: 50);
+      var pickedfiles = await ImagePicker().pickImage(source: ImageSource.gallery,imageQuality: 0);
       if(pickedfiles != null){
         final filePath = pickedfiles.path;
         File tempFile = File(filePath);
@@ -1149,7 +1149,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
       var request = MultipartRequest("POST", url);
       request.fields['user_id'] = sessionManager.getUserId().toString();
-      request.fields['type'] = sessionManager.getType().toString();
+      request.fields['type'] = "User";
       request.fields['from_app'] = "true";
       request.files.add(await MultipartFile.fromPath('profile_pic', profilePic));
       print(profilePath.path);
@@ -1180,7 +1180,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
   }
 
   void pickFileForCertificate() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom,allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],allowMultiple: false);
+    FilePickerResult? result = await FilePicker
+        .platform.pickFiles(type: FileType.custom,allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],allowMultiple: false,allowCompression: true);
     if (result == null) return;
 
     if(kIsWeb) {
@@ -1557,6 +1558,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           countryController.text = getSet.countryName ?? "";
           stateController.text = getSet.stateName ?? "";
           cityController.text = getSet.cityName ?? "";
+          countryCode = getSet.countryCode ?? "";
           profilePic = getSet.profilePic ?? "";
 
           var getSetData = Profile();
@@ -1569,8 +1571,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           getSetData.email = getSet.email;
           getSet.firstName = getSet.firstName;
           getSetData.lastName = getSet.lastName;
+          getSetData.countryCode = getSet.countryCode;
 
-          await sessionManager.createLoginSession(getSet);
+          //await sessionManager.createLoginSession(getSet);
 
           setState(() {
             _isLoading = false;
