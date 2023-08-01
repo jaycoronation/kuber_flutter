@@ -280,7 +280,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       sessionManager.setUserId(dataResponse.profile?.userId.toString() ?? "");
       print(dataResponse.profile!.mobile.toString());
       print(dataResponse.profile!.email.toString());
-      if(dataResponse.profile!.mobile.toString().isEmpty || dataResponse.profile!.email.toString().isEmpty)
+      if(dataResponse.profile?.mobile?.isEmpty ?? false || dataResponse.profile?.email?.isEmpty ?? false)
       {
         print("running if");
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
