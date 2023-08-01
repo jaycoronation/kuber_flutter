@@ -45,9 +45,9 @@ class SessionManager {
   Future createLoginSession(Profile getSet) async {
     await SessionManagerMethods.setBool(isLoggedIn, true);
     await SessionManagerMethods.setString(userId, getSet.userId.toString());
-    await SessionManagerMethods.setString(firstName, getSet.firstName.toString());
-    await SessionManagerMethods.setString(lastName, getSet.lastName.toString());
-    await SessionManagerMethods.setString(email, getSet.email.toString());
+    await SessionManagerMethods.setString(firstName, getSet.firstName ?? "");
+    await SessionManagerMethods.setString(lastName, getSet.lastName ?? "");
+    await SessionManagerMethods.setString(email, getSet.email ?? "");
     await SessionManagerMethods.setString(mobileNumber, getSet.mobile.toString());
     await SessionManagerMethods.setString(birthdate, getSet.birthdate.toString());
     await SessionManagerMethods.setString(address, getSet.address.toString());

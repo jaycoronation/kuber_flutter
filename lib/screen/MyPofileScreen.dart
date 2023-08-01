@@ -1161,6 +1161,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       var responseData = await response.stream.toBytes();
       var responseString = String.fromCharCodes(responseData);
 
+      print(responseString);
       Map<String, dynamic> user = jsonDecode(responseString);
       var dataResponse = CommonResponseModel.fromJson(user);
 

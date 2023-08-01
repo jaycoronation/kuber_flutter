@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -47,6 +48,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
   String selectdateOfBirth = "Date Of Birth";
   String selectedTime = "Pick Time";
   String pujaDescription = "";
+  String puja_items_pdf = "";
   String pujaId = "";
   String _currentAddress = "";
   String dateTimeForShow = "";
@@ -176,6 +178,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                  selectPujaController.text = value.pujaName.toString();
                                  pujaDescription = value.pujaDescription.toString();
                                  pujaId = value.pujaId.toString();
+                                 puja_items_pdf = value.pujaItemsPdf.toString();
                                });
                              }
                            },
@@ -928,32 +931,44 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                      Container(height: 8,),
                      Visibility(
                        visible: isWantGoods == true ,
-                       child: Container(
-                         alignment: Alignment.center,
-                         margin: const EdgeInsets.only(top: 10,bottom: 10),
-                         height: 60,
-                         child: Card(
-                           shape: RoundedRectangleBorder(
-                             borderRadius: BorderRadius.circular(14.0),
-                           ),
-                           color: const Color(0xffe8e4c7),
-                           // elevation: 10,
-                           child: Padding(
-                             padding: const EdgeInsets.all(8.0),
-                             child: SizedBox(
-                               width: 240,
-                               child: Row(
-                                 children: [
-                                   const Image(image: AssetImage("assets/images/ic_doc.png"),width: 18,),
-                                   Container(width: 8,),
-                                   const Text("Download Puja Good List",
-                                     style: TextStyle(
-                                         fontSize: 16,
-                                         color: text_new,
-                                         fontWeight: FontWeight.w400),textAlign: TextAlign.center,),
-                                   Container(width: 12,),
-                                   const Image(image: AssetImage("assets/images/ic_down_form.png"),width: 14,)
-                                 ],
+                       child: GestureDetector(
+                         onTap: () async {
+                           if (puja_items_pdf.isEmpty)
+                             {
+                               showToast('Please enter puja name', context);
+                             }
+                          else if(await canLaunchUrl(Uri.parse(puja_items_pdf)))
+                              {
+                                launchUrl(Uri.parse(puja_items_pdf),mode: LaunchMode.externalApplication);
+                              }
+                         },
+                         child: Container(
+                           alignment: Alignment.center,
+                           margin: const EdgeInsets.only(top: 10,bottom: 10),
+                           height: 60,
+                           child: Card(
+                             shape: RoundedRectangleBorder(
+                               borderRadius: BorderRadius.circular(14.0),
+                             ),
+                             color: const Color(0xffe8e4c7),
+                             // elevation: 10,
+                             child: Padding(
+                               padding: const EdgeInsets.all(8.0),
+                               child: SizedBox(
+                                 width: 240,
+                                 child: Row(
+                                   children: [
+                                     const Image(image: AssetImage("assets/images/ic_doc.png"),width: 18,),
+                                     Container(width: 8,),
+                                     const Text("Download Puja Good List",
+                                       style: TextStyle(
+                                           fontSize: 16,
+                                           color: text_new,
+                                           fontWeight: FontWeight.w400),textAlign: TextAlign.center,),
+                                     Container(width: 12,),
+                                     const Image(image: AssetImage("assets/images/ic_down_form.png"),width: 14,)
+                                   ],
+                                 ),
                                ),
                              ),
                            ),

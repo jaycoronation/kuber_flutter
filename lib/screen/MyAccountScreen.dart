@@ -81,7 +81,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                             },
                             child: Column(
                                 children:[
-                                  _sessionManager.getImagePic() != null
+                                  _sessionManager.getImagePic()?.isNotEmpty ?? false
                                       ? Container(
                                           width: 100,
                                           height: 100,
@@ -102,10 +102,13 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                                       margin: const EdgeInsets.only(top: 6),
                                       child:  Text(
                                         "${_sessionManager.getName()} ${_sessionManager.getLastName() }",textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 14),)),
-                                  Container(
-                                      margin: const EdgeInsets.only(top: 6),
-                                      child: Text(
-                                        _sessionManager.getEmail().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),)),
+                                  Visibility(
+                                    visible:  _sessionManager.getEmail().toString().isNotEmpty,
+                                    child: Container(
+                                        margin: const EdgeInsets.only(top: 6),
+                                        child: Text(
+                                          _sessionManager.getEmail().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),)),
+                                  ),
                                   Container(
                                       margin: const EdgeInsets.only(top: 6),
                                       child: Text(
