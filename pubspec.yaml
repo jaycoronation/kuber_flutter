@@ -33,8 +33,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  google_fonts: ^3.0.1
-  pin_code_fields: ^7.4.0
+  google_fonts: ^4.0.4
+  pin_code_fields: ^8.0.1
   http: ^0.13.4
   http_interceptor: ^1.0.2
   pretty_http_logger:
@@ -44,7 +44,7 @@ dependencies:
   intl:
   shared_preferences: ^2.0.12
   flutter_google_places: ^0.3.0
-  audioplayers: ^1.0.1
+  audioplayers: ^4.1.0
   audioplayer: ^0.8.1
   google_geocoding: ^0.2.0
   geocoding: ^2.0.4
@@ -53,20 +53,19 @@ dependencies:
   fluttertoast: ^8.0.9
   photo_view:
   smooth_page_indicator: ^1.0.0+2
-  google_sign_in: ^5.0.1
+  google_sign_in: ^6.1.4
   flutter_login_facebook:
-  firebase_auth: ^4.2.5
+  firebase_auth: ^4.7.2
   firebase_core: ^2.15.0
   flutter_facebook_keyhash: ^0.0.4
-  firebase_crashlytics: ^3.0.9
+  firebase_crashlytics: ^3.3.4
   change_app_package_name: ^1.1.0
   the_apple_sign_in: ^1.1.1
-  flutter_secure_storage: ^7.0.1
+  flutter_secure_storage: ^8.0.0
   flutter_paypal: ^0.0.8
-  image_picker: ^0.8.5+3
+  image_picker: ^1.0.1
   webview_flutter: ^2.8.0
   like_button: ^2.0.5
-
 
 
 dev_dependencies:

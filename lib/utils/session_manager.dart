@@ -61,6 +61,7 @@ class SessionManager {
     await SessionManagerMethods.setString(image, getSet.profilePic.toString());
     await SessionManagerMethods.setBool(isSocial,false);
     await SessionManagerMethods.setString(userType, getSet.type.toString());
+    await SessionManagerMethods.setBool(isPujari, getSet.type.toString() == "Pujari" ? true : false);
 
   }
 

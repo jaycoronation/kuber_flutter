@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:kuber/screen/FeedDetailsScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
+import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
@@ -28,6 +29,7 @@ class _FeedScreen extends State<FeedScreen> {
   bool _isLastPage = false;
   bool isScrollingDown = false;
   late ScrollController _scrollViewController;
+  SessionManager sessionManager = SessionManager();
 
   @override
   void initState(){
@@ -182,6 +184,7 @@ class _FeedScreen extends State<FeedScreen> {
 
     Map<String, String> jsonBody = {
       'page' : _pageIndex.toString(),
+      'user_id' : sessionManager.getUserId().toString(),
       'limit' : _pageResult.toString(),
       'status'  : "1"
 

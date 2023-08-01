@@ -72,6 +72,8 @@
 	<string>Kuber wants your location to get the nearest temple list for you.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Kuber wants to use your Photos for update your profile picture.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Kuber is Using this permission for accessing you gallery to update from Profle Picture</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

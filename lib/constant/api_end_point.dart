@@ -65,7 +65,6 @@ String getUserThoughts = "admin_services/manage_thoughts/list";
 String getDonationList = "admin_services/manage_donations/list";
 String donationSave = "admin_services/manage_donations/save";
 
-
 /*JSON*/
 
 String priceJson = "prices.json";

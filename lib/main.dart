@@ -82,9 +82,11 @@ class _MyHomePageState extends State<MyHomePage> {
     Future.delayed(Duration.zero,(){
       if(_sessionManager.checkIsLoggedIn() ?? false)
       {
+        print(_sessionManager.getPhone().toString());
+        print(_sessionManager.getEmail().toString());
         if(_sessionManager.getPhone().toString().isEmpty || _sessionManager.getEmail().toString().isEmpty)
         {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyProfileScreen(true)), (route) => false);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
         }
         else
         {

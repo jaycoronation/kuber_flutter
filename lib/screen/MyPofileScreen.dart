@@ -17,9 +17,7 @@ import 'package:kuber/model/CityResponseModel.dart';
 import 'package:kuber/model/CommonResponseModel.dart';
 import 'package:kuber/model/CountryResponseModel.dart';
 import 'package:kuber/model/StateResponseModel.dart';
-import 'package:kuber/model/VerifyOtpResponseModel.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
-import 'package:kuber/screen/MyAccountScreen.dart';
 import 'package:kuber/screen/SelectionScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
@@ -30,6 +28,7 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/places.dart';
 
 import '../model/CountryListResponseModel.dart';
+import '../model/UserProfileResponseModel.dart';
 
 class MyProfileScreen extends StatefulWidget {
   final bool isFromLogin;
@@ -356,9 +355,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 ),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20),
-                                    borderSide:  BorderSide(color: Colors.grey)
+                                    borderSide:  const BorderSide(color: Colors.grey)
                                 ),
-                                suffixIcon: Icon(
+                                suffixIcon: const Icon(
                                   Icons.keyboard_arrow_down_rounded,
                                   color: title,
                                 ),
@@ -366,7 +365,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 // border: InputBorder.none,
                                 alignLabelWithHint: true,
                                 hintText: "Select country",
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                   color: text_dark,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -402,20 +401,20 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20),
-                                  borderSide:  BorderSide(color: Colors.grey,),
+                                  borderSide:  const BorderSide(color: Colors.grey,),
                                 ),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20),
-                                    borderSide:  BorderSide(color: Colors.grey)
+                                    borderSide:  const BorderSide(color: Colors.grey)
                                 ),
-                                suffixIcon: Icon(
+                                suffixIcon: const Icon(
                                   Icons.keyboard_arrow_down_rounded,
                                   color: title,
                                 ),
                                 counterText: "",
                                 alignLabelWithHint: true,
                                 hintText: "Select state",
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                   color: text_dark,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -450,13 +449,13 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20),
-                                  borderSide:  BorderSide(color: Colors.grey,),
+                                  borderSide:  const BorderSide(color: Colors.grey,),
                                 ),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20),
-                                    borderSide:  BorderSide(color: Colors.grey)
+                                    borderSide:  const BorderSide(color: Colors.grey)
                                 ),
-                                suffixIcon: Icon(
+                                suffixIcon: const Icon(
                                   Icons .keyboard_arrow_down_rounded,
                                   color: title,
                                 ),
@@ -464,7 +463,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 // border: InputBorder.none,
                                 alignLabelWithHint: true,
                                 hintText: "Select city",
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                   color: text_dark,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -505,11 +504,11 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
-                                borderSide:  BorderSide(color: Colors.grey,),
+                                borderSide:  const BorderSide(color: Colors.grey,),
                               ),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20),
-                                  borderSide:  BorderSide(color: Colors.grey)
+                                  borderSide:  const BorderSide(color: Colors.grey)
                               ),
                               counterText: "",
                               // border: InputBorder.none,
@@ -1054,7 +1053,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       var pickedfiles = await ImagePicker().pickImage(source: ImageSource.gallery,imageQuality: 0);
       if(pickedfiles != null){
         final filePath = pickedfiles.path;
-        File tempFile = File(filePath);
 
         setState(() {
           profilePath = File(filePath);
@@ -1494,22 +1492,26 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
         final body = response.body;
         Map<String, dynamic> user = jsonDecode(body);
-        var dataResponse = VerifyOtpResponseModel.fromJson(user);
+        var dataResponse = UserProfileResponseModel.fromJson(user);
 
         if (statusCode == 200 && dataResponse.success == 1)
           {
             var getSet = dataResponse.profile ?? Profile();
-            firstNameController.text = getSet.firstName.toString() ?? "";
-            lastNameController.text = getSet.lastName.toString() ?? "";
-            numberController.text = getSet.mobile.toString() ?? "";
-            emailController.text = getSet.email.toString() ?? "";
+            print("getSet.email.toString()");
+            print(getSet.email.toString());
+
+
+            /*firstNameController.text = getSet.firstName ?? "";
+            lastNameController.text = getSet.lastName ?? "";
+            numberController.text = getSet.mobile ?? "";
+            emailController.text = emailController.value.text;
             bdyController.text = universalDateConverter( "yyyy-MM-dd","MMMM dd, yyyy", getSet.birthdate.toString() ?? "");
             addressController.text = getSet.address.toString() ?? "";
             countryController.text = getSet.countryName == null ? "" : getSet.countryName ?? "";
             stateController.text = getSet.stateName == null ? "" : getSet.stateName ?? "";
             cityController.text = getSet.cityName == null ? "" : getSet.cityName ?? "";
             profilePic = getSet.profilePic ?? "";
-            sessionManager.createLoginSession(getSet);
+            sessionManager.createLoginSession(getSet);*/
 
           setState(() {
             _isLoading = false;
@@ -1545,7 +1547,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
         final body = response.body;
         Map<String, dynamic> user = jsonDecode(body);
-        var dataResponse = VerifyOtpResponseModel.fromJson(user);
+        var dataResponse = UserProfileResponseModel.fromJson(user);
 
         if (statusCode == 200 && dataResponse.success == 1)
         {
@@ -1563,7 +1565,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           profilePic = getSet.profilePic ?? "";
 
           var getSetData = Profile();
-          getSetData.userId = getSet.userId;
+          getSetData.id = getSet.id;
           getSetData.mobile = getSet.mobile;
           getSetData.profilePic = getSet.profilePic;
           getSetData.countryId = getSet.countryId;
@@ -1574,7 +1576,11 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           getSetData.lastName = getSet.lastName;
           getSetData.countryCode = getSet.countryCode;
 
-          //await sessionManager.createLoginSession(getSet);
+          sessionManager.setEmail(getSet.email ?? '');
+          sessionManager.setPhone(getSet.mobile ?? '');
+          sessionManager.setName(getSet.firstName ?? '');
+          sessionManager.setLastName(getSet.lastName ?? '');
+          sessionManager.setImage(getSet.profilePic ?? '');
 
           setState(() {
             _isLoading = false;

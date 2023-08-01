@@ -28,8 +28,6 @@ class _DonationScreenState extends State<DonationScreen> {
   SessionManager sessionManager = SessionManager();
   bool _isLoading = false;
 
-
-
   List<DonateResponseModel> donatePrice = [];
 
   @override
@@ -194,7 +192,7 @@ class _DonationScreenState extends State<DonationScreen> {
                       )
                   ),
                   Container(height: 22,),
-                  Align(
+                  const Align(
                     alignment: Alignment.centerRight,
                       child: Text("* Donation amount is in USD", style: TextStyle(color: lighttxtGrey),)
                   ),
@@ -299,7 +297,6 @@ class _DonationScreenState extends State<DonationScreen> {
     setState(() {
       _isLoading = true;
     });
-    Navigator.pop(context);
     HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
       HttpLogger(logLevel: LogLevel.BODY),
     ]);
@@ -325,10 +322,11 @@ class _DonationScreenState extends State<DonationScreen> {
     var astroResponse = CommonResponseModel.fromJson(user);
 
     if (statusCode == 200 && astroResponse.success == 1) {
-      afterMethod();
       setState(() {
         _isLoading = false;
       });
+      afterMethod();
+
     }
     else
     {
@@ -337,39 +335,6 @@ class _DonationScreenState extends State<DonationScreen> {
       });
       showToast(astroResponse.message, context);
     }
-  }
-
-  _showAlertDialog(String image, String text) {
-    Widget okButton = Image.asset(image,height: 160,width:160);
-
-    AlertDialog alert = AlertDialog(
-      content: Wrap(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 12,right: 12),
-            child: Column(
-              children: [
-                okButton,
-                Container(height: 12,),
-                Text(text,style: const TextStyle(fontSize: 18,color: text_new,fontWeight: FontWeight.w900),textAlign: TextAlign.center),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pop(context);
-    },);
   }
 
   void afterMethod() {

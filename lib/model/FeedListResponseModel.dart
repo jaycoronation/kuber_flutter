@@ -107,6 +107,7 @@ class Feeds {
     _id = json['id'];
     _title = json['title'];
     _mediaFile = json['media_file'];
+    _isLiked = json['is_liked'];
     _mediaType = json['media_type'];
     _description = json['description'];
     _userId = json['user_id'];
