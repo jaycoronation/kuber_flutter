@@ -127,7 +127,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                         children: [
                                           const Expanded(child: Text("Birth Date", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
                                           const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                          Expanded(child: Text(universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", _listPrayers[i].dateOfBirth), style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                          Expanded(child: Text(universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy",   _listPrayers[i].dateOfBirth), style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
                                         ],
                                       ),
                                       Column(

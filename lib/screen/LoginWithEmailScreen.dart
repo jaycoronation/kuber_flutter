@@ -352,6 +352,8 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
 
     if (statusCode == 200 && dataResponse.success == 1) {
 
+      print(dataResponse.type);
+
       var getSet = Profile();
       getSet.userId = dataResponse.userId;
       getSet.mobile = dataResponse.mobile;

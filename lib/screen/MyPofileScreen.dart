@@ -28,7 +28,9 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/places.dart';
 
 import '../model/CountryListResponseModel.dart';
+import '../model/PujariUserReponseModel.dart' as pujari;
 import '../model/UserProfileResponseModel.dart';
+import '../model/VerifyOtpResponseModel.dart' as verify;
 
 class MyProfileScreen extends StatefulWidget {
   final bool isFromLogin;
@@ -76,6 +78,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
   @override
   void initState() {
     print(sessionManager.getUserId().toString());
+    print(sessionManager.getType().toString());
+    print(sessionManager.getIsPujrai().toString());
     countryCode = sessionManager.getCountryCode().toString();
     super.initState();
     getCountryData();
@@ -1364,20 +1368,25 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           "email": emailController.value.text,
           "mobile": numberController.value.text,
           "country": countryController.value.text,
+          "country_id": countryId,
+          "country_code": countryCode,
           "state": stateController.value.text,
+          "state_id": stateId,
           "city": cityController.value.text,
+          "city_id": cityId,
           "address": addressController.value.text,
           "birthdate":universalDateConverter("MMMM dd, yyyy", "yyyy-MM-dd",bdyController.value.text),
           "birthplace":"",
           "gender":"1",
-          "qualification":"",
-          "experiance":"",
+          "qualification":qualificationController.value.text,
+          "experiance":experienceController.value.text,
           "qualification_other":"",
           "experience_other":"",
-          "pathshala":"",
-          "gurukul":"",
+          "pathshala":pathshalaController.value.text,
+          "gurukul":gurukulController.value.text,
           "profile_pic_name":""
         };
+
 
         final response = await http.post(url, body: jsonBody);
 
@@ -1388,6 +1397,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         var dataResponse = CommonResponseModel.fromJson(user);
 
         if (statusCode == 200 && dataResponse.success == 1) {
+           _getUserProfileDetails(true);
 
           setState(() {
             _isLoading = false;
@@ -1523,11 +1533,11 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
         final body = response.body;
         Map<String, dynamic> user = jsonDecode(body);
-        var dataResponse = UserProfileResponseModel.fromJson(user);
+        var dataResponse = pujari.PujariUserReponseModel.fromJson(user);
 
         if (statusCode == 200 && dataResponse.success == 1)
           {
-            var getSet = dataResponse.profile ?? Profile();
+            var getSet = dataResponse.profile ?? pujari.Profile();
             print("getSet.email.toString()");
             print(getSet.email.toString());
 
@@ -1542,6 +1552,28 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             stateController.text = getSet.stateName == null ? "" : getSet.stateName ?? "";
             cityController.text = getSet.cityName == null ? "" : getSet.cityName ?? "";
             profilePic = getSet.profilePic ?? "";
+            pathshalaController.text = getSet.pathshala ?? '';
+            gurukulController.text = getSet.gurukul ?? '';
+            qualificationController.text = getSet.qualification ?? '';
+            experienceController.text = getSet.experience ?? '';
+            countryCode = getSet.countryCode ?? '';
+
+            verify.Profile getSetData = verify.Profile();
+
+            getSetData.userId = dataResponse.profile?.id ?? '';
+            getSetData.mobile = dataResponse.profile?.mobile;
+
+            getSetData.profilePic = dataResponse.profile?.profilePic;
+            getSetData.countryId = dataResponse.profile?.countryId;
+            getSetData.stateId = dataResponse.profile?.stateId;
+            getSetData.cityId = dataResponse.profile?.stateId;
+            getSetData.email = dataResponse.profile?.email;
+            getSetData.firstName = dataResponse.profile?.firstName;
+            getSetData.lastName = dataResponse.profile?.lastName;
+            getSetData.countryCode = dataResponse.profile?.countryCode;
+            getSetData.type = "Pujari";
+
+            await sessionManager.createLoginSession(getSetData);
 
           setState(() {
             _isLoading = false;
@@ -1612,6 +1644,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           sessionManager.setName(getSet.firstName ?? '');
           sessionManager.setLastName(getSet.lastName ?? '');
           sessionManager.setImage(getSet.profilePic ?? '');
+          sessionManager.setType("User");
 
           setState(() {
             _isLoading = false;
@@ -1683,7 +1716,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                               fontSize: 14,
                               fontWeight: FontWeight.w600),
                           onChanged: (editable){
-                            setState((){
+                            updateState((){
                               if (listCountryCode.isNotEmpty)
                               {
                                 listSearchCountryName = [];
