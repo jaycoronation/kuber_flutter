@@ -34,6 +34,7 @@ class Requests {
   Requests({
     required this.name,
     required this.requestId,
+    required this.notes,
     required this.surname,
     required this.dateOfBirth,
     required this.userId,
@@ -44,6 +45,7 @@ class Requests {
 
   late final String name;
   late final String requestId;
+  late final String notes;
   late final String surname;
   late final String dateOfBirth;
   late final String userId;
@@ -54,6 +56,7 @@ class Requests {
   Requests.fromJson(Map<String, dynamic> json) {
     name = json['name'] ?? "";
     requestId = json['request_id'];
+    notes = json['notes'];
     surname = json['surname'] ?? "";
     dateOfBirth = json['date_of_birth'];
     userId = json['user_id'];
@@ -66,6 +69,7 @@ class Requests {
     final _data = <String, dynamic>{};
     _data['name'] = name;
     _data['request_id'] = requestId;
+    _data['notes'] = notes;
     _data['surname'] = surname;
     _data['date_of_birth'] = dateOfBirth;
     _data['user_id'] = userId;

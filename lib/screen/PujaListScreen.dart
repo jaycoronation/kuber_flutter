@@ -131,7 +131,8 @@ class _PujaListScreen extends State<PujaListScreen> {
                               width: MediaQuery.of(context).size.width,
                               child: InkWell(
                                 onTap: (){
-                                  Navigator.pop(context,_pujaList[i]);
+                                  var data = listPujaSearch.isNotEmpty? listPujaSearch[i]: _pujaList[i];
+                                  Navigator.pop(context,data);
                                 },
                                 child: Card(
                                   shape: RoundedRectangleBorder(

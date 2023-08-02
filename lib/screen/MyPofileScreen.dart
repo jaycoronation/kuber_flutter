@@ -122,7 +122,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 borderSide: const BorderSide(color: Colors.grey,),
                               ),
                               labelText: "First Name",
-                              labelStyle: const TextStyle(color: text_new),                                     ),
+                              labelStyle: const TextStyle(color: darkbrown),                                     ),
                           )
                       ),
 
@@ -144,7 +144,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 borderSide: const BorderSide(color: Colors.grey,),
                               ),
                               labelText: "Last Name",
-                              labelStyle: const TextStyle(color: text_new),                                     ),
+                              labelStyle: const TextStyle(color: darkbrown),                                     ),
                           )
                       ),
 
@@ -191,7 +191,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 borderSide: const BorderSide(color: Colors.grey,),
                               ),
                               labelText: "Email Address",
-                              labelStyle: const TextStyle(color: text_new),                                     ),
+                              labelStyle: const TextStyle(color: darkbrown),                                     ),
                           )
                       ),
 
@@ -251,9 +251,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                   filled: true,
                                   hintText: "Mobile Number",
                                   hintStyle: const TextStyle(
-                                    color: text_dark,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w900,
+                                    color: darkbrown,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
@@ -366,9 +366,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 alignLabelWithHint: true,
                                 hintText: "Select country",
                                 hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
+                                  color: darkbrown,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 )
                             )
                         ),
@@ -415,9 +415,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 alignLabelWithHint: true,
                                 hintText: "Select state",
                                 hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
+                                  color: darkbrown,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 )
                             )
                         ),
@@ -464,9 +464,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 alignLabelWithHint: true,
                                 hintText: "Select city",
                                 hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
+                                  color: darkbrown,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 ))
                         ),
                       ),
@@ -515,7 +515,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                               hintText: 'Address',
                               hintStyle: const TextStyle(
                                   color: darkbrown,
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w500
                               )
                           ),
@@ -532,11 +532,10 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                             ),
                             Container(
                               alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 18,right: 10,left: 10),
-                              padding: const EdgeInsets.only(left: 14, right: 10),
+                              margin: const EdgeInsets.only(top: 18,),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.0),
-                                  color: white_blue),
+                                  ),
                               child:   TextField(
                                 controller: pathshalaController,
                                 keyboardType: TextInputType.text,
@@ -546,23 +545,30 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
-                                decoration: const InputDecoration(
+                                decoration:  InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide:   BorderSide(color: Colors.grey,),
+                                    ),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide:   BorderSide(color: Colors.grey)
+                                    ),
                                     counterText: "",
-                                    border: InputBorder.none,
+                                    // border: InputBorder.none,
                                     hintText: 'Pathshala',
                                     hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w900)),
+                                        color: darkbrown,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500)),
                               ),
                             ),
                             Container(
                               alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 10,right: 10,left: 10),
-                              padding: const EdgeInsets.only(left: 14, right: 10),
+                              margin: const EdgeInsets.only(top: 10,),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.0),
-                                  color: white_blue),
+                                  ),
                               child: TextField(
                                 controller: gurukulController,
                                 keyboardType: TextInputType.text,
@@ -572,23 +578,29 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide:   BorderSide(color: Colors.grey,),
+                                    ),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide:   BorderSide(color: Colors.grey)
+                                    ),
                                     counterText: "",
-                                    border: InputBorder.none,
                                     hintText: 'Gurukul',
                                     hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w900)),
+                                        color: darkbrown,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500)),
                               ),
                             ),
                             Container(
                               alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 10,right: 10,left: 10),
-                              padding: const EdgeInsets.only(left: 14, right: 10),
+                              margin: const EdgeInsets.only(top: 10,),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.0),
-                                  color: white_blue),
+                                  ),
                               child:  TextField(
                                   controller: qualificationController,
                                   onTap: (){
@@ -601,29 +613,35 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                   ),
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide:   BorderSide(color: Colors.grey,),
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide:   BorderSide(color: Colors.grey)
+                                      ),
                                       suffixIcon: Icon(
                                         Icons .keyboard_arrow_down_rounded,
                                         color: title,
                                       ),
                                       counterText: "",
-                                      border: InputBorder.none,
                                       alignLabelWithHint: true,
                                       hintText: "Qualification",
                                       hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
+                                        color: darkbrown,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
                                       ))
                               ),
                             ),
                             Container(
                               alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 10,right: 10,left: 10),
-                              padding: const EdgeInsets.only(left: 14, right: 10),
+                              margin: const EdgeInsets.only(top: 10,),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.0),
-                                  color: white_blue),
+                                  ),
                               child:  TextField(
                                   controller: experienceController,
                                   onTap: (){
@@ -637,29 +655,35 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                   ),
-                                  decoration: const InputDecoration(
+                                  decoration:  InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide:   BorderSide(color: Colors.grey,),
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide:   BorderSide(color: Colors.grey)
+                                      ),
                                       suffixIcon: Icon(
                                         Icons .keyboard_arrow_down_rounded,
                                         color: title,
                                       ),
                                       counterText: "",
-                                      border: InputBorder.none,
                                       alignLabelWithHint: true,
                                       hintText: "Experience",
                                       hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
+                                        color: darkbrown,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
                                       ))
                               ),
                             ),
                             Container(
                               alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 10,right: 10,left: 10),
-                              padding: const EdgeInsets.only(left: 14, right: 10),
+                              margin: const EdgeInsets.only(top: 10,),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.0),
-                                  color: white_blue),
+                                  ),
                               child:  TextField(
                                 readOnly: true,
                                 keyboardType: TextInputType.text,
@@ -672,14 +696,21 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide:   BorderSide(color: Colors.grey,),
+                                    ),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide:   BorderSide(color: Colors.grey)
+                                    ),
                                     counterText: "",
-                                    border: InputBorder.none,
                                     hintText: 'Certificate',
                                     hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w900)),
+                                        color: darkbrown,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500)),
                               ),
                             ),
                             Visibility(
@@ -845,7 +876,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             borderSide: const BorderSide(color: Colors.grey,),
           ),
           labelText: "Date of birth",
-          labelStyle: const TextStyle(color: text_new, fontWeight: FontWeight.w500, fontSize: 16),
+          labelStyle: const TextStyle(color: darkbrown, fontWeight: FontWeight.w500, fontSize: 16),
         ),
         onTap: () async {
           _setDatePicker(bdyController);
@@ -966,8 +997,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Padding(
+              children: const [
+                Padding(
                   padding: EdgeInsets.only(top: 14,bottom: 8),
                   child: Text('Select Image From?', style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
                 ),

@@ -130,19 +130,13 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                           Expanded(child: Text(universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", _listPrayers[i].dateOfBirth), style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
                                         ],
                                       ),
-                                      Visibility(
-                                        visible:false,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                 Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
-                                                Text(_listPrayers[i].dateOfBirth,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
-                                              ],
-                                            ),
-                                          )
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                           Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
+                                          Text(_listPrayers[i].notes,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
+                                        ],
                                       ),
                                     ],
                                   ),

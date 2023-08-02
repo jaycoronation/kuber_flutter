@@ -457,6 +457,7 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
         "dd-MM-yyyy", "dd MMM,yyyy", getSet.groomBirthDate);
     matchBoyBirthPlaceController.text = getSet.groomAddress;
     matchBoyBirthTimeController.text = getSet.groomBirthTime;
+    matchNoteController.text = getSet.comments;
 
     showModalBottomSheet(
         context: context,

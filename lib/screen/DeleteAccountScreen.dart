@@ -76,7 +76,8 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
                               backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
                           ),
                           onPressed: (){
-                            _getDeleteAccountApi();
+                            // _getDeleteAccountApi();
+                            _showDeleteBottomSheet();
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -84,11 +85,11 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
                           ),
                         )
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top:12,left: 12,right: 12),
-                      child: const Text("Back to Settings",style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 14)),
-                    )
+                    // Container(
+                    //   alignment: Alignment.center,
+                    //   margin: const EdgeInsets.only(top:12,left: 12,right: 12),
+                    //   child: const Text("Back to Settings",style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 14)),
+                    // )
                   ],
                 )
           ),
@@ -98,6 +99,110 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
           }
         );
   }
+
+
+  void _showDeleteBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Wrap(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                      width: 60,
+                      margin: const EdgeInsets.only(top: 12),
+                      child: const Divider(height: 1.5, thickness: 1.5,color: Colors.grey,)),
+                  Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
+                    child: const Text("Delete account ", style: TextStyle(color: black, fontWeight: FontWeight.bold,fontSize: 17)),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
+                    child: const Text("Are you sure you want to Delete account now?", style: TextStyle(color: black, fontWeight: FontWeight.w900,fontSize: 15),textAlign: TextAlign.justify,),
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.only(left:12,right: 12,bottom: 30,top:12),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6.0),
+                                  ),
+                                ),
+                                backgroundColor: MaterialStateProperty.all<Color>(orange)
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text(
+                                "No",
+                                style: TextStyle(color: white,fontSize: 14,fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.only(left:12,right: 12,bottom: 30,top:12),
+                          child: TextButton(
+                            onPressed: (){
+                              _getDeleteAccountApi();
+                            },
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6.0),
+                                  ),
+                                ),
+                                backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text(
+                                "Yes",
+                                style: TextStyle(color: black,fontSize: 14,fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
 
   _getDeleteAccountApi() async {
     setState(() {

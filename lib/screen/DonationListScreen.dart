@@ -116,7 +116,7 @@ class _DonationListScreen extends State<DonationListScreen> {
                                                     right: 8,
                                                     left: 8),
                                                 child:  Text(
-                                                  "Amount :  ₹ ${_listDonation[i].amount.toString()} ",
+                                                  "Amount :  \$ ${_listDonation[i].amount.toString()} ",
                                                   style: TextStyle(
                                                       fontWeight:
                                                       FontWeight.w500,

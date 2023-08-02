@@ -470,6 +470,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountScreen()));
                           },
                         ),
+/*
                         Visibility(
                           visible: _sessionManager.getType().toString() != "User",
                           child: InkWell(
@@ -503,6 +504,7 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                             },
                           ),
                         ),
+*/
                         Container(
                           alignment: Alignment.center,
                             margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
