@@ -215,6 +215,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
     prayerDOBController.text = universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", getSet.dateOfBirth);
     pPrayerForController.text = getSet.prayer;
     prayerID = getSet.prayerId;
+    prayerNotesController.text = getSet.notes;
 
     showModalBottomSheet(
         context: context,

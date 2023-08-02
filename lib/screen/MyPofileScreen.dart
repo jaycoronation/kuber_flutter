@@ -1535,7 +1535,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             firstNameController.text = getSet.firstName ?? "";
             lastNameController.text = getSet.lastName ?? "";
             numberController.text = getSet.mobile ?? "";
-            emailController.text = emailController.value.text;
+            emailController.text = getSet.email ?? "";
             bdyController.text = universalDateConverter( "yyyy-MM-dd","MMMM dd, yyyy", getSet.birthdate.toString() ?? "");
             addressController.text = getSet.address.toString() ?? "";
             countryController.text = getSet.countryName == null ? "" : getSet.countryName ?? "";
@@ -1643,7 +1643,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         backgroundColor: white,
         builder: (context){
           return StatefulBuilder(
-              builder:(context, setState) {
+              builder:(context, updateState) {
                 return Container(
                   height: MediaQuery.of(context).size.height * 0.88,
                   decoration: const BoxDecoration(

@@ -305,7 +305,7 @@ class _DonationScreenState extends State<DonationScreen> {
 
     Map<String, String> jsonBody = {
       'reason_for_donation': reasonController.value.text,
-      'amount': selectedItem == "Custom" ? donateController.value.text : selectedItem,
+      'amount': selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
       'first_name': sessionManager.getName().toString(),
       'last_name': sessionManager.getLastName().toString(),
       'email': sessionManager.getEmail().toString(),
