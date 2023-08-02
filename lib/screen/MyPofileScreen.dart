@@ -1532,7 +1532,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             print(getSet.email.toString());
 
 
-            /*firstNameController.text = getSet.firstName ?? "";
+            firstNameController.text = getSet.firstName ?? "";
             lastNameController.text = getSet.lastName ?? "";
             numberController.text = getSet.mobile ?? "";
             emailController.text = emailController.value.text;
@@ -1542,7 +1542,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             stateController.text = getSet.stateName == null ? "" : getSet.stateName ?? "";
             cityController.text = getSet.cityName == null ? "" : getSet.cityName ?? "";
             profilePic = getSet.profilePic ?? "";
-            sessionManager.createLoginSession(getSet);*/
 
           setState(() {
             _isLoading = false;
@@ -1570,6 +1569,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
         Map<String, String> jsonBody = {
           "id": sessionManager.getUserId().toString(),
+          'type' : sessionManager.getType().toString()
         };
 
         final response = await http.post(url, body: jsonBody);
