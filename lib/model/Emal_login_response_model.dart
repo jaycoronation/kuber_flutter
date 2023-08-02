@@ -4,6 +4,7 @@ class EmalLoginResponseModel {
     required this.message,
     required this.userId,
     required this.firstName,
+    required this.countryCode,
     required this.lastName,
     required this.mobile,
     required this.birthdate,
@@ -33,6 +34,7 @@ class EmalLoginResponseModel {
     message = json['message'];
     userId = json['user_id'] ?? "" ;
     firstName = json['first_name'] ?? "";
+    countryCode = json['country_code'] ?? "";
     lastName = json['last_name'] ?? "";
     mobile = json['mobile'] ?? "";
     birthdate = json['birthdate'] ?? "";
@@ -61,6 +63,7 @@ class EmalLoginResponseModel {
   String message = "";
   String userId = "";
   String firstName = "";
+  String countryCode = "";
   String lastName = "";
   String mobile = "";
   String birthdate = "";
@@ -91,6 +94,7 @@ class EmalLoginResponseModel {
     map['message'] = message;
     map['user_id'] = userId;
     map['first_name'] = firstName;
+    map['country_code'] = countryCode;
     map['last_name'] = lastName;
     map['mobile'] = mobile;
     map['birthdate'] = birthdate;

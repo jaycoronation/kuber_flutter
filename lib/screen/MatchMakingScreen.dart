@@ -446,6 +446,7 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
     matchEmailcontroller.text = getSet.email;
     matchGirlFnameController.text = getSet.brideName;
     matchGirlLNameController.text = getSet.brideSurname;
+    matchNumberController.text = getSet.mobile;
     matchGirlBirthDateController.text = universalDateConverter(
         "dd-MM-yyyy", "dd MMM,yyyy", getSet.brideBirthDate);
     matchGirlBirthTimeController.text = getSet.brideBirthTime;

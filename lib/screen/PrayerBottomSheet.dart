@@ -64,7 +64,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
     prayerLNameController.text= sessionManager.getLastName().toString();
     prayerEmailController.text= sessionManager.getEmail().toString();
     print(sessionManager.getDob().toString());
-    prayerDOBController.text= universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", sessionManager.getDob().toString());
+    prayerDOBController.text= sessionManager.getDob().toString();
     _callListPrayer();
     super.initState();
   }
@@ -891,7 +891,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
       'user_id' : sessionManager.getUserId().toString(),
       'name' : prayerFNameController.value.text,
       'surname' : prayerLNameController.value.text,
-      'date_of_birth' : universalDateConverter("MMMM dd, yyyy", "dd-MM-yyyy", prayerDOBController.value.text),
+      'date_of_birth' : prayerDOBController.value.text,
       'email' : prayerEmailController.value.text,
       'prayer_id' : prayerID,
       'notes' : prayerNotesController.value.text,

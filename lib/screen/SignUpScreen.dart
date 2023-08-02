@@ -705,6 +705,7 @@ class _SignUpScreen extends State<SignUpScreen> {
       'email': emailController.value.text,
       'mobile': numberController.value.text,
       'password': passwordController.value.text,
+      'country_code': countryCode,
       'country': "",
       'state': "",
       'city': "",

@@ -364,6 +364,7 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
       getSet.firstName = dataResponse.firstName;
       getSet.lastName = dataResponse.lastName;
       getSet.birthdate = dataResponse.birthdate;
+      getSet.countryCode = dataResponse.countryCode;
 
       await sessionManager.createLoginSession(getSet);
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardScreen()),(route) => false);
