@@ -63,7 +63,8 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
     prayerFNameController.text= sessionManager.getName().toString();
     prayerLNameController.text= sessionManager.getLastName().toString();
     prayerEmailController.text= sessionManager.getEmail().toString();
-    prayerDOBController.text= universalDateConverter( "dd-MM-yyyy","MMMM dd, yyyy", sessionManager.getDob().toString()) ;
+    print(sessionManager.getDob().toString());
+    prayerDOBController.text= universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", sessionManager.getDob().toString());
     _callListPrayer();
     super.initState();
   }
