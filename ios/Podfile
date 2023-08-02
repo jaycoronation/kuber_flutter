@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, '11.0'
+platform :ios, '12.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -9,6 +9,21 @@ project 'Runner', {
   'Profile' => :release,
   'Release' => :release,
 }
+
+    def run_podfile_post_install_hook
+      podfile.post_install!(self)
+    rescue => e
+      raise Informative, 'An error occurred while processing the post-install ' \
+        'hook of the Podfile.' \
+        "\n\n#{e.message}\n\n#{e.backtrace * "\n"}"
+    end
+
+    def run_podfile_post_integrate_hooks
+      UI.message '- Running post integrate hooks' do
+        executed = run_podfile_post_integrate_hook
+        UI.message '- Podfile' if executed
+      end
+    end
 
 def flutter_root
   generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
@@ -44,7 +59,6 @@ end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
-    config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
     flutter_additional_ios_build_settings(target)
   end
 end

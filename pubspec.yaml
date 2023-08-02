@@ -56,9 +56,9 @@ dependencies:
   google_sign_in: ^6.1.4
   flutter_login_facebook:
   firebase_auth: ^4.7.2
-  firebase_core: ^2.15.0
+  firebase_core: ^2.13.0
   flutter_facebook_keyhash: ^0.0.4
-  firebase_crashlytics: ^3.3.4
+  #firebase_crashlytics: ^3.3.4
   change_app_package_name: ^1.1.0
   the_apple_sign_in: ^1.1.1
   flutter_secure_storage: ^8.0.0
