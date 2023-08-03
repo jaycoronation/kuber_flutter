@@ -43,6 +43,7 @@ class SessionManager {
 
   //set data into shared preferences...
   Future createLoginSession(Profile getSet) async {
+    print(getSet.birthdate);
     await SessionManagerMethods.setBool(isLoggedIn, true);
     await SessionManagerMethods.setString(userId, getSet.userId.toString());
     await SessionManagerMethods.setString(firstName, getSet.firstName ?? "");

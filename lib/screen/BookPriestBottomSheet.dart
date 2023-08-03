@@ -400,154 +400,161 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                            fontWeight: FontWeight.w900)),
                                  ),
                                ), */
-                           Container(
-                             alignment: Alignment.centerLeft,
-                             margin:
-                             const EdgeInsets.only(top: 20, bottom: 10),
-                             child: const Text(
-                               "Available Date & Time",
-                               style: TextStyle(
-                                   fontWeight: FontWeight.w500,
-                                   color: text_new,
-                                   fontSize: 16),
-                             ),
-                           ),
-                           Container(height: 14,),
-                           Padding(
-                             padding: const EdgeInsets.only(left: 22.0, right: 22),
-                             child: Row(
-                               crossAxisAlignment: CrossAxisAlignment.center,
-                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+                           Visibility(
+                             visible: ausoiciousDate == false,
+                             child: Column(
                                children: [
-                                 GestureDetector(
-                                   onTap: () async {
-                                     _setPickDate(pickDateController,setState);
-                                   },
-                                   child: Row(
-                                     children: [
-                                       Image.asset(
-                                         "assets/images/ic_calender.png",
-                                         height: 22,
-                                         width: 22,
-                                       ),
-                                       Container(width: 12,),
-                                       const Text("Pick Date", style: TextStyle( fontSize: 16,
-                                           fontWeight: FontWeight.w500,
-                                           color: black),),
-                                       Container(width: 24,),
-                                       Image.asset(
-                                         "assets/images/ic_form_dropdown_arrow.png",
-                                         height: 18,
-                                         width: 18,
-                                       ),
-
-                                     ],
+                                 Container(
+                                   alignment: Alignment.centerLeft,
+                                   margin:
+                                   const EdgeInsets.only(top: 20, bottom: 10),
+                                   child: const Text(
+                                     "Available Date & Time",
+                                     style: TextStyle(
+                                         fontWeight: FontWeight.w500,
+                                         color: text_new,
+                                         fontSize: 16),
                                    ),
                                  ),
-                                 Container(width: 35,),
-                                 GestureDetector(
-                                   onTap: () async {
-                                     _setTimePicker(pickTimeController,setState);
-                                   },
+                                 Container(height: 14,),
+                                 Padding(
+                                   padding: const EdgeInsets.only(left: 22.0, right: 22),
                                    child: Row(
-                                     children: [
-                                       Image.asset(
-                                         "assets/images/ic_time.png",
-                                         height: 22,
-                                         width: 22,
-                                       ),
-                                       Container(width: 12,),
-                                       const Text("Pick Time", style: TextStyle( fontSize: 16,
-                                           fontWeight: FontWeight.w500,
-                                           color: black),),
-                                       Container(width: 24,),
-                                       Image.asset(
-                                         "assets/images/ic_form_dropdown_arrow.png",
-                                         height: 18,
-                                         width: 18,
-                                       ),
-                                     ],
-                                   ),
-                                 ),
+                                     crossAxisAlignment: CrossAxisAlignment.center,
+                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                                 /* Expanded(
-                                       child: TextField(
+                                     children: [
+                                       GestureDetector(
                                          onTap: () async {
-                                           _setPickDate(pickDateController);
+                                           _setPickDate(pickDateController,setState);
                                          },
-                                         controller: pickDateController,
-                                         keyboardType: TextInputType.name,
-                                         readOnly: true,
-                                         decoration:  InputDecoration(
-                                           contentPadding:const EdgeInsets.only(top:12),
-                                           border: InputBorder.none,
-                                           fillColor: bottomSheetBg,
-                                           prefixIcon: Padding(
-                                             padding: const EdgeInsets.all(14.0),
-                                             child: Image.asset(
+                                         child: Row(
+                                           children: [
+                                             Image.asset(
                                                "assets/images/ic_calender.png",
-                                               height: 14,
-                                               width: 14,
+                                               height: 22,
+                                               width: 22,
                                              ),
-                                           ),
-
-                                           suffixIcon: Padding(
-                                             padding: const EdgeInsets.all(14.0),
-                                             child: Image.asset(
+                                             Container(width: 12,),
+                                             const Text("Pick Date", style: TextStyle( fontSize: 16,
+                                                 fontWeight: FontWeight.w500,
+                                                 color: black),),
+                                             Container(width: 24,),
+                                             Image.asset(
                                                "assets/images/ic_form_dropdown_arrow.png",
-                                               height: 2,
-                                               width: 2,
+                                               height: 18,
+                                               width: 18,
                                              ),
-                                           ),
 
-                                           filled: true,
-                                           labelText: "Pick Date",
-                                           labelStyle: getTextStyle(
-                                             fontSize: 14,
-                                             fontWeight: FontWeight.w500,
-                                             color: black
-                                           ),
+                                           ],
                                          ),
                                        ),
-                                     ),
-
-                                     Container(width: 12,),
-                                     Expanded(
-                                       child: TextField(
+                                       Container(width: 35,),
+                                       GestureDetector(
                                          onTap: () async {
-                                           _setTimePicker(pickTimeController);
+                                           _setTimePicker(pickTimeController,setState);
                                          },
-                                         controller: pickTimeController,
-                                         cursorColor: text_dark,
-                                         readOnly: true,
-                                         decoration:  InputDecoration(
-                                           fillColor: bottomSheetBg,
-                                           border: InputBorder.none,
-                                           prefixIcon: Padding(
-                                               padding: const EdgeInsets.all(14),
-                                               child:Image.asset("assets/images/ic_time.png",height: 14,
-                                                 width: 14,)
-                                           ),
-                                           suffixIcon: Padding(
-                                             padding: const EdgeInsets.all(14.0),
-                                             child: Image.asset(
+                                         child: Row(
+                                           children: [
+                                             Image.asset(
+                                               "assets/images/ic_time.png",
+                                               height: 22,
+                                               width: 22,
+                                             ),
+                                             Container(width: 12,),
+                                             const Text("Pick Time", style: TextStyle( fontSize: 16,
+                                                 fontWeight: FontWeight.w500,
+                                                 color: black),),
+                                             Container(width: 24,),
+                                             Image.asset(
                                                "assets/images/ic_form_dropdown_arrow.png",
-                                               height: 2,
-                                               width: 2,
+                                               height: 18,
+                                               width: 18,
+                                             ),
+                                           ],
+                                         ),
+                                       ),
+
+                                       /* Expanded(
+                                             child: TextField(
+                                               onTap: () async {
+                                                 _setPickDate(pickDateController);
+                                               },
+                                               controller: pickDateController,
+                                               keyboardType: TextInputType.name,
+                                               readOnly: true,
+                                               decoration:  InputDecoration(
+                                                 contentPadding:const EdgeInsets.only(top:12),
+                                                 border: InputBorder.none,
+                                                 fillColor: bottomSheetBg,
+                                                 prefixIcon: Padding(
+                                                   padding: const EdgeInsets.all(14.0),
+                                                   child: Image.asset(
+                                                     "assets/images/ic_calender.png",
+                                                     height: 14,
+                                                     width: 14,
+                                                   ),
+                                                 ),
+
+                                                 suffixIcon: Padding(
+                                                   padding: const EdgeInsets.all(14.0),
+                                                   child: Image.asset(
+                                                     "assets/images/ic_form_dropdown_arrow.png",
+                                                     height: 2,
+                                                     width: 2,
+                                                   ),
+                                                 ),
+
+                                                 filled: true,
+                                                 labelText: "Pick Date",
+                                                 labelStyle: getTextStyle(
+                                                   fontSize: 14,
+                                                   fontWeight: FontWeight.w500,
+                                                   color: black
+                                                 ),
+                                               ),
                                              ),
                                            ),
 
-                                           filled: true,
-                                           hintText: "Pick Time",
-                                           hintStyle: getTextStyle(
-                                             fontSize: 14,
-                                             fontWeight: FontWeight.w500,
-                                             color: black
-                                           ),
-                                         ),
-                                       ),
-                                     ),*/
+                                           Container(width: 12,),
+                                           Expanded(
+                                             child: TextField(
+                                               onTap: () async {
+                                                 _setTimePicker(pickTimeController);
+                                               },
+                                               controller: pickTimeController,
+                                               cursorColor: text_dark,
+                                               readOnly: true,
+                                               decoration:  InputDecoration(
+                                                 fillColor: bottomSheetBg,
+                                                 border: InputBorder.none,
+                                                 prefixIcon: Padding(
+                                                     padding: const EdgeInsets.all(14),
+                                                     child:Image.asset("assets/images/ic_time.png",height: 14,
+                                                       width: 14,)
+                                                 ),
+                                                 suffixIcon: Padding(
+                                                   padding: const EdgeInsets.all(14.0),
+                                                   child: Image.asset(
+                                                     "assets/images/ic_form_dropdown_arrow.png",
+                                                     height: 2,
+                                                     width: 2,
+                                                   ),
+                                                 ),
+
+                                                 filled: true,
+                                                 hintText: "Pick Time",
+                                                 hintStyle: getTextStyle(
+                                                   fontSize: 14,
+                                                   fontWeight: FontWeight.w500,
+                                                   color: black
+                                                 ),
+                                               ),
+                                             ),
+                                           ),*/
+                                     ],
+                                   ),
+                                 ),
                                ],
                              ),
                            ),
@@ -793,7 +800,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                        borderRadius: BorderRadius.circular(20),
                                        borderSide: const BorderSide(color: Colors.grey,),
                                      ),
-                                     hintText: 'Leave Your Detail',
+                                     hintText: 'Comments',
                                    ),
                                  ),
                                  Container(
@@ -1368,7 +1375,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                             color: darkbrown),),
                                         Container(width: 12,),
                                         Text(
-                                          sessionManager.getName().toString() + sessionManager.getLastName().toString(),
+                                          sessionManager.getName().toString() +" "+ sessionManager.getLastName().toString(),
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 14,
