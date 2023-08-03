@@ -61,6 +61,8 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
   String matchMakingPrice = "";
   String astroPrice = "";
   String rashiPrice = "";
+  bool ausoiciousDate = false;
+
   List<Prayers> _prayerList = List<Prayers>.empty(growable: true);
 
 
@@ -731,31 +733,76 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                              ),
                            ),
 
-                           Container(
-                             alignment: Alignment.centerLeft,
-                             child: Text(
-                               "Ask for Auspicious date",
-                               style: getTextStyle(
-                                   fontWeight: FontWeight.w400,
-                                   color: text_new,
-                                   fontSize: 16),
+
+                           GestureDetector(
+                             behavior: HitTestBehavior.opaque,
+                             onTap: () {
+                               setState(() {
+                                 ausoiciousDate = !ausoiciousDate;
+                               });
+                             },
+                             child: Row(
+                               children: [
+                                 Container(
+                                     margin: const EdgeInsets.only(top: 8, right: 5),
+                                     child: ausoiciousDate ?
+                                     const Image(image: AssetImage("assets/images/ic_check.png"), width: 20, height: 20, ) :
+                                     const Image(image: AssetImage("assets/images/ic_uncheckbox_blue.png"),  width: 20, height: 20,)
+                                 ),
+                                 Container(
+                                   alignment: Alignment.centerLeft,
+                                   padding: const EdgeInsets.only(top: 8),
+                                   child: Text(
+                                     "Ask for Auspicious date",
+                                     style: getTextStyle(
+                                         fontWeight: FontWeight.w400,
+                                         color: text_new,
+                                         fontSize: 16),
+                                   ),
+                                 ),
+                               ],
                              ),
                            ),
+
+                           // Container(
+                           //   alignment: Alignment.centerLeft,
+                           //   child: Text(
+                           //     "Ask for Auspicious date",
+                           //     style: getTextStyle(
+                           //         fontWeight: FontWeight.w400,
+                           //         color: text_new,
+                           //         fontSize: 16),
+                           //   ),
+                           // ),
+
                            Container(height: 14,),
-                           TextField(
-                             controller: leaveDetailController,
-                             keyboardType: TextInputType.text,
-                             cursorColor: Colors.grey,
-                             decoration: InputDecoration(
-                               border: OutlineInputBorder(
-                                   borderRadius: BorderRadius.circular(20),
-                                   borderSide: const BorderSide(color: Colors.grey)
-                               ),
-                               focusedBorder: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(20),
-                                 borderSide: const BorderSide(color: Colors.grey,),
-                               ),
-                               hintText: 'Leave Your Detail',
+                           Visibility(
+                             visible: ausoiciousDate == true,
+                             child: Column(
+                               children: [
+                                 TextField(
+                                   controller: leaveDetailController,
+                                   keyboardType: TextInputType.text,
+                                   cursorColor: Colors.grey,
+                                   decoration: InputDecoration(
+                                     border: OutlineInputBorder(
+                                         borderRadius: BorderRadius.circular(20),
+                                         borderSide: const BorderSide(color: Colors.grey)
+                                     ),
+                                     focusedBorder: OutlineInputBorder(
+                                       borderRadius: BorderRadius.circular(20),
+                                       borderSide: const BorderSide(color: Colors.grey,),
+                                     ),
+                                     hintText: 'Leave Your Detail',
+                                   ),
+                                 ),
+                                 Container(
+                                   alignment: Alignment.centerRight,
+                                   margin: const EdgeInsets.only(top: 10),
+                                   child: const Text("Our office will contact you",
+                                     style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14,color: text_light),),
+                                 ),
+                               ],
                              ),
                            ),
 
@@ -785,12 +832,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                            //   ),
                            // ),
 
-                           Container(
-                             alignment: Alignment.centerRight,
-                             margin: const EdgeInsets.only(top: 10),
-                             child: const Text("Our office will contact you",
-                               style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14,color: text_light),),
-                           ),
+
                            /* Container(
                                  alignment: Alignment.topLeft,
                                  margin: const EdgeInsets.only(top: 16,bottom: 14),

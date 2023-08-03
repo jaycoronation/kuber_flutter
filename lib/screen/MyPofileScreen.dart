@@ -28,6 +28,7 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/places.dart';
 
 import '../model/CountryListResponseModel.dart';
+import '../model/PujariResponseModel.dart';
 import '../model/PujariUserReponseModel.dart' as pujari;
 import '../model/UserProfileResponseModel.dart';
 import '../model/VerifyOtpResponseModel.dart' as verify;
@@ -1515,6 +1516,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
     setState(() {
       _isLoading = true;
     });
+    print(sessionManager.getIsPujrai());
     if (sessionManager.getIsPujrai() ?? false)
       {
         HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
@@ -1533,13 +1535,11 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
         final body = response.body;
         Map<String, dynamic> user = jsonDecode(body);
-        var dataResponse = pujari.PujariUserReponseModel.fromJson(user);
+        var dataResponse = PujariResponseModel.fromJson(user);
 
         if (statusCode == 200 && dataResponse.success == 1)
           {
-            var getSet = dataResponse.profile ?? pujari.Profile();
-            print("getSet.email.toString()");
-            print(getSet.email.toString());
+            var getSet = dataResponse.profile ?? PujariGetSet();
 
 
             firstNameController.text = getSet.firstName ?? "";
@@ -1658,6 +1658,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           showSnackBar(dataResponse.message, context);
         }
       }
+    setState(() {
+      _isLoading = false;
+    });
     if(isSaveData)
       {
         Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
