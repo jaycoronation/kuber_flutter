@@ -53,8 +53,8 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
   String _currentAddress = "";
   String dateTimeForShow = "";
   String dateTimeForPass = "";
-  bool isWantGoods = false;
-  bool isPickupPriest = false;
+  bool isWantGoods = true;
+  bool isPickupPriest = true;
   bool haspermission = false;
   bool isBoy = true;
   bool isGirl = false;
@@ -883,6 +883,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                      Row(
                        children: [
                          GestureDetector(
+                           behavior: HitTestBehavior.opaque,
                            onTap: () {
                              setState(() {
                                isWantGoods = true;
@@ -905,6 +906,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                            ),
                          ),
                          GestureDetector(
+                           behavior: HitTestBehavior.opaque,
                            onTap: () {
                              setState(() {
                                isWantGoods = false;
