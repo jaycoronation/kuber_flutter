@@ -252,7 +252,6 @@ class _TempleListScreen extends State<TempleListScreen> {
       'location': location,
       'rankby': "distance",
       'keyword': "hindu temple",
-      'radius': "10000",
       'key': API_KEY,
     };
 

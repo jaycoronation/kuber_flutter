@@ -35,7 +35,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.634449219946-cdnkgd8a48vvj0m5ekeh2r92v82ftkl0</string>
+				<string>com.googleusercontent.apps.951814205337-3f4p22bims9728nqnmfc02470bu3tn8g</string>
 			</array>
 		</dict>
 		<dict>
@@ -72,8 +72,8 @@
 	<string>Kuber wants your location to get the nearest temple list for you.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Kuber wants to use your Photos for update your profile picture.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Kuber is Using this permission for accessing you gallery to update from Profle Picture</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Kuber is Using this permission for accessing you gallery to update from Profle Picture</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

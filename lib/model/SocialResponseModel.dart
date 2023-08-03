@@ -1,12 +1,15 @@
+import 'dart:convert';
 /// success : 1
 /// message : ""
-/// user : {"id":"41","first_name":"","last_name":"Raj","email":" raj.t@coronation.in","mobile":"  ","birthdate":"","gender":"","gender_label":"Female","address":"","timestamp":"","user_type":0,"country":"","city":"","state":"","country_id":"","city_id":"","state_id":"","country_name":"","city_name":"","state_name":"","profile_pic":"https://php1.coronation.in/kuber/api/assets/images/default-user.png","profile_pic_name":""}
+/// user : {"user_id":"155","first_name":"Jay","last_name":"Mistry","mobile":" ","country_code":"+27","birthdate":"","birthplace":"","pathshala":"","gurukul":"","qualification":"","experiance":"","address":"","certificate":"","profile_pic":"","timestamp":"","country_id":"","city_id":"","state_id":"","country_name":"","city_name":"","state_name":"","email":"jay.m@coronation.in","type":"User"}
 
+SocialResponseModel socialResponseModelFromJson(String str) => SocialResponseModel.fromJson(json.decode(str));
+String socialResponseModelToJson(SocialResponseModel data) => json.encode(data.toJson());
 class SocialResponseModel {
   SocialResponseModel({
-      int? success, 
+      num? success, 
       String? message, 
-      User? user,}){
+      SocialUser? user,}){
     _success = success;
     _message = message;
     _user = user;
@@ -15,21 +18,21 @@ class SocialResponseModel {
   SocialResponseModel.fromJson(dynamic json) {
     _success = json['success'];
     _message = json['message'];
-    _user = json['user'] != null ? User.fromJson(json['user']) : null;
+    _user = json['user'] != null ? SocialUser.fromJson(json['user']) : null;
   }
-  int? _success;
+  num? _success;
   String? _message;
-  User? _user;
-SocialResponseModel copyWith({  int? success,
+  SocialUser? _user;
+SocialResponseModel copyWith({  num? success,
   String? message,
-  User? user,
+  SocialUser? user,
 }) => SocialResponseModel(  success: success ?? _success,
   message: message ?? _message,
   user: user ?? _user,
 );
-  int? get success => _success;
+  num? get success => _success;
   String? get message => _message;
-  User? get user => _user;
+  SocialUser? get user => _user;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -43,216 +46,226 @@ SocialResponseModel copyWith({  int? success,
 
 }
 
-/// id : "41"
-/// first_name : ""
-/// last_name : "Raj"
-/// email : " raj.t@coronation.in"
-/// mobile : "  "
+/// user_id : "155"
+/// first_name : "Jay"
+/// last_name : "Mistry"
+/// mobile : " "
+/// country_code : "+27"
 /// birthdate : ""
-/// gender : ""
-/// gender_label : "Female"
+/// birthplace : ""
+/// pathshala : ""
+/// gurukul : ""
+/// qualification : ""
+/// experiance : ""
 /// address : ""
+/// certificate : ""
+/// profile_pic : ""
 /// timestamp : ""
-/// user_type : 0
-/// country : ""
-/// city : ""
-/// state : ""
 /// country_id : ""
 /// city_id : ""
 /// state_id : ""
 /// country_name : ""
 /// city_name : ""
 /// state_name : ""
-/// profile_pic : "https://php1.coronation.in/kuber/api/assets/images/default-user.png"
-/// profile_pic_name : ""
+/// email : "jay.m@coronation.in"
+/// type : "User"
 
-class User {
-  User({
-      String? id, 
+SocialUser userFromJson(String str) => SocialUser.fromJson(json.decode(str));
+String userToJson(SocialUser data) => json.encode(data.toJson());
+class SocialUser {
+  SocialUser({
+      String? userId, 
       String? firstName, 
       String? lastName, 
-      String? email, 
       String? mobile, 
+      String? countryCode, 
       String? birthdate, 
-      String? gender, 
-      String? genderLabel, 
+      String? birthplace, 
+      String? pathshala, 
+      String? gurukul, 
+      String? qualification, 
+      String? experiance, 
       String? address, 
+      String? certificate, 
+      String? profilePic, 
       String? timestamp, 
-      int? userType, 
-      String? country, 
-      String? city, 
-      String? state, 
       String? countryId, 
       String? cityId, 
       String? stateId, 
       String? countryName, 
       String? cityName, 
       String? stateName, 
-      String? profilePic, 
-      String? profilePicName,}){
-    _id = id;
+      String? email, 
+      String? type,}){
+    _userId = userId;
     _firstName = firstName;
     _lastName = lastName;
-    _email = email;
     _mobile = mobile;
+    _countryCode = countryCode;
     _birthdate = birthdate;
-    _gender = gender;
-    _genderLabel = genderLabel;
+    _birthplace = birthplace;
+    _pathshala = pathshala;
+    _gurukul = gurukul;
+    _qualification = qualification;
+    _experiance = experiance;
     _address = address;
+    _certificate = certificate;
+    _profilePic = profilePic;
     _timestamp = timestamp;
-    _userType = userType;
-    _country = country;
-    _city = city;
-    _state = state;
     _countryId = countryId;
     _cityId = cityId;
     _stateId = stateId;
     _countryName = countryName;
     _cityName = cityName;
     _stateName = stateName;
-    _profilePic = profilePic;
-    _profilePicName = profilePicName;
+    _email = email;
+    _type = type;
 }
 
-  User.fromJson(dynamic json) {
-    _id = json['id'];
+  SocialUser.fromJson(dynamic json) {
+    _userId = json['user_id'];
     _firstName = json['first_name'];
     _lastName = json['last_name'];
-    _email = json['email'];
     _mobile = json['mobile'];
+    _countryCode = json['country_code'];
     _birthdate = json['birthdate'];
-    _gender = json['gender'];
-    _genderLabel = json['gender_label'];
+    _birthplace = json['birthplace'];
+    _pathshala = json['pathshala'];
+    _gurukul = json['gurukul'];
+    _qualification = json['qualification'];
+    _experiance = json['experiance'];
     _address = json['address'];
+    _certificate = json['certificate'];
+    _profilePic = json['profile_pic'];
     _timestamp = json['timestamp'];
-    _userType = json['user_type'];
-    _country = json['country'];
-    _city = json['city'];
-    _state = json['state'];
     _countryId = json['country_id'];
     _cityId = json['city_id'];
     _stateId = json['state_id'];
     _countryName = json['country_name'];
     _cityName = json['city_name'];
     _stateName = json['state_name'];
-    _profilePic = json['profile_pic'];
-    _profilePicName = json['profile_pic_name'];
-    _userType = userType;
+    _email = json['email'];
+    _type = json['type'];
   }
-  String? _id;
+  String? _userId;
   String? _firstName;
   String? _lastName;
-  String? _email;
   String? _mobile;
+  String? _countryCode;
   String? _birthdate;
-  String? _gender;
-  String? _genderLabel;
+  String? _birthplace;
+  String? _pathshala;
+  String? _gurukul;
+  String? _qualification;
+  String? _experiance;
   String? _address;
+  String? _certificate;
+  String? _profilePic;
   String? _timestamp;
-  int? _userType;
-  String? _country;
-  String? _city;
-  String? _state;
   String? _countryId;
   String? _cityId;
   String? _stateId;
   String? _countryName;
   String? _cityName;
   String? _stateName;
-  String? _profilePic;
-  String? _profilePicName;
-User copyWith({  String? id,
+  String? _email;
+  String? _type;
+SocialUser copyWith({  String? userId,
   String? firstName,
   String? lastName,
-  String? email,
   String? mobile,
+  String? countryCode,
   String? birthdate,
-  String? gender,
-  String? genderLabel,
+  String? birthplace,
+  String? pathshala,
+  String? gurukul,
+  String? qualification,
+  String? experiance,
   String? address,
+  String? certificate,
+  String? profilePic,
   String? timestamp,
-  int? userType,
-  String? country,
-  String? city,
-  String? state,
   String? countryId,
   String? cityId,
   String? stateId,
   String? countryName,
   String? cityName,
   String? stateName,
-  String? profilePic,
-  String? profilePicName,
-}) => User(  id: id ?? _id,
+  String? email,
+  String? type,
+}) => SocialUser(  userId: userId ?? _userId,
   firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
-  email: email ?? _email,
   mobile: mobile ?? _mobile,
+  countryCode: countryCode ?? _countryCode,
   birthdate: birthdate ?? _birthdate,
-  gender: gender ?? _gender,
-  genderLabel: genderLabel ?? _genderLabel,
+  birthplace: birthplace ?? _birthplace,
+  pathshala: pathshala ?? _pathshala,
+  gurukul: gurukul ?? _gurukul,
+  qualification: qualification ?? _qualification,
+  experiance: experiance ?? _experiance,
   address: address ?? _address,
+  certificate: certificate ?? _certificate,
+  profilePic: profilePic ?? _profilePic,
   timestamp: timestamp ?? _timestamp,
-  userType: userType ?? _userType,
-  country: country ?? _country,
-  city: city ?? _city,
-  state: state ?? _state,
   countryId: countryId ?? _countryId,
   cityId: cityId ?? _cityId,
   stateId: stateId ?? _stateId,
   countryName: countryName ?? _countryName,
   cityName: cityName ?? _cityName,
   stateName: stateName ?? _stateName,
-  profilePic: profilePic ?? _profilePic,
-  profilePicName: profilePicName ?? _profilePicName,
+  email: email ?? _email,
+  type: type ?? _type,
 );
-  String? get id => _id;
+  String? get userId => _userId;
   String? get firstName => _firstName;
   String? get lastName => _lastName;
-  String? get email => _email;
   String? get mobile => _mobile;
+  String? get countryCode => _countryCode;
   String? get birthdate => _birthdate;
-  String? get gender => _gender;
-  String? get genderLabel => _genderLabel;
+  String? get birthplace => _birthplace;
+  String? get pathshala => _pathshala;
+  String? get gurukul => _gurukul;
+  String? get qualification => _qualification;
+  String? get experiance => _experiance;
   String? get address => _address;
+  String? get certificate => _certificate;
+  String? get profilePic => _profilePic;
   String? get timestamp => _timestamp;
-  int? get userType => _userType;
-  String? get country => _country;
-  String? get city => _city;
-  String? get state => _state;
   String? get countryId => _countryId;
   String? get cityId => _cityId;
   String? get stateId => _stateId;
   String? get countryName => _countryName;
   String? get cityName => _cityName;
   String? get stateName => _stateName;
-  String? get profilePic => _profilePic;
-  String? get profilePicName => _profilePicName;
+  String? get email => _email;
+  String? get type => _type;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = _id;
+    map['user_id'] = _userId;
     map['first_name'] = _firstName;
     map['last_name'] = _lastName;
-    map['email'] = _email;
     map['mobile'] = _mobile;
+    map['country_code'] = _countryCode;
     map['birthdate'] = _birthdate;
-    map['gender'] = _gender;
-    map['gender_label'] = _genderLabel;
+    map['birthplace'] = _birthplace;
+    map['pathshala'] = _pathshala;
+    map['gurukul'] = _gurukul;
+    map['qualification'] = _qualification;
+    map['experiance'] = _experiance;
     map['address'] = _address;
+    map['certificate'] = _certificate;
+    map['profile_pic'] = _profilePic;
     map['timestamp'] = _timestamp;
-    map['user_type'] = _userType;
-    map['country'] = _country;
-    map['city'] = _city;
-    map['state'] = _state;
     map['country_id'] = _countryId;
     map['city_id'] = _cityId;
     map['state_id'] = _stateId;
     map['country_name'] = _countryName;
     map['city_name'] = _cityName;
     map['state_name'] = _stateName;
-    map['profile_pic'] = _profilePic;
-    map['profile_pic_name'] = _profilePicName;
+    map['email'] = _email;
+    map['type'] = _type;
     return map;
   }
 

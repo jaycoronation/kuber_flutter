@@ -24,6 +24,7 @@ import 'package:pretty_http_logger/pretty_http_logger.dart';
 import '../constant/api_end_point.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
+import '../model/SocialResponseModel.dart';
 import '../model/VerifyOtpResponseModel.dart';
 import '../utils/app_utils.dart';
 import 'DashboardScreen.dart';
@@ -1048,31 +1049,39 @@ class _LoginScreen extends State<LoginScreen> {
     final statusCode = response.statusCode;
     final body = response.body;
     Map<String, dynamic> user = jsonDecode(body);
-    var dataResponse = social.SocialResponseModel.fromJson(user);
+    var dataResponse = SocialResponseModel.fromJson(user);
 
     if (statusCode == 200 && dataResponse.success == 1) {
-      var getSet = Profile();
-      getSet.userId = dataResponse.user?.id!;
-      getSet.mobile = dataResponse.user?.mobile;
+      Profile getSetData = Profile();
 
-      getSet.profilePic = dataResponse.user?.profilePic;
-      getSet.countryId = dataResponse.user?.countryId;
-      getSet.stateId = dataResponse.user?.stateId;
-      getSet.cityId = dataResponse.user?.stateId;
-      getSet.email = dataResponse.user?.email;
-      getSet.firstName = dataResponse.user?.firstName;
-      getSet.lastName = dataResponse.user?.lastName;
+      getSetData.userId = dataResponse.user?.userId ?? '';
+      getSetData.mobile = dataResponse.user?.mobile;
 
-      await sessionManager.createLoginSession(getSet);
+      getSetData.profilePic = dataResponse.user?.profilePic;
+      getSetData.countryId = dataResponse.user?.countryId;
+      getSetData.stateId = dataResponse.user?.stateId;
+      getSetData.cityId = dataResponse.user?.stateId;
+      getSetData.email = dataResponse.user?.email;
+      getSetData.firstName = dataResponse.user?.firstName;
+      getSetData.lastName = dataResponse.user?.lastName;
+      getSetData.countryCode = dataResponse.user?.countryCode;
+      getSetData.type = "Pujari";
 
-      if(dataResponse.user!.mobile.toString().isEmpty || dataResponse.user!.email.toString().isEmpty)
-        {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) =>  MyProfileScreen(true)), (route) => false);
-        }
+      await sessionManager.createLoginSession(getSetData);
+
+
+
+      sessionManager.setUserId(dataResponse.user?.userId.toString() ?? "");
+      print(dataResponse.user!.mobile.toString());
+      print(dataResponse.user!.email.toString());
+      if(dataResponse.user?.email?.toString().isEmpty ?? true)
+      {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
+      }
       else
-        {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
-        }
+      {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+      }
       setState(() {
         _isLoading = false;
       });
