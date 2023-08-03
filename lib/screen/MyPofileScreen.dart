@@ -78,13 +78,11 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
   @override
   void initState() {
-    print(sessionManager.getUserId().toString());
-    print(sessionManager.getType().toString());
-    print(sessionManager.getIsPujrai().toString());
     countryCode = sessionManager.getCountryCode().toString();
-    super.initState();
     getCountryData();
    _getUserProfileDetails(false);
+    super.initState();
+
   }
 
   @override
@@ -1516,7 +1514,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
     setState(() {
       _isLoading = true;
     });
-    print(sessionManager.getIsPujrai());
     if (sessionManager.getIsPujrai() ?? false)
       {
         HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
@@ -1536,6 +1533,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         final body = response.body;
         Map<String, dynamic> user = jsonDecode(body);
         var dataResponse = PujariResponseModel.fromJson(user);
+        print(dataResponse);
 
         if (statusCode == 200 && dataResponse.success == 1)
           {
@@ -1578,17 +1576,23 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
             await sessionManager.createLoginSession(getSetData);
 
-          setState(() {
-            _isLoading = false;
-          });
+            if (countryCode.isEmpty)
+              {
+                countryCode = "Select";
+              }
+            stopLoader();
         }
         else
           {
-          setState(() {
-            _isLoading = false;
-          });
+            stopLoader();
           showToast(dataResponse.message, context);
         }
+
+        if(isSaveData)
+        {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
+        }
+
       }
     else if (sessionManager.getIsTemple() ?? false)
       {
@@ -1617,6 +1621,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
         if (statusCode == 200 && dataResponse.success == 1)
         {
+          stopLoader();
           var getSet = dataResponse.profile!;
           firstNameController.text = getSet.firstName.toString() ?? "";
           lastNameController.text = getSet.lastName.toString() ?? "";
@@ -1652,9 +1657,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           sessionManager.setImage(getSet.profilePic ?? '');
           sessionManager.setType("User");
 
-          setState(() {
-            _isLoading = false;
-          });
+          stopLoader();
         }
         else
         {
@@ -1663,14 +1666,22 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           });
           showSnackBar(dataResponse.message, context);
         }
+        stopLoader();
+        if(isSaveData)
+        {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
+        }
       }
+
+
+  }
+
+  void stopLoader(){
+    print("ISRunning");
     setState(() {
       _isLoading = false;
     });
-    if(isSaveData)
-      {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
-      }
+
   }
 
   String countryCode = "+27";
