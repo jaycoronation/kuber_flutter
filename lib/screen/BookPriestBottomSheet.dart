@@ -1118,6 +1118,10 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                    child: TextButton(
                                      onPressed: ()
                                      {
+                                       if(ausoiciousDate == false)
+                                         {
+                                           if()
+                                         }
                                        var dateTime = "${selectedDate} $selectedTime";
                                        print(dateTime);
                                        if (dateTime == " Pick Time")
@@ -1128,7 +1132,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                          }
                                          else
                                          {
-                                           showToast("Please select date or leave details for us.", context);
+                                           showToast("Please select date or auspicious date", context);
                                            return;
                                          }
                                        }
