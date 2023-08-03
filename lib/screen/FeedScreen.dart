@@ -8,6 +8,7 @@ import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:like_button/like_button.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/api_end_point.dart';
@@ -169,10 +170,12 @@ class _FeedScreen extends State<FeedScreen> {
                                           GestureDetector(
                                               behavior: HitTestBehavior.opaque,
                                               onTap: () async {
-                                                if (await canLaunchUrl(Uri.parse(listFeed[index].shareUrl.toString())))
-                                                {
-                                                  await launchUrl(Uri.parse(listFeed[index].shareUrl.toString()),mode: LaunchMode.externalApplication);
-                                                }
+                                                Share.share(listFeed[index].shareUrl.toString());
+
+                                                // if (await canLaunchUrl(Uri.parse(listFeed[index].shareUrl.toString())))
+                                                // {
+                                                //   await launchUrl(Uri.parse(listFeed[index].shareUrl.toString()),mode: LaunchMode.externalApplication);
+                                                // }
                                               },
                                               child: Image.asset("assets/images/share.png",width: 20,)
                                           ),
