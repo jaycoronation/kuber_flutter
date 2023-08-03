@@ -6,7 +6,9 @@ import 'package:kuber/screen/FeedDetailsScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
+import 'package:like_button/like_button.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -131,7 +133,53 @@ class _FeedScreen extends State<FeedScreen> {
                                         fit: BoxFit.cover,
                                       ),
                                     ),
-                                    Container(height: 12,),
+                                    Container(
+                                      padding: const EdgeInsets.all(6),
+
+                                      child: Row(
+                                        children: [
+                                          LikeButton(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            size: 22,
+                                            isLiked: listFeed[index].isLiked == true,
+                                            circleColor: const CircleColor(start: orange, end: blue),
+                                            bubblesColor: const BubblesColor(
+                                              dotPrimaryColor: orange,
+                                              dotSecondaryColor: blue,
+                                            ),
+                                            likeBuilder: (bool isLiked) {
+                                              return Image.asset(
+                                                listFeed[index].isLiked ? "assets/images/like_filled.png" : "assets/images/like.png",
+                                              );
+                                            },
+                                            onTap: (isLike) async {
+                                              setState(() {
+                                                if (listFeed[index].isLiked == true) {
+                                                  listFeed[index].isLiked = false;
+                                                } else {
+                                                  listFeed[index].isLiked = true;
+                                                }
+                                              });
+                                              likeFeeds;
+                                              return true;
+                                            },
+                                          ),
+                                          Container(width: 12,),
+                                          GestureDetector(
+                                              behavior: HitTestBehavior.opaque,
+                                              onTap: () async {
+                                                if (await canLaunchUrl(Uri.parse(listFeed[index].shareUrl.toString())))
+                                                {
+                                                  await launchUrl(Uri.parse(listFeed[index].shareUrl.toString()),mode: LaunchMode.externalApplication);
+                                                }
+                                              },
+                                              child: Image.asset("assets/images/share.png",width: 20,)
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(height: 4,),
                                     Container(
                                         margin: const EdgeInsets.only(left: 12,right: 12),
                                         child: Text(listFeed[index].title.toString(),style: const TextStyle(fontWeight: FontWeight.w400,color: black,fontSize: 14))

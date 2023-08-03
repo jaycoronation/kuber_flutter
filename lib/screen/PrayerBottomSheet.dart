@@ -13,6 +13,7 @@ import 'package:pretty_http_logger/pretty_http_logger.dart';
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
 import '../model/CommonResponseModel.dart';
+import '../model/CountryListResponseModel.dart';
 import '../model/PrayerListResponseModel.dart';
 import '../model/PujaListResponseModel.dart';
 import '../utils/app_utils.dart';
@@ -33,6 +34,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
   TextEditingController prayerDOBController = TextEditingController();
   TextEditingController prayerEmailController = TextEditingController();
   TextEditingController PrayerForController = TextEditingController();
+  TextEditingController PrayerMobileController = TextEditingController();
   TextEditingController prayerNotesController = TextEditingController();
   SessionManager sessionManager = SessionManager();
 
@@ -63,6 +65,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
     prayerFNameController.text= sessionManager.getName().toString();
     prayerLNameController.text= sessionManager.getLastName().toString();
     prayerEmailController.text= sessionManager.getEmail().toString();
+    PrayerMobileController.text= sessionManager.getPhone().toString();
     print(sessionManager.getDob().toString());
     prayerDOBController.text= universalDateConverter("dd-MM-yyyy", "MMMM dd,yyyy", sessionManager.getDob().toString());
     _callListPrayer();
@@ -286,6 +289,71 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                         labelStyle: const TextStyle(color: text_new),                                     ),
                                     )
                                 ),
+
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.only(left: 14, right: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1,
+                                    ),
+
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(18),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      GestureDetector(
+                                        child: Text(countryCode,
+                                            style: const TextStyle(
+                                                color: text_dark,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14)),
+                                        onTap: (){
+                                          countryDialog(setState);
+                                        },
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 10),
+                                        height: 20,
+                                        width: 1,
+                                        color: text_light,
+                                      ),
+                                      Flexible(
+                                        child:TextField(
+                                          controller: PrayerMobileController,
+                                          maxLength: 12,
+                                          keyboardType: TextInputType.number,
+                                          cursorColor: text_dark,
+                                          style: const TextStyle(
+                                              color: title,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                          decoration: InputDecoration(
+                                            contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
+                                            fillColor: bottomSheetBg,
+                                            counterText: "",
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(14.0),
+                                                borderSide: const BorderSide(
+                                                    width: 0, style: BorderStyle.none)),
+                                            filled: true,
+                                            hintText: "Mobile Number",
+                                            hintStyle: const TextStyle(
+                                              color: text_dark,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+
 
 
                                 /*  Container(
@@ -531,6 +599,144 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
             ]),
       ),
     );
+  }
+
+  String countryCode = "+27";
+  List<CountryListResponseModel> listCountryCode = [];
+  List<CountryListResponseModel> listSearchCountryName = [];
+  TextEditingController countryCodeSeachController = TextEditingController();
+
+  countryDialog(StateSetter updateState) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context){
+          return StatefulBuilder(
+              builder:(context, setState)
+              {
+                return Container(
+                  height: MediaQuery.of(context).size.height * 0.88,
+                  decoration: const BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12.0),
+                        topRight: Radius.circular(12.0),
+                      )),
+                  child: Column(
+                    children:  [
+                      Container(
+                          width: 50,
+                          margin: const EdgeInsets.only(top: 12),
+                          child: const Divider(
+                            height: 1.5,
+                            thickness: 1.5,
+                            color: Colors.grey,
+                          )),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: const Text(
+                          "Select Country Code",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: title,
+                              fontSize: 18),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20,bottom: 10,left: 14,right: 14),
+                        child: TextField(
+                          controller: countryCodeSeachController,
+                          keyboardType: TextInputType.text,
+                          cursorColor: text_dark,
+                          style: const TextStyle(
+                              color: title,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600),
+                          onChanged: (editable){
+                            if (listCountryCode != null && listCountryCode.length > 0)
+                            {
+                              listSearchCountryName = [];
+
+                              if (editable.length > 0)
+                              {
+                                for (var i=0; i < listCountryCode.length; i++)
+                                {
+                                  if (listCountryCode[i].name.toLowerCase().contains(editable.toString().toLowerCase()))
+                                  {
+                                    listSearchCountryName.add(listCountryCode[i]);
+                                  }
+                                }
+                              }
+                              else
+                              {
+                                listSearchCountryName = [];
+                              }
+                              setState((){});
+                              /*adapterCountry = AdapterCountry(activity, listSearchCountryName, dialog)
+                              rvCountry.adapter = adapterCountry*/
+                            }
+                          },
+                          decoration: InputDecoration(
+                            fillColor: white_blue,
+                            counterText: "",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(14.0),
+                                borderSide: const BorderSide(
+                                    width: 0, style: BorderStyle.none)),
+                            filled: true,
+                            hintText: "Search",
+                            hintStyle: const TextStyle(
+                              color: text_dark,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            itemCount: listSearchCountryName.isNotEmpty ? listSearchCountryName.length : listCountryCode.length,
+                            itemBuilder: (BuildContext context, int i) {
+                              return InkWell(
+                                onTap: (){
+                                  setState((){
+                                    countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
+                                  });
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 14, right: 14),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Flexible(child: Text( listSearchCountryName.isNotEmpty ? listSearchCountryName[i].name : listCountryCode[i].name.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w200,color: title), textAlign: TextAlign.start,)),
+                                            Text(listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode.toString(),style: const TextStyle(fontWeight: FontWeight.w300,color: text_new,fontSize: 16),)
+                                          ],
+                                        ),
+                                      ),
+                                      const Divider(height: 1,color: text_light,indent: 1,)
+                                    ],
+                                  ),
+
+                                ),
+                              );
+                            }
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }
+          );
+        });
   }
 
   _setDatePicker(TextEditingController controller){
@@ -896,6 +1102,8 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
       'email' : prayerEmailController.value.text,
       'prayer_id' : prayerID,
       'notes' : prayerNotesController.value.text,
+      'mobile': PrayerMobileController.value.text
+
     };
 
     final response = await http.post(url, body: jsonBody);

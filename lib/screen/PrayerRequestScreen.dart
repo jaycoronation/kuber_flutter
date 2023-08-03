@@ -11,6 +11,7 @@ import 'package:kuber/utils/session_manager.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../constant/api_end_point.dart';
+import '../model/CountryListResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../widget/loading.dart';
 import '../widget/no_data_new.dart';
@@ -34,6 +35,9 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
   TextEditingController prayerEmailController = TextEditingController();
   TextEditingController pPrayerForController = TextEditingController();
   TextEditingController prayerNotesController = TextEditingController();
+  TextEditingController prayerNumberController = TextEditingController();
+  SessionManager sessionManager = SessionManager();
+
   List<Prayers> _prayerList = List<Prayers>.empty(growable: true);
   String prayerID = "";
   String selectedDate = "Pick Date";
@@ -42,6 +46,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
 
   @override
   void initState() {
+    prayerNumberController.text= sessionManager.getPhone().toString();
     getPrayerListApi();
     super.initState();
   }
@@ -212,6 +217,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
     prayerFNameController.text = getSet.name;
     prayerLNameController.text = getSet.surname;
     prayerEmailController.text = getSet.email;
+    prayerNumberController.text =getSet.mobile;
     prayerDOBController.text = universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", getSet.dateOfBirth);
     pPrayerForController.text = getSet.prayer;
     prayerID = getSet.prayerId;
@@ -390,6 +396,62 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                 ),
                               ),
                             ),
+                            Container(height: 10,),
+                            Container(
+                              alignment: Alignment.center,
+                              padding:
+                              const EdgeInsets.only(left: 14, right: 10),
+                              decoration: const BoxDecoration(
+                                color: white_blue,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  InkWell(
+                                    child: Text(countryCode,
+                                        style: TextStyle(
+                                            color: text_dark,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14)),
+                                    onTap: () {
+                                      countryDialog(setState);
+                                    },
+                                  ),
+                                  Flexible(
+                                    child: TextField(
+                                      controller: prayerNumberController,
+                                      maxLength: 10,
+                                      keyboardType: TextInputType.number,
+                                      cursorColor: text_dark,
+                                      style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                      decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(10.0),
+                                            borderSide: const BorderSide(
+                                                width: 0,
+                                                style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "Mobile Number",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+
                             Container(
                               margin: const EdgeInsets.only(top: 10),
                               alignment: Alignment.center,
@@ -963,6 +1025,164 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
     );
   }
 
+  String countryCode = "+27";
+  List<CountryListResponseModel> listCountryCode = [];
+  List<CountryListResponseModel> listSearchCountryName = [];
+  TextEditingController countryCodeSeachController = TextEditingController();
+
+  countryDialog(StateSetter updateState) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) {
+          return StatefulBuilder(builder: (context, setState) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.88,
+              decoration: const BoxDecoration(
+                  color: white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12.0),
+                    topRight: Radius.circular(12.0),
+                  )),
+              child: Column(
+                children: [
+                  Container(
+                      width: 50,
+                      margin: const EdgeInsets.only(top: 12),
+                      child: const Divider(
+                        height: 1.5,
+                        thickness: 1.5,
+                        color: Colors.grey,
+                      )),
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    child: const Text(
+                      "Select Country Code",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: title,
+                          fontSize: 18),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(
+                        top: 20, bottom: 10, left: 14, right: 14),
+                    child: TextField(
+                      controller: countryCodeSeachController,
+                      keyboardType: TextInputType.text,
+                      cursorColor: text_dark,
+                      style: const TextStyle(
+                          color: title,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                      onChanged: (editable)
+                      {
+                        if (listCountryCode != null &&
+                            listCountryCode.length > 0)
+                        {
+                          listSearchCountryName = [];
+                          if (editable.length > 0)
+                          {
+                            for (var i = 0; i < listCountryCode.length; i++)
+                            {
+                              if (listCountryCode[i]
+                                  .name
+                                  .toLowerCase()
+                                  .contains(
+                                  editable.toString().toLowerCase())) {
+                                listSearchCountryName.add(listCountryCode[i]);
+                              }
+                            }
+                          } else {}
+                          /*adapterCountry = AdapterCountry(activity, listSearchCountryName, dialog)
+                              rvCountry.adapter = adapterCountry*/
+                        }
+                      },
+                      decoration: InputDecoration(
+                        fillColor: white_blue,
+                        counterText: "",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14.0),
+                            borderSide: const BorderSide(
+                                width: 0, style: BorderStyle.none)),
+                        filled: true,
+                        hintText: "Search",
+                        hintStyle: const TextStyle(
+                          color: text_dark,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemCount: listCountryCode.length,
+                          itemBuilder: (BuildContext context, int i) {
+                            return InkWell(
+                              onTap: () {
+                                setState(() {
+                                  countryCode = listCountryCode[i].dialCode;
+                                });
+                                updateState(() {});
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                margin:
+                                const EdgeInsets.only(left: 14, right: 14),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Flexible(
+                                              child: Text(
+                                                listCountryCode[i].name.toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w200,
+                                                    color: title),
+                                                textAlign: TextAlign.start,
+                                              )),
+                                          Text(
+                                            listCountryCode[i]
+                                                .dialCode
+                                                .toString(),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w300,
+                                                color: text_new,
+                                                fontSize: 16),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    const Divider(
+                                      height: 1,
+                                      color: text_light,
+                                      indent: 1,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  )
+                ],
+              ),
+            );
+          });
+        });
+  }
+
   _savePrayerRequest(Requests getSet) async {
     setState(() {
       _isLoading = true;
@@ -981,6 +1201,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
       'surname' : prayerLNameController.value.text,
       'date_of_birth' : universalDateConverter("dd MMM,yyyy", "dd-MM-yyyy", prayerDOBController.value.text),
       'email' : prayerEmailController.value.text,
+      'mobile' : prayerNumberController.value.text,
       'prayer_id' : prayerID,
       'notes' : prayerNotesController.value.text,
       'request_id': getSet.requestId.toString()

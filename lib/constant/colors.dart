@@ -33,6 +33,7 @@ const Color bottomSheetline= Color(0xffedead1);
 const Color gradient_start= Color(0xffffa900);
 const Color gradient_end= Color(0xffffe329);
 Color kuber = const Color(0Xfffbfbef);
+Color headerkuber = const Color(0Xffffd4cc);
 
 
 

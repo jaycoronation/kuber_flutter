@@ -759,11 +759,11 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                             onPressed: () {
                               if(firstNameController.text.isEmpty)
                               {
-                                showToast('Please enter first address', context);
+                                showToast('Please enter first name', context);
                               }
                               else if(lastNameController.text.isEmpty)
                               {
-                                showToast('Please enter last address', context);
+                                showToast('Please enter last name', context);
                               }
                               else if(emailController.text.isEmpty)
                                 {

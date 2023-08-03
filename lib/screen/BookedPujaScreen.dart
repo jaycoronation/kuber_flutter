@@ -67,7 +67,7 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
                                         margin: const EdgeInsets.only(
                                             top: 6, right: 6, left: 8),
                                         child: Text(
-                                            "Booking For ${_bookingList[i].pujaName.toString()}",
+                                            " ${_bookingList[i].pujaName.toString()}",
                                             style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight:

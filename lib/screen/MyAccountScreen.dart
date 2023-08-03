@@ -23,6 +23,7 @@ import 'package:kuber/widget/loading.dart';
 import '../model/CountryListResponseModel.dart';
 import 'DonationListScreen.dart';
 import 'MatchMakingScreen.dart';
+import 'NewProfileScreen.dart';
 import 'WebViewContainer.dart';
 
 class MyAccountScreen extends StatefulWidget {
@@ -601,7 +602,8 @@ class _MyAccountScreen extends State<MyAccountScreen> {
               width: 18, height: 18),
           iconSize: 28,
           onPressed: () {
-            _showLogoutBottomSheet();
+            // _showLogoutBottomSheet();
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const MyAccountScreenNew()));
           },
         )
       ],

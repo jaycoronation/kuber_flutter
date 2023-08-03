@@ -33,6 +33,7 @@ class PrayerRequestListResponseModel {
 class Requests {
   Requests({
     required this.name,
+    required this.mobile,
     required this.requestId,
     required this.notes,
     required this.surname,
@@ -44,6 +45,7 @@ class Requests {
   });
 
   late final String name;
+  late final String mobile;
   late final String requestId;
   late final String notes;
   late final String surname;
@@ -55,6 +57,7 @@ class Requests {
 
   Requests.fromJson(Map<String, dynamic> json) {
     name = json['name'] ?? "";
+    mobile = json['mobile'] ?? "";
     requestId = json['request_id'];
     notes = json['notes'];
     surname = json['surname'] ?? "";
@@ -68,6 +71,7 @@ class Requests {
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['name'] = name;
+    _data['mobile'] = mobile;
     _data['request_id'] = requestId;
     _data['notes'] = notes;
     _data['surname'] = surname;
