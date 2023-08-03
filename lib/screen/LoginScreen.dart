@@ -1038,7 +1038,7 @@ class _LoginScreen extends State<LoginScreen> {
 
     Map<String, String> jsonBody = {
       'name': "$firstName $lastName",
-      'mobile': " ",
+      'mobile': "",
       'login_type': loginType,
       'from_app': "true",
       'email': email,
@@ -1069,12 +1069,10 @@ class _LoginScreen extends State<LoginScreen> {
 
       await sessionManager.createLoginSession(getSetData);
 
-
-
       sessionManager.setUserId(dataResponse.user?.userId.toString() ?? "");
       print(dataResponse.user!.mobile.toString());
       print(dataResponse.user!.email.toString());
-      if(dataResponse.user?.email?.toString().isEmpty ?? true)
+      if(dataResponse.user?.mobile?.toString().isEmpty ?? true)
       {
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
       }

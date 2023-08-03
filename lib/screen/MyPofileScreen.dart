@@ -386,7 +386,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                         child:  TextField(
                             controller: stateController,
                             onTap: (){
-                              if(selectedCountry.isEmpty)
+                              if(countryId.isEmpty)
                               {
                                   showToast("Select your country first", context);
                               }
@@ -435,7 +435,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                         child:  TextField(
                             controller: cityController,
                             onTap: (){
-                              if(selectedState.isEmpty)
+                              if(stateId.isEmpty)
                               {
                                 showToast("Select your state first", context);
                               }else{
@@ -1557,6 +1557,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             qualificationController.text = getSet.qualification ?? '';
             experienceController.text = getSet.experience ?? '';
             countryCode = getSet.countryCode ?? '';
+            countryId = getSet.countryId ?? '';
+            stateId = getSet.stateId ?? '';
+            cityId = getSet.cityId ?? '';
 
             verify.Profile getSetData = verify.Profile();
 
@@ -1626,6 +1629,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           cityController.text = getSet.cityName ?? "";
           countryCode = getSet.countryCode ?? "";
           profilePic = getSet.profilePic ?? "";
+          countryId = getSet.countryId ?? '';
+          stateId = getSet.stateId ?? '';
+          cityId = getSet.cityId ?? '';
 
           var getSetData = Profile();
           getSetData.id = getSet.id;
