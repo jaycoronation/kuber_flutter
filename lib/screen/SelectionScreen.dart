@@ -26,6 +26,7 @@ class SelectionScreen extends StatefulWidget {
 
 class _SelectionScreen extends State<SelectionScreen> {
   bool _isLoading = false;
+  String appBarTitle = "";
   List<Countries> _countryList = List<Countries>.empty(growable: true);
   List<States> _stateList = List<States>.empty(growable: true);
   List<Cities> _cityList = List<Cities>.empty(growable: true);
@@ -38,13 +39,16 @@ class _SelectionScreen extends State<SelectionScreen> {
 
     if (widget.isFor == COUNTRY) {
       _getCountryList();
+      appBarTitle = "Select Country";
     }
     else if (widget.isFor == STATE)
     {
       _getStateList();
+      appBarTitle = "Select State";
     }
     else if (widget.isFor == QULIFICATION)
       {
+        appBarTitle = "Select Qualification";
         _listQualification.add("Astrologer");
         _listQualification.add("Palm reader");
         _listQualification.add("Face reader");
@@ -55,12 +59,14 @@ class _SelectionScreen extends State<SelectionScreen> {
       }
     else if (widget.isFor == EXPRIENCE)
       {
+        appBarTitle = "Select Experience";
         listExperience.add("Started");
         listExperience.add("Completed");
         listExperience.add("Experienced");
       }
     else
     {
+      appBarTitle = "Select City";
       _getCityList();
     }
   }
@@ -93,7 +99,7 @@ class _SelectionScreen extends State<SelectionScreen> {
                 },
               ),
               title:  Text(
-                widget.isFor==COUNTRY? "Select Country": widget.isFor ==STATE?"Select State" :"Select City",
+                appBarTitle,
                 style: const TextStyle(
                     fontSize: 16, fontWeight: FontWeight.bold, color: black),
                 textAlign: TextAlign.center,

@@ -552,16 +552,16 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 decoration:  InputDecoration(
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20),
-                                      borderSide:   BorderSide(color: Colors.grey,),
+                                      borderSide:   const BorderSide(color: Colors.grey,),
                                     ),
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
-                                        borderSide:   BorderSide(color: Colors.grey)
+                                        borderSide:   const BorderSide(color: Colors.grey)
                                     ),
                                     counterText: "",
                                     // border: InputBorder.none,
                                     hintText: 'Pathshala',
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                         color: darkbrown,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500)),
@@ -585,15 +585,15 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 decoration: InputDecoration(
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20),
-                                      borderSide:   BorderSide(color: Colors.grey,),
+                                      borderSide:   const BorderSide(color: Colors.grey,),
                                     ),
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
-                                        borderSide:   BorderSide(color: Colors.grey)
+                                        borderSide:   const BorderSide(color: Colors.grey)
                                     ),
                                     counterText: "",
                                     hintText: 'Gurukul',
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                         color: darkbrown,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500)),
@@ -620,20 +620,20 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                   decoration: InputDecoration(
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
-                                        borderSide:   BorderSide(color: Colors.grey,),
+                                        borderSide:   const BorderSide(color: Colors.grey,),
                                       ),
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(20),
-                                          borderSide:   BorderSide(color: Colors.grey)
+                                          borderSide:   const BorderSide(color: Colors.grey)
                                       ),
-                                      suffixIcon: Icon(
+                                      suffixIcon: const Icon(
                                         Icons .keyboard_arrow_down_rounded,
                                         color: title,
                                       ),
                                       counterText: "",
                                       alignLabelWithHint: true,
                                       hintText: "Qualification",
-                                      hintStyle: TextStyle(
+                                      hintStyle: const TextStyle(
                                         color: darkbrown,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
@@ -662,20 +662,20 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                   decoration:  InputDecoration(
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
-                                        borderSide:   BorderSide(color: Colors.grey,),
+                                        borderSide:   const BorderSide(color: Colors.grey,),
                                       ),
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(20),
-                                          borderSide:   BorderSide(color: Colors.grey)
+                                          borderSide:   const BorderSide(color: Colors.grey)
                                       ),
-                                      suffixIcon: Icon(
+                                      suffixIcon: const Icon(
                                         Icons .keyboard_arrow_down_rounded,
                                         color: title,
                                       ),
                                       counterText: "",
                                       alignLabelWithHint: true,
                                       hintText: "Experience",
-                                      hintStyle: TextStyle(
+                                      hintStyle: const TextStyle(
                                         color: darkbrown,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
@@ -703,15 +703,15 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 decoration: InputDecoration(
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20),
-                                      borderSide:   BorderSide(color: Colors.grey,),
+                                      borderSide:   const BorderSide(color: Colors.grey,),
                                     ),
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
-                                        borderSide:   BorderSide(color: Colors.grey)
+                                        borderSide:   const BorderSide(color: Colors.grey)
                                     ),
                                     counterText: "",
                                     hintText: 'Certificate',
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                         color: darkbrown,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500)),
