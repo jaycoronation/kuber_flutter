@@ -1065,7 +1065,7 @@ class _LoginScreen extends State<LoginScreen> {
       getSetData.firstName = dataResponse.user?.firstName;
       getSetData.lastName = dataResponse.user?.lastName;
       getSetData.countryCode = dataResponse.user?.countryCode;
-      getSetData.type = "Pujari";
+      getSetData.type = "User";
 
       await sessionManager.createLoginSession(getSetData);
 
