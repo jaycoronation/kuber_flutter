@@ -71,9 +71,9 @@ class _BookingDetailsScreen extends State<BookingDetailsScreen> {
                               left: 10, right: 10, top: 4, bottom: 4),
                           child: Row(
                             children: [
-                              Text(
+                              const Text(
                                 "Name : ",
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                     color: darkbrown),
@@ -96,9 +96,9 @@ class _BookingDetailsScreen extends State<BookingDetailsScreen> {
                               left: 10, right: 10, top: 4, bottom: 4),
                           child: Row(
                             children: [
-                              Text(
+                              const Text(
                                 "Email : ",
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                     color: darkbrown),
@@ -122,9 +122,9 @@ class _BookingDetailsScreen extends State<BookingDetailsScreen> {
                               left: 10, right: 10, bottom: 4),
                           child: Row(
                             children: [
-                              Text(
+                              const Text(
                                 "Contact No : ",
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                     color: darkbrown),
@@ -160,9 +160,9 @@ class _BookingDetailsScreen extends State<BookingDetailsScreen> {
                                     bottom: 4),
                                 child: Row(
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Address : ",
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
                                           color: darkbrown),
@@ -237,47 +237,101 @@ class _BookingDetailsScreen extends State<BookingDetailsScreen> {
                       ],
                     ),
                   ),
-                  Container(
-                      margin: const EdgeInsets.only(
-                          top: 10, left: 16, right: 10, bottom: 12),
-                      child: const Text(
-                        'Puja Date & Time :',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: black,
-                            fontWeight: FontWeight.w700),
-                      )),
-                  Container(
-                    padding: const EdgeInsets.only(
-                        left: 4, right: 4, top: 6, bottom: 6),
-                    alignment: Alignment.centerLeft,
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(left: 14, right: 14),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        color: white_blue),
+                  Visibility(
+                    visible: _bookingDetail.pujaDate.toString().isNotEmpty,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(
-                              left: 10, right: 10, top: 4, bottom: 4),
-                          child: Text(
-                            _bookingDetail.pujaDay.toString() +
-                                "," +
-                                _bookingDetail.pujaDate.toString()+"  "+
-                                _bookingDetail.pujaTime.toString(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
-                                color: title),
-                            textAlign: TextAlign.start,
+                            margin: const EdgeInsets.only(
+                                top: 10, left: 16, right: 10, bottom: 12),
+                            child: const Text(
+                              'Puja Date & Time :',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: black,
+                                  fontWeight: FontWeight.w700),
+                            )),
+                        Container(
+                          padding: const EdgeInsets.only(
+                              left: 4, right: 4, top: 6, bottom: 6),
+                          alignment: Alignment.centerLeft,
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.only(left: 14, right: 14),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: white_blue),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(
+                                    left: 10, right: 10, top: 4, bottom: 4),
+                                child: Text(
+                                  "${_bookingDetail.pujaDay},${_bookingDetail.pujaDate}  ${_bookingDetail.pujaTime}",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                      color: title),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
+
+                      Visibility(
+                        visible: _bookingDetail.pujaDate.toString().isEmpty,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                margin: const EdgeInsets.only(
+                                    top: 10, left: 16, right: 10, bottom: 12),
+                                child: const Text(
+                                  "Need Auspicious Date? : Yes ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: black,
+                                      fontWeight: FontWeight.w700),
+                                )),
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  left: 4, right: 4, top: 6, bottom: 6),
+                              alignment: Alignment.centerLeft,
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.only(left: 14, right: 14),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: white_blue),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 10, right: 10, top: 4, bottom: 4),
+                                    child: Text(
+                                      _bookingDetail.auspiciousDescription.toString(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                          color: title),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
 
                   Container(
                     margin: const EdgeInsets.only(
