@@ -73,7 +73,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
     astroLnameController.text= sessionManager.getLastName().toString();
     astroMobileNumberController.text= sessionManager.getPhone().toString();
     astroEmailController.text= sessionManager.getEmail().toString();
-    astroGirlBirthDateController.text= sessionManager.getDob().toString();
     //astroGirlBirthDateController.text= sessionManager.getDob().toString();
     getCountryData();
     super.initState();
@@ -1274,7 +1273,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                             Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (BuildContext context) => UsePaypal(
-                                  sandboxMode: true,
+                                  sandboxMode: SANDBOX,
                                   clientId: PAYPAL_CLIENT_ID,
                                   secretKey:PAYPAL_CLIENT_SECRET,
                                   returnURL: "https://panditbookings.com/return",

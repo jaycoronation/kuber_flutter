@@ -1878,17 +1878,17 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) => UsePaypal(
-                                    sandboxMode: true,
+                                    sandboxMode: SANDBOX,
                                     clientId: PAYPAL_CLIENT_ID,
                                     secretKey:PAYPAL_CLIENT_SECRET,
                                     returnURL: "https://panditbookings.com/return",
                                     cancelURL: "http://panditbookings.com/cancel",
                                     transactions: [
                                       {
-                                        "amount": {
+                                        "amount": const {
                                           "total": "11",
                                           "currency": "USD",
-                                          "details": const {
+                                          "details": {
                                             "subtotal": '11',
                                             "shipping": '0',
                                             "shipping_discount": 0

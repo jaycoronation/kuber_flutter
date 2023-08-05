@@ -90,7 +90,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
            child:  _isLoading
                ? Container(
                    height: MediaQuery.of(context).size.height * 0.88,
-                   child: LoadingWidget()
+                   child: const LoadingWidget()
                )
                : SingleChildScrollView(
                    scrollDirection: Axis.vertical,
@@ -743,6 +743,8 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                              onTap: () {
                                setState(() {
                                  ausoiciousDate = !ausoiciousDate;
+                                 selectedTime = " Pick Time";
+                                 selectedDate = "";
                                });
                              },
                              child: Row(
@@ -809,64 +811,6 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                ],
                              ),
                            ),
-
-                           // Container(
-                           //   margin: const EdgeInsets.only(top: 10, ),
-                           //   child:  TextField(
-                           //     controller: leaveDetailController,
-                           //     minLines: 4,
-                           //     maxLines: 4,
-                           //     keyboardType: TextInputType.text,
-                           //     cursorColor: title,
-                           //     style:   const TextStyle(
-                           //         color: title, fontSize: 14, fontWeight: FontWeight.w900),
-                           //     decoration: InputDecoration(
-                           //         fillColor: white_blue,
-                           //         filled: true,
-                           //         border: OutlineInputBorder(
-                           //             borderRadius: BorderRadius.circular(16.0),
-                           //             borderSide: const BorderSide(width: 0,style: BorderStyle.none)
-                           //         ),
-                           //         contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
-                           //         hintText: 'Leave Your Detail',
-                           //         hintStyle: const TextStyle(
-                           //             color: text_dark,
-                           //             fontSize: 14,
-                           //             fontWeight: FontWeight.bold)),
-                           //   ),
-                           // ),
-
-                           /* Container(
-                                 alignment: Alignment.topLeft,
-                                 margin: const EdgeInsets.only(top: 16,bottom: 14),
-                                 child: const Text("Address",style: TextStyle(fontSize: 14,color: brown,fontWeight: FontWeight.w600),),
-                               ),
-                               TextField(
-                                 minLines: 2,
-                                 maxLines: 2,
-                                 controller: addressController,
-                                 keyboardType: TextInputType.text,
-                                 cursorColor: title,
-                                 readOnly: true,
-                                 onTap: (){
-                                   placesDialog(addressController,setState);
-                                 },
-                                 style:  const TextStyle(
-                                     color: title, fontSize: 14, fontWeight: FontWeight.w600),
-                                 decoration: InputDecoration(
-                                     fillColor: white_blue,
-                                     filled: true,
-                                     border: OutlineInputBorder(
-                                         borderRadius: BorderRadius.circular(16.0),
-                                         borderSide: const BorderSide(width: 0,style: BorderStyle.none)
-                                     ),
-                                     contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
-                                     hintText: 'Add Address',
-                                     hintStyle: const TextStyle(
-                                         color: text_dark,
-                                         fontSize: 14,
-                                         fontWeight: FontWeight.w900)),
-                               ), */
                            Container(
                              alignment: Alignment.topLeft,
                              margin: const EdgeInsets.only(top: 14,bottom: 14),
@@ -1029,54 +973,6 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                            Container(
                                margin: const EdgeInsets.only(top: 16,right: 18,left: 14),
                                child: const Divider(color: text_light,thickness: 1,height: 0.5,)),
-                           // Row(
-                           //   children: [
-                           //     InkWell(
-                           //       child: Padding(
-                           //     padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                           //     child: Container(
-                           //
-                           //       alignment: Alignment.bottomRight,
-                           //       margin: const EdgeInsets.only(top: 10,bottom: 20),
-                           //       padding: const EdgeInsets.only(left: 14,right: 14),
-                           //       height: 60,
-                           //       child: Card(
-                           //         shape: RoundedRectangleBorder(
-                           //           borderRadius: BorderRadius.circular(20.0),
-                           //         ),
-                           //         color: light_yellow,
-                           //         elevation: 10,
-                           //         child: const Padding(
-                           //           padding: EdgeInsets.all(14.0),
-                           //           child: Text("Next",
-                           //             style: TextStyle(
-                           //                 fontSize: 14,
-                           //                 color: title,
-                           //                 fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                           //         ),
-                           //       ),
-                           //     ),
-                           //       ),
-                           //       onTap: ()
-                           //       {
-                           //     var dateTime = "${pickDateController.text} $selectedTime";
-                           //
-                           //     if (dateTime == "Pick Date Pick Time")
-                           //     {
-                           //       dateTimeForShow = leaveDetailController.text;
-                           //     }
-                           //     else
-                           //     {
-                           //       var dateForShow = "${universalDateConverter("MMMM dd, yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
-                           //       dateTimeForShow = dateTime;
-                           //       dateTimeForPass = dateForShow;
-                           //     }
-                           //     _bookPristValidation();
-                           //       },
-                           //     ),
-                           //
-                           //   ],
-                           // ),
                            Container(height: 18,),
                            Row(
                              children: [
@@ -1202,7 +1098,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                 }
               },
               initialDateTime: DateTime.now(),
-              minimumDate: DateTime.now().subtract(Duration(days:1)),
+              minimumDate: DateTime.now().subtract(const Duration(days:1)),
               maximumYear: 2035,
             ),
           );
@@ -1313,20 +1209,19 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
         context: context,
         isScrollControlled: true,backgroundColor: Colors.transparent,
         builder: (context){
-          return StatefulBuilder(
-              builder: (context,setState){
-                return Container(
-                  height: MediaQuery.of(context).size.height * 0.88,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12.0),
-                      topRight: Radius.circular(12.0),
-                    ),
-                  ),
-                  child: Wrap(
-                    children: [
-                      SingleChildScrollView(
+          return Wrap(
+            children: [
+              StatefulBuilder(
+                  builder: (context,setState){
+                    return Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12.0),
+                          topRight: Radius.circular(12.0),
+                        ),
+                      ),
+                      child: SingleChildScrollView(
                         child: Column(
                           children: [
                             Container(
@@ -1375,7 +1270,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                     margin: const EdgeInsets.only(left: 10, right: 10, top: 4, bottom: 4),
                                     child: Row(
                                       children: [
-                                        Text("Name : ", style: TextStyle(
+                                        const Text("Name : ", style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14,
                                             color: darkbrown),),
@@ -1396,7 +1291,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                         left: 10, right: 10, top: 4, bottom: 4),
                                     child: Row(
                                       children: [
-                                        Text("Email : ", style: TextStyle(
+                                        const Text("Email : ", style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14,
                                             color: darkbrown),),
@@ -1417,7 +1312,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                         left: 10, right: 10, bottom: 4, top: 4,),
                                     child: Row(
                                       children: [
-                                        Text("Mobile No : ", style: TextStyle(
+                                        const Text("Mobile No : ", style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14,
                                             color: darkbrown),),
@@ -1438,7 +1333,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                         left: 10, right: 10, top: 4, bottom: 4),
                                     child: Row(
                                       children: [
-                                        Text("Address : ", style: TextStyle(
+                                        const Text("Address : ", style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14,
                                             color: darkbrown),),
@@ -1457,48 +1352,6 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                 ],
                               ),
                             ),
-                            /*Container(
-                              alignment: Alignment.centerLeft,
-                              margin:
-                              const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
-                              child:  const Text(
-                                "Address Details",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: black,
-                                    fontSize: 18),
-                              ),
-                            ),*/
-/*
-                            Container(
-                              padding: const EdgeInsets.only(left: 4, right: 4, top: 6, bottom: 6),
-                              alignment: Alignment.centerLeft,
-                              width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.only(left: 14, right: 14),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: white_blue
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 10, right: 10, top: 4, bottom: 4),
-                                    child: Text(
-                                      addressController.value.text ,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                          color: title),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-*/
                             Container(
                               alignment: Alignment.centerLeft,
                               margin: const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
@@ -1550,41 +1403,100 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                 ],
                               ),
                             ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              margin:
-                              const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
-                              child:  const Text(
-                                "Puja Date & Time:",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: black,
-                                    fontSize: 18),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.only(
-                                  left: 4, right: 4, top: 6, bottom: 6),
-                              alignment: Alignment.centerLeft,
-                              width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.only(left: 14, right: 14),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: white_blue),
+
+                            Visibility(
+                              visible: ausoiciousDate,
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 10, right: 10, top: 4, bottom: 4),
-                                    child:  Text(
-                                      dateTimeForShow,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                          color: title),
-                                      textAlign: TextAlign.start,
+                                    alignment: Alignment.centerLeft,
+                                    margin:
+                                    const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
+                                    child:  const Text(
+                                      "Ask for Auspicious Date: Yes",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: black,
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: leaveDetailController.text.isNotEmpty,
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          left: 4, right: 4, top: 6, bottom: 6),
+                                      alignment: Alignment.centerLeft,
+                                      width: MediaQuery.of(context).size.width,
+                                      margin: const EdgeInsets.only(left: 14, right: 14),
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: white_blue),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                left: 10, right: 10, top: 4, bottom: 4),
+                                            child:  Text(
+                                              leaveDetailController.text,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 14,
+                                                  color: title),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Visibility(
+                              visible: ausoiciousDate == false,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    margin:
+                                    const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
+                                    child:  const Text(
+                                      "Puja Date & Time:",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: black,
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 4, right: 4, top: 6, bottom: 6),
+                                    alignment: Alignment.centerLeft,
+                                    width: MediaQuery.of(context).size.width,
+                                    margin: const EdgeInsets.only(left: 14, right: 14),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(6),
+                                        color: white_blue),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.only(
+                                              left: 10, right: 10, top: 4, bottom: 4),
+                                          child:  Text(
+                                            dateTimeForShow,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                                color: title),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
@@ -1670,10 +1582,10 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                       padding: const EdgeInsets.only(left: 14,right: 14),
                                       child: Card(
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20.0),
+                                          borderRadius: BorderRadius.circular(6.0),
                                         ),
                                         color: light_yellow,
-                                        elevation: 10,
+                                        elevation: 0,
                                         child: Padding(
                                           padding: const EdgeInsets.all(14.0),
                                           child: Text("Edit",
@@ -1696,10 +1608,10 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                       padding: const EdgeInsets.only(left: 14,right: 14),
                                       child: Card(
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20.0),
+                                          borderRadius: BorderRadius.circular(6.0),
                                         ),
                                         color: light_yellow,
-                                        elevation: 10,
+                                        elevation: 0,
                                         child: const Padding(
                                           padding: EdgeInsets.all(14.0),
                                           child: Text("Submit",
@@ -1717,10 +1629,10 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                );
-              }
+                    );
+                  }
+              ),
+            ],
           );
         }
     );
