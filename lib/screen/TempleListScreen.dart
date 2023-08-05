@@ -178,7 +178,7 @@ class _TempleListScreen extends State<TempleListScreen> {
                                                   onTap: (){
                                                     Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenImage("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${_listTemples[i].photos?[0].photoReference}&key=$API_KEY", [], 0)));
                                                   },
-                                                    child: FadeInImage.assetNetwork(height: 150 , width: MediaQuery.of(context).size.width,fit: BoxFit.fitWidth,placeholder: "assets/images/placeholder.png", image: "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${_listTemples[i].photos?[0].photoReference}&key=$API_KEY")),
+                                                    child: FadeInImage.assetNetwork( width: MediaQuery.of(context).size.width,fit: BoxFit.fitWidth,placeholder: "assets/images/placeholder.png", image: "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${_listTemples[i].photos?[0].photoReference}&key=$API_KEY")),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.all(12),
@@ -208,7 +208,7 @@ class _TempleListScreen extends State<TempleListScreen> {
                                                   ),
                                                   GestureDetector(
                                                     onTap: (){
-                                                      launchUrl(Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=${_listTemples[i].placeId}"));
+                                                      launchUrl(Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=${_listTemples[i].placeId}"),mode: LaunchMode.externalApplication );
                                                     },
                                                     child: Container(
                                                         width: 38,

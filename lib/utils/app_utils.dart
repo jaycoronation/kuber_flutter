@@ -52,6 +52,14 @@ String getCurrentYear() {
   print(formattedDate); // 2016-01-25
 }
 
+String getCurrentDate(){
+  var now = DateTime.now();
+  var formatter = DateFormat('dd-MM-yyyy h:mm a');
+  String formattedDate = formatter.format(now);
+  print(formattedDate); // 2016-01-25
+  return formattedDate;
+}
+
 String getDateFromTimestamp(String timeStamp){
   int timestamp = int.parse(timeStamp); // example timestamp
   DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000); // convert timestamp to DateTime object

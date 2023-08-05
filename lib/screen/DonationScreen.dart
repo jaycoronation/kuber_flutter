@@ -203,7 +203,7 @@ class _DonationScreenState extends State<DonationScreen> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) => UsePaypal(
-                              sandboxMode: true,
+                              sandboxMode: SANDBOX,
                               clientId: PAYPAL_CLIENT_ID,
                               secretKey:PAYPAL_CLIENT_SECRET,
                               returnURL: "https://panditbookings.com/return",

@@ -422,7 +422,6 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                    child: Row(
                                      crossAxisAlignment: CrossAxisAlignment.center,
                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                                      children: [
                                        GestureDetector(
                                          onTap: () async {
@@ -445,7 +444,6 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                                height: 18,
                                                width: 18,
                                              ),
-
                                            ],
                                          ),
                                        ),
@@ -555,69 +553,65 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                      ],
                                    ),
                                  ),
-                               ],
-                             ),
-                           ),
 
-                           Container(height: 18,),
-                           Row(
-                             children: [
-                               Flexible(
-                                 child: Visibility(
-                                   visible: selectedDate.isNotEmpty,
-                                   child: Container(
-                                     padding: const EdgeInsets.all(12),
-                                     decoration: BoxDecoration(
-                                       borderRadius: BorderRadius.circular(28),
-                                       color: const Color(0xffe8e4c7),
+                                 Container(height: 18,),
+                                 Row(
+                                   children: [
+                                     Flexible(
+                                       child: Visibility(
+                                         visible: selectedDate.isNotEmpty,
+                                         child: Container(
+                                           padding: const EdgeInsets.all(12),
+                                           decoration: BoxDecoration(
+                                             borderRadius: BorderRadius.circular(28),
+                                             color: const Color(0xffe8e4c7),
 
-                                     ),
-                                     margin: const EdgeInsets.only(right: 8, left: 2),
-                                     child: Padding(
-                                       padding: const EdgeInsets.only(top:6.0, bottom: 6),
-                                       child: Row(
-                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                         crossAxisAlignment: CrossAxisAlignment.center,
-                                         children: [
-                                           Text(selectedDate, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: darkbrown),),
-                                           const Image(image: AssetImage("assets/images/ic_right_aerrow.png"), width: 20, height: 20,)
-                                         ],
+                                           ),
+                                           margin: const EdgeInsets.only(right: 8, left: 2),
+                                           child: Padding(
+                                             padding: const EdgeInsets.only(top:6.0, bottom: 6),
+                                             child: Row(
+                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                               crossAxisAlignment: CrossAxisAlignment.center,
+                                               children: [
+                                                 Text(selectedDate, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: darkbrown),),
+                                                 const Image(image: AssetImage("assets/images/ic_right_aerrow.png"), width: 20, height: 20,)
+                                               ],
+                                             ),
+                                           ),
+                                         ),
                                        ),
                                      ),
-                                   ),
-                                 ),
-                               ),
-                               Container(width: 18,),
-                               Flexible(
-                                 child: Visibility(
-                                   visible: selectedTime != "Pick Time",
-                                   child: Container(
-                                     margin: const EdgeInsets.only(right: 8, left: 2),
-                                     padding: const EdgeInsets.all(12),
-                                     decoration: BoxDecoration(
-                                       borderRadius: BorderRadius.circular(28),
-                                       color: const Color(0xffe8e4c7),
+                                     Container(width: 18,),
+                                     Flexible(
+                                       child: Visibility(
+                                         visible: selectedTime != "Pick Time",
+                                         child: Container(
+                                           margin: const EdgeInsets.only(right: 8, left: 2),
+                                           padding: const EdgeInsets.all(12),
+                                           decoration: BoxDecoration(
+                                             borderRadius: BorderRadius.circular(28),
+                                             color: const Color(0xffe8e4c7),
 
-                                     ),
-                                     child: Padding(
-                                       padding: const EdgeInsets.only(top:6.0, bottom: 6, left: 8,right: 8),
-                                       child: Row(
-                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                         crossAxisAlignment: CrossAxisAlignment.center,
-                                         children: [
-                                           Text(selectedTime, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: darkbrown),),
-                                           const Image(image: AssetImage("assets/images/ic_right_aerrow.png"), width: 20, height: 20,)
-                                         ],
+                                           ),
+                                           child: Padding(
+                                             padding: const EdgeInsets.only(top:6.0, bottom: 6, left: 8,right: 8),
+                                             child: Row(
+                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                               crossAxisAlignment: CrossAxisAlignment.center,
+                                               children: [
+                                                 Text(selectedTime, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: darkbrown),),
+                                                 const Image(image: AssetImage("assets/images/ic_right_aerrow.png"), width: 20, height: 20,)
+                                               ],
+                                             ),
+                                           ),
+                                         ),
                                        ),
                                      ),
-                                   ),
+                                   ],
                                  ),
-                               ),
-                             ],
-                           ),
 
-
-                           /* Row(
+                                 /* Row(
                                  crossAxisAlignment: CrossAxisAlignment.center,
                                  mainAxisAlignment: MainAxisAlignment.center,
                                  children: [
@@ -706,34 +700,37 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                  ],
                                ), */
 
-                           Container(
-                             margin: const EdgeInsets.only(left: 14,right: 14,top: 14,bottom: 14),
-                             child: Row(
-                               children: [
-                                 const Flexible(
-                                   flex: 1,
-                                   child: Divider(
-                                     color: text_light,
-                                     height: 0.5,
-                                     thickness: 0.5,
-                                   ),
-                                 ),
                                  Container(
-                                   margin: const EdgeInsets.only(left: 4, right: 4),
-                                   child: const Text(
-                                     "OR",
-                                     style: TextStyle(
-                                         color: text_light,
-                                         fontSize: 16,
-                                         fontWeight: FontWeight.w300),
-                                   ),
-                                 ),
-                                 const Flexible(
-                                   flex: 1,
-                                   child: Divider(
-                                     color: text_light,
-                                     height: 0.5,
-                                     thickness: 0.5,
+                                   margin: const EdgeInsets.only(left: 14,right: 14,top: 14,bottom: 14),
+                                   child: Row(
+                                     children: [
+                                       const Flexible(
+                                         flex: 1,
+                                         child: Divider(
+                                           color: text_light,
+                                           height: 0.5,
+                                           thickness: 0.5,
+                                         ),
+                                       ),
+                                       Container(
+                                         margin: const EdgeInsets.only(left: 4, right: 4),
+                                         child: const Text(
+                                           "OR",
+                                           style: TextStyle(
+                                               color: text_light,
+                                               fontSize: 16,
+                                               fontWeight: FontWeight.w300),
+                                         ),
+                                       ),
+                                       const Flexible(
+                                         flex: 1,
+                                         child: Divider(
+                                           color: text_light,
+                                           height: 0.5,
+                                           thickness: 0.5,
+                                         ),
+                                       ),
+                                     ],
                                    ),
                                  ),
                                ],
@@ -838,7 +835,6 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                            //             fontWeight: FontWeight.bold)),
                            //   ),
                            // ),
-
 
                            /* Container(
                                  alignment: Alignment.topLeft,
@@ -1296,18 +1292,18 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
       return;
     }
 
-    if(ausoiciousDate == false)
+    if(leaveDetailController.text.isEmpty)
     {
       if(selectedDate.toString()==("Pick Date"))
       {
         showToast("Select date for pooja ",context);
         return;
       }
-      if(selectedTime.toString()==("Pick Time"))
-      {
-        showToast("Select time for pooja ",context);
-        return;
-      }
+      // if(selectedTime.toString()==("Pick Time"))
+      // {
+      //   showToast("Select time for pooja ",context);
+      //   return;
+      // }
     }
     _reviewBookingDialog();
   }
@@ -1328,124 +1324,169 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                       topRight: Radius.circular(12.0),
                     ),
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Container(
-                            width: 50,
-                            margin: const EdgeInsets.only(top: 12),
-                            child: const Divider(
-                              height: 1.5,
-                              thickness: 1.5,
-                              color: Colors.grey,
-                            )
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          child: const Text(
-                            "Review Priest Booking",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, color: title, fontSize: 18),
-                          ),
-                        ),
-                    Container(height: 22,),
-                        /*Container(
-                          alignment: Alignment.centerLeft,
-                          margin:
-                          const EdgeInsets.only(top: 20, left: 20, right: 18, bottom: 10),
-                          child: const Text(
-                            "User Details",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: black,
-                                fontSize: 18),
-                          ),
-                        ),*/
-                        Container(
-                          padding: const EdgeInsets.only(left: 4, right: 4, top: 6, bottom: 6),
-                          alignment: Alignment.centerLeft,
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.only(left: 14, right: 14),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              color: white_blue),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(left: 10, right: 10, top: 4, bottom: 4),
-                                child: Row(
-                                  children: [
-                                    Text("Name : ", style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: darkbrown),),
-                                    Container(width: 12,),
-                                    Text(
-                                      sessionManager.getName().toString() +" "+ sessionManager.getLastName().toString(),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: title),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
+                  child: Wrap(
+                    children: [
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Container(
+                                width: 50,
+                                margin: const EdgeInsets.only(top: 12),
+                                child: const Divider(
+                                  height: 1.5,
+                                  thickness: 1.5,
+                                  color: Colors.grey,
+                                )
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: const Text(
+                                "Review Priest Booking",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, color: title, fontSize: 18),
                               ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 4, bottom: 4),
-                                child: Row(
-                                  children: [
-                                    Text("Email : ", style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: darkbrown),),
-                                    Container(width: 12,),
-                                    Text(
-                                      sessionManager.getEmail().toString(),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                          color: title),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
+                            ),
+                        Container(height: 22,),
+                            /*Container(
+                              alignment: Alignment.centerLeft,
+                              margin:
+                              const EdgeInsets.only(top: 20, left: 20, right: 18, bottom: 10),
+                              child: const Text(
+                                "User Details",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: black,
+                                    fontSize: 18),
                               ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, bottom: 4, top: 4,),
-                                child: Row(
-                                  children: [
-                                    Text("Mobile No : ", style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: darkbrown),),
-                                    Container(width: 8,),
-                                    Text(
-                                      sessionManager.getPhone().toString(),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                          color: title),
-                                      textAlign: TextAlign.start,
+                            ),*/
+                            Container(
+                              padding: const EdgeInsets.only(left: 4, right: 4, top: 6, bottom: 6),
+                              alignment: Alignment.centerLeft,
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.only(left: 14, right: 14),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: white_blue),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 10, right: 10, top: 4, bottom: 4),
+                                    child: Row(
+                                      children: [
+                                        Text("Name : ", style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            color: darkbrown),),
+                                        Container(width: 12,),
+                                        Text(
+                                          sessionManager.getName().toString() +" "+ sessionManager.getLastName().toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                              color: title),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 10, right: 10, top: 4, bottom: 4),
+                                    child: Row(
+                                      children: [
+                                        Text("Email : ", style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            color: darkbrown),),
+                                        Container(width: 12,),
+                                        Text(
+                                          sessionManager.getEmail().toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14,
+                                              color: title),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 10, right: 10, bottom: 4, top: 4,),
+                                    child: Row(
+                                      children: [
+                                        Text("Mobile No : ", style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            color: darkbrown),),
+                                        Container(width: 8,),
+                                        Text(
+                                          sessionManager.getPhone().toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14,
+                                              color: title),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 10, right: 10, top: 4, bottom: 4),
+                                    child: Row(
+                                      children: [
+                                        Text("Address : ", style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            color: darkbrown),),
+                                        Container(width: 12,),
+                                        Text(
+                                          addressController.value.text ,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14,
+                                              color: title),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 4, bottom: 4),
-                                child: Row(
-                                  children: [
-                                    Text("Address : ", style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: darkbrown),),
-                                    Container(width: 12,),
-                                    Text(
+                            ),
+                            /*Container(
+                              alignment: Alignment.centerLeft,
+                              margin:
+                              const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
+                              child:  const Text(
+                                "Address Details",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: black,
+                                    fontSize: 18),
+                              ),
+                            ),*/
+/*
+                            Container(
+                              padding: const EdgeInsets.only(left: 4, right: 4, top: 6, bottom: 6),
+                              alignment: Alignment.centerLeft,
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.only(left: 14, right: 14),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: white_blue
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 10, right: 10, top: 4, bottom: 4),
+                                    child: Text(
                                       addressController.value.text ,
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w400,
@@ -1453,330 +1494,230 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                           color: title),
                                       textAlign: TextAlign.start,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        /*Container(
-                          alignment: Alignment.centerLeft,
-                          margin:
-                          const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
-                          child:  const Text(
-                            "Address Details",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: black,
-                                fontSize: 18),
-                          ),
-                        ),*/
-/*
-                        Container(
-                          padding: const EdgeInsets.only(left: 4, right: 4, top: 6, bottom: 6),
-                          alignment: Alignment.centerLeft,
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.only(left: 14, right: 14),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              color: white_blue
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 4, bottom: 4),
-                                child: Text(
-                                  addressController.value.text ,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                      color: title),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                            ),
 */
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          margin: const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
-                          child: const Text(
-                            "Puja Details",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: black,
-                                fontSize: 18),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(
-                              left: 4, right: 4, bottom: 6),
-                          alignment: Alignment.centerLeft,
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.only(left: 14, right: 14),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              color: white_blue),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 4, bottom: 4),
-                                child:  Text(
-                                  selectPujaController.value.text.toString()  ,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: title),
-                                  textAlign: TextAlign.start,
-                                ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              margin: const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
+                              child: const Text(
+                                "Puja Details",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: black,
+                                    fontSize: 18),
                               ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 4, bottom: 4),
-                                child:  Text(
-                                  pujaDescription,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                      color: title),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Visibility(
-                          visible: dateTimeForShow != " Pick Time",
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.centerLeft,
-                                margin:
-                                const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
-                                child:  const Text(
-                                  "Puja Date & Time:",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: black,
-                                      fontSize: 18),
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.only(
-                                    left: 4, right: 4, top: 6, bottom: 6),
-                                alignment: Alignment.centerLeft,
-                                width: MediaQuery.of(context).size.width,
-                                margin: const EdgeInsets.only(left: 14, right: 14),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6),
-                                    color: white_blue),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          left: 10, right: 10, top: 4, bottom: 4),
-                                      child:  Text(
-                                        dateTimeForShow,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14,
-                                            color: title),
-                                        textAlign: TextAlign.start,
-                                      ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  left: 4, right: 4, bottom: 6),
+                              alignment: Alignment.centerLeft,
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.only(left: 14, right: 14),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: white_blue),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 10, right: 10, top: 4, bottom: 4),
+                                    child:  Text(
+                                      selectPujaController.value.text.toString()  ,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: title),
+                                      textAlign: TextAlign.start,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 10, right: 10, top: 4, bottom: 4),
+                                    child:  Text(
+                                      pujaDescription,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                          color: title),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              margin:
+                              const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
+                              child:  const Text(
+                                "Puja Date & Time:",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: black,
+                                    fontSize: 18),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  left: 4, right: 4, top: 6, bottom: 6),
+                              alignment: Alignment.centerLeft,
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.only(left: 14, right: 14),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: white_blue),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 10, right: 10, top: 4, bottom: 4),
+                                    child:  Text(
+                                      dateTimeForShow,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                          color: title),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
 
-                        Visibility(
-                          visible: dateTimeForShow == " Pick Time",
-                          child: Column(
-                            children: [
-                              Container(
+                            Visibility(
+                              visible: false,
+                              child: Container(
                                 alignment: Alignment.centerLeft,
                                 margin:
-                                const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 10),
+                                const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 20),
                                 child:  const Text(
-                                  "Need Auspicious Date? : Yes ",
+                                  "Pujari Near You:",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: black,
                                       fontSize: 18),
                                 ),
                               ),
-                              Visibility(
-                                visible: leaveDetailController.text.isNotEmpty,
-                                child: Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 4, right: 4, top: 6, bottom: 6),
-                                  alignment: Alignment.centerLeft,
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: const EdgeInsets.only(left: 14, right: 14),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      color: white_blue),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.only(
-                                            left: 10, right: 10, top: 4, bottom: 4),
-                                        child:  Text(
-                                          leaveDetailController.text,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14,
-                                              color: title),
-                                          textAlign: TextAlign.start,
+                            ),
+                            Visibility(
+                                visible:false,
+                                child: ListView.builder( shrinkWrap: true,
+                                    physics: const ScrollPhysics(),
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: _prayerList.length,
+                                    itemBuilder: (BuildContext context, int i){
+                                      return Container(child:const Text(""));
+                                    }
+                                )
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 18, right: 10, bottom: 12,top:10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  const Text(
+                                    "Will you pick up priest? : ",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(fontWeight: FontWeight.normal),
+                                  ),
+                                  Text(
+                                    isPickupPriest ? "Yes" : "No",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: title,
+                                        fontSize: 14),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  top: 10, left: 18, right: 10, bottom: 12),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  const Text(
+                                    "Do You Want Puja Goods from Kuber? :",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(fontWeight: FontWeight.normal),
+                                  ),
+                                  Text(isWantGoods ? "Yes" : "No",
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: title,
+                                        fontSize: 14),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      Navigator.pop(context);
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.only(top: 10,bottom: 20),
+                                      padding: const EdgeInsets.only(left: 14,right: 14),
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(20.0),
+                                        ),
+                                        color: light_yellow,
+                                        elevation: 10,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(14.0),
+                                          child: Text("Edit",
+                                            style: getTextStyle(
+                                                fontSize: 14,
+                                                color: title,
+                                                fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-
-                        Visibility(
-                          visible: false,
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            margin:
-                            const EdgeInsets.only(top: 12, left: 20, right: 18, bottom: 20),
-                            child:  const Text(
-                              "Pujari Near You:",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: black,
-                                  fontSize: 18),
-                            ),
-                          ),
-                        ),
-                        Visibility(
-                            visible:false,
-                            child: ListView.builder( shrinkWrap: true,
-                                physics: const ScrollPhysics(),
-                                scrollDirection: Axis.vertical,
-                                itemCount: _prayerList.length,
-                                itemBuilder: (BuildContext context, int i){
-                                  return Container(child:const Text(""));
-                                }
-                            )
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 18, right: 10, bottom: 12,top:10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              const Text(
-                                "Will you pick up priest? : ",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.normal),
-                              ),
-                              Text(
-                                isPickupPriest ? "Yes" : "No",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: title,
-                                    fontSize: 14),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(
-                              top: 10, left: 18, right: 10, bottom: 12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              const Text(
-                                "Do You Want Puja Goods from Kuber? :",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.normal),
-                              ),
-                              Text(isWantGoods ? "Yes" : "No",
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: title,
-                                    fontSize: 14),
-                              )
-                            ],
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: (){
-                                  Navigator.pop(context);
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(top: 10,bottom: 20),
-                                  padding: const EdgeInsets.only(left: 14,right: 14),
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    color: light_yellow,
-                                    elevation: 10,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(14.0),
-                                      child: Text("Edit",
-                                        style: getTextStyle(
-                                            fontSize: 14,
-                                            color: title,
-                                            fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: (){
-                                  bookPujaRequest();
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(top: 10,bottom: 20),
-                                  padding: const EdgeInsets.only(left: 14,right: 14),
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    color: light_yellow,
-                                    elevation: 10,
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(14.0),
-                                      child: Text("Submit",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: title,
-                                            fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      bookPujaRequest();
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.only(top: 10,bottom: 20),
+                                      padding: const EdgeInsets.only(left: 14,right: 14),
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(20.0),
+                                        ),
+                                        color: light_yellow,
+                                        elevation: 10,
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(14.0),
+                                          child: Text("Submit",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: title,
+                                                fontWeight: FontWeight.w600),textAlign: TextAlign.center,),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
+                                )
+                              ],
                             )
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
@@ -1809,7 +1750,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
       'user_id' : sessionManager.getUserId().toString(),
       'email' : sessionManager.getEmail().toString(),
       'puja_id' : pujaId,
-      'booking_date' : dateTimeForPass,
+      'booking_date' : ausoiciousDate ? getCurrentDate() : dateTimeForPass,
       'booking_address' : addressController.text,
       'auspicious_description' : leaveDetailController.text,
       'pickup_by_user' : isPickupPriest ? "1" : "0",
