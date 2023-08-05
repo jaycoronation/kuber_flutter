@@ -496,7 +496,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 hintText: 'Search',
                               ),
                                 types: [],
-                                language: "en",);
+                                language: "en",
+                            );
                             displayPrediction(prediction,context);
                           },
                           style: const TextStyle(

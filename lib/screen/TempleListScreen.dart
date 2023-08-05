@@ -2,11 +2,15 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_api_headers/google_api_headers.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding/google_geocoding.dart';
 import 'package:kuber/model/TempleListResponseModel.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/utils/full_screen_image.dart';
+import 'package:kuber/widget/loading_more.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,13 +37,34 @@ class _TempleListScreen extends State<TempleListScreen> {
   late LocationPermission permission;
   late Position position;
   List<Results> _listTemples = [];
+  ScrollController _scrollViewController = ScrollController();
   bool _isNoDataVisible = false;
+  bool isScrollingDown = false;
+  bool _isLastPage = false;
+  bool _isLoadingMore = false;
+  String nextPageToken = '';
 
   @override
   void initState() {
     checkPermission();
+    _scrollViewController = ScrollController();
+    _scrollViewController.addListener(() {
+      pagination();
+    });
     super.initState();
   }
+
+  void pagination() {
+    if (!_isLastPage && !_isLoadingMore) {
+      if ((_scrollViewController.position.pixels == _scrollViewController.position.maxScrollExtent)) {
+        setState(() {
+          _isLoadingMore = true;
+          getTempleList(false);
+        });
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +86,35 @@ class _TempleListScreen extends State<TempleListScreen> {
                   Navigator.pop(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
                 },
               ),
-              title: Text("Temple List",
+              title: const Text("Temple List",
                 style: TextStyle(
                     color: black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold),
               ),
+              actions: [
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () async {
+                    Prediction? prediction = await PlacesAutocomplete.show(
+                      context: context,
+                      apiKey: API_KEY,
+                      mode: Mode.fullscreen,
+                      components: [],
+                      strictbounds: false,
+                      region: "",
+                      decoration: const InputDecoration(
+                        hintText: 'Search',
+                      ),
+                      types: [],
+                      language: "en",
+                    );
+                    displayPrediction(prediction);
+                  },
+                  child: Image.asset("assets/images/ic_search.png",height: 24,width: 24),
+                ),
+                Container(width: 12,)
+              ],
               centerTitle: true,
             ),
             body: _isLoading
@@ -75,6 +123,7 @@ class _TempleListScreen extends State<TempleListScreen> {
                   children: [
                     Expanded(
                         child: SingleChildScrollView(
+                          controller: _scrollViewController,
                           child: Container(
                             margin: const EdgeInsets.only(left: 14,right: 14),
                             child: Column(
@@ -110,7 +159,7 @@ class _TempleListScreen extends State<TempleListScreen> {
                                 ),
                                 ListView.builder(
                                     shrinkWrap: true,
-                                    physics: const ScrollPhysics(),
+                                    physics: const NeverScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
                                     itemCount:_listTemples.length,
                                     itemBuilder: (BuildContext context, int i) {
@@ -183,7 +232,12 @@ class _TempleListScreen extends State<TempleListScreen> {
                               ],
                             ),
                           ),
-                        ))
+                        )
+                    ),
+                    Visibility(
+                      visible: _isLoadingMore,
+                        child: const LoadingMoreWidget()
+                    )
                   ],
                 )
         ),
@@ -191,6 +245,25 @@ class _TempleListScreen extends State<TempleListScreen> {
           Navigator.pop(context);
           return Future.value(true);
         });
+  }
+
+  Future<void> displayPrediction(Prediction? p) async {
+    if (p != null) {
+      GoogleMapsPlaces _places = GoogleMapsPlaces(
+        apiKey: API_KEY,
+        apiHeaders: await const GoogleApiHeaders().getHeaders(),
+      );
+      PlacesDetailsResponse detail =
+      await _places.getDetailsByPlaceId(p.placeId!);
+      final latitude = detail.result.geometry!.location.lat;
+      final longitude = detail.result.geometry!.location.lng;
+
+      lat = latitude;
+      long = longitude;
+      nextPageToken = "";
+
+      getTempleList(true);
+    }
   }
 
   void checkPermission() async {
@@ -236,10 +309,18 @@ class _TempleListScreen extends State<TempleListScreen> {
       lat = position.latitude;
       long = position.longitude;
     });
-    getTempleList();
+    getTempleList(true);
   }
 
-  void getTempleList() async {
+  void getTempleList(bool isFirstTime) async {
+
+    if (isFirstTime) {
+      setState(() {
+        _isLoading = true;
+        _isLoadingMore = false;
+        _isLastPage = false;
+      });
+    }
 
     HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
       HttpLogger(logLevel: LogLevel.BODY),
@@ -252,6 +333,7 @@ class _TempleListScreen extends State<TempleListScreen> {
       'location': location,
       'rankby': "distance",
       'keyword': "hindu temple",
+      'pagetoken' : nextPageToken,
       'key': API_KEY,
     };
 
@@ -267,10 +349,19 @@ class _TempleListScreen extends State<TempleListScreen> {
     Map<String, dynamic> user = jsonDecode(body);
     var dataResponse = TempleListResponseModel.fromJson(user);
 
+    if (isFirstTime) {
+      if (_listTemples.isNotEmpty) {
+        _listTemples = [];
+      }
+    }
+
     if (statusCode == 200)
     {
-      _listTemples = [];
-      _listTemples = dataResponse.results ?? [];
+      List<Results>? _tempList = [];
+      _tempList = dataResponse.results;
+      _listTemples.addAll(_tempList!);
+      nextPageToken = dataResponse.nextPageToken ?? '';
+
       _listTemples.reversed.toList();
 
       if (_listTemples.isNotEmpty)
@@ -284,6 +375,7 @@ class _TempleListScreen extends State<TempleListScreen> {
 
       setState(() {
         _isLoading = false;
+        _isLoadingMore = false;
       });
     }
     else
@@ -291,6 +383,7 @@ class _TempleListScreen extends State<TempleListScreen> {
       setState(()
       {
         _isLoading = false;
+        _isLoadingMore = false;
         _isNoDataVisible = false;
       });
     }
