@@ -12,10 +12,7 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/constant/colors.dart';
-import 'package:kuber/model/SocialResponseModel.dart' as social;
 import 'package:kuber/screen/LoginWithEmailScreen.dart';
-import 'package:kuber/screen/LoginWithOtpScreen.dart';
-import 'package:kuber/screen/SignUpScreen.dart';
 import 'package:kuber/screen/WebViewContainer.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
@@ -50,20 +47,24 @@ class _LoginScreen extends State<LoginScreen> {
   bool _isLoading = false;
   String errorMessage = "";
 
+  bool kisweb = false;
+
+
   @override
   void initState() {
-    printKeyHash();
+    //printKeyHash();
+    try{
+      if(Platform.isAndroid||Platform.isIOS) {
+        kisweb=false;
+      } else {
+        kisweb=true;
+      }
+    } catch(e){
+      kisweb=true;
+    }
     super.initState();
     getCountryData();
   }
-
-  void printKeyHash() async{
-    String? key=await FlutterFacebookKeyhash.getFaceBookKeyHash ??
-        'Unknown platform version';
-    print(key??"");
-
-  }
-
 
 
   @override
@@ -85,15 +86,6 @@ class _LoginScreen extends State<LoginScreen> {
             backgroundColor: kuber,
             automaticallyImplyLeading: false,
             elevation: 0,
-            // leading: InkWell(
-            //     onTap: () {
-            //       SystemNavigator.pop();
-            //     },
-            //     child: Padding(
-            //       padding: const EdgeInsets.only(top: 18, bottom: 18, left: 16),
-            //       child: Image.asset('assets/images/Close-icon.png', color: darkbrown,),
-            //     )
-            // ),
             titleSpacing: 0,
             centerTitle: true,
             title: const Center(
@@ -102,7 +94,522 @@ class _LoginScreen extends State<LoginScreen> {
                   textAlign: TextAlign.center),
             ),
           ),
-          body: LayoutBuilder(
+          body: kisweb
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        /*Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
+                                      child: Row(
+                                        children:  <Widget>[
+                                          Container(
+                                              margin: const EdgeInsets.all(6),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(12),
+                                                color: puja
+                                              ),
+                                              child: Image.asset("assets/images/ic_puja_plate.png",width: 50,height: 55,)),
+                                          Expanded(
+                                            child: Text(
+                                              "Your prayer bookings on your finger tips.",
+                                              overflow: TextOverflow.clip,
+                                              style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ), */
+                        Container(height: 46,),
+                        Container(
+                          decoration: BoxDecoration(
+                            boxShadow: kElevationToShadow[2],
+                            color: kuber,
+                            border: Border.all(
+                              color: const Color(0xffd8d8cc),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          margin: const EdgeInsets.only(right: 20, left: 20),
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  countryDialog();
+                                },
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 22.0),
+                                      child: Text(countryCode,
+                                          style: const TextStyle(
+                                              color: darkbrown,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 16
+                                          )
+                                      ),
+                                    ),
+                                    Container(width: 4,),
+                                    Image.asset('assets/images/aerrow_down.png', color: darkbrown, width: 16,),
+                                    Container(width: 10,),
+                                  ],
+                                ),
+                              ),
+                              Flexible(
+                                child:
+                                TextField(
+                                  maxLength: 12,
+                                  controller: numberController,
+                                  textAlign: TextAlign.left,
+                                  keyboardType: TextInputType.number,
+                                  cursorColor: black,
+                                  decoration: const InputDecoration(
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.transparent),),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.transparent),
+                                      ),
+                                      counterText: "",
+                                      hintText: "Mobile Number",
+                                      labelStyle: TextStyle(color: darkbrown)
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Center(
+                          child: Container(
+                            padding: const EdgeInsets.only(bottom: 18, top: 18),
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                text: 'By signing up or operating an account,you agree to our \n ',
+                                style: const TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14, height: 1.4),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: 'Privacy Policy', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                      recognizer: TapGestureRecognizer()..onTap = () {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
+                                      }
+                                  ),
+                                  const TextSpan(text: ' and ', style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
+                                  TextSpan(
+                                      text: 'Terms of Service', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                      recognizer: TapGestureRecognizer()..onTap = () {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/terms-and-conditions', 'Terms of Service')));
+                                      }
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(height: 12,),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 18.0, right: 18),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(12),),
+                                gradient: LinearGradient(
+                                  colors: [gradient_start, gradient_end],
+                                )
+                            ),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                FocusScope.of(context).unfocus();
+                                if (numberController.text.isEmpty) {
+                                  showToast('Please enter mobile number', context);
+                                }
+                                else if (numberController.text.length <= 7) {
+                                  showToast('Please enter valid mobile number', context);
+                                }
+                                else if (numberController.text.length >= 13) {
+                                  showToast('Please enter valid mobile number', context);
+                                }
+                                else {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  _sendOTPApi();
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  shadowColor: Colors.transparent),
+                              child: const Text('Continue', style: TextStyle(color: darkbrown, fontSize: 16),),
+                            ),
+                          ),
+                        ),
+                        Container(height: 22,),
+                        const Row(
+                          children: [
+                            Flexible(
+                              flex: 1,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+                                child: Divider(color: black),
+                              ),
+                            ),
+                            Text(
+                              "or",
+                              style:TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 16),
+                            ),
+                            Flexible(
+                              flex: 1,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+                                child: Divider(color: black),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(height: 22,),
+                        GestureDetector(
+                          onTap: () async {
+                            signInWithGoogle(context: context);
+                            //FirebaseCrashlytics.instance.crash();
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only( right: 20, left: 20),
+                            decoration: BoxDecoration(
+                              color: kuber,
+                              border: Border.all(
+                                color: const Color(0xffd8d8cc),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children:  <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Container(
+                                      margin: const EdgeInsets.all(12),
+                                      child: Image.asset("assets/images/Google-icon.png",width: 25,height: 29,)),
+                                ),
+                                const Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Continue with Google",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(height: 18,),
+                        GestureDetector(
+                          onTap: () {
+                            loginWithFaceBook();
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only( right: 20, left: 20),
+                            decoration: BoxDecoration(
+                              color: kuber,
+                              border: Border.all(
+                                color: const Color(0xffd8d8cc),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children:  <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child:Container(
+                                      margin: const EdgeInsets.all(12),
+                                      child: Image.asset("assets/images/Facebook-icon.png",width: 25,height: 29,)),
+                                ),
+                                const Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Continue with Facebook",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(height: 18,),
+                        Visibility(
+                          visible: Platform.isIOS,
+                          child: GestureDetector(
+                            onTap: () {
+                              logIn();
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only( right: 20, left: 20, bottom: 18),
+                              decoration: BoxDecoration(
+                                color: kuber,
+                                border: Border.all(
+                                  color: const Color(0xffd8d8cc),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children:  <Widget>[
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child:Container(
+                                        margin: const EdgeInsets.all(12),
+                                        child: Image.asset("assets/images/Apple-icon.png",width: 25,height: 29,)),
+                                  ),
+                                  const Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Continue with Apple",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
+                                      ))
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+    /*
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginWithEmailScreen()));
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.only( right: 20, left: 20),
+                                      decoration: BoxDecoration(
+                                        color: kuber,
+                                        border: Border.all(
+                                          color: const Color(0xffd8d8cc),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children:  <Widget>[
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child:Container(
+                                                margin: const EdgeInsets.all(12),
+                                                child: Image.asset("assets/images/Email-icon.png",width: 25,height: 29,)),
+                                          ),
+                                          const Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "Continue with Email",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
+                                              ))
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+    */
+                        Container(height: 18,),
+
+
+                        /*   Container(
+                                    margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
+                                    child: TextButton(
+                                      onPressed: () async {
+                                        signInWithGoogle(context: context);
+                                        //FirebaseCrashlytics.instance.crash();
+                                      },
+                                      style: ButtonStyle(
+                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(18.0),
+                                            ),
+                                          ),
+                                          backgroundColor: MaterialStateProperty.all<Color>(sky_blue)
+                                      ),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: <Widget>[
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Container(
+                                                margin: const EdgeInsets.all(6),
+                                                child: Image.asset("assets/images/ic_google_new.png", width: 25, height: 29,)),
+                                          ),
+                                          Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "Continue with Google",
+                                                textAlign: TextAlign.center,
+                                                style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                              ))
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        loginWithFaceBook();
+                                      },
+                                      style: ButtonStyle(
+                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(18.0),
+                                            ),
+                                          ),
+                                          backgroundColor: MaterialStateProperty.all<Color>(darkblue)
+                                      ),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: <Widget>[
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Container(
+                                                margin: const EdgeInsets.all(6),
+                                                child: Image.asset("assets/images/ic_facebook_new.png", width: 25, height: 29,)),
+                                          ),
+                                          Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "Continue with Facebook",
+                                                textAlign: TextAlign.center,
+                                                style: getTextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 14),
+                                              ))
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: Platform.isIOS,
+                                    child: Container(
+                                      margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          logIn();
+                                        },
+                                        style: ButtonStyle(
+                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(18.0),
+                                              ),
+                                            ),
+                                            backgroundColor: MaterialStateProperty.all<Color>(Colors.black)
+                                        ),
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Container(
+                                                  margin: const EdgeInsets.all(6),
+                                                  child: const Icon(
+                                                    Icons.apple_sharp,
+                                                    color: white,
+                                                  )),
+                                            ),
+                                            Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  "Continue with Apple",
+                                                  textAlign: TextAlign.center,
+                                                  style: getTextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 14),
+                                                ))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                      width: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width,
+                                      margin: const EdgeInsets.only(top: 14, bottom: 14, right: 30, left: 30),
+                                      child: TextButton(
+                                        style: ButtonStyle(
+                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(18.0),
+                                              ),
+                                            ),
+                                            backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginWithOtpScreen()));
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text("Connect with Mobile",
+                                            style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                          ),
+                                        ),
+                                      )
+                                  ),
+                                  Container(
+                                      width: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width,
+                                      margin: const EdgeInsets.only(bottom: 14, right: 30, left: 30),
+                                      child: TextButton(
+                                        style: ButtonStyle(
+                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(18.0),
+                                              ),
+                                            ),
+                                            backgroundColor: MaterialStateProperty.all<Color>(black)
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginWithEmailScreen()));
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text("Login With Email",
+                                            style: getTextStyle(fontWeight: FontWeight.w500, color: skin, fontSize: 14),
+                                          ),
+                                        ),
+                                      )
+                                  ), */
+                      ],
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        // Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginWithEmailScreen()));
+                      },
+                      child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff702828),
+                            borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              topLeft:  Radius.circular(20),
+                            ),
+                            border: Border.all(
+                              color: const Color(0xff702828),
+                              width: 1,
+                            ),
+                          ),
+                          padding: const EdgeInsets.only(bottom: 18,top: 18),
+                          child: const Text(
+                            "Login as Priest / Pandit",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 16),
+                          )
+                      ),
+                    )
+                  ]
+              )
+              : LayoutBuilder(
             builder: (context, constraints) {
               return SingleChildScrollView(
                 child: ConstrainedBox(
@@ -111,7 +618,8 @@ class _LoginScreen extends State<LoginScreen> {
                     child: _isLoading
                         ? const LoadingWidget()
                         : Column(
-                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Column(
                             children: [
@@ -160,7 +668,7 @@ class _LoginScreen extends State<LoginScreen> {
                                            Padding(
                                             padding: const EdgeInsets.only(left: 22.0),
                                             child: Text(countryCode,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: darkbrown,
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 16
@@ -198,22 +706,22 @@ class _LoginScreen extends State<LoginScreen> {
                               ),
                               Center(
                                 child: Container(
-                                  padding: EdgeInsets.only(bottom: 18, top: 18),
+                                  padding: const EdgeInsets.only(bottom: 18, top: 18),
                                   child: RichText(
                                     textAlign: TextAlign.center,
                                     text: TextSpan(
                                       text: 'By signing up or operating an account,you agree to our \n ',
-                                      style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14, height: 1.4),
+                                      style: const TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14, height: 1.4),
                                       children: <TextSpan>[
                                         TextSpan(
-                                          text: 'Privacy Policy', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                          text: 'Privacy Policy', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
                                           recognizer: TapGestureRecognizer()..onTap = () {
                                             Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
                                           }
                                         ),
                                         const TextSpan(text: ' and ', style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
                                         TextSpan(
-                                            text: 'Terms of Service', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                            text: 'Terms of Service', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
                                             recognizer: TapGestureRecognizer()..onTap = () {
                                               Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/terms-and-conditions', 'Terms of Service')));
                                             }
@@ -227,10 +735,7 @@ class _LoginScreen extends State<LoginScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 18.0, right: 18),
                                 child: Container(
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
+                                  width: MediaQuery.of(context).size.width,
                                   decoration: const BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(12),),
                                       gradient: LinearGradient(
@@ -264,8 +769,8 @@ class _LoginScreen extends State<LoginScreen> {
                                 ),
                               ),
                               Container(height: 22,),
-                              Row(
-                                children: const [
+                              const Row(
+                                children: [
                                   Flexible(
                                     flex: 1,
                                     child: Padding(
@@ -597,7 +1102,7 @@ class _LoginScreen extends State<LoginScreen> {
                               ), */
                             ],
                           ),
-                          Spacer(),
+                          const Spacer(),
                           GestureDetector(
                             onTap: () {
                               // Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
@@ -624,178 +1129,6 @@ class _LoginScreen extends State<LoginScreen> {
                                 )
                             ),
                           )
-
-                        /*  Row(
-                            children: [
-                              const Flexible(
-                                flex: 1,
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
-                                  child: Divider(color: black),
-                                ),
-                              ),
-                              Text(
-                                "Register as",
-                                style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 16),
-                              ),
-                              const Flexible(
-                                flex: 1,
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
-                                  child: Divider(color: black),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width,
-                            margin: const EdgeInsets.only(top: 10, bottom: 3, right: 18, left: 18),
-                            decoration: const BoxDecoration(
-                              color: orange,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(18),
-                              ),
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
-                              },
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Container(
-                                      padding: const EdgeInsets.only(left: 20, right: 20),
-                                      child: Image.asset(
-                                        "assets/images/ic_priest_blank.png",
-                                        width: 55,
-
-                                      ),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: true,
-                                    child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "Priest/ Pandit",
-                                          textAlign: TextAlign.center,
-                                          style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                        )
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Visibility(
-                                visible: false,
-                                child: Container(
-                                  margin: const EdgeInsets.only(top: 10, bottom: 4, right: 12, left: 12),
-                                  decoration: const BoxDecoration(color: yellow,
-                                    borderRadius: BorderRadius.all(Radius.circular(12),),),
-                                  child: InkWell(
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: <Widget>[
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Container(
-                                            padding: const EdgeInsets.only(left: 20, right: 20),
-                                            child: Image.asset(
-                                              "assets/images/ic_temple_blank.png",
-                                              width: 55,
-                                            ),
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: false,
-                                          child: Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                "Temple/ Mandir",
-                                                textAlign: TextAlign.center,
-                                                style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                              )),
-                                        )
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Temple")));
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                children: [
-
-                                  Container(height: 6,),
-                                ],
-                              ),
-                              Visibility(
-                                visible: false,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          top: 10, bottom: 3, right: 12, left: 12),
-                                      decoration: const BoxDecoration(
-                                        color: blue,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(12),
-                                        ),
-                                      ),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Yajman")));
-                                        },
-                                        child: Stack(
-                                          alignment: Alignment.center,
-                                          children: <Widget>[
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Container(
-                                                padding: const EdgeInsets.only(left: 20, right: 20),
-                                                child: Image.asset(
-                                                  "assets/images/ic_host.png",
-                                                  width: 55,
-
-                                                ),
-                                              ),
-                                            ),
-                                            Visibility(
-                                              visible: false,
-                                              child: Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    "Host / Yajman",
-                                                    textAlign: TextAlign.center,
-                                                    style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                                  )),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Container(height: 6,),
-                                    Text(
-                                      "Host / Yajman",
-                                      textAlign: TextAlign.center,
-                                      style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ), */
                         ]
                     ),
                   ),
@@ -929,7 +1262,7 @@ class _LoginScreen extends State<LoginScreen> {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
 
-    if (kIsWeb) {
+    if (kisweb) {
       GoogleAuthProvider authProvider = GoogleAuthProvider();
       try {
         final UserCredential userCredential =
@@ -985,11 +1318,11 @@ class _LoginScreen extends State<LoginScreen> {
     return user;
   }
 
-  static Future<void> signOut({required BuildContext context}) async {
+  Future<void> signOut({required BuildContext context}) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     try {
-      if (!kIsWeb) {
+      if (!kisweb) {
         await googleSignIn.signOut();
       }
       await FirebaseAuth.instance.signOut();

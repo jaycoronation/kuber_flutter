@@ -1,6 +1,4 @@
 
-import 'dart:ffi';
-
 import 'package:kuber/model/VerifyOtpResponseModel.dart';
 import 'package:kuber/utils/session_manager_methods.dart';
 

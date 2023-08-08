@@ -44,8 +44,7 @@ dependencies:
   intl:
   shared_preferences: ^2.0.12
   flutter_google_places: ^0.3.0
-  audioplayers: ^4.1.0
-  audioplayer: ^0.8.1
+  audioplayers: ^5.0.0
   google_geocoding: ^0.2.0
   geocoding: ^2.0.4
   geolocator: ^9.0.2

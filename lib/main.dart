@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
+import 'package:kuber/screen/LoginForWeb.dart';
 import 'package:kuber/screen/LoginScreen.dart';
 import 'package:kuber/screen/MyPofileScreen.dart';
 import 'package:kuber/utils/session_manager.dart';
@@ -16,7 +17,27 @@ import 'package:firebase_core/firebase_core.dart';
  Future<void>main() async {
    WidgetsFlutterBinding.ensureInitialized();
   await SessionManagerMethods.init();
-  await Firebase.initializeApp();
+   if (kIsWeb)
+   {
+     await Firebase.initializeApp(
+         name: "Kuber",
+         options: const FirebaseOptions(apiKey: "AIzaSyDxM-G38CFYtCYbS3ND3fZlirLRKBOoXQc",
+             appId: "1:951814205337:web:904e57267945c244f52d08", messagingSenderId: "951814205337", projectId: "kuber-167ed"));
+   }
+   else
+   {
+     await Firebase.initializeApp();
+
+     FlutterError.onError = (errorDetails) {
+       //FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+     };
+     // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+     PlatformDispatcher.instance.onError = (error, stack) {
+       //FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+       return true;
+     };
+
+   }
 
    FlutterError.onError = (errorDetails) {
      //FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
@@ -91,11 +112,17 @@ class _MyHomePageState extends State<MyHomePage> {
         {
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
         }
-        Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardScreen())));
       }
       else
       {
-        Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen())));
+        if (kIsWeb)
+          {
+            Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreenForWeb())));
+          }
+        else
+          {
+            Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen())));
+          }
       }
     });
 
