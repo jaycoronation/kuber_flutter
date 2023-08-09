@@ -28,7 +28,6 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
   SessionManager sessionManager = SessionManager();
   bool _isLoading = false;
 
-
   @override
   void initState(){
     super.initState();
