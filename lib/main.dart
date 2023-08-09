@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_web_frame/flutter_web_frame.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
@@ -39,15 +40,6 @@ import 'package:firebase_core/firebase_core.dart';
 
    }
 
-   FlutterError.onError = (errorDetails) {
-     //FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-   };
-   // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-   PlatformDispatcher.instance.onError = (error, stack) {
-     //FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-     return true;
-   };
-
   runApp(const MyApp());
 }
 
@@ -62,20 +54,25 @@ class MyApp extends StatelessWidget {
       statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
       statusBarBrightness: Brightness.light,
     ));
-    return MaterialApp(
-      builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-          child: child!,
-        );
-      },
-      title: 'Kuber',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          textTheme: GoogleFonts.rubikTextTheme(Theme.of(context).textTheme)),
-      home: const MyHomePage(
-        title: 'Kuber',
-      ),
+    return FlutterWebFrame(
+        builder: (context) {
+         return MaterialApp(
+            builder: (context, child) {
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                child: child!,
+              );
+            },
+            title: 'Kuber',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+                textTheme: GoogleFonts.rubikTextTheme(Theme.of(context).textTheme)),
+            home: const MyHomePage(
+              title: 'Kuber',
+            ),
+          );
+        },
+      maximumSize: Size(1160.0, 812.0),
     );
   }
 }
@@ -112,17 +109,18 @@ class _MyHomePageState extends State<MyHomePage> {
         {
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
         }
+        // Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardScreen())));
       }
       else
       {
         if (kIsWeb)
-          {
-            Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreenForWeb())));
-          }
+        {
+          Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreenForWeb())));
+        }
         else
-          {
-            Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen())));
-          }
+        {
+          Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen())));
+        }
       }
     });
 

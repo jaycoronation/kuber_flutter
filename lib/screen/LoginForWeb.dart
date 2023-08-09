@@ -49,20 +49,24 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
         elevation: 0,
         titleSpacing: 0,
         centerTitle: true,
-        title: const Center(
+        /*title: const Center(
           child: Text("Login or Sign up",
-              style: TextStyle(fontWeight: FontWeight.w600, color: darkbrown, fontSize: 18),
+              style: TextStyle(fontWeight: FontWeight.w600, color: darkbrown, fontSize: 22),
               textAlign: TextAlign.center),
-        ),
+        ),*/
       ),
       body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
               children: [
-                Container(height: 46,),
+                Text("Login or Sign up",
+                    style: TextStyle(fontWeight: FontWeight.w600, color: darkbrown, fontSize: 32),
+                    textAlign: TextAlign.center),
+                Container(height: 55,),
                 Container(
+                  width: 700,
                   decoration: BoxDecoration(
                     boxShadow: kElevationToShadow[2],
                     color: kuber,
@@ -72,7 +76,6 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  margin: const EdgeInsets.only(right: 20, left: 20),
                   child: Row(
                     children: [
                       GestureDetector(
@@ -127,17 +130,17 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         text: 'By signing up or operating an account,you agree to our \n ',
-                        style: const TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14, height: 1.4),
+                        style: const TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 18, height: 1.4),
                         children: <TextSpan>[
                           TextSpan(
-                              text: 'Privacy Policy', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                              text: 'Privacy Policy', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 18),
                               recognizer: TapGestureRecognizer()..onTap = () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
                               }
                           ),
-                          const TextSpan(text: ' and ', style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
+                          const TextSpan(text: ' and ', style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 18),),
                           TextSpan(
-                              text: 'Terms of Service', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                              text: 'Terms of Service', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 18),
                               recognizer: TapGestureRecognizer()..onTap = () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/terms-and-conditions', 'Terms of Service')));
                               }
@@ -148,16 +151,16 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                   ),
                 ),
                 Container(height: 12,),
-                Padding(
-                  padding: const EdgeInsets.only(left: 18.0, right: 18),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(12),),
-                        gradient: LinearGradient(
-                          colors: [gradient_start, gradient_end],
-                        )
-                    ),
+                Container(
+                  width: 700,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(12),),
+                      gradient: LinearGradient(
+                        colors: [gradient_start, gradient_end],
+                      )
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       onPressed: () {
                         FocusScope.of(context).unfocus();
@@ -185,130 +188,139 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                   ),
                 ),
                 Container(height: 22,),
-                const Row(
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
-                        child: Divider(color: black),
+                 Container(
+                   width: 700,
+                   child: Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+                          child: Divider(color: black),
+                        ),
                       ),
-                    ),
-                    Text(
-                      "or",
-                      style:TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 16),
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
-                        child: Divider(color: black),
+                      Text(
+                        "or",
+                        style:TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 16),
                       ),
-                    ),
-                  ],
+                      Flexible(
+                        flex: 1,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+                          child: Divider(color: black),
+                        ),
+                      ),
+                    ],
                 ),
+                 ),
                 Container(height: 22,),
-                GestureDetector(
-                  onTap: () async {
-                    //signInWithGoogle(context: context);
-                    //FirebaseCrashlytics.instance.crash();
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.only( right: 20, left: 20),
-                    decoration: BoxDecoration(
-                      color: kuber,
-                      border: Border.all(
-                        color: const Color(0xffd8d8cc),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children:  <Widget>[
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child:Container(
-                              margin: const EdgeInsets.all(12),
-                              child: Image.asset("assets/images/Google-icon.png",width: 25,height: 29,)),
+                Container(
+                  width: 700,
+                  child: GestureDetector(
+                    onTap: () async {
+                      //signInWithGoogle(context: context);
+                      //FirebaseCrashlytics.instance.crash();
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only( right: 20, left: 20),
+                      decoration: BoxDecoration(
+                        color: kuber,
+                        border: Border.all(
+                          color: const Color(0xffd8d8cc),
+                          width: 1,
                         ),
-                        const Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Continue with Google",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
-                            ))
-                      ],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children:  <Widget>[
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child:Container(
+                                margin: const EdgeInsets.all(12),
+                                child: Image.asset("assets/images/Google-icon.png",width: 25,height: 29,)),
+                          ),
+                          const Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Continue with Google",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
+                              ))
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 Container(height: 18,),
-                GestureDetector(
-                  onTap: () {
-                    //loginWithFaceBook();
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.only( right: 20, left: 20),
-                    decoration: BoxDecoration(
-                      color: kuber,
-                      border: Border.all(
-                        color: const Color(0xffd8d8cc),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children:  <Widget>[
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child:Container(
-                              margin: const EdgeInsets.all(12),
-                              child: Image.asset("assets/images/Facebook-icon.png",width: 25,height: 29,)),
+                Container(
+                  width: 700,
+                  child: GestureDetector(
+                    onTap: () {
+                      //loginWithFaceBook();
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only( right: 20, left: 20),
+                      decoration: BoxDecoration(
+                        color: kuber,
+                        border: Border.all(
+                          color: const Color(0xffd8d8cc),
+                          width: 1,
                         ),
-                        const Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Continue with Facebook",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
-                            ))
-                      ],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children:  <Widget>[
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child:Container(
+                                margin: const EdgeInsets.all(12),
+                                child: Image.asset("assets/images/Facebook-icon.png",width: 25,height: 29,)),
+                          ),
+                          const Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Continue with Facebook",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
+                              ))
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Container(height: 18,),
+                Container(height: 32,),
               ],
             ),
-            const Spacer(),
-            GestureDetector(
-              onTap: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginWithEmailScreen()));
-              },
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: const Color(0xff702828),
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      topLeft:  Radius.circular(20),
-                    ),
-                    border: Border.all(
-                      color: const Color(0xff702828),
-                      width: 1,
-                    ),
-                  ),
-                  padding: const EdgeInsets.only(bottom: 18,top: 18),
-                  child: const Text(
-                    "Login as Priest / Pandit",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 16),
-                  )
-              ),
-            )
+
           ]
+      ),
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginWithEmailScreen()));
+        },
+        child: Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: const Color(0xff702828),
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(20),
+                topLeft:  Radius.circular(20),
+              ),
+              border: Border.all(
+                color: const Color(0xff702828),
+                width: 1,
+              ),
+            ),
+            padding: const EdgeInsets.only(bottom: 18,top: 18),
+            child: const Text(
+              "Login as Priest / Pandit",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 16),
+            )
+        ),
       ),
     );
   }
@@ -326,7 +338,14 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
       'country_code': countryCode
     };
 
-    final response = await http.post(url, body: jsonBody);
+    final response = await http.post(url,
+        headers: {
+      'Access-Control-Allow-Origin' : "true",
+          "Access-Control-Allow-Credentials": "true", // Required for cookies, authorization headers with HTTPS
+          "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+          "Access-Control-Allow-Methods": "POST, OPTIONS"
+        }
+        ,body: jsonBody);
     final statusCode = response.statusCode;
 
     final body = response.body;
