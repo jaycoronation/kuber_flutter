@@ -54,8 +54,8 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   google_sign_in: ^6.1.4
   flutter_login_facebook:
-  firebase_auth: ^4.7.2
-  firebase_core: ^2.13.0
+  firebase_auth:
+  firebase_core:
   flutter_facebook_keyhash: ^0.0.4
   #firebase_crashlytics: ^3.3.4
   change_app_package_name: ^1.1.0
@@ -68,11 +68,7 @@ dependencies:
   share_plus: ^7.1.0
   flutter_web_frame: ^0.0.3
   flutter_facebook_auth: ^4.2.0
-
-
-
-
-
+  google_sign_in_web: ^0.12.0+2
 
 dev_dependencies:
   flutter_test:

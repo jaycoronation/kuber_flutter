@@ -81,7 +81,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
           children: [
             Column(
               children: [
-                Text("Login or Sign up",
+                const Text("Login or Sign up",
                     style: TextStyle(fontWeight: FontWeight.w600, color: darkbrown, fontSize: 32),
                     textAlign: TextAlign.center),
                 Container(height: 55,),
@@ -219,7 +219,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                  Container(
                    width: 700,
                    child: Row(
-                    children: [
+                    children: const [
                       Flexible(
                         flex: 1,
                         child: Padding(
@@ -246,8 +246,11 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                   width: 700,
                   child: GestureDetector(
                     onTap: () async {
-                      signInWithGoogle(context: context);
-                      //FirebaseCrashlytics.instance.crash();
+                      User? user = await signInWithGoogle(context: context);
+
+                      if (user != null) {
+                        //_makeSocialLoginRequest(user.displayName.toString(), user.email.toString(), user.uid.toString(),user.photoURL.toString());
+                      }
                     },
                     child: Container(
                       margin: const EdgeInsets.only( right: 20, left: 20),
@@ -352,11 +355,45 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
       ),
     );
   }
+
+  Future<User?> signInWithGoogleWeb({required BuildContext context}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      try {
+        final UserCredential userCredential = await auth.signInWithCredential(credential);
+
+        user = userCredential.user;
+      } on FirebaseAuthException catch (e) {
+        setState((){
+          _isLoading = false;
+        });
+        if (e.code == 'account-exists-with-different-credential') {
+        } else if (e.code == 'invalid-credential') {}
+      } catch (e) {}
+    }
+
+
+    return user;
+  }
+
   Future<User?> signInWithGoogle({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
 
-    if (kIsWeb) {
+    if (kIsWeb)
+    {
       GoogleAuthProvider authProvider = GoogleAuthProvider();
       try {
         final UserCredential userCredential = await auth.signInWithPopup(authProvider);
@@ -366,7 +403,8 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
         print(e);
       }
     }
-    else {
+    else
+    {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
 

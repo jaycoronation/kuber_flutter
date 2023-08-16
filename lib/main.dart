@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart' show PlatformDispatcher, kIsWeb;
@@ -28,11 +29,17 @@ import 'package:firebase_core/firebase_core.dart';
        xfbml: true,
        version: "v15.0",
      );
-
      await Firebase.initializeApp(
-         name: "kuber",
-         options: const FirebaseOptions(apiKey: "AIzaSyDxM-G38CFYtCYbS3ND3fZlirLRKBOoXQc",
-             appId: "1:951814205337:web:904e57267945c244f52d08", messagingSenderId: "951814205337", projectId: "kuber-167ed")
+         name: "Kuber",
+         options: const FirebaseOptions(
+             apiKey: "AIzaSyDxM-G38CFYtCYbS3ND3fZlirLRKBOoXQc",
+             authDomain: "kuber-167ed.firebaseapp.com",
+             projectId: "kuber-167ed",
+             storageBucket: "kuber-167ed.appspot.com",
+             messagingSenderId: "951814205337",
+             appId: "1:951814205337:web:904e57267945c244f52d08",
+             measurementId: "G-R0QNF2TEQG"
+         )
      );
    }
    else
@@ -83,7 +90,7 @@ class MyApp extends StatelessWidget {
             ),
           );
         },
-      maximumSize: Size(1160.0, 812.0),
+      maximumSize: const Size(1160.0, 812.0),
     );
   }
 }
@@ -118,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
         }
         else
         {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => kIsWeb? DashboardForWeb() : const DashboardScreen()), (route) => false);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => kIsWeb? const DashboardForWeb() : const DashboardScreen()), (route) => false);
         }
         // Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardScreen())));
       }
