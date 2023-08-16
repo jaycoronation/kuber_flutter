@@ -13,6 +13,7 @@ import 'package:pretty_http_logger/pretty_http_logger.dart';
 import '../constant/api_end_point.dart';
 import '../model/CountryListResponseModel.dart';
 import '../utils/app_utils.dart';
+import '../utils/responsive.dart';
 import '../widget/loading.dart';
 import '../widget/no_data_new.dart';
 
@@ -53,7 +54,8 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return ResponsiveWidget.isSmallScreen(context)
+        ? WillPopScope(
         child: Scaffold(
           backgroundColor: bg_skin,
           appBar: AppBar(
@@ -75,91 +77,207 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
               : _isNoDataVisible
               ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_prayer_request.png', titleMSG: 'No Prayer Request Found')
               : SingleChildScrollView(
-                child: Column(
-                  children:  [
-                    Container(
-                        alignment: Alignment.centerLeft,
-                        margin: const EdgeInsets.only(left: 12,right: 12),
-                        child: Text("Prayer Request",style: getTitleFontStyle())
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
-                        child: Text("In your difficult time, illness, accidents, children exam time you may request prayer, for your loved one.",
-                          style: getSecondaryTitleFontStyle())
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      reverse: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: _listPrayers.length,
-                      itemBuilder: (context, i) {
-                        return Container(
-                            margin: const EdgeInsets.fromLTRB(12, 4, 12, 4),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6.0),
-                              ),
-                              color:  prayer_light,
-                              elevation: 2,
-                              child: InkWell(
-                                onTap: (){
-                                  _openRequestPrayerBottomSheet(_listPrayers[i]);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Column(
+            child: Column(
+              children:  [
+                Container(
+                    alignment: Alignment.centerLeft,
+                    margin: const EdgeInsets.only(left: 12,right: 12),
+                    child: Text("Prayer Request",style: getTitleFontStyle())
+                ),
+                Container(
+                    margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
+                    child: Text("In your difficult time, illness, accidents, children exam time you may request prayer, for your loved one.",
+                        style: getSecondaryTitleFontStyle())
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  reverse: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: _listPrayers.length,
+                  itemBuilder: (context, i) {
+                    return Container(
+                        margin: const EdgeInsets.fromLTRB(12, 4, 12, 4),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                          ),
+                          color:  prayer_light,
+                          elevation: 2,
+                          child: InkWell(
+                            onTap: (){
+                              _openRequestPrayerBottomSheet(_listPrayers[i]);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Requested prayer for ${_listPrayers[i].prayer}", style: const TextStyle(color: black,fontSize: 14, fontWeight: FontWeight.w900)),
+                                  Container(height: 8,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text(" Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                      Expanded(child: Text(_listPrayers[i].name, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Email", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                      Expanded(child: Text(_listPrayers[i].email, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Birth Date", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                      Expanded(child: Text(universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy",   _listPrayers[i].dateOfBirth), style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text("Requested prayer for ${_listPrayers[i].prayer}", style: const TextStyle(color: black,fontSize: 14, fontWeight: FontWeight.w900)),
-                                      Container(height: 8,),
-                                      Row(
-                                        children: [
-                                          const Expanded(child: Text(" Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                          const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                          Expanded(child: Text(_listPrayers[i].name, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Expanded(child: Text("Email", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                          const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                          Expanded(child: Text(_listPrayers[i].email, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Expanded(child: Text("Birth Date", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                          const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                          Expanded(child: Text(universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy",   _listPrayers[i].dateOfBirth), style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                           Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
-                                          Text(_listPrayers[i].notes,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
-                                        ],
-                                      ),
+                                      Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
+                                      Text(_listPrayers[i].notes,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
                                     ],
                                   ),
-                                ),
+                                ],
                               ),
-                            )
-                        );
-                      },
-                    )
-                  ],
+                            ),
+                          ),
+                        )
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
+        onWillPop: (){
+          Navigator.pop(context);
+          return Future.value(true);
+        }
+    )
+        :  WillPopScope(
+        child: Scaffold(
+          backgroundColor: bg_skin,
+          appBar: AppBar(
+            toolbarHeight: 60,
+            automaticallyImplyLeading: false,
+            backgroundColor: bg_skin,
+            elevation: 0,
+            leading:IconButton(
+              icon: Image.asset("assets/images/ic_back_arrow.png",
+                  width: 18, height: 18),
+              iconSize: 28,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ) ,
+          ),
+          body: _isLoading
+              ? const LoadingWidget()
+              : _isNoDataVisible
+              ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_prayer_request.png', titleMSG: 'No Prayer Request Found')
+              : SingleChildScrollView(
+            child: Column(
+              children:  [
+                Container(
+                    alignment: Alignment.centerLeft,
+                    margin: const EdgeInsets.only(left: 12,right: 12),
+                    child: Text("Prayer Request",style: getTitleFontStyle())
                 ),
-              ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
+                      child: Text("In your difficult time, illness, accidents, children exam time you may request prayer, for your loved one.",
+                          style: getSecondaryTitleFontStyle())
+                  ),
+                ),
+                Container(height: 12,),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  reverse: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: _listPrayers.length,
+                  itemBuilder: (context, i) {
+                    return Container(
+                        margin: const EdgeInsets.fromLTRB(12, 4, 12, 4),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                          ),
+                          color:  prayer_light,
+                          elevation: 2,
+                          child: InkWell(
+                            onTap: (){
+                              _openRequestPrayerBottomSheet(_listPrayers[i]);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Requested prayer for ${_listPrayers[i].prayer}", style: const TextStyle(color: darkbrown,fontSize: 14, fontWeight: FontWeight.w900)),
+                                  Container(height: 14,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text(" Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                      Expanded(child: Text(_listPrayers[i].name, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Container(height: 12,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Email", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                      Expanded(child: Text(_listPrayers[i].email, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Container(height: 12,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Birth Date", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                      Expanded(child: Text(universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy",   _listPrayers[i].dateOfBirth), style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Container(height: 12,),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Note",style: TextStyle(color: black,fontSize: 14,fontWeight: FontWeight.w600),),
+                                      Container(height: 8,),
+                                      Text(_listPrayers[i].notes,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
         ),
         onWillPop: (){
           Navigator.pop(context);
           return Future.value(true);
         }
     );
+
   }
 
   getPrayerListApi() async {

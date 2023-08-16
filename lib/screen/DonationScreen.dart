@@ -12,6 +12,7 @@ import '../constant/colors.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/DonateResponseModel.dart';
 import '../utils/app_utils.dart';
+import '../utils/responsive.dart';
 import '../widget/loading.dart';
 
 class DonationScreen extends StatefulWidget {
@@ -95,10 +96,10 @@ class _DonationScreenState extends State<DonationScreen> {
   
   @override
   Widget build(BuildContext context) {
-
-    return Padding(
-        padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom),
+    return ResponsiveWidget.isSmallScreen(context)
+    ? Padding(
+      padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom),
       child:  _isLoading
           ? Container(
           height: MediaQuery.of(context).size.height * 0.88,
@@ -193,7 +194,7 @@ class _DonationScreenState extends State<DonationScreen> {
                   ),
                   Container(height: 22,),
                   const Align(
-                    alignment: Alignment.centerRight,
+                      alignment: Alignment.centerRight,
                       child: Text("* Donation amount is in USD", style: TextStyle(color: lighttxtGrey),)
                   ),
                   Container(height: 8,),
@@ -289,7 +290,206 @@ class _DonationScreenState extends State<DonationScreen> {
           ],
         ),
       ),
+    )
+        : Padding(
+      padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom),
+      child:  _isLoading
+          ? Container(
+          height: MediaQuery.of(context).size.height * 0.88,
+          child: const LoadingWidget())
+          : SingleChildScrollView(
+        child:  Wrap(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 18.0, right: 18),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+
+                  Container(height: 8,),
+                  Center(
+                    child: Container(
+                      width: 50,
+                      margin: const EdgeInsets.only(top: 12),
+                      child: const Divider(
+                        height: 2,
+                        thickness: 2,
+                        color: bottomSheetline,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    child: const Text(
+                      "Donation",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w900, color: darkbrown, fontSize: 18),
+                    ),
+                  ),
+                  Container(height: 18,),
+                  Wrap(
+                    runSpacing: 6,
+                    spacing: 6,
+                    children: donatePrice.map((e) {
+                      return buildStageChip(e, setState);
+                    },
+                    ).toList(),
+                  ),
+
+
+
+                  Visibility(
+                    visible: customSelection,
+                    child: Container(
+                        margin: const EdgeInsets.only(top: 16),
+                        child: TextField(
+                          controller: donateController,
+                          keyboardType: TextInputType.number,
+                          cursorColor: Colors.grey,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: const BorderSide(color: Colors.grey)
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(color: Colors.grey,),
+                            ),
+                            labelText: "Enter Donation Amount",
+                            labelStyle: const TextStyle(color: text_new),                                     ),
+                        )
+                    ),
+                  ),
+
+                  Container(
+                      margin: const EdgeInsets.only(top: 16),
+                      child: TextField(
+                        textAlignVertical: TextAlignVertical.top,
+                        // expands: true,
+                        maxLines: 4,
+                        controller: reasonController,
+                        keyboardType: TextInputType.text,
+                        cursorColor: Colors.grey,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(color: Colors.grey)
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(color: Colors.grey,),
+                          ),
+                          hintText: "Reason For Donation",
+                          hintStyle: const TextStyle(color: text_new),
+                        ),
+                      )
+                  ),
+                  Container(height: 22,),
+                  const Align(
+                      alignment: Alignment.centerRight,
+                      child: Text("* Donation amount is in USD", style: TextStyle(color: lighttxtGrey),)
+                  ),
+                  Container(height: 8,),
+
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => UsePaypal(
+                              sandboxMode: SANDBOX,
+                              clientId: PAYPAL_CLIENT_ID,
+                              secretKey:PAYPAL_CLIENT_SECRET,
+                              returnURL: "https://panditbookings.com/return",
+                              cancelURL: "http://panditbookings.com/cancel",
+                              transactions: [
+                                {
+                                  "amount": {
+                                    "total": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
+                                    "currency": "USD",
+                                    "details": {
+                                      "subtotal": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
+                                      "shipping": '0',
+                                      "shipping_discount": 0
+                                    }
+                                  },
+                                  "description": "The payment transaction description.",
+                                  // "payment_options": {
+                                  //   "allowed_payment_method":
+                                  //       "INSTANT_FUNDING_SOURCE"
+                                  // },
+                                  "item_list": {
+                                    "items": [
+                                      {
+                                        "name": "Donation",
+                                        "quantity": 1,
+                                        "price": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
+                                        "currency": "USD"
+                                      }
+                                    ],
+                                    // shipping address is not required though
+                                    "shipping_address": {
+                                      "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
+                                      "line1": "2 Gila Crescent",
+                                      "line2": "",
+                                      "city": "Johannesburg",
+                                      "country_code": "SA",
+                                      "postal_code": "2090",
+                                      "phone": "+00000000",
+                                      "state": 'Gauteng'
+                                    },
+                                  }
+                                }
+                              ],
+                              note: "Contact us for any questions on your order.",
+                              onSuccess: (Map params) async {
+                                print("onSuccess: $params");
+                                String paymentId = "";
+                                paymentId = params['paymentId'];
+                                callsDonationAPI(paymentId);
+                              },
+                              onError: (error) {
+                                print("onError: $error");
+                              },
+                              onCancel: (params) {
+                                print('cancelled: $params');
+                              }
+                          ),
+                        ),
+                      );
+                    },
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
+                    ),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.only(top: 8.0, bottom: 8),
+                            child: Text('Donate', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(height: 18,),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
+
+
   }
 
 

@@ -13,6 +13,7 @@ import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
 import '../model/CommonResponseModel.dart';
 import '../utils/app_utils.dart';
+import '../utils/responsive.dart';
 import '../widget/no_data_new.dart';
 
 class RashiScreen extends StatefulWidget {
@@ -49,7 +50,8 @@ class _RashiScreen extends State<RashiScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return ResponsiveWidget.isSmallScreen(context)
+        ? WillPopScope(
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: bg_skin,
@@ -72,108 +74,240 @@ class _RashiScreen extends State<RashiScreen> {
               : _isNoDataVisible
               ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_rashi_list.png', titleMSG: 'No Rashi Request Found')
               : SingleChildScrollView(
-                child: Column(
-                    children:  [
-                      Container(
-                          alignment: Alignment.centerLeft,
-                          margin: const EdgeInsets.only(left: 12,right: 12),
-                          child: Text("Rashi",style: getTitleFontStyle())
-                      ),
-                      Container(
-                          margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
-                          child: Text("Rashi, also known as the Zodiac sign, is a significant astrological "
-                              "aspect determined by the position of celestial bodies at the time of birth, "
-                              "providing valuable insights into an individual's personality traits and life "
-                              "path.",
-                            style: getSecondaryTitleFontStyle())
-                      ),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          reverse: true,
-                          itemCount: _listRashi.length,
-                          itemBuilder: (context, i) {
-                            return Container(
-                              margin: const EdgeInsets.fromLTRB(12, 7, 12, 7),
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6.0),
+            child: Column(
+              children:  [
+                Container(
+                    alignment: Alignment.centerLeft,
+                    margin: const EdgeInsets.only(left: 12,right: 12),
+                    child: Text("Rashi",style: getTitleFontStyle())
+                ),
+                Container(
+                    margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
+                    child: Text("Rashi, also known as the Zodiac sign, is a significant astrological "
+                        "aspect determined by the position of celestial bodies at the time of birth, "
+                        "providing valuable insights into an individual's personality traits and life "
+                        "path.",
+                        style: getSecondaryTitleFontStyle())
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  reverse: true,
+                  itemCount: _listRashi.length,
+                  itemBuilder: (context, i) {
+                    return Container(
+                        margin: const EdgeInsets.fromLTRB(12, 7, 12, 7),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                          ),
+                          color: rashi_light,
+                          elevation: 2,
+                          child: InkWell(
+                            onTap: (){
+                              _openRashiCalculatorDialog(_listRashi[i]);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Birth on ${universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", _listRashi[i].dateOfBirth)} at ${_listRashi[i].timeOfBirth}", style: const TextStyle(color: black,fontSize: 14, fontWeight: FontWeight.w900)),
+                                  Container(height: 8,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Mother's Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                      Expanded(child: Text(_listRashi[i].motherName, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
                                   ),
-                                  color: rashi_light,
-                                  elevation: 2,
-                                  child: InkWell(
-                                    onTap: (){
-                                      _openRashiCalculatorDialog(_listRashi[i]);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text("Birth on ${universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", _listRashi[i].dateOfBirth)} at ${_listRashi[i].timeOfBirth}", style: const TextStyle(color: black,fontSize: 14, fontWeight: FontWeight.w900)),
-                                          Container(height: 8,),
-                                          Row(
-                                            children: [
-                                              const Expanded(child: Text("Mother's Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                              const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                              Expanded(child: Text(_listRashi[i].motherName, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Expanded(child: Text("Father's Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                              const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                              Expanded(child: Text(_listRashi[i].fatherName, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Expanded(child: Text("Birth Place", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                              const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                              Expanded(child: Text(_listRashi[i].placeOfBirth, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Expanded(child: Text("Gender", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                              const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                              Expanded(child: Text(_listRashi[i].childGender == "1" ? "Girl" : "Boy", style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                            ],
-                                          ),
-                                          Visibility(
-                                              visible: _listRashi[i].notes.isNotEmpty,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(4.0),
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    const Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
-                                                    Text(_listRashi[i].notes,style: const TextStyle(color: text_dark,fontSize: 14,fontWeight: FontWeight.w400),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Father's Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                      Expanded(child: Text(_listRashi[i].fatherName, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
                                   ),
-                                )
-                            );
-                          },
-                      )
-                    ],
-                  ),
-              ),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Birth Place", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                      Expanded(child: Text(_listRashi[i].placeOfBirth, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Gender", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                      Expanded(child: Text(_listRashi[i].childGender == "1" ? "Girl" : "Boy", style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Visibility(
+                                      visible: _listRashi[i].notes.isNotEmpty,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
+                                            Text(_listRashi[i].notes,style: const TextStyle(color: text_dark,fontSize: 14,fontWeight: FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
+        onWillPop: (){
+          Navigator.pop(context);
+          return Future.value(true);
+        }
+    )
+        :  WillPopScope(
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: bg_skin,
+          appBar: AppBar(
+            toolbarHeight: 60,
+            automaticallyImplyLeading: false,
+            backgroundColor: bg_skin,
+            elevation: 0,
+            leading:IconButton(
+              icon: Image.asset("assets/images/ic_back_arrow.png",
+                  width: 18, height: 18),
+              iconSize: 28,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ) ,
+          ),
+          body: _isLoading
+              ? const LoadingWidget()
+              : _isNoDataVisible
+              ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_rashi_list.png', titleMSG: 'No Rashi Request Found')
+              : SingleChildScrollView(
+            child: Column(
+              children:  [
+                Container(
+                    alignment: Alignment.centerLeft,
+                    margin: const EdgeInsets.only(left: 12,right: 12),
+                    child: Text("Rashi",style: getTitleFontStyle())
+                ),
+                Container(
+                    margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
+                    child: Text("Rashi, also known as the Zodiac sign, is a significant astrological "
+                        "aspect determined by the position of celestial bodies at the time of birth, "
+                        "providing valuable insights into an individual's personality traits and life "
+                        "path.",
+                        style: getSecondaryTitleFontStyle())
+                ),
+                Container(height: 12,),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  reverse: true,
+                  itemCount: _listRashi.length,
+                  itemBuilder: (context, i) {
+                    return Container(
+                        margin: const EdgeInsets.fromLTRB(12, 7, 12, 7),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                          ),
+                          color: rashi_light,
+                          elevation: 2,
+                          child: InkWell(
+                            onTap: (){
+                              _openRashiCalculatorDialog(_listRashi[i]);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Birth on ${universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", _listRashi[i].dateOfBirth)} at ${_listRashi[i].timeOfBirth}", style: const TextStyle(color: darkbrown,fontSize: 14, fontWeight: FontWeight.w900)),
+                                  Container(height: 14,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Mother's Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                      Expanded(child: Text(_listRashi[i].motherName, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Container(height: 12,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Father's Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                      Expanded(child: Text(_listRashi[i].fatherName, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Container(height: 12,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Birth Place", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                      Expanded(child: Text(_listRashi[i].placeOfBirth, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Container(height: 12,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Gender", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                      Expanded(child: Text(_listRashi[i].childGender == "1" ? "Girl" : "Boy", style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Container(height: 12,),
+                                  Visibility(
+                                      visible: _listRashi[i].notes.isNotEmpty,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
+                                            Container(height: 8,),
+                                            Text(_listRashi[i].notes,style: const TextStyle(color: text_dark,fontSize: 14,fontWeight: FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
         ),
         onWillPop: (){
           Navigator.pop(context);
           return Future.value(true);
         }
     );
+
   }
 
   void _openRashiCalculatorDialog(Requests getSet){

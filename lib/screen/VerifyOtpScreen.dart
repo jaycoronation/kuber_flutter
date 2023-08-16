@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -16,6 +17,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../model/CommonResponseModel.dart';
+import '../utils/responsive.dart';
+import 'DashboardForWeb.dart';
 import 'MyPofileScreen.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
@@ -37,6 +40,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
   late Timer _timer;
   String otp = "";
   bool visibilityResend = false;
+  double width = 700;
 
 
   @override
@@ -53,7 +57,8 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return ResponsiveWidget.isSmallScreen(context)
+      ?  WillPopScope(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: kuber,
@@ -61,10 +66,187 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
         body: _isLoading
             ? const LoadingWidget()
             : Column(
+          children: [
+            Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 42, right: 10, top: 20),
+                        alignment: Alignment.centerLeft,
+                        child:  Text(
+                          "OTP send to ${widget.mobileNumber} ",
+                          style: const TextStyle(
+                              color: black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Padding(
+                          padding: EdgeInsets.only(left: 42, top: 50),
+                          child: Text(
+                            "Enter OTP",
+                            style: TextStyle(
+                                color: black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 20, top: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 60),
+                        child: PinCodeTextField(
+                          appContext: context,
+                          pastedTextStyle: const TextStyle(
+                            color: text_dark,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          length: 6,
+                          obscureText: false,
+                          blinkWhenObscuring: true,
+                          autoDismissKeyboard: true,
+                          animationType: AnimationType.fade,
+                          pinTheme: PinTheme(
+                            shape: PinCodeFieldShape.underline,
+                            fieldOuterPadding:
+                            const EdgeInsets.only(left: 8),
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderWidth: 2,
+                            fieldHeight: 60,
+                            fieldWidth: 30,
+                            activeColor: black,
+                            selectedColor: black,
+                            disabledColor: text_dark,
+                            inactiveColor: text_light,
+                            activeFillColor: kuber,
+                            selectedFillColor: kuber,
+                            inactiveFillColor: kuber,
+                          ),
+                          cursorColor: Colors.black,
+                          animationDuration:
+                          const Duration(milliseconds: 300),
+                          enableActiveFill: true,
+                          keyboardType: TextInputType.number,
+                          onCompleted: (v) {
+                            _verifyOtpApi(v);
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              strPin = value;
+                            });
+                          },
+                          beforeTextPaste: (text) {
+                            return true;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(bottom: 6, left: 4),
+                            child: Text("00:$_start",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    color: black,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16))),
+                      ),
+                      Padding(
+                        padding:
+                        const EdgeInsets.only(left: 26, right: 26, top: 32, bottom: 12),
+                        child: TextButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18)
+                            ),
+                            backgroundColor: black,
+                            minimumSize: const Size.fromHeight(55),
+                          ),
+                          onPressed: () {
+                            FocusScope.of(context).unfocus();
+                            if (otp.isEmpty)
+                            {
+                              showSnackBar('Please enter otp', context);
+                            }
+                            else if (otp.length != 4)
+                            {
+                              showSnackBar('Please enter valid otp', context);
+                            } else {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              _verifyOtpApi(otp);
+                            }
+                          },
+                          child: const Text(
+                            "Verify Otp",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w500,color: skin),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            visibilityResend ? Container(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(width: 1.0),
+                                ),
+                              ),
+                              child: InkWell(
+                                onTap: (){
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  _sendOTPApi();
+                                },
+                                child: const Text(
+                                  "Resend Otp",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ) : Container(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+            ),
+          ],
+        ),
+      ),
+      onWillPop: () {
+        Navigator.pop(context);
+        return Future.value(true);
+      },
+    )
+        :  WillPopScope(
+          child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            backgroundColor: kuber,
+            appBar: setUpNavigationBar(),
+            body: _isLoading
+                ? const LoadingWidget()
+                : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment:  CrossAxisAlignment.center,
               children: [
-                Expanded(
-                    child: SingleChildScrollView(
+                SingleChildScrollView(
+                  child: Center(
+                    child: Container(
+                      width: width,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment:  CrossAxisAlignment.center,
                         children: [
                           Container(
                             margin: const EdgeInsets.only(left: 42, right: 10, top: 20),
@@ -107,7 +289,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
                               pinTheme: PinTheme(
                                 shape: PinCodeFieldShape.underline,
                                 fieldOuterPadding:
-                                    const EdgeInsets.only(left: 8),
+                                const EdgeInsets.only(left: 8),
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderWidth: 2,
                                 fieldHeight: 60,
@@ -122,7 +304,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
                               ),
                               cursorColor: Colors.black,
                               animationDuration:
-                                  const Duration(milliseconds: 300),
+                              const Duration(milliseconds: 300),
                               enableActiveFill: true,
                               keyboardType: TextInputType.number,
                               onCompleted: (v) {
@@ -214,16 +396,18 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
                           ),
                         ],
                       ),
-                    )
+                    ),
+                  ),
                 ),
               ],
             ),
-      ),
-      onWillPop: () {
-        Navigator.pop(context);
-        return Future.value(true);
-      },
-    );
+          ),
+          onWillPop: () {
+            Navigator.pop(context);
+            return Future.value(true);
+          },
+        );
+
   }
 
   PreferredSizeWidget setUpNavigationBar() {
@@ -286,7 +470,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       }
       else
       {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => kIsWeb ? DashboardForWeb() : const DashboardScreen()), (route) => false);
       }
     }
     else {

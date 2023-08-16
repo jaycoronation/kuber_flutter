@@ -1,17 +1,28 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
+import '../model/SocialResponseModel.dart';
+import '../model/VerifyOtpResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/session_manager.dart';
+import 'DashboardScreen.dart';
 import 'LoginWithEmailScreen.dart';
+import 'MyPofileScreen.dart';
 import 'VerifyOtpScreen.dart';
 import 'WebViewContainer.dart';
 
@@ -27,11 +38,20 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
   TextEditingController numberController = TextEditingController();
   SessionManager sessionManager = SessionManager();
   bool _isLoading = false;
+  final fb = FacebookLogin();
+
 
   @override
   void initState(){
     super.initState();
     getCountryData();
+  }
+
+  void printKeyHash() async{
+    String? key=await FlutterFacebookKeyhash.getFaceBookKeyHash ??
+        'Unknown platform version';
+    print(key??"");
+
   }
 
   @override
@@ -134,15 +154,25 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                         children: <TextSpan>[
                           TextSpan(
                               text: 'Privacy Policy', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 18),
-                              recognizer: TapGestureRecognizer()..onTap = () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
+                              recognizer: TapGestureRecognizer()..onTap = () async {
+                                var iosUrl = Uri.parse("https://panditbookings.com/privacy_policy");
+                                if (await canLaunchUrl(iosUrl))
+                                {
+                                await launchUrl(iosUrl);
+                                }
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
                               }
                           ),
                           const TextSpan(text: ' and ', style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 18),),
                           TextSpan(
                               text: 'Terms of Service', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 18),
-                              recognizer: TapGestureRecognizer()..onTap = () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/terms-and-conditions', 'Terms of Service')));
+                              recognizer: TapGestureRecognizer()..onTap = () async {
+                                var iosUrl = Uri.parse("https://www.panditbookings.com/terms-and-conditions/");
+                                if (await canLaunchUrl(iosUrl))
+                                {
+                                await launchUrl(iosUrl);
+                                }
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/terms-and-conditions', 'Terms of Service')));
                               }
                           ),
                         ],
@@ -159,32 +189,30 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                         colors: [gradient_start, gradient_end],
                       )
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        FocusScope.of(context).unfocus();
-                        if (numberController.text.isEmpty) {
-                          showToast('Please enter mobile number', context);
-                        }
-                        else if (numberController.text.length <= 7) {
-                          showToast('Please enter valid mobile number', context);
-                        }
-                        else if (numberController.text.length >= 13) {
-                          showToast('Please enter valid mobile number', context);
-                        }
-                        else {
-                          setState(() {
-                            _isLoading = true;
-                          });
-                          _sendOTPApi();
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          shadowColor: Colors.transparent),
-                      child: const Text('Continue', style: TextStyle(color: darkbrown, fontSize: 16),),
+                  child: TextButton(
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      if (numberController.text.isEmpty) {
+                        showToast('Please enter mobile number', context);
+                      }
+                      else if (numberController.text.length <= 7) {
+                        showToast('Please enter valid mobile number', context);
+                      }
+                      else if (numberController.text.length >= 13) {
+                        showToast('Please enter valid mobile number', context);
+                      }
+                      else {
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        _sendOTPApi();
+                      }
+                    },
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.fromLTRB(0 , 22,0 ,22),
+                      textStyle: const TextStyle(fontSize: 22, color: darkbrown, fontWeight: FontWeight.w600),
                     ),
+                    child: const Text('Continue', style: TextStyle(color: darkbrown, fontSize: 16),),
                   ),
                 ),
                 Container(height: 22,),
@@ -218,7 +246,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                   width: 700,
                   child: GestureDetector(
                     onTap: () async {
-                      //signInWithGoogle(context: context);
+                      signInWithGoogle(context: context);
                       //FirebaseCrashlytics.instance.crash();
                     },
                     child: Container(
@@ -257,7 +285,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                   width: 700,
                   child: GestureDetector(
                     onTap: () {
-                      //loginWithFaceBook();
+                      loginFB();
                     },
                     child: Container(
                       margin: const EdgeInsets.only( right: 20, left: 20),
@@ -324,6 +352,148 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
       ),
     );
   }
+  Future<User?> signInWithGoogle({required BuildContext context}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+
+    if (kIsWeb) {
+      GoogleAuthProvider authProvider = GoogleAuthProvider();
+      try {
+        final UserCredential userCredential = await auth.signInWithPopup(authProvider);
+
+        user = userCredential.user;
+      } catch (e) {
+        print(e);
+      }
+    }
+    else {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        try {
+          final UserCredential userCredential =
+          await auth.signInWithCredential(credential);
+          user = userCredential.user;
+
+          print("User GetSet $user");
+          String? firstName = "";
+          String? lastName = "";
+          String? email = "";
+          String? profilePic = "";
+          firstName = user?.displayName ?? "";
+          lastName = user?.displayName ?? "";
+          email = user?.email ?? "";
+          profilePic = user?.photoURL ?? "";
+
+          // _makeSocialLoginRequest("2", firstName, lastName, email, profilePic);
+        }
+        on FirebaseAuthException catch (e) {
+          print(e);
+          if (e.code == 'account-exists-with-different-credential') {
+            // ...
+
+          }
+          else if (e.code == 'invalid-credential') {
+            // ...
+          }
+        } catch (e) {
+          // ...
+        }
+      }
+    }
+    return user;
+  }
+
+  // _makeSocialLoginRequest(String loginType, String firstName, String lastName, String email, String image) async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
+  //
+  //   signOut(context: context);
+  //
+  //   HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+  //     HttpLogger(logLevel: LogLevel.BODY),
+  //   ]);
+  //
+  //   final url = Uri.parse(MAIN_URL + socialLogin);
+  //
+  //   Map<String, String> jsonBody = {
+  //     'name': "$firstName $lastName",
+  //     'mobile': "",
+  //     'login_type': loginType,
+  //     'from_app': "true",
+  //     'email': email,
+  //     'profile_pic': image,
+  //   };
+  //
+  //   final response = await http.post(url, body: jsonBody);
+  //   final statusCode = response.statusCode;
+  //   final body = response.body;
+  //   Map<String, dynamic> user = jsonDecode(body);
+  //   var dataResponse = SocialResponseModel.fromJson(user);
+  //
+  //   if (statusCode == 200 && dataResponse.success == 1) {
+  //     Profile getSetData = Profile();
+  //
+  //     getSetData.userId = dataResponse.user?.userId ?? '';
+  //     getSetData.mobile = dataResponse.user?.mobile;
+  //
+  //     getSetData.profilePic = dataResponse.user?.profilePic;
+  //     getSetData.countryId = dataResponse.user?.countryId;
+  //     getSetData.stateId = dataResponse.user?.stateId;
+  //     getSetData.cityId = dataResponse.user?.stateId;
+  //     getSetData.email = dataResponse.user?.email;
+  //     getSetData.firstName = dataResponse.user?.firstName;
+  //     getSetData.lastName = dataResponse.user?.lastName;
+  //     getSetData.countryCode = dataResponse.user?.countryCode;
+  //     getSetData.type = "User";
+  //
+  //     await sessionManager.createLoginSession(getSetData);
+  //
+  //     sessionManager.setUserId(dataResponse.user?.userId.toString() ?? "");
+  //     print(dataResponse.user!.mobile.toString());
+  //     print(dataResponse.user!.email.toString());
+  //     if(dataResponse.user?.mobile?.toString().isEmpty ?? true)
+  //     {
+  //       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
+  //     }
+  //     else
+  //     {
+  //       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+  //     }
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //     showToast(dataResponse.message, context);
+  //   }
+  // }
+
+  static Future<void> signOut({required BuildContext context}) async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    try {
+      if (!kIsWeb) {
+        await googleSignIn.signOut();
+      }
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        showSnackBar('Error signing out. Try again.', context),
+      );
+    }
+  }
+
 
   _sendOTPApi() async {
 
@@ -340,7 +510,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
 
     final response = await http.post(url,
         headers: {
-      'Access-Control-Allow-Origin' : "true",
+          "Access-Control-Allow-Origin": "*", // Required for CORS support to work
           "Access-Control-Allow-Credentials": "true", // Required for cookies, authorization headers with HTTPS
           "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
           "Access-Control-Allow-Methods": "POST, OPTIONS"
@@ -418,7 +588,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                               fontWeight: FontWeight.w600),
                           onChanged: (editable){
 
-                            setState((){
+                            updateState((){
                               if (listCountryCode != null && listCountryCode.length > 0) {
                                 listSearchCountryName = [];
 
@@ -520,5 +690,136 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
       listCountryCode.add(CountryListResponseModel(name: name, dialCode: dial_code, code: code));
     }
   }
+
+  Future<void> loginFB() async {
+    final LoginResult result = await FacebookAuth.instance.login(); // by default we request the email and the public profile
+// or FacebookAuth.i.login()
+    if (result.status == LoginStatus.success) {
+      // you are logged
+      final AccessToken accessToken = result.accessToken!;
+    } else {
+      print(result.status);
+      print(result.message);
+    }
+  }
+
+  Future<void> loginWithFaceBook() async {
+    // Log in
+    final res = await fb.logIn(permissions: [
+      FacebookPermission.publicProfile,
+      FacebookPermission.email,
+    ]);
+
+    // Check result status
+    switch (res.status) {
+      case FacebookLoginStatus.success:
+      // Send access token to server for validation and auth
+        final FacebookAccessToken? accessToken = res.accessToken;
+
+        // Get profile data
+        final profile = await fb.getUserProfile();
+
+        // Get user profile image url
+        final imageUrl = await fb.getProfileImageUrl(width: 100);
+
+        // Get email (since we request email permission)
+        final email = await fb.getUserEmail();
+        // But user can decline permission
+
+        if (email != null && email.isNotEmpty) {
+          String firstName = "";
+          String lastName = "";
+          if (profile!.name != null && profile.name!.isNotEmpty) {
+            final splitted = profile.name.toString().split(' ');
+
+            if (splitted.isNotEmpty) {
+              firstName = splitted[0];
+              lastName = splitted[1];
+            }
+          }
+          _makeSocialLoginRequest("1", firstName, lastName, email, "");
+        }
+        else {
+          showSnackBar("Email not found.", context);
+        }
+        break;
+      case FacebookLoginStatus.cancel:
+      // User cancel log in
+        break;
+      case FacebookLoginStatus.error:
+      // Log in failed
+        break;
+    }
+  }
+
+  _makeSocialLoginRequest(String loginType, String firstName, String lastName, String email, String image) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    signOut(context: context);
+
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    final url = Uri.parse(MAIN_URL + socialLogin);
+
+    Map<String, String> jsonBody = {
+      'name': "$firstName $lastName",
+      'mobile': "",
+      'login_type': loginType,
+      'from_app': "true",
+      'email': email,
+      'profile_pic': image,
+    };
+
+    final response = await http.post(url, body: jsonBody);
+    final statusCode = response.statusCode;
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+    var dataResponse = SocialResponseModel.fromJson(user);
+
+    if (statusCode == 200 && dataResponse.success == 1) {
+      Profile getSetData = Profile();
+
+      getSetData.userId = dataResponse.user?.userId ?? '';
+      getSetData.mobile = dataResponse.user?.mobile ?? '';
+
+      getSetData.profilePic = dataResponse.user?.profilePic ?? '';
+      getSetData.countryId = dataResponse.user?.countryId ?? '';
+      getSetData.stateId = dataResponse.user?.stateId ?? '';
+      getSetData.cityId = dataResponse.user?.stateId ?? '';
+      getSetData.email = dataResponse.user?.email ?? '';
+      getSetData.firstName = dataResponse.user?.firstName ?? '';
+      getSetData.lastName = dataResponse.user?.lastName ?? '';
+      getSetData.countryCode = dataResponse.user?.countryCode ?? '';
+       getSetData.type =  dataResponse.user?.type ?? '';
+
+      await sessionManager.createLoginSession(getSetData);
+
+      sessionManager.setUserId(dataResponse.user?.userId.toString() ?? "");
+      print(dataResponse.user!.mobile.toString());
+      print(dataResponse.user!.email.toString());
+      if(dataResponse.user?.mobile?.toString().isEmpty ?? true)
+      {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
+      }
+      else
+      {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+      }
+      setState(() {
+        _isLoading = false;
+      });
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      showToast(dataResponse.message, context);
+    }
+  }
+
+
 
 }

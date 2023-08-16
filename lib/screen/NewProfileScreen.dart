@@ -19,8 +19,10 @@ import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/utils/session_manager_methods.dart';
 import 'package:kuber/widget/loading.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../model/CountryListResponseModel.dart';
+import '../utils/responsive.dart';
 import 'DonationListScreen.dart';
 import 'MatchMakingScreen.dart';
 import 'WebViewContainer.dart';
@@ -46,7 +48,8 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return ResponsiveWidget.isSmallScreen(context)
+      ? WillPopScope(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: bg_skin,
@@ -653,7 +656,301 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
         Navigator.pop(context,true);
         return Future.value(true);
       },
+    )
+        :  WillPopScope(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        backgroundColor: bg_skin,
+        appBar: setUpNavigationBar(),
+        body: _isLoading
+            ? const LoadingWidget()
+            : Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: bg_skin, width: 0.5),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                    ),
+                    color: kuber,
+                  ),
+                  child: Column(
+                    children: [
+                      Container(height: 18,),
+                      Container(
+                        margin: const EdgeInsets.only(top: 4,right: 22,left: 22),
+                        child:GestureDetector(
+                          onTap: () async {
+                            var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
+                            if (value)
+                            {
+                              setState(() {});
+                            }
+                          },
+                          child: Column(
+                              children:[
+                                Container(height: 18,),
+                                _sessionManager.getImagePic()?.isNotEmpty ?? false
+                                    ? Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                        color: white,
+                                        width: 1
+                                    ),
+                                    image: DecorationImage(
+                                        image: NetworkImage(_sessionManager.getImagePic().toString()) ,
+                                        fit: BoxFit.cover
+                                    ),
+                                  ),
+                                )
+                                    : Image.asset("assets/images/ic_user_placeholder.png",height: 100,),
+                                Container(
+                                    margin: const EdgeInsets.only(top: 6),
+                                    child:  Text(
+                                      "${_sessionManager.getName()} ${_sessionManager.getLastName() }",textAlign: TextAlign.center,
+                                      style: const TextStyle(fontWeight: FontWeight.w900,color: darkbrown,fontSize: 18),)),
+                                Visibility(
+                                  visible:  _sessionManager.getEmail().toString().isNotEmpty,
+                                  child: Container(
+                                      margin: const EdgeInsets.only(top: 6),
+                                      child: Text(
+                                        _sessionManager.getEmail().toString(),textAlign: TextAlign.center,
+                                        style: const TextStyle(fontWeight: FontWeight.w400,color: darkbrown,fontSize: 16),)),
+                                ),
+                                Container(
+                                    margin: const EdgeInsets.only(top: 6),
+                                    child: Text(
+                                      _sessionManager.getPhone().toString(),textAlign: TextAlign.center,
+                                      style: const TextStyle(fontWeight: FontWeight.w400,color: darkbrown,fontSize: 16),))
+                              ]
+                          ),
+                        ),
+                      ),
+                      Container(height: 12,),
+
+
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: darkbrown, width: 1),
+                            borderRadius:const BorderRadius.all(Radius.circular(22),) ,
+                          ),
+                          child: Column(
+                            children: [
+                              InkWell(
+                                onTap:() async {
+                                  var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
+
+                                  if (value)
+                                  {
+                                    setState((){});
+                                  }
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  margin: const EdgeInsets.only(top: 16,),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 6,bottom: 6),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(left: 18,),
+                                          child: Row(
+                                            children: [
+                                              Image.asset("assets/images/ic_profile.png",height: 20,),
+                                              Container(
+                                                  margin: const EdgeInsets.only(left: 14,right: 14),
+                                                  child: const Text('My Profile',style: TextStyle(fontWeight: FontWeight.w600,color: darkbrown,fontSize: 16),)),
+                                              const Spacer(),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 14),
+                                        child: const Divider(color: darkbrown,height: 0.5,),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+
+                              InkWell(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  margin: const EdgeInsets.only(top: 16,),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 6,bottom: 6),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(left: 16,),
+                                          child: Row(
+                                            children: [
+                                              Image.asset("assets/images/ic_delete_account.png",height: 20,),
+                                              Container(
+                                                  margin: const EdgeInsets.only(left: 14,right: 14),
+                                                  child: const Text('Delete Account',style: TextStyle(fontWeight: FontWeight.w600,color: darkbrown,fontSize: 16),)),
+                                              const Spacer(),
+
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 14),
+                                        child: const Divider(color: darkbrown,height: 0.5,),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountScreen()));
+                                },
+                              ),
+/*
+                                  Visibility(
+                                    visible: _sessionManager.getType().toString() != "User",
+                                    child: InkWell(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                                              child: Row(
+                                                children: [
+                                                  Image.asset("assets/images/ic_help.png",height: 20,),
+                                                  Container(
+                                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                                      child: const Text('Change Password',style: TextStyle(fontWeight: FontWeight.w400,color: text_dark,fontSize: 16),)),
+                                                  const Spacer(),
+
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: const EdgeInsets.only(top: 14),
+                                              child: const Divider(color: darkbrown,height: 0.5,),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePassWordScreen()));
+                                      },
+                                    ),
+                                  ),
+*/
+                              Container(
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(top: 16,),
+                                child: Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () async {
+                                        var iosUrl = Uri.parse("https://www.panditbookings.com/terms-and-conditions/");
+                                        if (await canLaunchUrl(iosUrl))
+                                        {
+                                        await launchUrl(iosUrl);
+                                        }
+                                        // Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://www.panditbookings.com/terms-and-conditions/', 'Terms & Conditions')));
+                                      },
+                                      behavior: HitTestBehavior.opaque,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 6,bottom: 6),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(left: 16,),
+                                          child: Row(
+                                            children: [
+                                              Image.asset("assets/images/ic_terms.png",height: 20,),
+                                              Container(
+                                                  margin: const EdgeInsets.only(left: 14,right: 14),
+                                                  child: const Text('Terms & Conditions',style: TextStyle(fontWeight: FontWeight.w600,color: darkbrown,fontSize: 16),)),
+                                              const Spacer(),
+
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                      child: const Divider(color: darkbrown,height: 0.5,),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(top: 16,),
+                                child: Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () async {
+                                        var iosUrl = Uri.parse("https://panditbookings.com/privacy_policy");
+                                        if (await canLaunchUrl(iosUrl))
+                                        {
+                                        await launchUrl(iosUrl);
+                                        }
+                                        // Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
+                                      },
+                                      behavior: HitTestBehavior.opaque,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 6,bottom: 6),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(left: 16,),
+                                          child: Row(
+                                            children: [
+                                              Image.asset("assets/images/ic_privacy.png",height: 20,),
+                                              Container(
+                                                  margin: const EdgeInsets.only(left: 14,right: 14),
+                                                  child: const Text('Privacy policy',style: TextStyle(fontWeight: FontWeight.w600,color: darkbrown,fontSize: 16),)
+                                              ),
+                                              const Spacer(),
+
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+
+                      Container(height: 12,),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+          ],
+        ),
+      ),
+      onWillPop: () {
+        Navigator.pop(context,true);
+        return Future.value(true);
+      },
     );
+
   }
 
   PreferredSizeWidget setUpNavigationBar() {

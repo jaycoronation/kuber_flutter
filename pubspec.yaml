@@ -67,6 +67,8 @@ dependencies:
   like_button: ^2.0.5
   share_plus: ^7.1.0
   flutter_web_frame: ^0.0.3
+  flutter_facebook_auth: ^4.2.0
+
 
 
 

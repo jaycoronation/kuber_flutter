@@ -7,6 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -362,7 +363,7 @@ class _LoginScreen extends State<LoginScreen> {
                                 visible: Platform.isIOS,
                                 child: GestureDetector(
                                   onTap: () {
-                                    logIn();
+                                    loginFB();
                                   },
                                   child: Container(
                                     margin: const EdgeInsets.only( right: 20, left: 20, bottom: 18),
@@ -809,7 +810,17 @@ class _LoginScreen extends State<LoginScreen> {
     );
   }
 
-
+  Future<void> loginFB() async {
+    final LoginResult result = await FacebookAuth.instance.login(); // by default we request the email and the public profile
+// or FacebookAuth.i.login()
+    if (result.status == LoginStatus.success) {
+      // you are logged
+      final AccessToken accessToken = result.accessToken!;
+    } else {
+      print(result.status);
+      print(result.message);
+    }
+  }
 
   void logIn() async {
     final AuthorizationResult result = await TheAppleSignIn.performRequests([

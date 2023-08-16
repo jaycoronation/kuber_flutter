@@ -49,7 +49,7 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
                 scrollDirection: Axis.vertical,
                 itemCount: _bookingList.length,
                 itemBuilder: (BuildContext context, int i) {
-                  return InkWell(
+                  return GestureDetector(
                     child: Container(
                       margin: const EdgeInsets.only(left: 14, right: 14, top: 6, bottom: 10),
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: priest_light),

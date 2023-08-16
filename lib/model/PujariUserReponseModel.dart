@@ -293,6 +293,11 @@ Profile copyWith({  String? id,
   String? get lastName => _lastName;
   String? get email => _email;
   String? get mobile => _mobile;
+
+  set id(String? value) {
+    _id = value;
+  }
+
   String? get countryCode => _countryCode;
   String? get birthdate => _birthdate;
   String? get birthdateOld => _birthdateOld;
@@ -359,4 +364,131 @@ Profile copyWith({  String? id,
     return map;
   }
 
+  set isPasswordSet(num? value) {
+    _isPasswordSet = value;
+  }
+
+  set firstName(String? value) {
+    _firstName = value;
+  }
+
+  set lastName(String? value) {
+    _lastName = value;
+  }
+
+  set email(String? value) {
+    _email = value;
+  }
+
+  set mobile(String? value) {
+    _mobile = value;
+  }
+
+  set countryCode(String? value) {
+    _countryCode = value;
+  }
+
+  set birthdate(String? value) {
+    _birthdate = value;
+  }
+
+  set birthdateOld(String? value) {
+    _birthdateOld = value;
+  }
+
+  set birthplace(String? value) {
+    _birthplace = value;
+  }
+
+  set pathshala(String? value) {
+    _pathshala = value;
+  }
+
+  set gender(String? value) {
+    _gender = value;
+  }
+
+  set genderLabel(String? value) {
+    _genderLabel = value;
+  }
+
+  set country(String? value) {
+    _country = value;
+  }
+
+  set city(String? value) {
+    _city = value;
+  }
+
+  set state(String? value) {
+    _state = value;
+  }
+
+  set countryId(String? value) {
+    _countryId = value;
+  }
+
+  set cityId(String? value) {
+    _cityId = value;
+  }
+
+  set stateId(String? value) {
+    _stateId = value;
+  }
+
+  set countryName(String? value) {
+    _countryName = value;
+  }
+
+  set cityName(String? value) {
+    _cityName = value;
+  }
+
+  set stateName(String? value) {
+    _stateName = value;
+  }
+
+  set gurukul(String? value) {
+    _gurukul = value;
+  }
+
+  set qualification(String? value) {
+    _qualification = value;
+  }
+
+  set qualificationOther(String? value) {
+    _qualificationOther = value;
+  }
+
+  set experience(String? value) {
+    _experience = value;
+  }
+
+  set experienceOther(String? value) {
+    _experienceOther = value;
+  }
+
+  set address(String? value) {
+    _address = value;
+  }
+
+  set certificate(String? value) {
+    _certificate = value;
+  }
+
+  set certificateName(String? value) {
+    _certificateName = value;
+  }
+
+  set timestamp(String? value) {
+    _timestamp = value;
+  }
+
+  set profilePic(String? value) {
+    _profilePic = value;
+  }
+
+  set profilePicName(String? value) {
+    _profilePicName = value;
+  }
 }

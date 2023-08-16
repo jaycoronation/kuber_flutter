@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show PlatformDispatcher, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kuber/constant/colors.dart';
+import 'package:kuber/screen/DashboardForWeb.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/LoginForWeb.dart';
 import 'package:kuber/screen/LoginScreen.dart';
@@ -20,10 +22,18 @@ import 'package:firebase_core/firebase_core.dart';
   await SessionManagerMethods.init();
    if (kIsWeb)
    {
+     await FacebookAuth.i.webInitialize(
+       appId: "548919027312741",
+       cookie: true,
+       xfbml: true,
+       version: "v15.0",
+     );
+
      await Firebase.initializeApp(
-         name: "Kuber",
+         name: "kuber",
          options: const FirebaseOptions(apiKey: "AIzaSyDxM-G38CFYtCYbS3ND3fZlirLRKBOoXQc",
-             appId: "1:951814205337:web:904e57267945c244f52d08", messagingSenderId: "951814205337", projectId: "kuber-167ed"));
+             appId: "1:951814205337:web:904e57267945c244f52d08", messagingSenderId: "951814205337", projectId: "kuber-167ed")
+     );
    }
    else
    {
@@ -55,6 +65,7 @@ class MyApp extends StatelessWidget {
       statusBarBrightness: Brightness.light,
     ));
     return FlutterWebFrame(
+      backgroundColor: kuber,
         builder: (context) {
          return MaterialApp(
             builder: (context, child) {
@@ -107,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
         }
         else
         {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => kIsWeb? DashboardForWeb() : const DashboardScreen()), (route) => false);
         }
         // Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardScreen())));
       }

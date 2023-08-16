@@ -19,6 +19,7 @@ import '../model/CountryListResponseModel.dart';
 import '../model/PrayerListResponseModel.dart';
 import '../model/PujaListResponseModel.dart';
 import '../utils/app_utils.dart';
+import '../utils/responsive.dart';
 import '../utils/session_manager.dart';
 import '../widget/loading.dart';
 import 'PujaListScreen.dart';
@@ -86,7 +87,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return ResponsiveWidget.isSmallScreen(context)
+      ? SingleChildScrollView(
       child: Wrap(
           children: [
             Padding(
@@ -103,81 +105,81 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                   ),
                   child:  _isLoading
                       ? Container(
-                          height: MediaQuery.of(context).size.height * 0.88,
-                          child: const LoadingWidget()
-                      )
+                      height: MediaQuery.of(context).size.height * 0.88,
+                      child: const LoadingWidget()
+                  )
                       : SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  bottom: MediaQuery.of(context).viewInsets.bottom),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 14.0, right: 14),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                            width: 50,
-                                            margin: const EdgeInsets.only(top: 12),
-                                            child: const Divider(
-                                              height: 2,
-                                              thickness: 2,
-                                              color: bottomSheetline,
-                                            )
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.only(top: 20),
-                                          child: const Text(
-                                            "Match Making",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold, color: darkbrown, fontSize: 18),
-                                          ),
-                                        ),
-                                        Container(height: 12,),
-                                        const Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text("*Payment of \$11 required to avail "
-                                              "Match Making service. You will be guided to the payment process in the next steps.",
-                                            style: TextStyle(color: lighttxtGrey, fontSize: 14),),
-                                        ),
-                                        Container(
-                                            alignment: Alignment.topLeft,
-                                            margin: const EdgeInsets.only(top: 20,bottom:14),
-                                            child: const Text(
-                                              "Yajman's details",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: text_new,
-                                                  fontSize: 16),
-                                            )
-                                        ),
+                    scrollDirection: Axis.vertical,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 14.0, right: 14),
+                            child: Column(
+                              children: [
+                                Container(
+                                    width: 50,
+                                    margin: const EdgeInsets.only(top: 12),
+                                    child: const Divider(
+                                      height: 2,
+                                      thickness: 2,
+                                      color: bottomSheetline,
+                                    )
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 20),
+                                  child: const Text(
+                                    "Match Making",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold, color: darkbrown, fontSize: 18),
+                                  ),
+                                ),
+                                Container(height: 12,),
+                                const Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text("*Payment of \$11 required to avail "
+                                      "Match Making service. You will be guided to the payment process in the next steps.",
+                                    style: TextStyle(color: lighttxtGrey, fontSize: 14),),
+                                ),
+                                Container(
+                                    alignment: Alignment.topLeft,
+                                    margin: const EdgeInsets.only(top: 20,bottom:14),
+                                    child: const Text(
+                                      "Yajman's details",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: text_new,
+                                          fontSize: 16),
+                                    )
+                                ),
 
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              onTap: (){
-                                              },
-                                              controller: matchFnameController,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "First Name",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: (){
+                                      },
+                                      controller: matchFnameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "First Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
 
-                                        /* TextField(
+                                /* TextField(
                                 controller: matchFnameController,
                                 keyboardType: TextInputType.text,
                                 cursorColor: text_dark,
@@ -202,28 +204,28 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 ),
                               ), */
 
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              controller: matchLnameController,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "Last Name",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      controller: matchLnameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Last Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /* TextField(
+                                /* TextField(
                                           controller: matchLnameController,
                                           keyboardType: TextInputType.text,
                                           cursorColor: text_dark,
@@ -249,28 +251,28 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                           ),
                                         ), */
 
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              controller: matchEmailcontroller,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "Email",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      controller: matchEmailcontroller,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Email",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /* TextField(
+                                /* TextField(
                                 controller: matchEmailcontroller,
                                 keyboardType: TextInputType.text,
                                 cursorColor: text_dark,
@@ -296,71 +298,71 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 ),
                               ), */
 
-                                        Container(
-                                          margin: const EdgeInsets.only(top: 10),
-                                          alignment: Alignment.center,
-                                          padding: const EdgeInsets.only(left: 14, right: 10),
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: Colors.grey,
-                                              width: 1,
-                                            ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.only(left: 14, right: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1,
+                                    ),
 
-                                            borderRadius: const BorderRadius.all(
-                                              Radius.circular(18),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(18),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      GestureDetector(
+                                        child: Text(countryCode,
+                                            style: const TextStyle(
+                                                color: text_dark,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14)),
+                                        onTap: (){
+                                          countryDialog(setState);
+                                        },
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 10),
+                                        height: 20,
+                                        width: 1,
+                                        color: text_light,
+                                      ),
+                                      Flexible(
+                                        child:TextField(
+                                          controller: matchNumberController,
+                                          maxLength: 12,
+                                          keyboardType: TextInputType.number,
+                                          cursorColor: text_dark,
+                                          style: const TextStyle(
+                                              color: title,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                          decoration: InputDecoration(
+                                            contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
+                                            fillColor: bottomSheetBg,
+                                            counterText: "",
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(14.0),
+                                                borderSide: const BorderSide(
+                                                    width: 0, style: BorderStyle.none)),
+                                            filled: true,
+                                            hintText: "Mobile Number",
+                                            hintStyle: const TextStyle(
+                                              color: text_dark,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w900,
                                             ),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              GestureDetector(
-                                                child: Text(countryCode,
-                                                    style: const TextStyle(
-                                                        color: text_dark,
-                                                        fontWeight: FontWeight.w600,
-                                                        fontSize: 14)),
-                                                onTap: (){
-                                                  countryDialog(setState);
-                                                },
-                                              ),
-                                              Container(
-                                                margin: const EdgeInsets.only(left: 10),
-                                                height: 20,
-                                                width: 1,
-                                                color: text_light,
-                                              ),
-                                              Flexible(
-                                                child:TextField(
-                                                  controller: matchNumberController,
-                                                  maxLength: 12,
-                                                  keyboardType: TextInputType.number,
-                                                  cursorColor: text_dark,
-                                                  style: const TextStyle(
-                                                      color: title,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w500),
-                                                  decoration: InputDecoration(
-                                                    contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
-                                                    fillColor: bottomSheetBg,
-                                                    counterText: "",
-                                                    border: OutlineInputBorder(
-                                                        borderRadius: BorderRadius.circular(14.0),
-                                                        borderSide: const BorderSide(
-                                                            width: 0, style: BorderStyle.none)),
-                                                    filled: true,
-                                                    hintText: "Mobile Number",
-                                                    hintStyle: const TextStyle(
-                                                      color: text_dark,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w900,
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
                                           ),
                                         ),
+                                      )
+                                    ],
+                                  ),
+                                ),
 
-                                        /* Container(
+                                /* Container(
                                 alignment: Alignment.center,
                                 padding: const EdgeInsets.only(left: 14, right: 10),
                                 decoration: const BoxDecoration(
@@ -418,43 +420,43 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                         ],
                                 ),
                               ), */
-                                        Container(height: 12,),
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 10, bottom: 10),
-                                            alignment: Alignment.topLeft,
-                                            child: const Text(
-                                              "Girl's details",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: text_new,
-                                                  fontSize: 16),
-                                            )
-                                        ),
+                                Container(height: 12,),
+                                Container(
+                                    margin: const EdgeInsets.only(top: 10, bottom: 10),
+                                    alignment: Alignment.topLeft,
+                                    child: const Text(
+                                      "Girl's details",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: text_new,
+                                          fontSize: 16),
+                                    )
+                                ),
 
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              onTap: (){
-                                              },
-                                              controller: matchGirlFnameController,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "First Name",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: (){
+                                      },
+                                      controller: matchGirlFnameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "First Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /* TextField(
+                                /* TextField(
                                 controller: matchGirlFnameController,
                                 keyboardType: TextInputType.text,
                                 cursorColor: text_dark,
@@ -480,30 +482,30 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 ),
                               ), */
 
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              onTap: (){
-                                              },
-                                              controller: matchGirlLNameController,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "Last Name",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: (){
+                                      },
+                                      controller: matchGirlLNameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Last Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /*   TextField(
+                                /*   TextField(
                                 controller: matchGirlLNameController,
                                 keyboardType: TextInputType.text,
                                 cursorColor: text_dark,
@@ -529,32 +531,32 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 ),
                               ), */
 
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              onTap: () async {
-                                                _setDatePicker(matchGirlBirthDateController);
-                                              },
-                                              readOnly: true,
-                                              controller: matchGirlBirthDateController,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "Birth date",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: () async {
+                                        _setDatePicker(matchGirlBirthDateController);
+                                      },
+                                      readOnly: true,
+                                      controller: matchGirlBirthDateController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Birth date",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /* TextField(
+                                /* TextField(
                                 onTap: () async {
                                         _setDatePicker(matchGirlBirthDateController);
                                 },
@@ -584,32 +586,32 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 ),
                               ), */
 
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              onTap: () async {
-                                                _setTimePicker(matchGirlBirthTimeController,setState);
-                                              },
-                                              readOnly:true,
-                                              controller: matchGirlBirthTimeController,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "Birth time",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: () async {
+                                        _setTimePicker(matchGirlBirthTimeController,setState);
+                                      },
+                                      readOnly:true,
+                                      controller: matchGirlBirthTimeController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Birth time",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /* TextField(
+                                /* TextField(
                                 onTap: () async {
                                         _setTimePicker(matchGirlBirthTimeController);
                                 },
@@ -638,33 +640,33 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                         ),
                                 ),
                               ), */
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              readOnly: true,
-                                              onTap: (){
-                                                FocusScope.of(context).requestFocus(FocusNode());
-                                                placesDialog(matchGirlBirthPlaceController, setState);
-                                              },
-                                              controller: matchGirlBirthPlaceController,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "Birth Place",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      readOnly: true,
+                                      onTap: (){
+                                        FocusScope.of(context).requestFocus(FocusNode());
+                                        placesDialog(matchGirlBirthPlaceController, setState);
+                                      },
+                                      controller: matchGirlBirthPlaceController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Birth Place",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /*  TextField(
+                                /*  TextField(
                                 controller: matchGirlBirthPlaceController,
                                 keyboardType: TextInputType.text,
                                 cursorColor: text_dark,
@@ -695,40 +697,40 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 ),
                               ), */
 
-                                        Container(
-                                            alignment: Alignment.topLeft,
-                                            margin: const EdgeInsets.only(
-                                                top: 20, bottom: 10, right: 14),
-                                            child: const Text(
-                                              "Boy's details",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: text_new,
-                                                  fontSize: 16),
-                                            )),
+                                Container(
+                                    alignment: Alignment.topLeft,
+                                    margin: const EdgeInsets.only(
+                                        top: 20, bottom: 10, right: 14),
+                                    child: const Text(
+                                      "Boy's details",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: text_new,
+                                          fontSize: 16),
+                                    )),
 
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              controller: matchBoyFNameController,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "First Name",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      controller: matchBoyFNameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "First Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /* TextField(
+                                /* TextField(
                                 controller: matchBoyFNameController,
                                 keyboardType: TextInputType.text,
                                 cursorColor: text_dark,
@@ -753,28 +755,28 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                         ),
                                 ),
                               ), */
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              controller: matchBoyLNameController,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "Last Name",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      controller: matchBoyLNameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Last Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /* TextField(
+                                /* TextField(
                                 controller: matchBoyLNameController,
                                 keyboardType: TextInputType.text,
                                 cursorColor: text_dark,
@@ -800,32 +802,32 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 ),
                               ), */
 
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              onTap: () async {
-                                                _setDatePicker(matchBoyBirthDateController);
-                                              },
-                                              readOnly: true,
-                                              controller: matchBoyBirthDateController,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "Birth date",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: () async {
+                                        _setDatePicker(matchBoyBirthDateController);
+                                      },
+                                      readOnly: true,
+                                      controller: matchBoyBirthDateController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Birth date",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /* TextField(
+                                /* TextField(
                                 onTap: () async {
                                         _setDatePicker(matchBoyBirthDateController);
                                 },
@@ -855,32 +857,32 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 ),
                               ), */
 
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              onTap: () async {
-                                                _setTimePicker(matchBoyBirthTimeController,setState);
-                                              },
-                                              controller: matchBoyBirthTimeController,
-                                              readOnly: true,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "Birth time",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: () async {
+                                        _setTimePicker(matchBoyBirthTimeController,setState);
+                                      },
+                                      controller: matchBoyBirthTimeController,
+                                      readOnly: true,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Birth time",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /* TextField(
+                                /* TextField(
                                 onTap: () async {
                                         _setTimePicker(matchBoyBirthTimeController);
                                 },
@@ -910,33 +912,33 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 ),
                               ), */
 
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 14),
-                                            child: TextField(
-                                              onTap: (){
-                                                FocusScope.of(context).requestFocus(FocusNode());
-                                                placesDialog(matchBoyBirthPlaceController, setState);
-                                              },
-                                              controller: matchBoyBirthPlaceController,
-                                              readOnly: true,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                labelText: "BirthPlace",
-                                                labelStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: (){
+                                        FocusScope.of(context).requestFocus(FocusNode());
+                                        placesDialog(matchBoyBirthPlaceController, setState);
+                                      },
+                                      controller: matchBoyBirthPlaceController,
+                                      readOnly: true,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "BirthPlace",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /*  TextField(
+                                /*  TextField(
                                 controller: matchBoyBirthPlaceController,
                                 keyboardType: TextInputType.text,
                                 cursorColor: text_dark,
@@ -966,30 +968,30 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                         ),
                                 ),
                               ), */
-                                        Container(
-                                            margin: const EdgeInsets.only(top: 16),
-                                            child: TextField(
-                                              minLines: 4,
-                                              maxLines: 4,
-                                              controller: matchNoteController,
-                                              keyboardType: TextInputType.text,
-                                              cursorColor: Colors.grey,
-                                              decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    borderSide: const BorderSide(color: Colors.grey)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  borderSide: const BorderSide(color: Colors.grey,),
-                                                ),
-                                                hintText: "Note",
-                                                hintStyle: const TextStyle(color: text_new),
-                                              ),
-                                            )
+                                Container(
+                                    margin: const EdgeInsets.only(top: 16),
+                                    child: TextField(
+                                      minLines: 4,
+                                      maxLines: 4,
+                                      controller: matchNoteController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        hintText: "Note",
+                                        hintStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
 
-                                        /*   TextField(
+                                /*   TextField(
                                 controller: matchNoteController,
                                 minLines: 4,
                                 maxLines: 4,
@@ -1015,99 +1017,99 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                         ),
                                 ),
                               ), */
-                                        Container(
-                                          margin: const EdgeInsets.only(left:14,right:14,top:10),
-                                          child: const Divider(
-                                            thickness: 1,
-                                            color: text_light,
-                                            endIndent: 1,
-                                          ),
-                                        ),
+                                Container(
+                                  margin: const EdgeInsets.only(left:14,right:14,top:10),
+                                  child: const Divider(
+                                    thickness: 1,
+                                    color: text_light,
+                                    endIndent: 1,
+                                  ),
+                                ),
 
 
-                                        Container(height: 22,),
-                                        TextButton(
-                                          onPressed: () {
-                                            if (matchFnameController.text.isEmpty)
-                                            {
-                                              showToast('Please enter first name', context);
-                                            }
-                                            else if (matchLnameController.text.isEmpty)
-                                            {
-                                              showToast('Please enter last name', context);
-                                            }
-                                            else if (matchEmailcontroller.text.isEmpty)
-                                            {
-                                              showToast("Please enter email", context);
-                                            }
-                                            else if (matchNumberController.text.isEmpty)
-                                            {
-                                              showToast("Please enter phone number", context);
-                                            }
-                                            else if (matchGirlFnameController.text.isEmpty)
-                                            {
-                                              showToast("Please enter girl first name", context);
-                                            }
-                                            else if (matchGirlLNameController.text.isEmpty)
-                                            {
-                                              showToast("Please enter girl last name", context);
-                                            }
-                                            else if (matchGirlBirthDateController.text.isEmpty)
-                                            {
-                                              showToast("Please enter girl birth", context);
-                                            }
-                                            else if (matchGirlBirthTimeController.text.isEmpty)
-                                            {
-                                              showToast("Please enter girl birth time", context);
-                                            }
-                                            else if (matchGirlBirthPlaceController.text.isEmpty)
-                                            {
-                                              showToast("Please enter girl birth place", context);
-                                            }
-                                            else if (matchBoyFNameController.text.isEmpty)
-                                            {
-                                              showToast("Please enter boy first name", context);
-                                            }
-                                            else if (matchBoyLNameController.text.isEmpty)
-                                            {
-                                              showToast("Please enter boy last name", context);
-                                            }
-                                            else if (matchBoyBirthPlaceController.text.isEmpty)
-                                            {
-                                              showToast("Please enter boy birthplace", context);
-                                            }
-                                            else if (matchBoyBirthDateController.text.isEmpty)
-                                            {
-                                              showToast("Please enter boy birth date", context);
-                                            }
-                                            else
-                                            {
-                                              _confirmMatchMaking();
-                                            }
-                                          },
-                                          style: ButtonStyle(
-                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
-                                            ),
-                                            backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
-                                          ),
+                                Container(height: 22,),
+                                TextButton(
+                                  onPressed: () {
+                                    if (matchFnameController.text.isEmpty)
+                                    {
+                                      showToast('Please enter first name', context);
+                                    }
+                                    else if (matchLnameController.text.isEmpty)
+                                    {
+                                      showToast('Please enter last name', context);
+                                    }
+                                    else if (matchEmailcontroller.text.isEmpty)
+                                    {
+                                      showToast("Please enter email", context);
+                                    }
+                                    else if (matchNumberController.text.isEmpty)
+                                    {
+                                      showToast("Please enter phone number", context);
+                                    }
+                                    else if (matchGirlFnameController.text.isEmpty)
+                                    {
+                                      showToast("Please enter girl first name", context);
+                                    }
+                                    else if (matchGirlLNameController.text.isEmpty)
+                                    {
+                                      showToast("Please enter girl last name", context);
+                                    }
+                                    else if (matchGirlBirthDateController.text.isEmpty)
+                                    {
+                                      showToast("Please enter girl birth", context);
+                                    }
+                                    else if (matchGirlBirthTimeController.text.isEmpty)
+                                    {
+                                      showToast("Please enter girl birth time", context);
+                                    }
+                                    else if (matchGirlBirthPlaceController.text.isEmpty)
+                                    {
+                                      showToast("Please enter girl birth place", context);
+                                    }
+                                    else if (matchBoyFNameController.text.isEmpty)
+                                    {
+                                      showToast("Please enter boy first name", context);
+                                    }
+                                    else if (matchBoyLNameController.text.isEmpty)
+                                    {
+                                      showToast("Please enter boy last name", context);
+                                    }
+                                    else if (matchBoyBirthPlaceController.text.isEmpty)
+                                    {
+                                      showToast("Please enter boy birthplace", context);
+                                    }
+                                    else if (matchBoyBirthDateController.text.isEmpty)
+                                    {
+                                      showToast("Please enter boy birth date", context);
+                                    }
+                                    else
+                                    {
+                                      _confirmMatchMaking();
+                                    }
+                                  },
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
+                                  ),
 
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: const [
-                                                Text('Get For 11\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Container(height: 22,),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: const [
+                                        Text('Get For 11\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
                                       ],
                                     ),
                                   ),
-                                  /* InkWell(
+                                ),
+                                Container(height: 22,),
+                              ],
+                            ),
+                          ),
+                          /* InkWell(
                                 onTap: () {
                                   if (matchFnameController.text.isEmpty)
                                   {
@@ -1186,10 +1188,1125 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                   ),
                                 ),
                               ) */
-                                ],
-                              ),
+                        ],
+                      ),
 
+                    ),
+                  ),
+                );
+              }),
+
+
+            ),
+          ]),
+    )
+        : SingleChildScrollView(
+      child: Wrap(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: StatefulBuilder(builder: (context, setState) {
+                return Container(
+                  height: MediaQuery.of(context).size.height * 0.88,
+                  decoration: const BoxDecoration(
+                      color: bottomSheetBg,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(22.0),
+                        topRight: Radius.circular(22.0),
+                      )
+                  ),
+                  child:  _isLoading
+                      ? Container(
+                      height: MediaQuery.of(context).size.height * 0.88,
+                      child: const LoadingWidget()
+                  )
+                      : SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 18.0, right: 18),
+                            child: Column(
+                              children: [
+                                Container(
+                                    width: 50,
+                                    margin: const EdgeInsets.only(top: 12),
+                                    child: const Divider(
+                                      height: 2,
+                                      thickness: 2,
+                                      color: bottomSheetline,
+                                    )
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 20),
+                                  child: const Text(
+                                    "Match Making",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold, color: darkbrown, fontSize: 18),
+                                  ),
+                                ),
+                                Container(height: 12,),
+                                const Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text("*Payment of \$11 required to avail "
+                                      "Match Making service. You will be guided to the payment process in the next steps.",
+                                    style: TextStyle(color: lighttxtGrey, fontSize: 14),),
+                                ),
+                                Container(
+                                    alignment: Alignment.topLeft,
+                                    margin: const EdgeInsets.only(top: 20,bottom:14),
+                                    child: const Text(
+                                      "Yajman's details",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: text_new,
+                                          fontSize: 16),
+                                    )
+                                ),
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: (){
+                                      },
+                                      controller: matchFnameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "First Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+
+                                /* TextField(
+                                controller: matchFnameController,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "First Name",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      controller: matchLnameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Last Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /* TextField(
+                                          controller: matchLnameController,
+                                          keyboardType: TextInputType.text,
+                                          cursorColor: text_dark,
+                                          style: const TextStyle(
+                                                    color: title,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600),
+                                          decoration: InputDecoration(
+                                                  contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                                  fillColor: white_blue,
+                                                  counterText: "",
+                                                  border: OutlineInputBorder(
+                                                      borderRadius: BorderRadius.circular(10.0),
+                                                      borderSide: const BorderSide(
+                                                          width: 0, style: BorderStyle.none)),
+                                                  filled: true,
+                                                  hintText: "Last Name",
+                                                  hintStyle: const TextStyle(
+                                                    color: text_dark,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w900,
+                                                  ),
+                                          ),
+                                        ), */
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      controller: matchEmailcontroller,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Email",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /* TextField(
+                                controller: matchEmailcontroller,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "Email",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.only(left: 14, right: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1,
+                                    ),
+
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(18),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      GestureDetector(
+                                        child: Text(countryCode,
+                                            style: const TextStyle(
+                                                color: text_dark,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14)),
+                                        onTap: (){
+                                          countryDialog(setState);
+                                        },
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 10),
+                                        height: 20,
+                                        width: 1,
+                                        color: text_light,
+                                      ),
+                                      Flexible(
+                                        child:TextField(
+                                          controller: matchNumberController,
+                                          maxLength: 12,
+                                          keyboardType: TextInputType.number,
+                                          cursorColor: text_dark,
+                                          style: const TextStyle(
+                                              color: title,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                          decoration: InputDecoration(
+                                            contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
+                                            fillColor: bottomSheetBg,
+                                            counterText: "",
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(14.0),
+                                                borderSide: const BorderSide(
+                                                    width: 0, style: BorderStyle.none)),
+                                            filled: true,
+                                            hintText: "Mobile Number",
+                                            hintStyle: const TextStyle(
+                                              color: text_dark,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+
+                                /* Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.only(left: 14, right: 10),
+                                decoration: const BoxDecoration(
+                                        color: white_blue,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                ),
+                                child: Row(
+                                        children: [
+                                          GestureDetector(
+                                            child:  Text(countryCode,
+                                                style: const TextStyle(
+                                                    color: text_dark,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14)),
+                                            onTap: (){
+                                              countryDialog(setState);
+                                            },
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.only(left: 10),
+                                            height: 20,
+                                            width: 1,
+                                            color: text_light,
+                                          ),
+                                          Flexible(
+                                            child:TextField(
+                                              controller: matchNumberController,
+                                              maxLength: 12,
+                                              keyboardType: TextInputType.number,
+                                              cursorColor: text_dark,
+                                              style: const TextStyle(
+                                                  color: title,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600),
+                                              decoration: InputDecoration(
+                                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                                fillColor: white_blue,
+                                                counterText: "",
+                                                border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(10.0),
+                                                    borderSide: const BorderSide(
+                                                        width: 0, style: BorderStyle.none)),
+                                                filled: true,
+                                                hintText: "Mobile Number",
+                                                hintStyle: const TextStyle(
+                                                  color: text_dark,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                ),
+                              ), */
+                                Container(height: 12,),
+                                Container(
+                                    margin: const EdgeInsets.only(top: 10, bottom: 10),
+                                    alignment: Alignment.topLeft,
+                                    child: const Text(
+                                      "Girl's details",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: text_new,
+                                          fontSize: 16),
+                                    )
+                                ),
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: (){
+                                      },
+                                      controller: matchGirlFnameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "First Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /* TextField(
+                                controller: matchGirlFnameController,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "First Name",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: (){
+                                      },
+                                      controller: matchGirlLNameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Last Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /*   TextField(
+                                controller: matchGirlLNameController,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "Last Name",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: () async {
+                                        _setDatePicker(matchGirlBirthDateController);
+                                      },
+                                      readOnly: true,
+                                      controller: matchGirlBirthDateController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Birth date",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /* TextField(
+                                onTap: () async {
+                                        _setDatePicker(matchGirlBirthDateController);
+                                },
+                                controller: matchGirlBirthDateController,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                readOnly: true,
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "Birth date",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: () async {
+                                        _setTimePicker(matchGirlBirthTimeController,setState);
+                                      },
+                                      readOnly:true,
+                                      controller: matchGirlBirthTimeController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Birth time",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /* TextField(
+                                onTap: () async {
+                                        _setTimePicker(matchGirlBirthTimeController);
+                                },
+                                readOnly:true,
+                                controller: matchGirlBirthTimeController,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        counterText: "",
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "Birth time",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      readOnly: true,
+                                      onTap: (){
+                                        FocusScope.of(context).requestFocus(FocusNode());
+                                        placesDialog(matchGirlBirthPlaceController, setState);
+                                      },
+                                      controller: matchGirlBirthPlaceController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Birth Place",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /*  TextField(
+                                controller: matchGirlBirthPlaceController,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                readOnly: true,
+                                onTap: (){
+                                        FocusScope.of(context).requestFocus(FocusNode());
+                                        placesDialog(matchGirlBirthPlaceController, setState);
+                                },
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        counterText: "",
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "Birth Place",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+
+                                Container(
+                                    alignment: Alignment.topLeft,
+                                    margin: const EdgeInsets.only(
+                                        top: 20, bottom: 10, right: 14),
+                                    child: const Text(
+                                      "Boy's details",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: text_new,
+                                          fontSize: 16),
+                                    )),
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      controller: matchBoyFNameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "First Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /* TextField(
+                                controller: matchBoyFNameController,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        counterText: "",
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "First Name",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      controller: matchBoyLNameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Last Name",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /* TextField(
+                                controller: matchBoyLNameController,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "Last Name",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: () async {
+                                        _setDatePicker(matchBoyBirthDateController);
+                                      },
+                                      readOnly: true,
+                                      controller: matchBoyBirthDateController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Birth date",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /* TextField(
+                                onTap: () async {
+                                        _setDatePicker(matchBoyBirthDateController);
+                                },
+                                controller: matchBoyBirthDateController,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                readOnly: true,
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "Birth date",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: () async {
+                                        _setTimePicker(matchBoyBirthTimeController,setState);
+                                      },
+                                      controller: matchBoyBirthTimeController,
+                                      readOnly: true,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Birth time",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /* TextField(
+                                onTap: () async {
+                                        _setTimePicker(matchBoyBirthTimeController);
+                                },
+                                controller: matchBoyBirthTimeController,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                readOnly: true,
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "Birth time",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+
+                                Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: TextField(
+                                      onTap: (){
+                                        FocusScope.of(context).requestFocus(FocusNode());
+                                        placesDialog(matchBoyBirthPlaceController, setState);
+                                      },
+                                      controller: matchBoyBirthPlaceController,
+                                      readOnly: true,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "BirthPlace",
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /*  TextField(
+                                controller: matchBoyBirthPlaceController,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                readOnly: true,
+                                onTap: (){
+                                        FocusScope.of(context).requestFocus(FocusNode());
+                                        placesDialog(matchBoyBirthPlaceController, setState);
+                                },
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "BirthPlace",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+                                Container(
+                                    margin: const EdgeInsets.only(top: 16),
+                                    child: TextField(
+                                      minLines: 4,
+                                      maxLines: 4,
+                                      controller: matchNoteController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        hintText: "Note",
+                                        hintStyle: const TextStyle(color: text_new),
+                                      ),
+                                    )
+                                ),
+
+                                /*   TextField(
+                                controller: matchNoteController,
+                                minLines: 4,
+                                maxLines: 4,
+                                keyboardType: TextInputType.text,
+                                cursorColor: text_dark,
+                                style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "Note",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                ),
+                              ), */
+                                Container(
+                                  margin: const EdgeInsets.only(left:14,right:14,top:10),
+                                  child: const Divider(
+                                    thickness: 1,
+                                    color: text_light,
+                                    endIndent: 1,
+                                  ),
+                                ),
+
+
+                                Container(height: 22,),
+                                TextButton(
+                                  onPressed: () {
+                                    if (matchFnameController.text.isEmpty)
+                                    {
+                                      showToast('Please enter first name', context);
+                                    }
+                                    else if (matchLnameController.text.isEmpty)
+                                    {
+                                      showToast('Please enter last name', context);
+                                    }
+                                    else if (matchEmailcontroller.text.isEmpty)
+                                    {
+                                      showToast("Please enter email", context);
+                                    }
+                                    else if (matchNumberController.text.isEmpty)
+                                    {
+                                      showToast("Please enter phone number", context);
+                                    }
+                                    else if (matchGirlFnameController.text.isEmpty)
+                                    {
+                                      showToast("Please enter girl first name", context);
+                                    }
+                                    else if (matchGirlLNameController.text.isEmpty)
+                                    {
+                                      showToast("Please enter girl last name", context);
+                                    }
+                                    else if (matchGirlBirthDateController.text.isEmpty)
+                                    {
+                                      showToast("Please enter girl birth", context);
+                                    }
+                                    else if (matchGirlBirthTimeController.text.isEmpty)
+                                    {
+                                      showToast("Please enter girl birth time", context);
+                                    }
+                                    else if (matchGirlBirthPlaceController.text.isEmpty)
+                                    {
+                                      showToast("Please enter girl birth place", context);
+                                    }
+                                    else if (matchBoyFNameController.text.isEmpty)
+                                    {
+                                      showToast("Please enter boy first name", context);
+                                    }
+                                    else if (matchBoyLNameController.text.isEmpty)
+                                    {
+                                      showToast("Please enter boy last name", context);
+                                    }
+                                    else if (matchBoyBirthPlaceController.text.isEmpty)
+                                    {
+                                      showToast("Please enter boy birthplace", context);
+                                    }
+                                    else if (matchBoyBirthDateController.text.isEmpty)
+                                    {
+                                      showToast("Please enter boy birth date", context);
+                                    }
+                                    else
+                                    {
+                                      _confirmMatchMaking();
+                                    }
+                                  },
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
+                                  ),
+
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: const [
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 8.0, bottom: 8),
+                                          child: Text('Get For 11\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(height: 22,),
+                              ],
                             ),
+                          ),
+                          /* InkWell(
+                                onTap: () {
+                                  if (matchFnameController.text.isEmpty)
+                                  {
+                                    showToast('Please enter first name', context);
+                                  }
+                                  else if (matchLnameController.text.isEmpty)
+                                  {
+                                    showToast('Please enter last name', context);
+                                  }
+                                  else if (matchEmailcontroller.text.isEmpty)
+                                  {
+                                    showToast("Please enter email", context);
+                                  }
+                                  else if (matchNumberController.text.isEmpty)
+                                  {
+                                    showToast("Please enter phone number", context);
+                                  }
+                                  else if (matchGirlFnameController.text.isEmpty)
+                                  {
+                                    showToast("Please enter girl first name", context);
+                                  }
+                                  else if (matchGirlLNameController.text.isEmpty)
+                                  {
+                                    showToast("Please enter girl last name", context);
+                                  }
+                                  else if (matchGirlBirthDateController.text.isEmpty)
+                                  {
+                                    showToast("Please enter girl birth", context);
+                                  }
+                                  else if (matchGirlBirthTimeController.text.isEmpty)
+                                  {
+                                    showToast("Please enter girl birth time", context);
+                                  }
+                                  else if (matchGirlBirthPlaceController.text.isEmpty)
+                                  {
+                                    showToast("Please enter girl birth place", context);
+                                  }
+                                  else if (matchBoyFNameController.text.isEmpty)
+                                  {
+                                    showToast("Please enter boy first name", context);
+                                  }
+                                  else if (matchBoyLNameController.text.isEmpty)
+                                  {
+                                    showToast("Please enter boy last name", context);
+                                  }
+                                  else if (matchBoyBirthPlaceController.text.isEmpty)
+                                  {
+                                    showToast("Please enter boy birthplace", context);
+                                  }
+                                  else if (matchBoyBirthDateController.text.isEmpty)
+                                  {
+                                    showToast("Please enter boy birth date", context);
+                                  }
+                                  else
+                                  {
+                                    _confirmMatchMaking();
+                                  }
+                                },
+                                child: Container(
+                                  alignment: Alignment.bottomRight,
+                                  padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 20),
+                                  child:  Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    color: light_yellow,
+                                    elevation: 10,
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(14.0),
+                                      child: Text("Review Request",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: title,
+                                            fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                                    ),
+                                  ),
+                                ),
+                              ) */
+                        ],
+                      ),
+
+                    ),
                   ),
                 );
               }),
@@ -1198,6 +2315,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
             ),
           ]),
     );
+
   }
 
 

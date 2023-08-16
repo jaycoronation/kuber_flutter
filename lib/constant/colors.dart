@@ -34,6 +34,10 @@ const Color gradient_start= Color(0xffffa900);
 const Color gradient_end= Color(0xffffe329);
 Color kuber = const Color(0Xfffbfbef);
 Color headerkuber = const Color(0Xffffd4cc);
+const Color listActionColor = Color(0xff7c4d24);
+const Color lightGrey = Color(0xffacbecc);
+const Color chart_color12= Color(0xfff1f3f4);
+
 
 
 

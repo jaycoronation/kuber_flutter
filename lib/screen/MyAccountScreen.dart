@@ -21,6 +21,7 @@ import 'package:kuber/utils/session_manager_methods.dart';
 import 'package:kuber/widget/loading.dart';
 
 import '../model/CountryListResponseModel.dart';
+import '../utils/responsive.dart';
 import 'DonationListScreen.dart';
 import 'MatchMakingScreen.dart';
 import 'NewProfileScreen.dart';
@@ -47,7 +48,8 @@ class _MyAccountScreen extends State<MyAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return ResponsiveWidget.isSmallScreen(context)
+      ?  WillPopScope(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: bg_skin,
@@ -55,422 +57,422 @@ class _MyAccountScreen extends State<MyAccountScreen> {
         body: _isLoading
             ? const LoadingWidget()
             : Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                      left: 14, right: 14),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "My Account",
-                    style: getTitleFontStyle()
-                  ),
-                ),
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                  left: 14, right: 14),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                  "My Account",
+                  style: getTitleFontStyle()
+              ),
+            ),
 
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: 4,right: 22,left: 22),
-                          child:GestureDetector(
-                            onTap: () async {
-                              var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
-                              if (value)
-                                {
-                                  setState(() {});
-                                }
-                            },
-                            child: Column(
-                                children:[
-                                  _sessionManager.getImagePic()?.isNotEmpty ?? false
-                                      ? Container(
-                                          width: 100,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: light_yellow,
-                                                width: 1
-                                            ),
-                                            image: DecorationImage(
-                                                image: NetworkImage(_sessionManager.getImagePic().toString()) ,
-                                                fit: BoxFit.cover
-                                            ),
-                                          ),
-                                        )
-                                      : Image.asset("assets/images/ic_user_placeholder.png",height: 100,),
-                                  Container(
-                                      margin: const EdgeInsets.only(top: 6),
-                                      child:  Text(
-                                        "${_sessionManager.getName()} ${_sessionManager.getLastName() }",textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 14),)),
-                                  Visibility(
-                                    visible:  _sessionManager.getEmail().toString().isNotEmpty,
-                                    child: Container(
-                                        margin: const EdgeInsets.only(top: 6),
-                                        child: Text(
-                                          _sessionManager.getEmail().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),)),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 4,right: 22,left: 22),
+                      child:GestureDetector(
+                        onTap: () async {
+                          var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
+                          if (value)
+                          {
+                            setState(() {});
+                          }
+                        },
+                        child: Column(
+                            children:[
+                              _sessionManager.getImagePic()?.isNotEmpty ?? false
+                                  ? Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: light_yellow,
+                                      width: 1
                                   ),
-                                  Container(
-                                      margin: const EdgeInsets.only(top: 6),
-                                      child: Text(
-                                        _sessionManager.getPhone().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),))
-                                  ]
-                            ),
-                          ),
+                                  image: DecorationImage(
+                                      image: NetworkImage(_sessionManager.getImagePic().toString()) ,
+                                      fit: BoxFit.cover
+                                  ),
+                                ),
+                              )
+                                  : Image.asset("assets/images/ic_user_placeholder.png",height: 100,),
+                              Container(
+                                  margin: const EdgeInsets.only(top: 6),
+                                  child:  Text(
+                                    "${_sessionManager.getName()} ${_sessionManager.getLastName() }",textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 14),)),
+                              Visibility(
+                                visible:  _sessionManager.getEmail().toString().isNotEmpty,
+                                child: Container(
+                                    margin: const EdgeInsets.only(top: 6),
+                                    child: Text(
+                                      _sessionManager.getEmail().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),)),
+                              ),
+                              Container(
+                                  margin: const EdgeInsets.only(top: 6),
+                                  child: Text(
+                                    _sessionManager.getPhone().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),))
+                            ]
                         ),
-                        Container(
-                          alignment: Alignment.topLeft,
-                          margin: const EdgeInsets.only(left: 16),
-                          child: const Text('General',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
-                        InkWell(
-                          onTap:() async {
-                            var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      margin: const EdgeInsets.only(left: 16),
+                      child: const Text('General',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
+                    InkWell(
+                      onTap:() async {
+                        var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
 
-                            if (value)
-                              {
-                                setState((){});
-                              }
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                      children: [
-                                        Image.asset("assets/images/ic_profile.png",height: 20,),
-                                        Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                         child: const Text('My Profile',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                        const Spacer(),
-                                        Image.asset("assets/images/ic_right.png",height: 14,),
-                                      ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Divider(color: title,height: 0.5,),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        // InkWell(
-                        //   child: Container(
-                        //     alignment: Alignment.center,
-                        //       margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                        //     child: Column(
-                        //       children: [
-                        //         Padding(
-                        //           padding: const EdgeInsets.only(top: 6,bottom: 6),
-                        //           child: Row(
-                        //             children: [
-                        //               Image.asset("assets/images/ic_address_new.png",height: 20,),
-                        //               Container(
-                        //                   margin: const EdgeInsets.only(left: 14,right: 14),
-                        //                   child: const Text('My Addresses',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                        //               const Spacer(),
-                        //               Image.asset("assets/images/ic_right.png",height: 14,),
-                        //             ],
-                        //           ),
-                        //         ),
-                        //         Container(
-                        //           margin: const EdgeInsets.only(top: 14),
-                        //           child: const Divider(color: title,height: 0.5,),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        //   onTap: (){
-                        //     Navigator.push(context, MaterialPageRoute(builder: (context) => const MyAddresses()));
-                        //   },
-                        // ),
-                        InkWell(
-                          child: Container(
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/ic_feed.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('Feed',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)
-                                      ),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Divider(color: title,height: 0.5,),
-                                ),
-                              ],
-                            ),
-                          ),
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const FeedScreen()));
-                          },
-                        ),
-                        Visibility(
-                          visible: false,
-                          child: InkWell(
-                            child: Container(
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                              child: Column(
+                        if (value)
+                        {
+                          setState((){});
+                        }
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                    child: Row(
-                                      children: [
-                                        Image.asset("assets/images/ic_thought.png",height: 20,),
-                                        Container(
-                                            margin: const EdgeInsets.only(left: 14,right: 14),
-                                            child: const Text('Thoughts',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)
-                                        ),
-                                        const Spacer(),
-                                        Image.asset("assets/images/ic_right.png",height: 14,),
-                                      ],
-                                    ),
-                                  ),
+                                  Image.asset("assets/images/ic_profile.png",height: 20,),
                                   Container(
-                                    margin: const EdgeInsets.only(top: 14),
-                                    child: const Divider(color: title,height: 0.5,),
-                                  ),
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('My Profile',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
                                 ],
                               ),
                             ),
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const ThoughtsScreen()));
-                            },
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.topLeft,
-                          margin: const EdgeInsets.only(left: 16,top: 16),
-                          child: const Text('Inquiry',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
-                        InkWell(
-                          child: Container(
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/ic_booked_prayer.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('Booked Puja',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Divider(color: title,height: 0.5,),
-                                ),
-                              ],
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
                             ),
-                          ),
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const BookedPujaScreen()));
-                          },
+                          ],
                         ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const MatchMakingScreen()));
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/ic_match_making_list.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('Match Making',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
+                      ),
+                    ),
+                    // InkWell(
+                    //   child: Container(
+                    //     alignment: Alignment.center,
+                    //       margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                    //     child: Column(
+                    //       children: [
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(top: 6,bottom: 6),
+                    //           child: Row(
+                    //             children: [
+                    //               Image.asset("assets/images/ic_address_new.png",height: 20,),
+                    //               Container(
+                    //                   margin: const EdgeInsets.only(left: 14,right: 14),
+                    //                   child: const Text('My Addresses',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                    //               const Spacer(),
+                    //               Image.asset("assets/images/ic_right.png",height: 14,),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         Container(
+                    //           margin: const EdgeInsets.only(top: 14),
+                    //           child: const Divider(color: title,height: 0.5,),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    //   onTap: (){
+                    //     Navigator.push(context, MaterialPageRoute(builder: (context) => const MyAddresses()));
+                    //   },
+                    // ),
+                    InkWell(
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_feed.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Feed',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)
                                   ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Divider(color: title,height: 0.5,),
-                                ),
-                              ],
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
                             ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const FeedScreen()));
+                      },
+                    ),
+                    Visibility(
+                      visible: false,
+                      child: InkWell(
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 6,bottom: 6),
+                                child: Row(
+                                  children: [
+                                    Image.asset("assets/images/ic_thought.png",height: 20,),
+                                    Container(
+                                        margin: const EdgeInsets.only(left: 14,right: 14),
+                                        child: const Text('Thoughts',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)
+                                    ),
+                                    const Spacer(),
+                                    Image.asset("assets/images/ic_right.png",height: 14,),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 14),
+                                child: const Divider(color: title,height: 0.5,),
+                              ),
+                            ],
                           ),
                         ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const AstrologyScreen()));
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/ic_astrology_list.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('Astrology',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Divider(color: title,height: 0.5,),
-                                ),
-                              ],
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ThoughtsScreen()));
+                        },
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      margin: const EdgeInsets.only(left: 16,top: 16),
+                      child: const Text('Inquiry',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
+                    InkWell(
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_booked_prayer.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Booked Puja',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const RashiScreen()));
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/ic_rashi_list.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('Rashi List',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Divider(color: title,height: 0.5,),
-                                ),
-                              ],
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
                             ),
-                          ),
+                          ],
                         ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const PrayerRequestScreen()));
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/ic_prayer_request.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('Prayer Request',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Divider(color: title,height: 0.5,),
-                                ),
-                              ],
+                      ),
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const BookedPujaScreen()));
+                      },
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const MatchMakingScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_match_making_list.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Match Making',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const DonationListScreen()));
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/Charity.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('Donation List',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Divider(color: title,height: 0.5,),
-                                ),
-                              ],
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
                             ),
-                          ),
+                          ],
                         ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AstrologyScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_astrology_list.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Astrology',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const RashiScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_rashi_list.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Rashi List',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const PrayerRequestScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_prayer_request.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Prayer Request',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DonationListScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/Charity.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Donation List',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
 
-                        Container(
-                          alignment: Alignment.topLeft,
-                          margin: const EdgeInsets.only(left: 16,top: 16),
-                          child: const Text('About',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
-                        InkWell(
-                          child: Container(
-                            alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/ic_delete_account.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('Delete Account',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: const Divider(color: title,height: 0.5,),
-                                ),
-                              ],
+                    Container(
+                      alignment: Alignment.topLeft,
+                      margin: const EdgeInsets.only(left: 16,top: 16),
+                      child: const Text('About',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
+                    InkWell(
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_delete_account.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Delete Account',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
                             ),
-                          ),
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountScreen()));
-                          },
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
                         ),
+                      ),
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountScreen()));
+                      },
+                    ),
 /*
                         Visibility(
                           visible: _sessionManager.getType().toString() != "User",
@@ -506,80 +508,614 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                           ),
                         ),
 */
-                        Container(
-                          alignment: Alignment.center,
-                            margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                          child: Column(
-                            children: [
-                              GestureDetector(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://www.panditbookings.com/terms-and-conditions/', 'Terms & Conditions')));
-                                },
-                                behavior: HitTestBehavior.opaque,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/ic_terms.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('Terms & Conditions',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
-                                  ),
-                                ),
+                    Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://www.panditbookings.com/terms-and-conditions/', 'Terms & Conditions')));
+                            },
+                            behavior: HitTestBehavior.opaque,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_terms.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Terms & Conditions',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
                               ),
-                              Container(
-                                margin: const EdgeInsets.only(top: 14),
-                                child: const Divider(color: title,height: 0.5,),
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                            margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                          child: Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
-                                },
-                                behavior: HitTestBehavior.opaque,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                  child: Row(
-                                    children: [
-                                      Image.asset("assets/images/ic_privacy.png",height: 20,),
-                                      Container(
-                                          margin: const EdgeInsets.only(left: 14,right: 14),
-                                          child: const Text('Privacy policy',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
-                                      const Spacer(),
-                                      Image.asset("assets/images/ic_right.png",height: 14,),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(top: 14),
-                                child: const Divider(color: title,height: 0.5,),
-                              ),
-                            ],
+                          Container(
+                            margin: const EdgeInsets.only(top: 14),
+                            child: const Divider(color: title,height: 0.5,),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
+                    Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
+                            },
+                            behavior: HitTestBehavior.opaque,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_privacy.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Privacy policy',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 14),
+                            child: const Divider(color: title,height: 0.5,),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
+          ],
+        ),
+      ),
+      onWillPop: () {
+        Navigator.pop(context,true);
+        return Future.value(true);
+      },
+    )
+        :  WillPopScope(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        backgroundColor: bg_skin,
+        appBar: setUpNavigationBar(),
+        body: _isLoading
+            ? const LoadingWidget()
+            : Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                  left: 18, right: 18),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                  "My Account",
+                  style: getTitleFontStyle()
+              ),
+            ),
+
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 4,right: 22,left: 22),
+                      child:GestureDetector(
+                        onTap: () async {
+                          var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
+                          if (value)
+                          {
+                            setState(() {});
+                          }
+                        },
+                        child: Column(
+                            children:[
+                              _sessionManager.getImagePic()?.isNotEmpty ?? false
+                                  ? Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: light_yellow,
+                                      width: 1
+                                  ),
+                                  image: DecorationImage(
+                                      image: NetworkImage(_sessionManager.getImagePic().toString()) ,
+                                      fit: BoxFit.cover
+                                  ),
+                                ),
+                              )
+                                  : Image.asset("assets/images/ic_user_placeholder.png",height: 100,),
+                              Container(
+                                  margin: const EdgeInsets.only(top: 6),
+                                  child:  Text(
+                                    "${_sessionManager.getName()} ${_sessionManager.getLastName() }",textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 14),)),
+                              Visibility(
+                                visible:  _sessionManager.getEmail().toString().isNotEmpty,
+                                child: Container(
+                                    margin: const EdgeInsets.only(top: 6),
+                                    child: Text(
+                                      _sessionManager.getEmail().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),)),
+                              ),
+                              Container(
+                                  margin: const EdgeInsets.only(top: 6),
+                                  child: Text(
+                                    _sessionManager.getPhone().toString(),textAlign: TextAlign.center,style: const TextStyle(fontWeight: FontWeight.bold,color: title,fontSize: 12),))
+                            ]
+                        ),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      margin: const EdgeInsets.only(left: 16),
+                      child: const Text('General',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
+                    InkWell(
+                      onTap:() async {
+                        var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
+
+                        if (value)
+                        {
+                          setState((){});
+                        }
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_profile.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('My Profile',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    // InkWell(
+                    //   child: Container(
+                    //     alignment: Alignment.center,
+                    //       margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                    //     child: Column(
+                    //       children: [
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(top: 6,bottom: 6),
+                    //           child: Row(
+                    //             children: [
+                    //               Image.asset("assets/images/ic_address_new.png",height: 20,),
+                    //               Container(
+                    //                   margin: const EdgeInsets.only(left: 14,right: 14),
+                    //                   child: const Text('My Addresses',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                    //               const Spacer(),
+                    //               Image.asset("assets/images/ic_right.png",height: 14,),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         Container(
+                    //           margin: const EdgeInsets.only(top: 14),
+                    //           child: const Divider(color: title,height: 0.5,),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    //   onTap: (){
+                    //     Navigator.push(context, MaterialPageRoute(builder: (context) => const MyAddresses()));
+                    //   },
+                    // ),
+                    InkWell(
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_feed.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Feed',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)
+                                  ),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const FeedScreen()));
+                      },
+                    ),
+                    Visibility(
+                      visible: false,
+                      child: InkWell(
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 6,bottom: 6),
+                                child: Row(
+                                  children: [
+                                    Image.asset("assets/images/ic_thought.png",height: 20,),
+                                    Container(
+                                        margin: const EdgeInsets.only(left: 14,right: 14),
+                                        child: const Text('Thoughts',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)
+                                    ),
+                                    const Spacer(),
+                                    Image.asset("assets/images/ic_right.png",height: 14,),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 14),
+                                child: const Divider(color: title,height: 0.5,),
+                              ),
+                            ],
+                          ),
+                        ),
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ThoughtsScreen()));
+                        },
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      margin: const EdgeInsets.only(left: 16,top: 16),
+                      child: const Text('Inquiry',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
+                    InkWell(
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_booked_prayer.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Booked Puja',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const BookedPujaScreen()));
+                      },
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const MatchMakingScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_match_making_list.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Match Making',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AstrologyScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_astrology_list.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Astrology',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const RashiScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_rashi_list.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Rashi List',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const PrayerRequestScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_prayer_request.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Prayer Request',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DonationListScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/Charity.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Donation List',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    Container(
+                      alignment: Alignment.topLeft,
+                      margin: const EdgeInsets.only(left: 16,top: 16),
+                      child: const Text('About',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
+                    InkWell(
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_delete_account.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Delete Account',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              child: const Divider(color: title,height: 0.5,),
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountScreen()));
+                      },
+                    ),
+/*
+                        Visibility(
+                          visible: _sessionManager.getType().toString() != "User",
+                          child: InkWell(
+                            child: Container(
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 6,bottom: 6),
+                                    child: Row(
+                                      children: [
+                                        Image.asset("assets/images/ic_help.png",height: 20,),
+                                        Container(
+                                            margin: const EdgeInsets.only(left: 14,right: 14),
+                                            child: const Text('Change Password',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                        const Spacer(),
+                                        Image.asset("assets/images/ic_right.png",height: 14,),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: const Divider(color: title,height: 0.5,),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePassWordScreen()));
+                            },
+                          ),
+                        ),
+*/
+                    Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://www.panditbookings.com/terms-and-conditions/', 'Terms & Conditions')));
+                            },
+                            behavior: HitTestBehavior.opaque,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_terms.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Terms & Conditions',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 14),
+                            child: const Divider(color: title,height: 0.5,),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
+                            },
+                            behavior: HitTestBehavior.opaque,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 6,bottom: 6),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/ic_privacy.png",height: 20,),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 14,right: 14),
+                                      child: const Text('Privacy policy',style: TextStyle(fontWeight: FontWeight.w900,color: text_dark,fontSize: 14),)),
+                                  const Spacer(),
+                                  Image.asset("assets/images/ic_right.png",height: 14,),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 14),
+                            child: const Divider(color: title,height: 0.5,),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       onWillPop: () {
         Navigator.pop(context,true);
         return Future.value(true);
       },
     );
+
 }
 
   PreferredSizeWidget setUpNavigationBar() {

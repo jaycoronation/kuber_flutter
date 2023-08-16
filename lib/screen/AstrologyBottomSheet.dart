@@ -19,6 +19,7 @@ import '../model/CountryListResponseModel.dart';
 import '../model/PrayerListResponseModel.dart';
 import '../model/PujaListResponseModel.dart';
 import '../utils/app_utils.dart';
+import '../utils/responsive.dart';
 import '../utils/session_manager.dart';
 import '../widget/loading.dart';
 import 'PujaListScreen.dart';
@@ -80,7 +81,8 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return ResponsiveWidget.isSmallScreen(context)
+      ? Wrap(
         children: [
           StatefulBuilder(
               builder: (context,setState){
@@ -95,9 +97,9 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                   ),
                   child:  _isLoading
                       ? Container(
-                          height: MediaQuery.of(context).size.height * 0.88,
-                          child: const LoadingWidget()
-                      )
+                      height: MediaQuery.of(context).size.height * 0.88,
+                      child: const LoadingWidget()
+                  )
                       :SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Padding(
@@ -745,7 +747,684 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                   ),
                 );
               }),
+        ])
+        :  Wrap(
+        children: [
+          StatefulBuilder(
+              builder: (context,setState){
+                return Container(
+                  height: MediaQuery.of(context).size.height * 0.84,
+                  decoration: const BoxDecoration(
+                    color:bottomSheetBg,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(22.0),
+                      topRight: Radius.circular(22.0),
+                    ),
+                  ),
+                  child:  _isLoading
+                      ? Container(
+                          height: MediaQuery.of(context).size.height * 0.88,
+                          child: const LoadingWidget()
+                      )
+                      :SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: Column(
+                        children: [
+                          Container(
+                              width: 50,
+                              margin: const EdgeInsets.only(top: 12),
+                              child: const Divider(
+                                height: 2,
+                                thickness: 2,
+                                color: bottomSheetline,
+                              )),
+                          Container(
+                            margin: const EdgeInsets.only(top: 20),
+                            child: const Text(
+                              "Astrology",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w900, color: darkbrown, fontSize: 18),
+                            ),
+                          ),
+                          Container(height: 12,),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 18,right:18),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text("*Payment of \$21 required to avail Astrology service."
+                                  " You will be guided to the payment process in the next steps.", style: TextStyle(color: lighttxtGrey, fontSize: 14),),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 14,right:14,),
+                            child: Column(
+                                children:[
+                                  Container(
+                                      alignment: Alignment.topLeft,
+                                      margin: const EdgeInsets.only(top:14,bottom: 14),
+                                      child: const Text("Basic Details",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color:brown),)
+                                  ),
+
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                      child: TextField(
+                                        controller: astroFnameController,
+                                        keyboardType: TextInputType.text,
+                                        cursorColor: Colors.grey,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(20),
+                                              borderSide: const BorderSide(color: Colors.grey)
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey,),
+                                          ),
+                                          labelText: "First Name",
+                                          labelStyle: const TextStyle(color: text_new),
+                                        ),
+                                      )
+                                  ),
+
+                                  /* TextField(
+                              controller: astroFnameController,
+                              keyboardType: TextInputType.text,
+                              cursorColor: text_dark,
+                              style: const TextStyle(
+                                  color: title,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              decoration: InputDecoration(
+                                fillColor: white_blue,
+                                counterText: "",
+                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14.0),
+                                    borderSide: const BorderSide(
+                                        width: 0, style: BorderStyle.none)),
+                                filled: true,
+                                hintText: "First Name",
+                                hintStyle: const TextStyle(
+                                  color: text_dark,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ), */
+
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                      child: TextField(
+                                        onTap: (){
+                                        },
+                                        controller: astroLnameController,
+                                        keyboardType: TextInputType.text,
+                                        cursorColor: Colors.grey,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(20),
+                                              borderSide: const BorderSide(color: Colors.grey)
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey,),
+                                          ),
+                                          labelText: "Last Name",
+                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                      )
+                                  ),
+
+                                  /*  TextField(
+                              controller: astroLnameController,
+                              keyboardType: TextInputType.text,
+                              cursorColor: text_dark,
+                              style: const TextStyle(
+                                  color: title,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              decoration: InputDecoration(
+                                fillColor: white_blue,
+                                counterText: "",
+                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(
+                                        width: 0, style: BorderStyle.none)),
+                                filled: true,
+                                hintText: "Last Name",
+                                hintStyle: const TextStyle(
+                                  color: text_dark,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ), */
+
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                      child: TextField(
+                                        onTap: (){
+                                        },
+                                        controller: astroEmailController,
+                                        keyboardType: TextInputType.text,
+                                        cursorColor: Colors.grey,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(20),
+                                              borderSide: const BorderSide(color: Colors.grey)
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey,),
+                                          ),
+                                          labelText: "Email",
+                                          labelStyle: const TextStyle(color: text_new),
+                                        ),
+                                      )
+                                  ),
+
+                                  /* TextField(
+                              controller: astroEmailController,
+                              keyboardType: TextInputType.text,
+                              cursorColor: text_dark,
+                              style: const TextStyle(
+                                  color: title,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              decoration: InputDecoration(
+                                fillColor: white_blue,
+                                counterText: "",
+                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(
+                                        width: 0, style: BorderStyle.none)),
+                                filled: true,
+                                hintText: "Email",
+                                hintStyle: const TextStyle(
+                                  color: text_dark,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ), */
+
+
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 10),
+                                    alignment: Alignment.center,
+                                    padding: const EdgeInsets.only(left: 14, right: 10),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.grey,
+                                        width: 1,
+                                      ),
+
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(18),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        GestureDetector(
+                                          child:  Text(countryCode,
+                                              style: const TextStyle(
+                                                  color: text_dark,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14
+                                              )
+                                          ),
+                                          onTap: (){
+                                            countryDialog(setState);
+                                          },
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.only(left: 10),
+                                          height: 20,
+                                          width: 1,
+                                          color: text_light,
+                                        ),
+                                        Flexible(
+                                          child:TextField(
+                                            controller: astroMobileNumberController,
+                                            maxLength: 12,
+                                            keyboardType: TextInputType.number,
+                                            cursorColor: text_dark,
+                                            style: const TextStyle(
+                                                color: title,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500),
+                                            decoration: InputDecoration(
+                                              contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
+                                              fillColor: bottomSheetBg,
+                                              counterText: "",
+                                              border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(14.0),
+                                                  borderSide: const BorderSide(
+                                                      width: 0, style: BorderStyle.none)),
+                                              filled: true,
+                                              hintText: "Mobile Number",
+                                              hintStyle: const TextStyle(
+                                                color: text_dark,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w900,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+
+                                  /*  Container(
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.only(left: 14, right: 10),
+                              decoration: const BoxDecoration(
+                                color: white_blue,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  InkWell(
+                                    child: Text(countryCode,
+                                        style: const TextStyle(
+                                            color: text_dark,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14)
+                                    ),
+                                    onTap: (){
+                                      countryDialog(setState);
+                                    },
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 10),
+                                    height: 20,
+                                    width: 1,
+                                    color: text_light,
+                                  ),
+                                  Flexible(
+                                    child: TextField(
+                                      controller: astroMobileNumberController,
+                                      maxLength: 10,
+                                      keyboardType: TextInputType.number,
+                                      cursorColor: text_dark,
+                                      style: const TextStyle(
+                                          color: title,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                      decoration: InputDecoration(
+                                        fillColor: white_blue,
+                                        counterText: "",
+                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            borderSide: const BorderSide(
+                                                width: 0, style: BorderStyle.none)),
+                                        filled: true,
+                                        hintText: "Mobile Number",
+                                        hintStyle: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ), */
+
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                      child: TextField(
+                                        onTap: () async {
+                                          _setDatePicker(astroGirlBirthDateController);
+                                        },
+                                        readOnly: true,
+                                        controller: astroGirlBirthDateController,
+                                        keyboardType: TextInputType.text,
+                                        cursorColor: Colors.grey,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(20),
+                                              borderSide: const BorderSide(color: Colors.grey)
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey,),
+                                          ),
+                                          labelText: "Birth date",
+                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                      )
+                                  ),
+
+                                  /*  TextField(
+                              onTap: () async {
+                                _setDatePicker(astroGirlBirthDateController);
+                              },
+                              controller: astroGirlBirthDateController,
+                              keyboardType: TextInputType.text,
+                              readOnly: true,
+                              cursorColor: text_dark,
+                              style: const TextStyle(
+                                  color: title,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              decoration: InputDecoration(
+                                fillColor: white_blue,
+                                counterText: "",
+                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    borderSide: const BorderSide(
+                                        width: 0, style: BorderStyle.none)),
+                                filled: true,
+                                hintText: "Birth date",
+                                hintStyle: const TextStyle(
+                                  color: text_dark,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ), */
+
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                      child: TextField(
+                                        onTap: () async {
+                                          _setTimePicker(astroBirthTimeController,setState);
+                                        },
+                                        readOnly: true,
+                                        controller: astroBirthTimeController,
+                                        keyboardType: TextInputType.text,
+                                        cursorColor: Colors.grey,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(20),
+                                              borderSide: const BorderSide(color: Colors.grey)
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey,),
+                                          ),
+                                          labelText: "Birth Time",
+                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                      )
+                                  ),
+
+                                  /* TextField(
+                              controller: astroBirthTimeController,
+                              keyboardType: TextInputType.text,
+                              cursorColor: text_dark,
+                              readOnly: true,
+                              onTap: () async {
+                                _setTimePicker(astroBirthTimeController);
+                              },
+                              style: const TextStyle(
+                                  color: title,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              decoration: InputDecoration(
+                                fillColor: white_blue,
+                                counterText: "",
+                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(
+                                        width: 0, style: BorderStyle.none)),
+                                filled: true,
+                                hintText: "Birth Time",
+                                hintStyle: const TextStyle(
+                                  color: text_dark,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ), */
+
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                      child: TextField(
+                                        onTap: (){
+                                          placesDialog(astroBirthPlaceController, setState);
+                                        },
+                                        readOnly: true,
+                                        controller: astroBirthPlaceController,
+                                        keyboardType: TextInputType.text,
+                                        cursorColor: Colors.grey,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(20),
+                                              borderSide: const BorderSide(color: Colors.grey)
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey,),
+                                          ),
+                                          labelText: "Birth Place",
+                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                      )
+                                  ),
+
+                                  /* TextField(
+                              readOnly: true,
+                              controller: astroBirthPlaceController,
+                              keyboardType: TextInputType.text,
+                              cursorColor: text_dark,
+                              onTap: (){
+                                placesDialog(astroBirthPlaceController, setState);
+                              },
+                              style: const TextStyle(
+                                  color: title,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              decoration: InputDecoration(
+                                fillColor: white_blue,
+                                counterText: "",
+                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(
+                                        width: 0, style: BorderStyle.none)),
+                                filled: true,
+                                hintText: "Birth Place",
+                                hintStyle: const TextStyle(
+                                  color: text_dark,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ), */
+
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 14),
+                                      child: TextField(
+                                        minLines: 4,
+                                        maxLines: 4,
+                                        controller: astroNotesController,
+                                        keyboardType: TextInputType.text,
+                                        cursorColor: Colors.grey,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(20),
+                                              borderSide: const BorderSide(color: Colors.grey)
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey,),
+                                          ),
+                                          hintText: "Notes",
+                                          hintStyle: const TextStyle(color: text_new),                                     ),
+                                      )
+                                  ),
+
+                                  /*  TextField(
+                              minLines: 4,
+                              maxLines: 4,
+                              controller: astroNotesController,
+                              keyboardType: TextInputType.text,
+                              cursorColor: text_dark,
+                              style: const TextStyle(
+                                  color: title,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              decoration: InputDecoration(
+                                fillColor: white_blue,
+                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
+                                counterText: "",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(
+                                        width: 0, style: BorderStyle.none)),
+                                filled: true,
+                                hintText: "Notes",
+                                hintStyle: const TextStyle(
+                                  color: text_dark,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ), */
+
+                                  Container(height: 10),
+                                  const Divider(
+                                    thickness: 1,
+                                    color: text_light,
+                                    endIndent: 1,
+                                  ),
+
+                                  /* InkWell(
+                              onTap:(){
+                                if(astroFnameController.text.isEmpty)
+                                {
+                                  showToast("Please enter first name", context);
+                                }
+                                else if(astroLnameController.text.isEmpty)
+                                {
+                                  showToast("Please enter last name", context);
+                                }
+                                else if(astroEmailController.text.isEmpty)
+                                {
+                                  showToast("Please enter email address", context);
+                                }
+                                else if(astroMobileNumberController.text.isEmpty)
+                                {
+                                  showToast("Please enter mobile number", context);
+                                }
+                                else if(astroGirlBirthDateController.text.isEmpty)
+                                {
+                                  showToast("Please enter birth date", context);
+                                }
+                                else if (astroBirthTimeController.text.isEmpty)
+                                {
+                                  showToast("Please enter birth time ", context);
+                                }
+                                else if(astroBirthPlaceController.text.isEmpty)
+                                {
+                                  showToast("Please enter birth place", context);
+                                }
+                                else
+                                {
+                                  _confirmAstrology();
+                                }
+                              },
+                              child: Container(
+                                alignment: Alignment.bottomRight,
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                  color: light_yellow,
+                                  elevation: 10,
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(14.0),
+                                    child: Text(
+                                      "Review Request",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: title,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ), */
+
+                                  Container(height: 22,),
+                                  TextButton(
+                                    onPressed:(){
+                                      if(astroFnameController.text.isEmpty)
+                                      {
+                                        showToast("Please enter first name", context);
+                                      }
+                                      else if(astroLnameController.text.isEmpty)
+                                      {
+                                        showToast("Please enter last name", context);
+                                      }
+                                      else if(astroEmailController.text.isEmpty)
+                                      {
+                                        showToast("Please enter email address", context);
+                                      }
+                                      else if(astroMobileNumberController.text.isEmpty)
+                                      {
+                                        showToast("Please enter mobile number", context);
+                                      }
+                                      else if(astroGirlBirthDateController.text.isEmpty)
+                                      {
+                                        showToast("Please enter birth date", context);
+                                      }
+                                      else if (astroBirthTimeController.text.isEmpty)
+                                      {
+                                        showToast("Please enter birth time ", context);
+                                      }
+                                      else if(astroBirthPlaceController.text.isEmpty)
+                                      {
+                                        showToast("Please enter birth place", context);
+                                      }
+                                      else
+                                      {
+                                        _confirmAstrology();
+                                      }
+                                    },
+                                    style: ButtonStyle(
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
+                                      ),
+                                      backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
+                                    ),
+
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: const [
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 8.0, bottom: 8),
+                                            child: Text('Get For 21\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Container(height: 22,),
+                                ]
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
         ]);
+
   }
 
   countryDialog(StateSetter updateState) {
@@ -996,7 +1675,8 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                               height: 1.5,
                               thickness: 1.5,
                               color: Colors.grey,
-                            )),
+                            )
+                        ),
                       ],
                     ),
                     Row(

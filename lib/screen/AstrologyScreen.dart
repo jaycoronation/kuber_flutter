@@ -14,6 +14,7 @@ import '../model/AstrologyResponseModel.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
 import '../utils/app_utils.dart';
+import '../utils/responsive.dart';
 import '../widget/loading.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
@@ -55,7 +56,8 @@ class _AstrologyScreen extends State<AstrologyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return ResponsiveWidget.isSmallScreen(context)
+        ?  WillPopScope(
         child: Scaffold(
           backgroundColor: bg_skin,
           appBar: AppBar(
@@ -77,104 +79,230 @@ class _AstrologyScreen extends State<AstrologyScreen> {
               : _isNoDataVisible
               ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_astrology_list.png', titleMSG: 'No Astrology Request Found')
               : Column(
-                  children:  [
-                    Container(
-                        alignment: Alignment.centerLeft,
-                        margin: const EdgeInsets.only(left: 12,right: 12),
-                        child: Text("Astrology",style: getTitleFontStyle())
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
-                        child: Text("Astrology is a Language. If you understand this language, The Sky Speaks to You.",
-                          style: getSecondaryTitleFontStyle())
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        reverse: false,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        itemCount: _listAstrology.length,
-                        itemBuilder: (context, i) {
-                          return Container(
-                              margin: const EdgeInsets.fromLTRB(12, 6, 12, 6),
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6.0),
-                                ),
-                                color: astro_light,
-                                elevation: 2,
-                                child: InkWell(
-                                  onTap: (){
-                                    _openAstrologyDialog(_listAstrology[i]);
-                                    astroId = _listAstrology[i].astrologyId;
-                                    print(_listAstrology.length);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Expanded(child: Text("Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                            const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                            Expanded(child: Text("${_listAstrology[i].firstName} ${_listAstrology[i].lastName}", style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            const Expanded(child: Text("Birth Date", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                            const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                            Expanded(child: Text(_listAstrology[i].birthDate, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            const Expanded(child: Text("Birth Time", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                            const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                            Expanded(child: Text(_listAstrology[i].birthTime, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            const Expanded(child: Text("Birth Place", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                            const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
-                                            Expanded(child: Text(_listAstrology[i].address, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                          ],
-                                        ),
-                                        Visibility(
-                                            visible: _listAstrology[i].notes.isNotEmpty,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  const Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
-                                                  Text(_listAstrology[i].notes,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
-                                                ],
-                                              ),
-                                            )
-                                        ),
-                                      ],
-                                    ),
+            children:  [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  margin: const EdgeInsets.only(left: 12,right: 12),
+                  child: Text("Astrology",style: getTitleFontStyle())
+              ),
+              Container(
+                  margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
+                  child: Text("Astrology is a Language. If you understand this language, The Sky Speaks to You.",
+                      style: getSecondaryTitleFontStyle())
+              ),
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  reverse: false,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: _listAstrology.length,
+                  itemBuilder: (context, i) {
+                    return Container(
+                        margin: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                          ),
+                          color: astro_light,
+                          elevation: 2,
+                          child: InkWell(
+                            onTap: (){
+                              _openAstrologyDialog(_listAstrology[i]);
+                              astroId = _listAstrology[i].astrologyId;
+                              print(_listAstrology.length);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                      Expanded(child: Text("${_listAstrology[i].firstName} ${_listAstrology[i].lastName}", style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
                                   ),
-                                ),
-                              )
-                          );
-                        },
-                      ),
-                    )
-                  ],
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Birth Date", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                      Expanded(child: Text(_listAstrology[i].birthDate, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Birth Time", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                      Expanded(child: Text(_listAstrology[i].birthTime, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Birth Place", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),),
+                                      Expanded(child: Text(_listAstrology[i].address, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Visibility(
+                                      visible: _listAstrology[i].notes.isNotEmpty,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
+                                            Text(_listAstrology[i].notes,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
+                                          ],
+                                        ),
+                                      )
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                    );
+                  },
                 ),
+              )
+            ],
+          ),
+        ),
+        onWillPop: (){
+          Navigator.pop(context);
+          return Future.value(true);
+        }
+    )
+        : WillPopScope(
+        child: Scaffold(
+          backgroundColor: bg_skin,
+          appBar: AppBar(
+            toolbarHeight: 60,
+            automaticallyImplyLeading: false,
+            backgroundColor: bg_skin,
+            elevation: 0,
+            leading:IconButton(
+              icon: Image.asset("assets/images/ic_back_arrow.png",
+                  width: 18, height: 18),
+              iconSize: 28,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ) ,
+          ),
+          body: _isLoading
+              ? const LoadingWidget()
+              : _isNoDataVisible
+              ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_astrology_list.png', titleMSG: 'No Astrology Request Found')
+              : Column(
+            children:  [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  margin: const EdgeInsets.only(left: 12,right: 12),
+                  child: Text("Astrology",style: getTitleFontStyle())
+              ),
+              Container(
+                  margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
+                  child: Text("Astrology is a Language. If you understand this language, The Sky Speaks to You.",
+                      style: getSecondaryTitleFontStyle())
+              ),
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  reverse: false,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: _listAstrology.length,
+                  itemBuilder: (context, i) {
+                    return Container(
+                        margin: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                          ),
+                          color: astro_light,
+                          elevation: 2,
+                          child: InkWell(
+                            onTap: (){
+                              _openAstrologyDialog(_listAstrology[i]);
+                              astroId = _listAstrology[i].astrologyId;
+                              print(_listAstrology.length);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                      Expanded(child: Text("${_listAstrology[i].firstName} ${_listAstrology[i].lastName}", style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Container(height: 12,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Birth Date", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                      Expanded(child: Text(_listAstrology[i].birthDate, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Container(height: 12,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Birth Time", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      Expanded(child: Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                      Expanded(child: Text(_listAstrology[i].birthTime, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Container(height: 12,),
+                                  Row(
+                                    children: [
+                                      const Expanded(child: Text("Birth Place", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                      Expanded(child: Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                      Expanded(child: Text(_listAstrology[i].address, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                    ],
+                                  ),
+                                  Container(height: 12,),
+                                  Visibility(
+                                      visible: _listAstrology[i].notes.isNotEmpty,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
+                                            Container(height: 8,),
+                                            Text(_listAstrology[i].notes,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
+                                          ],
+                                        ),
+                                      )
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
         ),
         onWillPop: (){
           Navigator.pop(context);
           return Future.value(true);
         }
     );
+
   }
 
   _openAstrologyDialog(Astrology getSet) {
