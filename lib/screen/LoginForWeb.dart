@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kuber/screen/DashboardForWeb.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -246,11 +248,9 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                   width: 700,
                   child: GestureDetector(
                     onTap: () async {
-                      User? user = await signInWithGoogle(context: context);
+                      //User? user = await _signInWithGoogle(context: context);
+                      _signInWithGoogle(context);
 
-                      if (user != null) {
-                        //_makeSocialLoginRequest(user.displayName.toString(), user.email.toString(), user.uid.toString(),user.photoURL.toString());
-                      }
                     },
                     child: Container(
                       margin: const EdgeInsets.only( right: 20, left: 20),
@@ -356,36 +356,41 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
     );
   }
 
-  Future<User?> signInWithGoogleWeb({required BuildContext context}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-
-    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-
-    if (googleSignInAccount != null) {
-      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
-
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    try {
+      await Firebase.initializeApp(
+          name: "Kuber",
+          options: const FirebaseOptions(
+              apiKey: "AIzaSyDxM-G38CFYtCYbS3ND3fZlirLRKBOoXQc",
+              authDomain: "kuber-167ed.firebaseapp.com",
+              projectId: "kuber-167ed",
+              storageBucket: "kuber-167ed.appspot.com",
+              messagingSenderId: "951814205337",
+              appId: "1:951814205337:web:904e57267945c244f52d08",
+              measurementId: "G-R0QNF2TEQG"
+          )
       );
+      final FirebaseAuth _auth = FirebaseAuth.instance;
 
-      try {
-        final UserCredential userCredential = await auth.signInWithCredential(credential);
+      final GoogleAuthProvider googleProvider = GoogleAuthProvider();
+      final UserCredential authResult = await _auth.signInWithPopup(googleProvider);
+      final User? user = authResult.user;
 
-        user = userCredential.user;
-      } on FirebaseAuthException catch (e) {
-        setState((){
-          _isLoading = false;
-        });
-        if (e.code == 'account-exists-with-different-credential') {
-        } else if (e.code == 'invalid-credential') {}
-      } catch (e) {}
+      print("User GetSet $user");
+      String? firstName = "";
+      String? lastName = "";
+      String? email = "";
+      String? profilePic = "";
+      firstName = user?.displayName ?? "";
+      lastName = user?.displayName ?? "";
+      email = user?.email ?? "";
+      profilePic = user?.photoURL ?? "";
+      _auth.signOut();
+      _makeSocialLoginRequest("2", firstName, lastName, email, profilePic);
+      print('Signed in with Google: ${user?.displayName}');
+    } catch (e) {
+      print('Error signing in with Google: $e');
     }
-
-
-    return user;
   }
 
   Future<User?> signInWithGoogle({required BuildContext context}) async {
@@ -448,74 +453,6 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
     }
     return user;
   }
-
-  // _makeSocialLoginRequest(String loginType, String firstName, String lastName, String email, String image) async {
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-  //
-  //   signOut(context: context);
-  //
-  //   HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-  //     HttpLogger(logLevel: LogLevel.BODY),
-  //   ]);
-  //
-  //   final url = Uri.parse(MAIN_URL + socialLogin);
-  //
-  //   Map<String, String> jsonBody = {
-  //     'name': "$firstName $lastName",
-  //     'mobile': "",
-  //     'login_type': loginType,
-  //     'from_app': "true",
-  //     'email': email,
-  //     'profile_pic': image,
-  //   };
-  //
-  //   final response = await http.post(url, body: jsonBody);
-  //   final statusCode = response.statusCode;
-  //   final body = response.body;
-  //   Map<String, dynamic> user = jsonDecode(body);
-  //   var dataResponse = SocialResponseModel.fromJson(user);
-  //
-  //   if (statusCode == 200 && dataResponse.success == 1) {
-  //     Profile getSetData = Profile();
-  //
-  //     getSetData.userId = dataResponse.user?.userId ?? '';
-  //     getSetData.mobile = dataResponse.user?.mobile;
-  //
-  //     getSetData.profilePic = dataResponse.user?.profilePic;
-  //     getSetData.countryId = dataResponse.user?.countryId;
-  //     getSetData.stateId = dataResponse.user?.stateId;
-  //     getSetData.cityId = dataResponse.user?.stateId;
-  //     getSetData.email = dataResponse.user?.email;
-  //     getSetData.firstName = dataResponse.user?.firstName;
-  //     getSetData.lastName = dataResponse.user?.lastName;
-  //     getSetData.countryCode = dataResponse.user?.countryCode;
-  //     getSetData.type = "User";
-  //
-  //     await sessionManager.createLoginSession(getSetData);
-  //
-  //     sessionManager.setUserId(dataResponse.user?.userId.toString() ?? "");
-  //     print(dataResponse.user!.mobile.toString());
-  //     print(dataResponse.user!.email.toString());
-  //     if(dataResponse.user?.mobile?.toString().isEmpty ?? true)
-  //     {
-  //       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
-  //     }
-  //     else
-  //     {
-  //       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
-  //     }
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //     showToast(dataResponse.message, context);
-  //   }
-  // }
 
   static Future<void> signOut({required BuildContext context}) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -845,7 +782,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
       }
       else
       {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => false);
       }
       setState(() {
         _isLoading = false;

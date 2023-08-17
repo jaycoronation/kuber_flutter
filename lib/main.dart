@@ -17,29 +17,26 @@ import 'package:kuber/screen/MyPofileScreen.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/utils/session_manager_methods.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
  Future<void>main() async {
    WidgetsFlutterBinding.ensureInitialized();
   await SessionManagerMethods.init();
    if (kIsWeb)
    {
+     print("IS WEB");
+     var isInit = await Firebase.initializeApp(
+       options: DefaultFirebaseOptions.currentPlatform,
+     );
+
+     print(isInit.options);
+     print(isInit.name);
+
      await FacebookAuth.i.webInitialize(
        appId: "548919027312741",
        cookie: true,
        xfbml: true,
        version: "v15.0",
-     );
-     await Firebase.initializeApp(
-         name: "Kuber",
-         options: const FirebaseOptions(
-             apiKey: "AIzaSyDxM-G38CFYtCYbS3ND3fZlirLRKBOoXQc",
-             authDomain: "kuber-167ed.firebaseapp.com",
-             projectId: "kuber-167ed",
-             storageBucket: "kuber-167ed.appspot.com",
-             messagingSenderId: "951814205337",
-             appId: "1:951814205337:web:904e57267945c244f52d08",
-             measurementId: "G-R0QNF2TEQG"
-         )
      );
    }
    else

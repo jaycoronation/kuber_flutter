@@ -22,6 +22,30 @@
           }
         },
         {
+          "client_id": "951814205337-7pblrdbsrdocis78b29jbqjc7jupalu3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coronation.kuber",
+            "certificate_hash": "9aa6188a4f16e374dd3285684ddea6caf63369fb"
+          }
+        },
+        {
+          "client_id": "951814205337-bg10atci9ojlh17oj11d1p4oab6mmg6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coronation.kuber",
+            "certificate_hash": "fc2baccc0405800f78a9071821fb45658ed85f42"
+          }
+        },
+        {
+          "client_id": "951814205337-f4i792iua0n064f27h7anm7i7acketga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coronation.kuber",
+            "certificate_hash": "9c6394a27351a01145bb998c0892197fb68605ab"
+          }
+        },
+        {
           "client_id": "951814205337-j58r037vc1pfp6hsr9dkj43eaolcpooh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -35,74 +59,6 @@
           "android_info": {
             "package_name": "com.coronation.kuber",
             "certificate_hash": "b6b40305cee333677928e469620143868b878ceb"
-          }
-        },
-        {
-          "client_id": "951814205337-13k5hcfo294qrkq2ktuvla63sin0j4ol.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA8NgvQs8XyzK5goK3yMRB50bsYKsskVFY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "951814205337-13k5hcfo294qrkq2ktuvla63sin0j4ol.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "951814205337-0sc9k4eifng5g4m0d68ou9lcupikubia.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.coronation.kuber.kuber"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:951814205337:android:0cdf82abe0a61431f52d08",
-        "android_client_info": {
-          "package_name": "com.coronation.kuber.kuber"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "951814205337-8vd15b2jahr40sdof96r4511pdl0n0ag.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.coronation.kuber.kuber",
-            "certificate_hash": "40025d915d296ff8416714ed89d7b789624c3163"
-          }
-        },
-        {
-          "client_id": "951814205337-ge84mljggt2dv40quks38dk41o20sdiq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.coronation.kuber.kuber",
-            "certificate_hash": "b6b40305cee333677928e469620143868b878ceb"
-          }
-        },
-        {
-          "client_id": "951814205337-m2889ar36e0dsuek3q3alh474ol07qkt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.coronation.kuber.kuber",
-            "certificate_hash": "c72f894596c9e4a4141360dea2eb279d63a2a654"
-          }
-        },
-        {
-          "client_id": "951814205337-nes4ue83jd2pesqekhal6bi5m6tplrvv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.coronation.kuber.kuber",
-            "certificate_hash": "618306352f4ba803ab3e0398fdf5aea03120a35b"
           }
         },
         {
