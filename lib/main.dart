@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/screen/DashboardForWeb.dart';
@@ -14,6 +15,7 @@ import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/LoginForWeb.dart';
 import 'package:kuber/screen/LoginScreen.dart';
 import 'package:kuber/screen/MyPofileScreen.dart';
+import 'package:kuber/utils/routes.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/utils/session_manager_methods.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -71,7 +73,7 @@ class MyApp extends StatelessWidget {
     return FlutterWebFrame(
       backgroundColor: kuber,
         builder: (context) {
-         return MaterialApp(
+         return MaterialApp.router(
             builder: (context, child) {
               return MediaQuery(
                 data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
@@ -80,11 +82,10 @@ class MyApp extends StatelessWidget {
             },
             title: 'Kuber',
             debugShowCheckedModeBanner: false,
+           routerConfig: AppRoutes.routes,
             theme: ThemeData(
                 textTheme: GoogleFonts.rubikTextTheme(Theme.of(context).textTheme)),
-            home: const MyHomePage(
-              title: 'Kuber',
-            ),
+
           );
         },
       maximumSize: const Size(1160.0, 812.0),
@@ -110,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     audio.setSource(AssetSource("audio/flute.mp3"));
     audio.play(AssetSource("audio/flute.mp3"));
-
+    print("opq");
     Future.delayed(Duration.zero,(){
       if(_sessionManager.checkIsLoggedIn() ?? false)
       {
@@ -122,7 +123,14 @@ class _MyHomePageState extends State<MyHomePage> {
         }
         else
         {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => kIsWeb? const DashboardForWeb() : const DashboardScreen()), (route) => false);
+          if (kIsWeb)
+            {
+              GoRouter.of(context).go(AppRoutes.homeRoute);
+            }
+          else
+            {
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+            }
         }
         // Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardScreen())));
       }
@@ -130,10 +138,13 @@ class _MyHomePageState extends State<MyHomePage> {
       {
         if (kIsWeb)
         {
-          Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreenForWeb())));
+          print("abc");
+           context.go(AppRoutes.loginRoute);
+          //Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreenForWeb())));
         }
         else
         {
+          print("xyz");
           Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen())));
         }
       }

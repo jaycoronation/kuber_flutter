@@ -57,7 +57,7 @@ class _DonationListScreen extends State<DonationListScreen> {
               },
             ) ,
             titleSpacing: 0,
-            title: Text("Donation List", style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w900),),
+            title: const Text("Donation List", style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w900),),
           ),
           body: _isLoading
               ? const LoadingWidget()
@@ -117,7 +117,7 @@ class _DonationListScreen extends State<DonationListScreen> {
                                                     left: 8),
                                                 child:  Text(
                                                   "Amount :  \$ ${_listDonation[i].amount.toString()} ",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                       FontWeight.w500,
                                                       color: black,
@@ -134,7 +134,7 @@ class _DonationListScreen extends State<DonationListScreen> {
                                                 bottom: 12,
                                                 right: 18,
                                                 left: 14),
-                                            child:  Text(
+                                            child:  const Text(
                                               "Thank You For Donation.",
                                               style: TextStyle(
                                                   fontWeight:

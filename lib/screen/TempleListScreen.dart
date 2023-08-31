@@ -280,8 +280,9 @@ class _TempleListScreen extends State<TempleListScreen> {
                       apiKey: API_KEY,
                       mode: Mode.fullscreen,
                       components: [],
-                      strictbounds: false,
+                      strictbounds: true,
                       region: "",
+                      proxyBaseUrl: "https://www.panditbookings.com/https://maps.googleapis.com/maps/api",
                       decoration: const InputDecoration(
                         hintText: 'Search',
                       ),

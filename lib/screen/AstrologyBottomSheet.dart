@@ -1082,8 +1082,26 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
+                                        // onTap: () async {
+                                        //   _setDatePicker(astroGirlBirthDateController);
+                                        // },
                                         onTap: () async {
-                                          _setDatePicker(astroGirlBirthDateController);
+                                          DateTime? pickedDate = await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime(1900),
+                                            //DateTime.now() - not to allow to choose before today.
+                                            lastDate: DateTime.now(),
+                                            helpText: 'Preferred Move Date',
+                                          );
+                                          if (pickedDate != null) {
+                                            String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                                            //you can implement different kind of Date Format here according to your requirement
+                                            setState(() {
+                                              selectedDate = formattedDate;
+                                              astroGirlBirthDateController.text = formattedDate;
+                                            });
+                                          }
                                         },
                                         readOnly: true,
                                         controller: astroGirlBirthDateController,
@@ -1137,8 +1155,26 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
                                         onTap: () async {
-                                          _setTimePicker(astroBirthTimeController,setState);
+                                          TimeOfDay? pickedTime =  await showTimePicker(
+                                            initialTime: TimeOfDay.now(),
+                                            context: context,
+                                          );
+
+                                          if(pickedTime != null ){
+                                            print(pickedTime.format(context));   //output 10:51 PM
+
+                                            setState(() {
+                                              selectedTime = pickedTime.format(context);
+                                              astroBirthTimeController.text = pickedTime.format(context); //set the value of text field.
+                                            });
+                                            print(selectedTime);
+                                          }else{
+                                            print("Time is not selected");
+                                          }
                                         },
+                                        // onTap: () async {
+                                        //   _setTimePicker(astroBirthTimeController,setState);
+                                        // },
                                         readOnly: true,
                                         controller: astroBirthTimeController,
                                         keyboardType: TextInputType.text,
@@ -1153,7 +1189,8 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                             borderSide: const BorderSide(color: Colors.grey,),
                                           ),
                                           labelText: "Birth Time",
-                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                          labelStyle: const TextStyle(color: text_new),
+                                        ),
                                       )
                                   ),
 

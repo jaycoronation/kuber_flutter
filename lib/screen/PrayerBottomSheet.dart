@@ -746,8 +746,26 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                 Container(
                                     margin: const EdgeInsets.only(top: 20),
                                     child: TextField(
+                                      // onTap: () async {
+                                      //   _setDatePicker(prayerDOBController);
+                                      // },
                                       onTap: () async {
-                                        _setDatePicker(prayerDOBController);
+                                        DateTime? pickedDate = await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1900),
+                                          //DateTime.now() - not to allow to choose before today.
+                                          lastDate: DateTime.now(),
+                                          helpText: 'Preferred Move Date',
+                                        );
+                                        if (pickedDate != null) {
+                                          String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                                          //you can implement different kind of Date Format here according to your requirement
+                                          setState(() {
+                                            selectedDate = formattedDate;
+                                            prayerDOBController.text = formattedDate;
+                                          });
+                                        }
                                       },
                                       readOnly: true,
                                       controller: prayerDOBController,

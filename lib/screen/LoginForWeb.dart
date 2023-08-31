@@ -9,8 +9,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/screen/DashboardForWeb.dart';
+import 'package:kuber/utils/routes.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -307,7 +309,8 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                             alignment: Alignment.centerLeft,
                             child:Container(
                                 margin: const EdgeInsets.all(12),
-                                child: Image.asset("assets/images/Facebook-icon.png",width: 25,height: 29,)),
+                                child: Image.asset("assets/images/Facebook-icon.png",width: 25,height: 29,)
+                            ),
                           ),
                           const Align(
                               alignment: Alignment.center,
@@ -315,7 +318,8 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                                 "Continue with Facebook",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
-                              ))
+                              )
+                          )
                         ],
                       ),
                     ),
@@ -501,7 +505,9 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
       setState(() {
         _isLoading = false;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(numberController.value.text, countryCode)));
+      // GoRouter.of(context).go(AppRoutes.otpRoute);
+      // context.go(AppRoutes.otpRoute,extra:  {'mobileNumber': numberController.value.text, 'countryCode': countryCode});
+      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(countryCode: countryCode,mobileNumber: numberController.value.text,)));
     } else {
       setState(() {
         _isLoading = false;
@@ -668,7 +674,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
 
   Future<void> loginFB() async {
     final LoginResult result = await FacebookAuth.instance.login(); // by default we request the email and the public profile
-// or FacebookAuth.i.login()
+      // or FacebookAuth.i.login()
     if (result.status == LoginStatus.success) {
       // you are logged
       final AccessToken accessToken = result.accessToken!;
@@ -778,11 +784,11 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
       print(dataResponse.user!.email.toString());
       if(dataResponse.user?.mobile?.toString().isEmpty ?? true)
       {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => true);
       }
       else
       {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => false);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => true);
       }
       setState(() {
         _isLoading = false;

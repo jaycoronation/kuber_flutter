@@ -122,7 +122,8 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
                   Container(
                       width: 60,
                       margin: const EdgeInsets.only(top: 12),
-                      child: const Divider(height: 1.5, thickness: 1.5,color: Colors.grey,)),
+                      child: const Divider(height: 1.5, thickness: 1.5,color: Colors.grey,)
+                  ),
                   Container(
                     alignment: Alignment.center,
                     margin: const EdgeInsets.only(top: 12),

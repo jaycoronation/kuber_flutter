@@ -99,586 +99,377 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         body: _isLoading
             ? const LoadingWidget()
             : SingleChildScrollView(
-          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-          child: Column(
-            children: [
-              cardProfileImage(),
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                child: Column(
+                  children: [
+                    cardProfileImage(),
 
-              Container(
-                margin: const EdgeInsets.only(top: 16,right: 14,left: 14),
-                alignment: Alignment.topLeft,
-                child:  Text("Profile Details",
-                    style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20) ),
-              ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 16,right: 14,left: 14),
+                      alignment: Alignment.topLeft,
+                      child:  Text("Profile Details",
+                          style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20) ),
+                    ),
 
-              Container(
-                  margin: const EdgeInsets.only(top: 14),
-                  child: TextField(
-                    onTap: (){
-                    },
-                    controller: firstNameController,
-                    keyboardType: TextInputType.text,
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: const BorderSide(color: Colors.grey)
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.grey,),
-                      ),
-                      labelText: "First Name",
-                      labelStyle: const TextStyle(color: darkbrown),                                     ),
-                  )
-              ),
+                    Container(
+                        margin: const EdgeInsets.only(top: 14),
+                        child: TextField(
+                          onTap: (){
+                          },
+                          controller: firstNameController,
+                          keyboardType: TextInputType.text,
+                          cursorColor: Colors.grey,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: const BorderSide(color: Colors.grey)
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(color: Colors.grey,),
+                            ),
+                            labelText: "First Name",
+                            labelStyle: const TextStyle(color: darkbrown),                                     ),
+                        )
+                    ),
 
-              Container(
-                  margin: const EdgeInsets.only(top: 14),
-                  child: TextField(
-                    onTap: (){
-                    },
-                    controller: lastNameController,
-                    keyboardType: TextInputType.text,
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: const BorderSide(color: Colors.grey)
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.grey,),
-                      ),
-                      labelText: "Last Name",
-                      labelStyle: const TextStyle(color: darkbrown),                                     ),
-                  )
-              ),
+                    Container(
+                        margin: const EdgeInsets.only(top: 14),
+                        child: TextField(
+                          onTap: (){
+                          },
+                          controller: lastNameController,
+                          keyboardType: TextInputType.text,
+                          cursorColor: Colors.grey,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: const BorderSide(color: Colors.grey)
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(color: Colors.grey,),
+                            ),
+                            labelText: "Last Name",
+                            labelStyle: const TextStyle(color: darkbrown),                                     ),
+                        )
+                    ),
 
-              /* Container(
-                          margin: const EdgeInsets.only(top: 14),
-                          child: TextField(
-                            onTap: (){
+                    /* Container(
+                                margin: const EdgeInsets.only(top: 14),
+                                child: TextField(
+                                  onTap: (){
+                                  },
+                                  controller: emailController,
+                                  keyboardType: TextInputType.text,
+                                  cursorColor: Colors.grey,
+                                  readOnly: sessionManager.getEmail().toString().length>0 ,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: const BorderSide(color: Colors.grey)
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: const BorderSide(color: Colors.grey,),
+                                    ),
+                                    labelText: "Email Address",
+                                    labelStyle: const TextStyle(color: text_new),                                     ),
+                                )
+                            ),*/
+
+
+                    Container(
+                        margin: const EdgeInsets.only(top: 14),
+                        child: TextField(
+                          onTap: (){
+                          },
+                          controller: emailController,
+                          keyboardType: TextInputType.text,
+                          cursorColor: Colors.grey,
+                          readOnly: sessionManager.getEmail().toString().length>0 ,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: const BorderSide(color: Colors.grey)
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(color: Colors.grey,),
+                            ),
+                            labelText: "Email Address",
+                            labelStyle: const TextStyle(color: darkbrown),                                     ),
+                        )
+                    ),
+
+                    Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.only(left: 14, right: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1,
+                        ),
+
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(18),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            child: Text(countryCode,
+                                style: const TextStyle(
+                                    color: text_dark,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14)
+                            ),
+                            onTap:(){
+                              print("IS DONE === ");
+                              countryDialog();
                             },
-                            controller: emailController,
-                            keyboardType: TextInputType.text,
-                            cursorColor: Colors.grey,
-                            readOnly: sessionManager.getEmail().toString().length>0 ,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  borderSide: const BorderSide(color: Colors.grey)
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 10),
+                            height: 20,
+                            width: 1,
+                            color: text_light,
+                          ),
+                          Flexible(
+                            child:TextField(
+                              controller: numberController,
+                              maxLength: 12,
+                              keyboardType: TextInputType.number,
+                              cursorColor: text_dark,
+                              readOnly: numberController.value.text.isEmpty ? false : true,
+                              style: const TextStyle(
+                                  color: black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
+                                fillColor: bottomSheetBg,
+                                counterText: "",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14.0),
+                                    borderSide: const BorderSide(
+                                        width: 0, style: BorderStyle.none)),
+                                filled: true,
+                                hintText: "Mobile Number",
+                                hintStyle: const TextStyle(
+                                  color: darkbrown,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+
+
+                    /*
+                            Container(
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(
+                                  top: 10, right: 10, left: 10),
+                              padding: const EdgeInsets.only(left: 14, right: 14),
+                              decoration: const BoxDecoration(
+                                color: white_blue,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(18),
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  GestureDetector(
+                                    behavior: HitTestBehavior.opaque,
+                                    onTap:(){
+                                      print("IS DONE === ");
+                                      countryDialog();
+                                    },
+                                    child: Text(countryCode,
+                                        style: const TextStyle(
+                                            color: text_dark,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14)),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 10,right:10),
+                                    height: 20,
+                                    width: 1,
+                                    color: text_light,
+                                  ),
+                                  Flexible(
+                                    child: TextField(
+                                        controller: numberController,
+                                        keyboardType: TextInputType.number,
+                                        cursorColor: text_dark,
+                                        maxLength: 12,
+                                        readOnly: numberController.value.text.isEmpty ? false : true,
+                                        style: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        decoration: const InputDecoration(
+                                            counterText: "",
+                                            border: InputBorder.none,
+                                            hintText: "Mobile number",
+                                            hintStyle: TextStyle(
+                                              color: text_dark,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                            ))),
+                                  )
+                                ],
+                              ),
+                            ),
+      */
+                    Visibility(
+                        visible: sessionManager.getIsTemple() ?? false ? false : true,
+                        child: setUpTextDate()
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 16,right: 14,left: 14,bottom: 16),
+                      alignment: Alignment.topLeft,
+                      child: Text("Address",style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20)),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),),
+                      child:  TextField(
+                          controller: countryController,
+                          onTap: () async {
+                            _goForCountrySelection(context);
+                          },
+                          readOnly: true,
+                          keyboardType: TextInputType.text,
+                          cursorColor: title,
+                          style: const TextStyle(
+                            color: darkbrown,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+
+                          decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
                                 borderSide: const BorderSide(color: Colors.grey,),
                               ),
-                              labelText: "Email Address",
-                              labelStyle: const TextStyle(color: text_new),                                     ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide:  const BorderSide(color: Colors.grey)
+                              ),
+                              suffixIcon: const Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                color: title,
+                              ),
+                              counterText: "",
+                              // border: InputBorder.none,
+                              alignLabelWithHint: true,
+                              hintText: "Select country",
+                              hintStyle: const TextStyle(
+                                color: darkbrown,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              )
                           )
-                      ),*/
-
-
-              Container(
-                  margin: const EdgeInsets.only(top: 14),
-                  child: TextField(
-                    onTap: (){
-                    },
-                    controller: emailController,
-                    keyboardType: TextInputType.text,
-                    cursorColor: Colors.grey,
-                    readOnly: sessionManager.getEmail().toString().length>0 ,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: const BorderSide(color: Colors.grey)
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(color: Colors.grey,),
-                      ),
-                      labelText: "Email Address",
-                      labelStyle: const TextStyle(color: darkbrown),                                     ),
-                  )
-              ),
-
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                alignment: Alignment.center,
-                padding: const EdgeInsets.only(left: 14, right: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1,
-                  ),
-
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(18),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      child: Text(countryCode,
-                          style: const TextStyle(
-                              color: text_dark,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14)
-                      ),
-                      onTap:(){
-                        print("IS DONE === ");
-                        countryDialog();
-                      },
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 10),
-                      height: 20,
-                      width: 1,
-                      color: text_light,
-                    ),
-                    Flexible(
-                      child:TextField(
-                        controller: numberController,
-                        maxLength: 12,
-                        keyboardType: TextInputType.number,
-                        cursorColor: text_dark,
-                        readOnly: numberController.value.text.isEmpty ? false : true,
-                        style: const TextStyle(
-                            color: black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500),
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
-                          fillColor: bottomSheetBg,
-                          counterText: "",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14.0),
-                              borderSide: const BorderSide(
-                                  width: 0, style: BorderStyle.none)),
-                          filled: true,
-                          hintText: "Mobile Number",
-                          hintStyle: const TextStyle(
-                            color: darkbrown,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-
-
-              /*
-                      Container(
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(
-                            top: 10, right: 10, left: 10),
-                        padding: const EdgeInsets.only(left: 14, right: 14),
-                        decoration: const BoxDecoration(
-                          color: white_blue,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(18),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap:(){
-                                print("IS DONE === ");
-                                countryDialog();
-                              },
-                              child: Text(countryCode,
-                                  style: const TextStyle(
-                                      color: text_dark,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14)),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 10,right:10),
-                              height: 20,
-                              width: 1,
-                              color: text_light,
-                            ),
-                            Flexible(
-                              child: TextField(
-                                  controller: numberController,
-                                  keyboardType: TextInputType.number,
-                                  cursorColor: text_dark,
-                                  maxLength: 12,
-                                  readOnly: numberController.value.text.isEmpty ? false : true,
-                                  style: const TextStyle(
-                                    color: text_dark,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  decoration: const InputDecoration(
-                                      counterText: "",
-                                      border: InputBorder.none,
-                                      hintText: "Mobile number",
-                                      hintStyle: TextStyle(
-                                        color: text_dark,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ))),
-                            )
-                          ],
-                        ),
-                      ),
-*/
-              Visibility(
-                  visible: sessionManager.getIsTemple() ?? false ? false : true,
-                  child: setUpTextDate()
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 16,right: 14,left: 14,bottom: 16),
-                alignment: Alignment.topLeft,
-                child: Text("Address",style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20)),
-              ),
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),),
-                child:  TextField(
-                    controller: countryController,
-                    onTap: () async {
-                      _goForCountrySelection(context);
-                    },
-                    readOnly: true,
-                    keyboardType: TextInputType.text,
-                    cursorColor: title,
-                    style: const TextStyle(
-                      color: darkbrown,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: const BorderSide(color: Colors.grey,),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide:  const BorderSide(color: Colors.grey)
-                        ),
-                        suffixIcon: const Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: title,
-                        ),
-                        counterText: "",
-                        // border: InputBorder.none,
-                        alignLabelWithHint: true,
-                        hintText: "Select country",
-                        hintStyle: const TextStyle(
-                          color: darkbrown,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        )
-                    )
-                ),
-              ),
-              Container(height: 12,),
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),),
-                child:  TextField(
-                    controller: stateController,
-                    onTap: (){
-                      if(countryId.isEmpty)
-                      {
-                        showToast("Select your country first", context);
-                      }
-                      else
-                      {
-                        _goForStateSelection(context);
-                      }
-                    },
-                    readOnly: true,
-                    keyboardType: TextInputType.text,
-                    cursorColor: title,
-                    style: const TextStyle(
-                      color: darkbrown,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide:  const BorderSide(color: Colors.grey,),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide:  const BorderSide(color: Colors.grey)
-                        ),
-                        suffixIcon: const Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: title,
-                        ),
-                        counterText: "",
-                        alignLabelWithHint: true,
-                        hintText: "Select state",
-                        hintStyle: const TextStyle(
-                          color: darkbrown,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        )
-                    )
-                ),
-              ),
-              Container(height: 12,),
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child:  TextField(
-                    controller: cityController,
-                    onTap: (){
-                      if(stateId.isEmpty)
-                      {
-                        showToast("Select your state first", context);
-                      }else{
-                        _goForCitySelection(context);
-
-                      }
-                    },
-                    readOnly: true,
-                    keyboardType: TextInputType.text,
-                    cursorColor: title,
-                    style: const TextStyle(
-                      color: darkbrown,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide:  const BorderSide(color: Colors.grey,),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide:  const BorderSide(color: Colors.grey)
-                        ),
-                        suffixIcon: const Icon(
-                          Icons .keyboard_arrow_down_rounded,
-                          color: title,
-                        ),
-                        counterText: "",
-                        // border: InputBorder.none,
-                        alignLabelWithHint: true,
-                        hintText: "Select city",
-                        hintStyle: const TextStyle(
-                          color: darkbrown,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ))
-                ),
-              ),
-              Container(height: 12,),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),),
-                child:  TextField(
-                  controller: addressController,
-                  keyboardType: TextInputType.text,
-                  cursorColor: title,
-                  readOnly: true,
-                  minLines: 3,
-                  maxLines: 4,
-                  onTap: () async {
-                    Prediction? prediction = await PlacesAutocomplete.show(
-                      context: context,
-                      apiKey: API_KEY,
-                      mode: Mode.fullscreen,
-                      components: [],
-                      strictbounds: false,
-                      region: "",
-                      decoration: const InputDecoration(
-                        hintText: 'Search',
-                      ),
-                      types: [],
-                      language: "en",
-                    );
-                    displayPrediction(prediction,context);
-                  },
-                  style: const TextStyle(
-                    color: black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide:  const BorderSide(color: Colors.grey,),
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide:  const BorderSide(color: Colors.grey)
-                      ),
-                      counterText: "",
-                      // border: InputBorder.none,
-                      hintText: 'Address',
-                      hintStyle: const TextStyle(
-                          color: darkbrown,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500
-                      )
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: sessionManager.getIsPujrai() ?? false,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 16,right: 14,left: 14),
-                      alignment: Alignment.topLeft,
-                      child: const Text("Professional Details",style: TextStyle(fontWeight: FontWeight.bold,color: black,fontSize: 20),),
-                    ),
+                    Container(height: 12,),
                     Container(
                       alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top: 18,),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child:   TextField(
-                        controller: pathshalaController,
-                        keyboardType: TextInputType.text,
-                        cursorColor: title,
-                        style: const TextStyle(
-                          color: text_dark,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        decoration:  InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide:   const BorderSide(color: Colors.grey,),
-                            ),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide:   const BorderSide(color: Colors.grey)
-                            ),
-                            counterText: "",
-                            // border: InputBorder.none,
-                            hintText: 'Pathshala',
-                            hintStyle: const TextStyle(
-                                color: darkbrown,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500)),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top: 10,),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: TextField(
-                        controller: gurukulController,
-                        keyboardType: TextInputType.text,
-                        cursorColor: title,
-                        style: const TextStyle(
-                          color: text_dark,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide:   const BorderSide(color: Colors.grey,),
-                            ),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide:   const BorderSide(color: Colors.grey)
-                            ),
-                            counterText: "",
-                            hintText: 'Gurukul',
-                            hintStyle: const TextStyle(
-                                color: darkbrown,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500)),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top: 10,),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
+                        borderRadius: BorderRadius.circular(20.0),),
                       child:  TextField(
-                          controller: qualificationController,
+                          controller: stateController,
                           onTap: (){
-                            _goForQulificationSelection(context);
+                            if(countryId.isEmpty)
+                            {
+                              showToast("Select your country first", context);
+                            }
+                            else
+                            {
+                              _goForStateSelection(context);
+                            }
                           },
+                          readOnly: true,
                           keyboardType: TextInputType.text,
                           cursorColor: title,
                           style: const TextStyle(
-                            color: text_dark,
+                            color: darkbrown,
                             fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
                           ),
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
-                                borderSide:   const BorderSide(color: Colors.grey,),
+                                borderSide:  const BorderSide(color: Colors.grey,),
                               ),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20),
-                                  borderSide:   const BorderSide(color: Colors.grey)
+                                  borderSide:  const BorderSide(color: Colors.grey)
                               ),
                               suffixIcon: const Icon(
-                                Icons .keyboard_arrow_down_rounded,
+                                Icons.keyboard_arrow_down_rounded,
                                 color: title,
                               ),
                               counterText: "",
                               alignLabelWithHint: true,
-                              hintText: "Qualification",
+                              hintText: "Select state",
                               hintStyle: const TextStyle(
                                 color: darkbrown,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
-                              ))
+                              )
+                          )
                       ),
                     ),
+                    Container(height: 12,),
                     Container(
                       alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top: 10,),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
+                          borderRadius: BorderRadius.circular(20.0)),
                       child:  TextField(
-                          controller: experienceController,
+                          controller: cityController,
                           onTap: (){
-                            _goForExprienceSelection(context);
+                            if(stateId.isEmpty)
+                            {
+                              showToast("Select your state first", context);
+                            }else{
+                              _goForCitySelection(context);
+
+                            }
                           },
+                          readOnly: true,
                           keyboardType: TextInputType.text,
                           cursorColor: title,
-                          readOnly: true,
                           style: const TextStyle(
-                            color: text_dark,
+                            color: darkbrown,
                             fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
                           ),
-                          decoration:  InputDecoration(
+                          decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
-                                borderSide:   const BorderSide(color: Colors.grey,),
+                                borderSide:  const BorderSide(color: Colors.grey,),
                               ),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20),
-                                  borderSide:   const BorderSide(color: Colors.grey)
+                                  borderSide:  const BorderSide(color: Colors.grey)
                               ),
                               suffixIcon: const Icon(
                                 Icons .keyboard_arrow_down_rounded,
                                 color: title,
                               ),
                               counterText: "",
+                              // border: InputBorder.none,
                               alignLabelWithHint: true,
-                              hintText: "Experience",
+                              hintText: "Select city",
                               hintStyle: const TextStyle(
                                 color: darkbrown,
                                 fontSize: 16,
@@ -686,119 +477,328 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                               ))
                       ),
                     ),
+                    Container(height: 12,),
                     Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(top: 10,),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
+                        borderRadius: BorderRadius.circular(20.0),),
                       child:  TextField(
-                        readOnly: true,
+                        controller: addressController,
                         keyboardType: TextInputType.text,
                         cursorColor: title,
-                        onTap: (){
-                          pickFileForCertificate();
+                        readOnly: true,
+                        minLines: 3,
+                        maxLines: 4,
+                        onTap: () async {
+                          Prediction? prediction = await PlacesAutocomplete.show(
+                            context: context,
+                            apiKey: API_KEY,
+                            mode: Mode.fullscreen,
+                            components: [],
+                            strictbounds: false,
+                            region: "",
+                            decoration: const InputDecoration(
+                              hintText: 'Search',
+                            ),
+                            types: [],
+                            language: "en",
+                          );
+                          displayPrediction(prediction,context);
                         },
                         style: const TextStyle(
-                          color: text_dark,
+                          color: black,
                           fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
                         ),
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
-                              borderSide:   const BorderSide(color: Colors.grey,),
+                              borderSide:  const BorderSide(color: Colors.grey,),
                             ),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
-                                borderSide:   const BorderSide(color: Colors.grey)
+                                borderSide:  const BorderSide(color: Colors.grey)
                             ),
                             counterText: "",
-                            hintText: 'Certificate',
+                            // border: InputBorder.none,
+                            hintText: 'Address',
                             hintStyle: const TextStyle(
                                 color: darkbrown,
                                 fontSize: 16,
-                                fontWeight: FontWeight.w500)),
+                                fontWeight: FontWeight.w500
+                            )
+                        ),
                       ),
                     ),
                     Visibility(
-                      visible: certificatePath.path.isNotEmpty,
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 14, right: 14,top: 14),
-                        decoration:  BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            border: Border.all(width: 1,color: text_dark),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(12.0),
-                            ),
-                            color: Colors.transparent
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Image.asset("assets/images/ic_file.png", width: 36, height: 36,),
-                              Container(width: 8,),
-                              Flexible(child: Text(certificateName, style: const TextStyle(color: text_dark,fontSize: 14,fontWeight: FontWeight.w600),))
-                            ],
+                      visible: sessionManager.getIsPujrai() ?? false,
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(top: 16,right: 14,left: 14),
+                            alignment: Alignment.topLeft,
+                            child: const Text("Professional Details",style: TextStyle(fontWeight: FontWeight.bold,color: black,fontSize: 20),),
                           ),
-                        ),
+                          Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(top: 18,),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child:   TextField(
+                              controller: pathshalaController,
+                              keyboardType: TextInputType.text,
+                              cursorColor: title,
+                              style: const TextStyle(
+                                color: text_dark,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              decoration:  InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide:   const BorderSide(color: Colors.grey,),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide:   const BorderSide(color: Colors.grey)
+                                  ),
+                                  counterText: "",
+                                  // border: InputBorder.none,
+                                  hintText: 'Pathshala',
+                                  hintStyle: const TextStyle(
+                                      color: darkbrown,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500)),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(top: 10,),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: TextField(
+                              controller: gurukulController,
+                              keyboardType: TextInputType.text,
+                              cursorColor: title,
+                              style: const TextStyle(
+                                color: text_dark,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide:   const BorderSide(color: Colors.grey,),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide:   const BorderSide(color: Colors.grey)
+                                  ),
+                                  counterText: "",
+                                  hintText: 'Gurukul',
+                                  hintStyle: const TextStyle(
+                                      color: darkbrown,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500)),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(top: 10,),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child:  TextField(
+                                controller: qualificationController,
+                                onTap: (){
+                                  _goForQulificationSelection(context);
+                                },
+                                keyboardType: TextInputType.text,
+                                cursorColor: title,
+                                style: const TextStyle(
+                                  color: text_dark,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                decoration: InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide:   const BorderSide(color: Colors.grey,),
+                                    ),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide:   const BorderSide(color: Colors.grey)
+                                    ),
+                                    suffixIcon: const Icon(
+                                      Icons .keyboard_arrow_down_rounded,
+                                      color: title,
+                                    ),
+                                    counterText: "",
+                                    alignLabelWithHint: true,
+                                    hintText: "Qualification",
+                                    hintStyle: const TextStyle(
+                                      color: darkbrown,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ))
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(top: 10,),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child:  TextField(
+                                controller: experienceController,
+                                onTap: (){
+                                  _goForExprienceSelection(context);
+                                },
+                                keyboardType: TextInputType.text,
+                                cursorColor: title,
+                                readOnly: true,
+                                style: const TextStyle(
+                                  color: text_dark,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                decoration:  InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide:   const BorderSide(color: Colors.grey,),
+                                    ),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide:   const BorderSide(color: Colors.grey)
+                                    ),
+                                    suffixIcon: const Icon(
+                                      Icons .keyboard_arrow_down_rounded,
+                                      color: title,
+                                    ),
+                                    counterText: "",
+                                    alignLabelWithHint: true,
+                                    hintText: "Experience",
+                                    hintStyle: const TextStyle(
+                                      color: darkbrown,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ))
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(top: 10,),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child:  TextField(
+                              readOnly: true,
+                              keyboardType: TextInputType.text,
+                              cursorColor: title,
+                              onTap: (){
+                                pickFileForCertificate();
+                              },
+                              style: const TextStyle(
+                                color: text_dark,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide:   const BorderSide(color: Colors.grey,),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide:   const BorderSide(color: Colors.grey)
+                                  ),
+                                  counterText: "",
+                                  hintText: 'Certificate',
+                                  hintStyle: const TextStyle(
+                                      color: darkbrown,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500)),
+                            ),
+                          ),
+                          Visibility(
+                            visible: certificatePath.path.isNotEmpty,
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 14, right: 14,top: 14),
+                              decoration:  BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  border: Border.all(width: 1,color: text_dark),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(12.0),
+                                  ),
+                                  color: Colors.transparent
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Image.asset("assets/images/ic_file.png", width: 36, height: 36,),
+                                    Container(width: 8,),
+                                    Flexible(child: Text(certificateName, style: const TextStyle(color: text_dark,fontSize: 14,fontWeight: FontWeight.w600),))
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
-                    )
+                    ),
+                    Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(bottom: 20, top: 22),
+                        child: TextButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14.0),
+                                ),
+                              ),
+                              backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
+                          ),
+                          onPressed: () {
+                            if(firstNameController.text.isEmpty)
+                            {
+                              showToast('Please enter first name', context);
+                            }
+                            else if(lastNameController.text.isEmpty)
+                            {
+                              showToast('Please enter last name', context);
+                            }
+                            else if(emailController.text.isEmpty)
+                            {
+                              showToast('Please enter email address', context);
+                            }
+                            else if(!isValidEmail(emailController.text.toString()))
+                            {
+                              showToast("Please enter valid email address", context);
+                            }
+                            else if(numberController.text.isEmpty)
+                            {
+                              showToast("Please enter contact number", context);
+                            }
+                            else
+                            {
+                              _updateProfileDetails();
+                            }
+                          },
+                          child: const Padding(
+                            padding:  EdgeInsets.all(8.0),
+                            child:  Text("Update Profile",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: text_dark,
+                                    fontWeight: FontWeight.w600)),
+                          ),
+                        )
+                    ),
                   ],
                 ),
               ),
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.only(bottom: 20, top: 22),
-                  child: TextButton(
-                    style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14.0),
-                          ),
-                        ),
-                        backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
-                    ),
-                    onPressed: () {
-                      if(firstNameController.text.isEmpty)
-                      {
-                        showToast('Please enter first name', context);
-                      }
-                      else if(lastNameController.text.isEmpty)
-                      {
-                        showToast('Please enter last name', context);
-                      }
-                      else if(emailController.text.isEmpty)
-                      {
-                        showToast('Please enter email address', context);
-                      }
-                      else if(!isValidEmail(emailController.text.toString()))
-                      {
-                        showToast("Please enter valid email address", context);
-                      }
-                      else if(numberController.text.isEmpty)
-                      {
-                        showToast("Please enter contact number", context);
-                      }
-                      else
-                      {
-                        _updateProfileDetails();
-                      }
-                    },
-                    child: const Padding(
-                      padding:  EdgeInsets.all(8.0),
-                      child:  Text("Update Profile",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: text_dark,
-                              fontWeight: FontWeight.w600)),
-                    ),
-                  )
-              ),
-            ],
-          ),
-        ),
       ),
       onWillPop: () {
         if(widget.isFromLogin)
@@ -820,591 +820,382 @@ class _MyProfileScreen extends State<MyProfileScreen> {
               body: _isLoading
                   ? const LoadingWidget()
                   : SingleChildScrollView(
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                child: Center(
-                  child: Container(
-                    width: width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        cardProfileImage(),
-
-                        Container(
-                          margin: const EdgeInsets.only(top: 16,right: 14,left: 14),
-                          alignment: Alignment.topLeft,
-                          child:  Text("Profile Details",
-                              style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20) ),
-                        ),
-
-                        Container(
-                            margin: const EdgeInsets.only(top: 14),
-                            child: TextField(
-                              onTap: (){
-                              },
-                              controller: firstNameController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: Colors.grey,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(color: Colors.grey)
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(14),
-                                  borderSide: const BorderSide(color: Colors.grey,),
-                                ),
-                                labelText: "First Name",
-                                labelStyle: const TextStyle(color: darkbrown),                                     ),
-                            )
-                        ),
-
-                        Container(
-                            margin: const EdgeInsets.only(top: 14),
-                            child: TextField(
-                              onTap: (){
-                              },
-                              controller: lastNameController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: Colors.grey,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(color: Colors.grey)
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(14),
-                                  borderSide: const BorderSide(color: Colors.grey,),
-                                ),
-                                labelText: "Last Name",
-                                labelStyle: const TextStyle(color: darkbrown),                                     ),
-                            )
-                        ),
-
-                        /* Container(
-                                    margin: const EdgeInsets.only(top: 14),
-                                    child: TextField(
-                                      onTap: (){
-                                      },
-                                      controller: emailController,
-                                      keyboardType: TextInputType.text,
-                                      cursorColor: Colors.grey,
-                                      readOnly: sessionManager.getEmail().toString().length>0 ,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(20),
-                                            borderSide: const BorderSide(color: Colors.grey)
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(20),
-                                          borderSide: const BorderSide(color: Colors.grey,),
-                                        ),
-                                        labelText: "Email Address",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
-                                    )
-                                ),*/
-
-
-                        Container(
-                            margin: const EdgeInsets.only(top: 14),
-                            child: TextField(
-                              onTap: (){
-                              },
-                              controller: emailController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: Colors.grey,
-                              readOnly: sessionManager.getEmail().toString().length>0 ,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(color: Colors.grey)
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(14),
-                                  borderSide: const BorderSide(color: Colors.grey,),
-                                ),
-                                labelText: "Email Address",
-                                labelStyle: const TextStyle(color: darkbrown),                                     ),
-                            )
-                        ),
-
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.only(left: 14, right: 10),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: 1,
-                            ),
-
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(18),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                child: Text(countryCode,
-                                    style: const TextStyle(
-                                        color: text_dark,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14)
-                                ),
-                                onTap:(){
-                                  print("IS DONE === ");
-                                  countryDialog();
-                                },
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(left: 10),
-                                height: 20,
-                                width: 1,
-                                color: text_light,
-                              ),
-                              Flexible(
-                                child:TextField(
-                                  controller: numberController,
-                                  maxLength: 12,
-                                  keyboardType: TextInputType.number,
-                                  cursorColor: text_dark,
-                                  readOnly: numberController.value.text.isEmpty ? false : true,
-                                  style: const TextStyle(
-                                      color: black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500),
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
-                                    fillColor: bottomSheetBg,
-                                    counterText: "",
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14.0),
-                                        borderSide: const BorderSide(
-                                            width: 0, style: BorderStyle.none)),
-                                    filled: true,
-                                    hintText: "Mobile Number",
-                                    hintStyle: const TextStyle(
-                                      color: darkbrown,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-
-
-                        /*
-                                Container(
-                                  alignment: Alignment.center,
-                                  margin: const EdgeInsets.only(
-                                      top: 10, right: 10, left: 10),
-                                  padding: const EdgeInsets.only(left: 14, right: 14),
-                                  decoration: const BoxDecoration(
-                                    color: white_blue,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(18),
-                                    ),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      GestureDetector(
-                                        behavior: HitTestBehavior.opaque,
-                                        onTap:(){
-                                          print("IS DONE === ");
-                                          countryDialog();
-                                        },
-                                        child: Text(countryCode,
-                                            style: const TextStyle(
-                                                color: text_dark,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14)),
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(left: 10,right:10),
-                                        height: 20,
-                                        width: 1,
-                                        color: text_light,
-                                      ),
-                                      Flexible(
-                                        child: TextField(
-                                            controller: numberController,
-                                            keyboardType: TextInputType.number,
-                                            cursorColor: text_dark,
-                                            maxLength: 12,
-                                            readOnly: numberController.value.text.isEmpty ? false : true,
-                                            style: const TextStyle(
-                                              color: text_dark,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                            decoration: const InputDecoration(
-                                                counterText: "",
-                                                border: InputBorder.none,
-                                                hintText: "Mobile number",
-                                                hintStyle: TextStyle(
-                                                  color: text_dark,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                ))),
-                                      )
-                                    ],
-                                  ),
-                                ),
-      */
-                        Visibility(
-                            visible: sessionManager.getIsTemple() ?? false ? false : true,
-                            child: setUpTextDate()
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 16,right: 14,left: 14,bottom: 16),
-                          alignment: Alignment.topLeft,
-                          child: Text("Address",style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20)),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),),
-                          child:  TextField(
-                              controller: countryController,
-                              onTap: () async {
-                                _goForCountrySelection(context);
-                              },
-                              readOnly: true,
-                              keyboardType: TextInputType.text,
-                              cursorColor: title,
-                              style: const TextStyle(
-                                color: darkbrown,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-
-                              decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(color: Colors.grey,),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(14),
-                                      borderSide:  const BorderSide(color: Colors.grey)
-                                  ),
-                                  suffixIcon: const Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: title,
-                                  ),
-                                  counterText: "",
-                                  // border: InputBorder.none,
-                                  alignLabelWithHint: true,
-                                  hintText: "Select country",
-                                  hintStyle: const TextStyle(
-                                    color: darkbrown,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  )
-                              )
-                          ),
-                        ),
-                        Container(height: 12,),
-                        Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14.0),),
-                          child:  TextField(
-                              controller: stateController,
-                              onTap: (){
-                                if(countryId.isEmpty)
-                                {
-                                  showToast("Select your country first", context);
-                                }
-                                else
-                                {
-                                  _goForStateSelection(context);
-                                }
-                              },
-                              readOnly: true,
-                              keyboardType: TextInputType.text,
-                              cursorColor: title,
-                              style: const TextStyle(
-                                color: darkbrown,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide:  const BorderSide(color: Colors.grey,),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(14),
-                                      borderSide:  const BorderSide(color: Colors.grey)
-                                  ),
-                                  suffixIcon: const Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: title,
-                                  ),
-                                  counterText: "",
-                                  alignLabelWithHint: true,
-                                  hintText: "Select state",
-                                  hintStyle: const TextStyle(
-                                    color: darkbrown,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  )
-                              )
-                          ),
-                        ),
-                        Container(height: 12,),
-                        Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14.0)),
-                          child:  TextField(
-                              controller: cityController,
-                              onTap: (){
-                                if(stateId.isEmpty)
-                                {
-                                  showToast("Select your state first", context);
-                                }else{
-                                  _goForCitySelection(context);
-
-                                }
-                              },
-                              readOnly: true,
-                              keyboardType: TextInputType.text,
-                              cursorColor: title,
-                              style: const TextStyle(
-                                color: darkbrown,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide:  const BorderSide(color: Colors.grey,),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(14),
-                                      borderSide:  const BorderSide(color: Colors.grey)
-                                  ),
-                                  suffixIcon: const Icon(
-                                    Icons .keyboard_arrow_down_rounded,
-                                    color: title,
-                                  ),
-                                  counterText: "",
-                                  // border: InputBorder.none,
-                                  alignLabelWithHint: true,
-                                  hintText: "Select city",
-                                  hintStyle: const TextStyle(
-                                    color: darkbrown,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ))
-                          ),
-                        ),
-                        Container(height: 12,),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14.0),),
-                          child:  TextField(
-                            controller: addressController,
-                            keyboardType: TextInputType.text,
-                            cursorColor: title,
-                            readOnly: true,
-                            minLines: 3,
-                            maxLines: 4,
-                            onTap: () async {
-                              Prediction? prediction = await PlacesAutocomplete.show(
-                                context: context,
-                                apiKey: API_KEY,
-                                mode: Mode.fullscreen,
-                                components: [],
-                                strictbounds: false,
-                                region: "",
-                                decoration: const InputDecoration(
-                                  hintText: 'Search',
-                                ),
-                                types: [],
-                                language: "en",
-                              );
-                              displayPrediction(prediction,context);
-                            },
-                            style: const TextStyle(
-                              color: black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(14),
-                                  borderSide:  const BorderSide(color: Colors.grey,),
-                                ),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide:  const BorderSide(color: Colors.grey)
-                                ),
-                                counterText: "",
-                                // border: InputBorder.none,
-                                hintText: 'Address',
-                                hintStyle: const TextStyle(
-                                    color: darkbrown,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500
-                                )
-                            ),
-                          ),
-                        ),
-                        Visibility(
-                          visible: sessionManager.getIsPujrai() ?? false,
+                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                      child: Center(
+                        child: Container(
+                          width: width,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              cardProfileImage(),
+
                               Container(
                                 margin: const EdgeInsets.only(top: 16,right: 14,left: 14),
                                 alignment: Alignment.topLeft,
-                                child: const Text("Professional Details",style: TextStyle(fontWeight: FontWeight.bold,color: black,fontSize: 20),),
+                                child:  Text("Profile Details",
+                                    style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20) ),
                               ),
+
                               Container(
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.only(top: 18,),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14.0),
-                                ),
-                                child:   TextField(
-                                  controller: pathshalaController,
-                                  keyboardType: TextInputType.text,
-                                  cursorColor: title,
-                                  style: const TextStyle(
-                                    color: text_dark,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  decoration:  InputDecoration(
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide:   const BorderSide(color: Colors.grey,),
-                                      ),
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide:   const BorderSide(color: Colors.grey)
-                                      ),
-                                      counterText: "",
-                                      // border: InputBorder.none,
-                                      hintText: 'Pathshala',
-                                      hintStyle: const TextStyle(
-                                          color: darkbrown,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500)),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.only(top: 10,),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14.0),
-                                ),
-                                child: TextField(
-                                  controller: gurukulController,
-                                  keyboardType: TextInputType.text,
-                                  cursorColor: title,
-                                  style: const TextStyle(
-                                    color: text_dark,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  decoration: InputDecoration(
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        borderSide:   const BorderSide(color: Colors.grey,),
-                                      ),
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(14),
-                                          borderSide:   const BorderSide(color: Colors.grey)
-                                      ),
-                                      counterText: "",
-                                      hintText: 'Gurukul',
-                                      hintStyle: const TextStyle(
-                                          color: darkbrown,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500)),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.only(top: 10,),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14.0),
-                                ),
-                                child:  TextField(
-                                    controller: qualificationController,
+                                  margin: const EdgeInsets.only(top: 14),
+                                  child: TextField(
                                     onTap: (){
-                                      _goForQulificationSelection(context);
                                     },
+                                    controller: firstNameController,
+                                    keyboardType: TextInputType.text,
+                                    cursorColor: Colors.grey,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Colors.grey)
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Colors.grey,),
+                                      ),
+                                      labelText: "First Name",
+                                      labelStyle: const TextStyle(color: darkbrown),                                     ),
+                                  )
+                              ),
+
+                              Container(
+                                  margin: const EdgeInsets.only(top: 14),
+                                  child: TextField(
+                                    onTap: (){
+                                    },
+                                    controller: lastNameController,
+                                    keyboardType: TextInputType.text,
+                                    cursorColor: Colors.grey,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Colors.grey)
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Colors.grey,),
+                                      ),
+                                      labelText: "Last Name",
+                                      labelStyle: const TextStyle(color: darkbrown),                                     ),
+                                  )
+                              ),
+
+                              /* Container(
+                                          margin: const EdgeInsets.only(top: 14),
+                                          child: TextField(
+                                            onTap: (){
+                                            },
+                                            controller: emailController,
+                                            keyboardType: TextInputType.text,
+                                            cursorColor: Colors.grey,
+                                            readOnly: sessionManager.getEmail().toString().length>0 ,
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  borderSide: const BorderSide(color: Colors.grey)
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(20),
+                                                borderSide: const BorderSide(color: Colors.grey,),
+                                              ),
+                                              labelText: "Email Address",
+                                              labelStyle: const TextStyle(color: text_new),                                     ),
+                                          )
+                                      ),*/
+
+
+                              Container(
+                                  margin: const EdgeInsets.only(top: 14),
+                                  child: TextField(
+                                    onTap: (){
+                                    },
+                                    controller: emailController,
+                                    keyboardType: TextInputType.text,
+                                    cursorColor: Colors.grey,
+                                    readOnly: sessionManager.getEmail().toString().length>0 ,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Colors.grey)
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                        borderSide: const BorderSide(color: Colors.grey,),
+                                      ),
+                                      labelText: "Email Address",
+                                      labelStyle: const TextStyle(color: darkbrown),                                     ),
+                                  )
+                              ),
+
+                              Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.only(left: 14, right: 10),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                    width: 1,
+                                  ),
+
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(18),
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    GestureDetector(
+                                      child: Text(countryCode,
+                                          style: const TextStyle(
+                                              color: text_dark,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14)
+                                      ),
+                                      onTap:(){
+                                        print("IS DONE === ");
+                                        countryDialog();
+                                      },
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 10),
+                                      height: 20,
+                                      width: 1,
+                                      color: text_light,
+                                    ),
+                                    Flexible(
+                                      child:TextField(
+                                        controller: numberController,
+                                        maxLength: 12,
+                                        keyboardType: TextInputType.number,
+                                        cursorColor: text_dark,
+                                        readOnly: numberController.value.text.isEmpty ? false : true,
+                                        style: const TextStyle(
+                                            color: black,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500),
+                                        decoration: InputDecoration(
+                                          contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
+                                          fillColor: bottomSheetBg,
+                                          counterText: "",
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(14.0),
+                                              borderSide: const BorderSide(
+                                                  width: 0, style: BorderStyle.none)),
+                                          filled: true,
+                                          hintText: "Mobile Number",
+                                          hintStyle: const TextStyle(
+                                            color: darkbrown,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+
+
+                              /*
+                                      Container(
+                                        alignment: Alignment.center,
+                                        margin: const EdgeInsets.only(
+                                            top: 10, right: 10, left: 10),
+                                        padding: const EdgeInsets.only(left: 14, right: 14),
+                                        decoration: const BoxDecoration(
+                                          color: white_blue,
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(18),
+                                          ),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            GestureDetector(
+                                              behavior: HitTestBehavior.opaque,
+                                              onTap:(){
+                                                print("IS DONE === ");
+                                                countryDialog();
+                                              },
+                                              child: Text(countryCode,
+                                                  style: const TextStyle(
+                                                      color: text_dark,
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 14)),
+                                            ),
+                                            Container(
+                                              margin: const EdgeInsets.only(left: 10,right:10),
+                                              height: 20,
+                                              width: 1,
+                                              color: text_light,
+                                            ),
+                                            Flexible(
+                                              child: TextField(
+                                                  controller: numberController,
+                                                  keyboardType: TextInputType.number,
+                                                  cursorColor: text_dark,
+                                                  maxLength: 12,
+                                                  readOnly: numberController.value.text.isEmpty ? false : true,
+                                                  style: const TextStyle(
+                                                    color: text_dark,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                  decoration: const InputDecoration(
+                                                      counterText: "",
+                                                      border: InputBorder.none,
+                                                      hintText: "Mobile number",
+                                                      hintStyle: TextStyle(
+                                                        color: text_dark,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w600,
+                                                      ))),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+            */
+                              Visibility(
+                                  visible: sessionManager.getIsTemple() ?? false ? false : true,
+                                  child: setUpTextDate()
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 16,right: 14,left: 14,bottom: 16),
+                                alignment: Alignment.topLeft,
+                                child: Text("Address",style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20)),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.0),),
+                                child:  TextField(
+                                    controller: countryController,
+                                    onTap: () async {
+                                      _goForCountrySelection(context);
+                                    },
+                                    readOnly: true,
                                     keyboardType: TextInputType.text,
                                     cursorColor: title,
                                     style: const TextStyle(
-                                      color: text_dark,
+                                      color: darkbrown,
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+
+                                    decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(14),
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(14),
+                                            borderSide:  const BorderSide(color: Colors.grey)
+                                        ),
+                                        suffixIcon: const Icon(
+                                          Icons.keyboard_arrow_down_rounded,
+                                          color: title,
+                                        ),
+                                        counterText: "",
+                                        // border: InputBorder.none,
+                                        alignLabelWithHint: true,
+                                        hintText: "Select country",
+                                        hintStyle: const TextStyle(
+                                          color: darkbrown,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        )
+                                    )
+                                ),
+                              ),
+                              Container(height: 12,),
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14.0),),
+                                child:  TextField(
+                                    controller: stateController,
+                                    onTap: (){
+                                      if(countryId.isEmpty)
+                                      {
+                                        showToast("Select your country first", context);
+                                      }
+                                      else
+                                      {
+                                        _goForStateSelection(context);
+                                      }
+                                    },
+                                    readOnly: true,
+                                    keyboardType: TextInputType.text,
+                                    cursorColor: title,
+                                    style: const TextStyle(
+                                      color: darkbrown,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     decoration: InputDecoration(
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(14),
-                                          borderSide:   const BorderSide(color: Colors.grey,),
+                                          borderSide:  const BorderSide(color: Colors.grey,),
                                         ),
                                         border: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(14),
-                                            borderSide:   const BorderSide(color: Colors.grey)
+                                            borderSide:  const BorderSide(color: Colors.grey)
                                         ),
                                         suffixIcon: const Icon(
-                                          Icons .keyboard_arrow_down_rounded,
+                                          Icons.keyboard_arrow_down_rounded,
                                           color: title,
                                         ),
                                         counterText: "",
                                         alignLabelWithHint: true,
-                                        hintText: "Qualification",
+                                        hintText: "Select state",
                                         hintStyle: const TextStyle(
                                           color: darkbrown,
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,
-                                        ))
+                                        )
+                                    )
                                 ),
                               ),
+                              Container(height: 12,),
                               Container(
                                 alignment: Alignment.center,
-                                margin: const EdgeInsets.only(top: 10,),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14.0),
-                                ),
+                                    borderRadius: BorderRadius.circular(14.0)),
                                 child:  TextField(
-                                    controller: experienceController,
+                                    controller: cityController,
                                     onTap: (){
-                                      _goForExprienceSelection(context);
+                                      if(stateId.isEmpty)
+                                      {
+                                        showToast("Select your state first", context);
+                                      }else{
+                                        _goForCitySelection(context);
+
+                                      }
                                     },
+                                    readOnly: true,
                                     keyboardType: TextInputType.text,
                                     cursorColor: title,
-                                    readOnly: true,
                                     style: const TextStyle(
-                                      color: text_dark,
+                                      color: darkbrown,
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                    decoration:  InputDecoration(
+                                    decoration: InputDecoration(
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(14),
-                                          borderSide:   const BorderSide(color: Colors.grey,),
+                                          borderSide:  const BorderSide(color: Colors.grey,),
                                         ),
                                         border: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(14),
-                                            borderSide:   const BorderSide(color: Colors.grey)
+                                            borderSide:  const BorderSide(color: Colors.grey)
                                         ),
                                         suffixIcon: const Icon(
                                           Icons .keyboard_arrow_down_rounded,
                                           color: title,
                                         ),
                                         counterText: "",
+                                        // border: InputBorder.none,
                                         alignLabelWithHint: true,
-                                        hintText: "Experience",
+                                        hintText: "Select city",
                                         hintStyle: const TextStyle(
                                           color: darkbrown,
                                           fontSize: 16,
@@ -1412,120 +1203,329 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                         ))
                                 ),
                               ),
+                              Container(height: 12,),
                               Container(
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.only(top: 10,),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14.0),
-                                ),
+                                  borderRadius: BorderRadius.circular(14.0),),
                                 child:  TextField(
-                                  readOnly: true,
+                                  controller: addressController,
                                   keyboardType: TextInputType.text,
                                   cursorColor: title,
-                                  onTap: (){
-                                    pickFileForCertificate();
+                                  readOnly: true,
+                                  minLines: 3,
+                                  maxLines: 4,
+                                  onTap: () async {
+                                    Prediction? prediction = await PlacesAutocomplete.show(
+                                      context: context,
+                                      apiKey: API_KEY,
+                                      mode: Mode.fullscreen,
+                                      components: [],
+                                      strictbounds: false,
+                                      region: "",
+                                      decoration: const InputDecoration(
+                                        hintText: 'Search',
+                                      ),
+                                      types: [],
+                                      language: "en",
+                                    );
+                                    displayPrediction(prediction,context);
                                   },
                                   style: const TextStyle(
-                                    color: text_dark,
+                                    color: black,
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                   decoration: InputDecoration(
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(14),
-                                        borderSide:   const BorderSide(color: Colors.grey,),
+                                        borderSide:  const BorderSide(color: Colors.grey,),
                                       ),
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(14),
-                                          borderSide:   const BorderSide(color: Colors.grey)
+                                          borderSide:  const BorderSide(color: Colors.grey)
                                       ),
                                       counterText: "",
-                                      hintText: 'Certificate',
+                                      // border: InputBorder.none,
+                                      hintText: 'Address',
                                       hintStyle: const TextStyle(
                                           color: darkbrown,
                                           fontSize: 16,
-                                          fontWeight: FontWeight.w500)),
+                                          fontWeight: FontWeight.w500
+                                      )
+                                  ),
                                 ),
                               ),
                               Visibility(
-                                visible: certificatePath.path.isNotEmpty,
-                                child: Container(
-                                  margin: const EdgeInsets.only(left: 14, right: 14,top: 14),
-                                  decoration:  BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      border: Border.all(width: 1,color: text_dark),
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(14.0),
-                                      ),
-                                      color: Colors.transparent
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Image.asset("assets/images/ic_file.png", width: 36, height: 36,),
-                                        Container(width: 8,),
-                                        Flexible(child: Text(certificateName, style: const TextStyle(color: text_dark,fontSize: 14,fontWeight: FontWeight.w600),))
-                                      ],
+                                visible: sessionManager.getIsPujrai() ?? false,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 16,right: 14,left: 14),
+                                      alignment: Alignment.topLeft,
+                                      child: const Text("Professional Details",style: TextStyle(fontWeight: FontWeight.bold,color: black,fontSize: 20),),
                                     ),
-                                  ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      margin: const EdgeInsets.only(top: 18,),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14.0),
+                                      ),
+                                      child:   TextField(
+                                        controller: pathshalaController,
+                                        keyboardType: TextInputType.text,
+                                        cursorColor: title,
+                                        style: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        decoration:  InputDecoration(
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(14),
+                                              borderSide:   const BorderSide(color: Colors.grey,),
+                                            ),
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(14),
+                                                borderSide:   const BorderSide(color: Colors.grey)
+                                            ),
+                                            counterText: "",
+                                            // border: InputBorder.none,
+                                            hintText: 'Pathshala',
+                                            hintStyle: const TextStyle(
+                                                color: darkbrown,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500)),
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      margin: const EdgeInsets.only(top: 10,),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14.0),
+                                      ),
+                                      child: TextField(
+                                        controller: gurukulController,
+                                        keyboardType: TextInputType.text,
+                                        cursorColor: title,
+                                        style: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        decoration: InputDecoration(
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(14),
+                                              borderSide:   const BorderSide(color: Colors.grey,),
+                                            ),
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(14),
+                                                borderSide:   const BorderSide(color: Colors.grey)
+                                            ),
+                                            counterText: "",
+                                            hintText: 'Gurukul',
+                                            hintStyle: const TextStyle(
+                                                color: darkbrown,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500)),
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      margin: const EdgeInsets.only(top: 10,),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14.0),
+                                      ),
+                                      child:  TextField(
+                                          controller: qualificationController,
+                                          onTap: (){
+                                            _goForQulificationSelection(context);
+                                          },
+                                          keyboardType: TextInputType.text,
+                                          cursorColor: title,
+                                          style: const TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          decoration: InputDecoration(
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(14),
+                                                borderSide:   const BorderSide(color: Colors.grey,),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(14),
+                                                  borderSide:   const BorderSide(color: Colors.grey)
+                                              ),
+                                              suffixIcon: const Icon(
+                                                Icons .keyboard_arrow_down_rounded,
+                                                color: title,
+                                              ),
+                                              counterText: "",
+                                              alignLabelWithHint: true,
+                                              hintText: "Qualification",
+                                              hintStyle: const TextStyle(
+                                                color: darkbrown,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                              ))
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      margin: const EdgeInsets.only(top: 10,),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14.0),
+                                      ),
+                                      child:  TextField(
+                                          controller: experienceController,
+                                          onTap: (){
+                                            _goForExprienceSelection(context);
+                                          },
+                                          keyboardType: TextInputType.text,
+                                          cursorColor: title,
+                                          readOnly: true,
+                                          style: const TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          decoration:  InputDecoration(
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(14),
+                                                borderSide:   const BorderSide(color: Colors.grey,),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(14),
+                                                  borderSide:   const BorderSide(color: Colors.grey)
+                                              ),
+                                              suffixIcon: const Icon(
+                                                Icons .keyboard_arrow_down_rounded,
+                                                color: title,
+                                              ),
+                                              counterText: "",
+                                              alignLabelWithHint: true,
+                                              hintText: "Experience",
+                                              hintStyle: const TextStyle(
+                                                color: darkbrown,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                              ))
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      margin: const EdgeInsets.only(top: 10,),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14.0),
+                                      ),
+                                      child:  TextField(
+                                        readOnly: true,
+                                        keyboardType: TextInputType.text,
+                                        cursorColor: title,
+                                        onTap: (){
+                                          pickFileForCertificate();
+                                        },
+                                        style: const TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        decoration: InputDecoration(
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(14),
+                                              borderSide:   const BorderSide(color: Colors.grey,),
+                                            ),
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(14),
+                                                borderSide:   const BorderSide(color: Colors.grey)
+                                            ),
+                                            counterText: "",
+                                            hintText: 'Certificate',
+                                            hintStyle: const TextStyle(
+                                                color: darkbrown,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500)),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: certificatePath.path.isNotEmpty,
+                                      child: Container(
+                                        margin: const EdgeInsets.only(left: 14, right: 14,top: 14),
+                                        decoration:  BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            border: Border.all(width: 1,color: text_dark),
+                                            borderRadius: const BorderRadius.all(
+                                              Radius.circular(14.0),
+                                            ),
+                                            color: Colors.transparent
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              Image.asset("assets/images/ic_file.png", width: 36, height: 36,),
+                                              Container(width: 8,),
+                                              Flexible(child: Text(certificateName, style: const TextStyle(color: text_dark,fontSize: 14,fontWeight: FontWeight.w600),))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
-                              )
+                              ),
+                              Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: const EdgeInsets.only(bottom: 20, top: 22),
+                                  child: TextButton(
+                                    style: ButtonStyle(
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(14.0),
+                                          ),
+                                        ),
+                                        backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
+                                    ),
+                                    onPressed: () {
+                                      if(firstNameController.text.isEmpty)
+                                      {
+                                        showToast('Please enter first name', context);
+                                      }
+                                      else if(lastNameController.text.isEmpty)
+                                      {
+                                        showToast('Please enter last name', context);
+                                      }
+                                      else if(emailController.text.isEmpty)
+                                      {
+                                        showToast('Please enter email address', context);
+                                      }
+                                      else if(!isValidEmail(emailController.text.toString()))
+                                      {
+                                        showToast("Please enter valid email address", context);
+                                      }
+                                      else if(numberController.text.isEmpty)
+                                      {
+                                        showToast("Please enter contact number", context);
+                                      }
+                                      else
+                                      {
+                                        _updateProfileDetails();
+                                      }
+                                    },
+                                    child: const Padding(
+                                      padding:  EdgeInsets.only(top: 14.0, bottom: 14),
+                                      child:  Text("Update Profile",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: text_dark,
+                                              fontWeight: FontWeight.w600)),
+                                    ),
+                                  )
+                              ),
                             ],
                           ),
                         ),
-                        Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.only(bottom: 20, top: 22),
-                            child: TextButton(
-                              style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(14.0),
-                                    ),
-                                  ),
-                                  backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
-                              ),
-                              onPressed: () {
-                                if(firstNameController.text.isEmpty)
-                                {
-                                  showToast('Please enter first name', context);
-                                }
-                                else if(lastNameController.text.isEmpty)
-                                {
-                                  showToast('Please enter last name', context);
-                                }
-                                else if(emailController.text.isEmpty)
-                                {
-                                  showToast('Please enter email address', context);
-                                }
-                                else if(!isValidEmail(emailController.text.toString()))
-                                {
-                                  showToast("Please enter valid email address", context);
-                                }
-                                else if(numberController.text.isEmpty)
-                                {
-                                  showToast("Please enter contact number", context);
-                                }
-                                else
-                                {
-                                  _updateProfileDetails();
-                                }
-                              },
-                              child: const Padding(
-                                padding:  EdgeInsets.only(top: 14.0, bottom: 14),
-                                child:  Text("Update Profile",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: text_dark,
-                                        fontWeight: FontWeight.w600)),
-                              ),
-                            )
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                      ),
               ),
             ),
             onWillPop: () {
@@ -1601,7 +1601,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         style: const TextStyle(
             color: black,
             fontSize: 14,
-            fontWeight: FontWeight.w500),
+            fontWeight: FontWeight.w500
+        ),
         decoration: InputDecoration(
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
@@ -1752,7 +1753,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                         Image.asset("assets/images/ic_camera.png",width: 24,height: 24,),
                         Container(
                             margin: const EdgeInsets.only(left: 8),
-                            child: const Text('Camera', style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),textAlign: TextAlign.start,)),
+                            child: const Text('Camera', style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),textAlign: TextAlign.start,)
+                        ),
                       ],
                     ),
                   ),
@@ -1770,7 +1772,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                         Image.asset("assets/images/ic_gallery.png",width: 24,height: 24,),
                         Container(
                             margin: const EdgeInsets.only(left: 8),
-                            child: const Text('Gallery', style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),)),
+                            child: const Text('Gallery', style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),)
+                        ),
                       ],
                     ),
                   ),

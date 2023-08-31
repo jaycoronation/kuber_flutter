@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/CommonResponseModel.dart';
@@ -14,6 +15,7 @@ import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../model/CountryListResponseModel.dart';
+import '../utils/routes.dart';
 import 'WebViewContainer.dart';
 
 class LoginWithOtpScreen extends StatefulWidget {
@@ -212,7 +214,8 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
       setState(() {
         _isLoading = false;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(numberController.value.text, countryCode)));
+      context.goNamed(AppRoutes.otpRoute,pathParameters:  {'mobileNumber': numberController.value.text, 'countryCode': countryCode});
+      //Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(numberController.value.text, countryCode)));
     } else {
       setState(() {
         _isLoading = false;

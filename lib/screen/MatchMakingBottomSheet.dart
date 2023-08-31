@@ -1646,8 +1646,26 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 Container(
                                     margin: const EdgeInsets.only(top: 14),
                                     child: TextField(
+                                      // onTap: () async {
+                                      //   _setDatePicker(matchGirlBirthDateController);
+                                      // },
                                       onTap: () async {
-                                        _setDatePicker(matchGirlBirthDateController);
+                                        DateTime? pickedDate = await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1900),
+                                          //DateTime.now() - not to allow to choose before today.
+                                          lastDate: DateTime.now(),
+                                          helpText: 'Preferred Move Date',
+                                        );
+                                        if (pickedDate != null) {
+                                          String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                                          //you can implement different kind of Date Format here according to your requirement
+                                          setState(() {
+                                            selectedDate = formattedDate;
+                                            matchGirlBirthDateController.text = formattedDate;
+                                          });
+                                        }
                                       },
                                       readOnly: true,
                                       controller: matchGirlBirthDateController,
@@ -1701,8 +1719,26 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 Container(
                                     margin: const EdgeInsets.only(top: 14),
                                     child: TextField(
+                                      // onTap: () async {
+                                      //   _setTimePicker(matchGirlBirthTimeController,setState);
+                                      // },
                                       onTap: () async {
-                                        _setTimePicker(matchGirlBirthTimeController,setState);
+                                        TimeOfDay? pickedTime =  await showTimePicker(
+                                          initialTime: TimeOfDay.now(),
+                                          context: context,
+                                        );
+
+                                        if(pickedTime != null ){
+                                          print(pickedTime.format(context));   //output 10:51 PM
+
+                                          setState(() {
+                                            selectedTime = pickedTime.format(context);
+                                            matchGirlBirthTimeController.text = pickedTime.format(context); //set the value of text field.
+                                          });
+                                          print(selectedTime);
+                                        }else{
+                                          print("Time is not selected");
+                                        }
                                       },
                                       readOnly:true,
                                       controller: matchGirlBirthTimeController,
@@ -1917,8 +1953,26 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 Container(
                                     margin: const EdgeInsets.only(top: 14),
                                     child: TextField(
+                                      // onTap: () async {
+                                      //   _setDatePicker(matchBoyBirthDateController);
+                                      // },
                                       onTap: () async {
-                                        _setDatePicker(matchBoyBirthDateController);
+                                        DateTime? pickedDate = await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1900),
+                                          //DateTime.now() - not to allow to choose before today.
+                                          lastDate: DateTime.now(),
+                                          helpText: 'Preferred Move Date',
+                                        );
+                                        if (pickedDate != null) {
+                                          String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                                          //you can implement different kind of Date Format here according to your requirement
+                                          setState(() {
+                                            selectedDate = formattedDate;
+                                            matchBoyBirthDateController.text = formattedDate;
+                                          });
+                                        }
                                       },
                                       readOnly: true,
                                       controller: matchBoyBirthDateController,
@@ -1972,8 +2026,26 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 Container(
                                     margin: const EdgeInsets.only(top: 14),
                                     child: TextField(
+                                      // onTap: () async {
+                                      //   _setTimePicker(matchBoyBirthTimeController,setState);
+                                      // },
                                       onTap: () async {
-                                        _setTimePicker(matchBoyBirthTimeController,setState);
+                                        TimeOfDay? pickedTime =  await showTimePicker(
+                                          initialTime: TimeOfDay.now(),
+                                          context: context,
+                                        );
+
+                                        if(pickedTime != null ){
+                                          print(pickedTime.format(context));   //output 10:51 PM
+
+                                          setState(() {
+                                            selectedTime = pickedTime.format(context);
+                                            matchBoyBirthTimeController.text = pickedTime.format(context); //set the value of text field.
+                                          });
+                                          print(selectedTime);
+                                        }else{
+                                          print("Time is not selected");
+                                        }
                                       },
                                       controller: matchBoyBirthTimeController,
                                       readOnly: true,

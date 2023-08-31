@@ -123,7 +123,8 @@ class _MyAccountScreen extends State<MyAccountScreen> {
                     Container(
                       alignment: Alignment.topLeft,
                       margin: const EdgeInsets.only(left: 16),
-                      child: const Text('General',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),),
+                      child: const Text('General',style: TextStyle(fontSize:18,fontWeight: FontWeight.bold,color: black), textAlign: TextAlign.left,),
+                    ),
                     InkWell(
                       onTap:() async {
                         var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));

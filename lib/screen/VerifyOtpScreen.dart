@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/VerifyOtpResponseModel.dart';
@@ -18,14 +19,15 @@ import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../model/CommonResponseModel.dart';
 import '../utils/responsive.dart';
+import '../utils/routes.dart';
 import 'DashboardForWeb.dart';
 import 'MyPofileScreen.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
- String mobileNumber="";
+ String? mobileNumber="";
+ String? countryCode;
 
- final String countryCode;
-  VerifyOtpScreen(this.mobileNumber, this.countryCode  , {Key? key, }) : super(key: key);
+  VerifyOtpScreen({Key? key, this.mobileNumber, this.countryCode}) : super(key: key);
 
 
   @override
@@ -443,9 +445,9 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
     final url = Uri.parse(MAIN_URL + verifyOtp);
 
     Map<String, String> jsonBody = {
-      'mobile': widget.mobileNumber,
+      'mobile': widget.mobileNumber.toString(),
       'otp': otp,
-      'country_code' : widget.countryCode
+      'country_code' : widget.countryCode.toString()
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -464,14 +466,9 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       sessionManager.setUserId(dataResponse.profile?.userId.toString() ?? "");
       print(dataResponse.profile!.mobile.toString());
       print(dataResponse.profile!.email.toString());
-      if(dataResponse.profile?.email?.toString().isEmpty ?? true)
-      {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
-      }
-      else
-      {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => kIsWeb ? DashboardForWeb() : const DashboardScreen()), (route) => false);
-      }
+
+      getNextScreen(dataResponse);
+
     }
     else {
       setState(() {
@@ -499,6 +496,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       },
     );
   }
+
   _sendOTPApi() async {
     HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
       HttpLogger(logLevel: LogLevel.BODY),
@@ -507,8 +505,8 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
     final url = Uri.parse(MAIN_URL + generateOtp);
 
     Map<String, String> jsonBody = {
-      'mobile': widget.mobileNumber,
-      'county_code' :widget.countryCode
+      'mobile': widget.mobileNumber.toString(),
+      'county_code' :widget.countryCode.toString()
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -523,12 +521,41 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       setState(() {
         _isLoading = false;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(widget.mobileNumber, widget.countryCode)));
+      context.goNamed(AppRoutes.otpRoute,pathParameters:  {'mobileNumber': widget.mobileNumber.toString(), 'countryCode': widget.countryCode.toString()});
+      //Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(widget.mobileNumber, widget.countryCode)));
     } else {
       setState(() {
         _isLoading = false;
       });
       showToast(loginResponse.message, context);
     }
+  }
+
+  void getNextScreen(VerifyOtpResponseModel dataResponse) {
+
+    if (kIsWeb)
+    {
+      if(dataResponse.profile?.email?.toString().isEmpty ?? true)
+      {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
+      }
+      else
+      {
+        //GoRouter.of(context).go(AppRoutes.homeRoute);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => true);
+      }
+    }
+    else
+    {
+      if(dataResponse.profile?.email?.toString().isEmpty ?? true)
+      {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
+      }
+      else
+      {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+      }
+    }
+
   }
 }

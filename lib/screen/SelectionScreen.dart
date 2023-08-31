@@ -432,9 +432,11 @@ class _SelectionScreen extends State<SelectionScreen> {
                                           FontWeight
                                               .w600,
                                           color: Colors
-                                              .black),
+                                              .black
+                                      ),
                                       textAlign:
-                                      TextAlign.center),
+                                      TextAlign.center
+                                  ),
                                 ),
                                 const Divider(
                                   color: text_light,
@@ -482,7 +484,6 @@ class _SelectionScreen extends State<SelectionScreen> {
       if (dataResponse.countries != null) {
         _countryList = dataResponse.countries!;
       }
-
       setState(() {
         _isLoading = false;
       });

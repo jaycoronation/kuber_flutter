@@ -1427,8 +1427,25 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                     children: [
                                       GestureDetector(
                                         behavior: HitTestBehavior.opaque,
+                                        // onTap: () async {
+                                        //   _setPickDate(pickDateController,setState);
+                                        // },
                                         onTap: () async {
-                                          _setPickDate(pickDateController,setState);
+                                          DateTime? pickedDate = await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime.now().subtract(Duration(days: 0)),
+                                            lastDate: DateTime(2100),
+                                            helpText: 'Preferred Move Date',
+                                          );
+                                          if (pickedDate != null) {
+                                            String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                                            //you can implement different kind of Date Format here according to your requirement
+                                            setState(() {
+                                              selectedDate = formattedDate;
+                                              pickDateController.text = formattedDate;
+                                            });
+                                          }
                                         },
                                         child: Row(
                                           children: [
@@ -1453,8 +1470,26 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                       Container(width: 65,),
                                       GestureDetector(
                                         behavior: HitTestBehavior.opaque,
+                                        // onTap: () async {
+                                        //   _setTimePicker(pickTimeController,setState);
+                                        // },
                                         onTap: () async {
-                                          _setTimePicker(pickTimeController,setState);
+                                          TimeOfDay? pickedTime =  await showTimePicker(
+                                            initialTime: TimeOfDay.now(),
+                                            context: context,
+                                          );
+
+                                          if(pickedTime != null ){
+                                            print(pickedTime.format(context));   //output 10:51 PM
+
+                                            setState(() {
+                                              selectedTime = pickedTime.format(context);
+                                              pickTimeController.text = pickedTime.format(context); //set the value of text field.
+                                            });
+                                            print(selectedTime);
+                                          }else{
+                                            print("Time is not selected");
+                                          }
                                         },
                                         child: Row(
                                           children: [
@@ -1476,7 +1511,6 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                           ],
                                         ),
                                       ),
-
                                       /* Expanded(
                                              child: TextField(
                                                onTap: () async {
@@ -1570,7 +1604,6 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(28),
                                             color: const Color(0xffe8e4c7),
-
                                           ),
                                           margin: const EdgeInsets.only(right: 8, left: 2),
                                           child: Padding(
@@ -1598,7 +1631,6 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(28),
                                             color: const Color(0xffe8e4c7),
-
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.only(top:6.0, bottom: 6, left: 8,right: 8),
@@ -1725,7 +1757,8 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                           style: TextStyle(
                                               color: text_light,
                                               fontSize: 16,
-                                              fontWeight: FontWeight.w300),
+                                              fontWeight: FontWeight.w300
+                                          ),
                                         ),
                                       ),
                                       const Flexible(
@@ -2003,7 +2036,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: const [
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 10.0, bottom: 10, ),
+                                            padding: EdgeInsets.only(top: 10.0, bottom: 10, ),
                                             child: Text('Cancel', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
                                           ),
                                         ],

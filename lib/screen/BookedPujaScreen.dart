@@ -73,7 +73,8 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
                                                 fontWeight:
                                                     FontWeight.w600,
                                                 color: Colors.green),
-                                            textAlign: TextAlign.start),
+                                            textAlign: TextAlign.start
+                                        ),
                                       ),
                                       Row(
                                         children: [

@@ -900,20 +900,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                                     //DateTime.now() - not to allow to choose before today.
                                     lastDate: DateTime.now(),
                                     helpText: 'Preferred Move Date',
-                                    builder: (BuildContext context, Widget? child) {
-                                      return Theme(
-                                        data: ThemeData.dark().copyWith(
-                                          colorScheme:  const ColorScheme.dark(
-                                            primary: black,
-                                            onPrimary: white,
-                                            surface: text_light,
-                                            onSurface: title,
-                                          ),
-                                          dialogBackgroundColor: white,
-                                        ),
-                                        child: child!,
-                                      );
-                                    });
+                                    );
                                 if (pickedDate != null) {
                                   String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
                                   //you can implement different kind of Date Format here according to your requirement
@@ -977,7 +964,6 @@ class _SignUpScreen extends State<SignUpScreen> {
                               ),
                             ),
                           ),
-
 
                           /* Container(
                       alignment: Alignment.center,
