@@ -50,6 +50,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
 
   @override
   void initState() {
+    getCountryData();
     getAstrologyApi();
     super.initState();
   }
@@ -178,129 +179,129 @@ class _AstrologyScreen extends State<AstrologyScreen> {
         }
     )
         : WillPopScope(
-        child: Scaffold(
-          backgroundColor: bg_skin,
-          appBar: AppBar(
-            toolbarHeight: 60,
-            automaticallyImplyLeading: false,
+          child: Scaffold(
             backgroundColor: bg_skin,
-            elevation: 0,
-            leading:IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ) ,
+            appBar: AppBar(
+              toolbarHeight: 60,
+              automaticallyImplyLeading: false,
+              backgroundColor: bg_skin,
+              elevation: 0,
+              leading:IconButton(
+                icon: Image.asset("assets/images/ic_back_arrow.png",
+                    width: 18, height: 18),
+                iconSize: 28,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ) ,
+            ),
+            body: _isLoading
+                ? const LoadingWidget()
+                : _isNoDataVisible
+                ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_astrology_list.png', titleMSG: 'No Astrology Request Found')
+                : Column(
+                    children:  [
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          margin: const EdgeInsets.only(left: 12,right: 12),
+                          child: Text("Astrology",style: getTitleFontStyle())
+                      ),
+                      Container(
+                          margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
+                          child: Text("Astrology is a Language. If you understand this language, The Sky Speaks to You.",
+                              style: getSecondaryTitleFontStyle())
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          reverse: false,
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemCount: _listAstrology.length,
+                          itemBuilder: (context, i) {
+                            return Container(
+                                margin: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6.0),
+                                  ),
+                                  color: astro_light,
+                                  elevation: 2,
+                                  child: InkWell(
+                                    onTap: (){
+                                      _openAstrologyDialog(_listAstrology[i]);
+                                      astroId = _listAstrology[i].astrologyId;
+                                      print(_listAstrology.length);
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              const Expanded(child: Text("Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                              Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                              Expanded(child: Text("${_listAstrology[i].firstName} ${_listAstrology[i].lastName}", style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                            ],
+                                          ),
+                                          Container(height: 12,),
+                                          Row(
+                                            children: [
+                                              const Expanded(child: Text("Birth Date", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                              Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                              Expanded(child: Text(_listAstrology[i].birthDate, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                            ],
+                                          ),
+                                          Container(height: 12,),
+                                          Row(
+                                            children: [
+                                              const Expanded(child: Text("Birth Time", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                              Expanded(child: Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                              Expanded(child: Text(_listAstrology[i].birthTime, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                            ],
+                                          ),
+                                          Container(height: 12,),
+                                          Row(
+                                            children: [
+                                              const Expanded(child: Text("Birth Place", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
+                                              Expanded(child: Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
+                                              Expanded(child: Text(_listAstrology[i].address, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
+                                            ],
+                                          ),
+                                          Container(height: 12,),
+                                          Visibility(
+                                              visible: _listAstrology[i].notes.isNotEmpty,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(4.0),
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    const Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
+                                                    Container(height: 8,),
+                                                    Text(_listAstrology[i].notes,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
+                                                  ],
+                                                ),
+                                              )
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                            );
+                          },
+                        ),
+                      )
+              ],
+            ),
           ),
-          body: _isLoading
-              ? const LoadingWidget()
-              : _isNoDataVisible
-              ? const MyNoDataNewWidget(msg: "", icon: 'assets/images/ic_astrology_list.png', titleMSG: 'No Astrology Request Found')
-              : Column(
-            children:  [
-              Container(
-                  alignment: Alignment.centerLeft,
-                  margin: const EdgeInsets.only(left: 12,right: 12),
-                  child: Text("Astrology",style: getTitleFontStyle())
-              ),
-              Container(
-                  margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
-                  child: Text("Astrology is a Language. If you understand this language, The Sky Speaks to You.",
-                      style: getSecondaryTitleFontStyle())
-              ),
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  reverse: false,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemCount: _listAstrology.length,
-                  itemBuilder: (context, i) {
-                    return Container(
-                        margin: const EdgeInsets.fromLTRB(12, 6, 12, 6),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6.0),
-                          ),
-                          color: astro_light,
-                          elevation: 2,
-                          child: InkWell(
-                            onTap: (){
-                              _openAstrologyDialog(_listAstrology[i]);
-                              astroId = _listAstrology[i].astrologyId;
-                              print(_listAstrology.length);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Expanded(child: Text("Name", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                      Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
-                                      Expanded(child: Text("${_listAstrology[i].firstName} ${_listAstrology[i].lastName}", style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                    ],
-                                  ),
-                                  Container(height: 12,),
-                                  Row(
-                                    children: [
-                                      const Expanded(child: Text("Birth Date", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                      Expanded(child: const Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
-                                      Expanded(child: Text(_listAstrology[i].birthDate, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                    ],
-                                  ),
-                                  Container(height: 12,),
-                                  Row(
-                                    children: [
-                                      const Expanded(child: Text("Birth Time", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                      Expanded(child: Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
-                                      Expanded(child: Text(_listAstrology[i].birthTime, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                    ],
-                                  ),
-                                  Container(height: 12,),
-                                  Row(
-                                    children: [
-                                      const Expanded(child: Text("Birth Place", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),) ),
-                                      Expanded(child: Text(" : ", style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 14),)),
-                                      Expanded(child: Text(_listAstrology[i].address, style: const TextStyle(color: text_dark,fontWeight: FontWeight.w400,fontSize: 14),) ),
-                                    ],
-                                  ),
-                                  Container(height: 12,),
-                                  Visibility(
-                                      visible: _listAstrology[i].notes.isNotEmpty,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            const Text("Note",style: TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.bold),),
-                                            Container(height: 8,),
-                                            Text(_listAstrology[i].notes,style: const TextStyle(color: black,fontSize: 16,fontWeight: FontWeight.w500),),
-                                          ],
-                                        ),
-                                      )
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
-                    );
-                  },
-                ),
-              )
-            ],
-          ),
-        ),
-        onWillPop: (){
-          Navigator.pop(context);
-          return Future.value(true);
-        }
+          onWillPop: (){
+            Navigator.pop(context);
+            return Future.value(true);
+          }
     );
 
   }
@@ -321,7 +322,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) {
-        return StatefulBuilder(builder:(context,setState)
+        return StatefulBuilder(builder:(context,updateState)
         {
           return Container(
               height: MediaQuery.of(context).size.height * 0.88,
@@ -330,7 +331,8 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12.0),
                     topRight: Radius.circular(12.0),
-                  )),
+                  )
+              ),
               child:Column(
                 children: [
                   Container(
@@ -340,7 +342,8 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                         height: 1.5,
                         thickness: 1.5,
                         color: Colors.grey,
-                      )),
+                      )
+                  ),
                   Container(
                     margin: const EdgeInsets.only(top: 20),
                     child: const Text(
@@ -360,7 +363,8 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                 Container(
                                     alignment: Alignment.topLeft,
                                     margin: const EdgeInsets.only(top:14,bottom: 14),
-                                    child: const Text("Basic Details",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color:black),)),
+                                    child: const Text("Basic Details",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color:black),)
+                                ),
                                 TextField(
                                   controller: astroFnameController,
                                   keyboardType: TextInputType.text,
@@ -455,7 +459,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                                 fontSize: 14)
                                         ),
                                         onTap: (){
-                                          countryDialog(setState);
+                                          countryDialog(updateState);
                                         },
                                       ),
                                       Flexible(
@@ -489,40 +493,11 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                   ),
                                 ),
                                 Container(height: 10),
-                                TextField(
+
+                                ResponsiveWidget.isSmallScreen(context)
+                                    ?   TextField(
                                   onTap: () async {
                                     _setDatePicker(astroGirlBirthDateController);
-
-                            /*        FocusScope.of(context).requestFocus(FocusNode());
-
-                                    DateTime? pickedDate = await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(1900),
-                                        lastDate: DateTime.now(),
-                                        builder: (BuildContext context, Widget? child) {
-                                          return Theme(
-                                            data: ThemeData.dark().copyWith(
-                                              colorScheme: const ColorScheme.dark(
-                                                primary: text_light,
-                                                onPrimary: white,
-                                                surface: text_light,
-                                                onSurface: black,
-                                              ),
-                                              dialogBackgroundColor: white,
-                                            ),
-                                            child: child!,
-                                          );
-                                        });
-                                    if (pickedDate != null) {
-
-                                      String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
-                                      print(formattedDate);
-                                      //you can implement different kind of Date Format here according to your requirement
-                                      setState(() {
-                                        astroGirlBirthDateController.text = formattedDate;
-                                      });
-                                    }*/
                                   },
                                   controller: astroGirlBirthDateController,
                                   keyboardType: TextInputType.text,
@@ -547,9 +522,61 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),
+                                )
+                                    : Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                      color: white_blue
+                                  ),
+                                  child:  Padding(
+                                    padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                    child: TextField(
+                                      readOnly: true,
+                                      controller:astroGirlBirthDateController,
+                                      cursorColor: text_dark,
+                                      onTap: () async {
+                                        DateTime? pickedDate = await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1900),
+                                          //DateTime.now() - not to allow to choose before today.
+                                          lastDate: DateTime.now(),
+                                          helpText: 'Preferred Move Date',
+                                        );
+                                        if (pickedDate != null) {
+                                          String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                                          //you can implement different kind of Date Format here according to your requirement
+                                          setState(() {
+                                            selectedDate = formattedDate;
+                                            astroGirlBirthDateController.text = formattedDate;
+                                          });
+                                        }
+                                      },
+
+                                      style: const TextStyle(
+                                          color: text_dark, fontSize: 14, fontWeight: FontWeight.w600
+                                      ),
+                                      decoration: const InputDecoration(
+                                          fillColor: white_blue,
+                                          border: InputBorder.none,
+                                          hintText: 'Date of Birth',
+                                          hintStyle: TextStyle(
+                                              color: text_dark,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w900
+                                          )
+                                      ),
+                                    ),
+                                  ),
                                 ),
+
                                 Container(height: 10),
-                                TextField(
+
+
+                                ResponsiveWidget.isSmallScreen(context)
+                                    ?   TextField(
                                   controller: astroBirthTimeController,
                                   keyboardType: TextInputType.text,
                                   cursorColor: text_dark,
@@ -557,7 +584,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                   onTap: () async {
                                     _setTimePicker(astroBirthTimeController);
 
-                                   /* FocusScope.of(context).requestFocus(FocusNode());
+                                    /* FocusScope.of(context).requestFocus(FocusNode());
                                     final TimeOfDay? picked_s = await showTimePicker(
                                         context: context,
                                         initialTime: TimeOfDay.now(),
@@ -603,7 +630,131 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),
+                                )
+                                    :  TextField(
+                                  controller: astroBirthTimeController,
+                                  keyboardType: TextInputType.text,
+                                  cursorColor: text_dark,
+                                  readOnly: true,
+                                  onTap: () async {
+                                    TimeOfDay? pickedTime =  await showTimePicker(
+                                        initialTime: TimeOfDay.fromDateTime(DateTime.now()),
+                                        context: context,
+                                        initialEntryMode: TimePickerEntryMode.dial
+                                    );
+
+                                    if(pickedTime != null ){
+                                      print(pickedTime.format(context));   //output 10:51 PM
+
+                                      var selectedTodayTime = toDouble(pickedTime);
+                                      var todaysTime = toDouble(TimeOfDay.now());
+
+                                      var todayDate = DateTime.now();
+                                      String formattedTodayDate = DateFormat('dd MMM,yyyy').format(todayDate);
+
+                                      if (selectedDate == formattedTodayDate)
+                                      {
+                                        if (todaysTime > selectedTodayTime)
+                                        {
+                                          showToast("Please select time as per today ", context);
+                                        }
+                                        else
+                                        {
+                                          setState(() {
+                                            selectedTime = pickedTime.format(context);
+                                            astroBirthTimeController.text = pickedTime.format(context); //set the value of text field.
+                                          });
+                                        }
+                                      }
+                                      else
+                                      {
+                                        setState(() {
+                                          selectedTime = pickedTime.format(context);
+                                          astroBirthTimeController.text = pickedTime.format(context); //set the value of text field.
+                                        });
+                                      }
+                                      print(selectedTime);
+                                    }else{
+                                      print("Time is not selected");
+                                    }
+                                  },
+                                  style: const TextStyle(
+                                      color: title,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                  decoration: InputDecoration(
+                                    fillColor: white_blue,
+                                    counterText: "",
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderSide: const BorderSide(
+                                            width: 0, style: BorderStyle.none)),
+                                    filled: true,
+                                    hintText: "Birth Time",
+                                    hintStyle: const TextStyle(
+                                      color: text_dark,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
                                 ),
+
+
+                              /*  TextField(
+                                  controller: astroBirthTimeController,
+                                  keyboardType: TextInputType.text,
+                                  cursorColor: text_dark,
+                                  readOnly: true,
+                                  onTap: () async {
+                                    _setTimePicker(astroBirthTimeController);
+
+                                   *//* FocusScope.of(context).requestFocus(FocusNode());
+                                    final TimeOfDay? picked_s = await showTimePicker(
+                                        context: context,
+                                        initialTime: TimeOfDay.now(),
+                                        builder: (BuildContext context, Widget? child) {
+                                          return Theme(
+                                            data: ThemeData.dark().copyWith(
+                                              colorScheme: const ColorScheme.dark(
+                                                primary: white,
+                                                onPrimary: white,
+                                                surface: text_light,
+                                                onSurface: black,
+                                              ),
+                                              dialogBackgroundColor: white,
+                                            ),
+                                            child: child!,
+                                          );
+                                        });
+
+                                    if (picked_s != null && picked_s != TimeOfDay ) {
+                                      setState(() {
+                                        selectedTime = ("${picked_s.hour}:${picked_s.minute} ${picked_s.period.name}").toString();
+                                        astroBirthTimeController.text = selectedTime;
+                                      });
+                                    }*//*
+
+                                  },
+                                  style: const TextStyle(
+                                      color: title,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                  decoration: InputDecoration(
+                                    fillColor: white_blue,
+                                    counterText: "",
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderSide: const BorderSide(
+                                            width: 0, style: BorderStyle.none)),
+                                    filled: true,
+                                    hintText: "Birth Time",
+                                    hintStyle: const TextStyle(
+                                      color: text_dark,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ),*/
                                 Container(height: 10),
                                 TextField(
                                   readOnly: true,
@@ -841,7 +992,8 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12.0),
                         topRight: Radius.circular(12.0),
-                      )),
+                      )
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -853,7 +1005,8 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                             height: 1.5,
                             thickness: 1.5,
                             color: Colors.grey,
-                          )),
+                          )
+                      ),
                       Container(
                         margin: const EdgeInsets.only(top: 20),
                         child: const Text(
@@ -927,7 +1080,9 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                     setState((){
                                       countryCode = listCountryCode[i].dialCode;
                                     });
-                                    updateState((){});
+                                    updateState((){
+                                      countryCode = listCountryCode[i].dialCode;
+                                    });
                                     Navigator.pop(context);
                                   },
                                   child: Container(
@@ -992,7 +1147,8 @@ class _AstrologyScreen extends State<AstrologyScreen> {
         hintText: 'Search',
       ),
       types: [],
-      language: "en",);
+      language: "en",
+    );
 
     if (prediction != null) {
       GoogleMapsPlaces _places = GoogleMapsPlaces(
@@ -1004,6 +1160,9 @@ class _AstrologyScreen extends State<AstrologyScreen> {
       updateState((){});
     }
   }
+  double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute/60.0;
+
+
 
   getAstrologyApi() async {
     setState(() {
@@ -1090,7 +1249,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.time,
               onDateTimeChanged: (value) {
-                if (value != null && value != selectedTime)
+                if (value != null && value != selectedTime) {
                   setState(()
                   {
                     selectedTime = ("${value.hour}:${value.minute}${value.timeZoneName}").toString();
@@ -1098,6 +1257,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                     print(selectedTime);
                     controller.text =  DateFormat("h:mm a").format(value);
                   });
+                }
               },
               initialDateTime: DateTime.now(),
               use24hFormat: false,

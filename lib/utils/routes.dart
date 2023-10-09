@@ -139,10 +139,12 @@ class AppRoutes {
         final bool? isLoggedIn = sessionManager.checkIsLoggedIn();
 
         if (isLoggedIn == false) {
-          return null;
-        } else {
           return Uri(
             path: '/login',
+          ).toString();
+        } else {
+          return Uri(
+            path: '/',
           ).toString();
         }
       });

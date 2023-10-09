@@ -54,6 +54,7 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
 
   @override
   void initState() {
+    getCountryData();
     getMatchListApi();
     super.initState();
   }
@@ -871,7 +872,7 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
         builder: (context) {
-          return StatefulBuilder(builder: (context, setState) {
+          return StatefulBuilder(builder: (context, updateState) {
             return Container(
                 height: MediaQuery.of(context).size.height * 0.88,
                 decoration: const BoxDecoration(
@@ -1012,7 +1013,7 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14)),
                                       onTap: () {
-                                        countryDialog(setState);
+                                        countryDialog(updateState);
                                       },
                                     ),
                                     Flexible(
@@ -1109,127 +1110,311 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
                                 ),
                               ),
                               Container(height: 10),
-                              TextField(
-                                onTap: () async {
-                                  _setDatePicker(matchGirlBirthDateController);
 
-                                 /* FocusScope.of(context)
-                                      .requestFocus(FocusNode());
-                                  DateTime? pickedDate = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1900),
-                                      lastDate: DateTime.now(),
-                                      builder: (BuildContext context,
-                                          Widget? child) {
-                                        return Theme(
-                                          data: ThemeData.dark().copyWith(
-                                            colorScheme: const ColorScheme.dark(
-                                              primary: text_light,
-                                              onPrimary: white,
-                                              surface: text_light,
-                                              onSurface: black,
-                                            ),
-                                            dialogBackgroundColor: white,
-                                          ),
-                                          child: child!,
-                                        );
-                                      });
-                                  if (pickedDate != null) {
-                                    String formattedDate =
-                                        DateFormat('dd MMM,yyyy')
-                                            .format(pickedDate);
-                                    print(formattedDate);
-                                    //you can implement different kind of Date Format here according to your requirement
-                                    setState(() {
-                                      matchGirlBirthDateController.text =
-                                          formattedDate;
-                                    });
-                                  }*/
-                                },
-                                controller: matchGirlBirthDateController,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                    color: title,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                                decoration: InputDecoration(
-                                  fillColor: white_blue,
-                                  counterText: "",
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      borderSide: const BorderSide(
-                                          width: 0, style: BorderStyle.none)),
-                                  filled: true,
-                                  hintText: "Birth date",
-                                  hintStyle: const TextStyle(
-                                    color: text_dark,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w900,
+                              ResponsiveWidget.isSmallScreen(context)
+                                  ? Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    color: white_blue
+                                ),
+                                child:  Padding(
+                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                  child: TextField(
+                                    readOnly: true,
+                                    controller:matchGirlBirthDateController,
+                                    cursorColor: text_dark,
+                                    onTap: () async {
+                                      _setDatePicker(matchGirlBirthDateController);
+                                    },
+                                    style: const TextStyle(
+                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600
+                                    ),
+                                    decoration: const InputDecoration(
+                                        fillColor: white_blue,
+                                        border: InputBorder.none,
+                                        hintText: 'Date of Birth',
+                                        hintStyle: TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900
+                                        )
+                                    ),
+                                  ),
+                                ),
+                              )
+                                  : Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    color: white_blue
+                                ),
+                                child:  Padding(
+                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                  child: TextField(
+                                    readOnly: true,
+                                    controller:matchGirlBirthDateController,
+                                    cursorColor: text_dark,
+                                    onTap: () async {
+                                      DateTime? pickedDate = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        //DateTime.now() - not to allow to choose before today.
+                                        lastDate: DateTime.now(),
+                                        helpText: 'Preferred Move Date',
+                                      );
+                                      if (pickedDate != null) {
+                                        String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                                        //you can implement different kind of Date Format here according to your requirement
+                                        setState(() {
+                                          selectedDate = formattedDate;
+                                          matchGirlBirthDateController.text = formattedDate;
+                                        });
+                                      }
+                                    },
+
+                                    style: const TextStyle(
+                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600
+                                    ),
+                                    decoration: const InputDecoration(
+                                        fillColor: white_blue,
+                                        border: InputBorder.none,
+                                        hintText: 'Date of Birth',
+                                        hintStyle: TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900
+                                        )
+                                    ),
                                   ),
                                 ),
                               ),
+
+                              // TextField(
+                              //   onTap: () async {
+                              //     _setDatePicker(matchGirlBirthDateController);
+                              //
+                              //    /* FocusScope.of(context)
+                              //         .requestFocus(FocusNode());
+                              //     DateTime? pickedDate = await showDatePicker(
+                              //         context: context,
+                              //         initialDate: DateTime.now(),
+                              //         firstDate: DateTime(1900),
+                              //         lastDate: DateTime.now(),
+                              //         builder: (BuildContext context,
+                              //             Widget? child) {
+                              //           return Theme(
+                              //             data: ThemeData.dark().copyWith(
+                              //               colorScheme: const ColorScheme.dark(
+                              //                 primary: text_light,
+                              //                 onPrimary: white,
+                              //                 surface: text_light,
+                              //                 onSurface: black,
+                              //               ),
+                              //               dialogBackgroundColor: white,
+                              //             ),
+                              //             child: child!,
+                              //           );
+                              //         });
+                              //     if (pickedDate != null) {
+                              //       String formattedDate =
+                              //           DateFormat('dd MMM,yyyy')
+                              //               .format(pickedDate);
+                              //       print(formattedDate);
+                              //       //you can implement different kind of Date Format here according to your requirement
+                              //       setState(() {
+                              //         matchGirlBirthDateController.text =
+                              //             formattedDate;
+                              //       });
+                              //     }*/
+                              //   },
+                              //   controller: matchGirlBirthDateController,
+                              //   keyboardType: TextInputType.text,
+                              //   cursorColor: text_dark,
+                              //   style: const TextStyle(
+                              //       color: title,
+                              //       fontSize: 14,
+                              //       fontWeight: FontWeight.w600),
+                              //   decoration: InputDecoration(
+                              //     fillColor: white_blue,
+                              //     counterText: "",
+                              //     border: OutlineInputBorder(
+                              //         borderRadius: BorderRadius.circular(12.0),
+                              //         borderSide: const BorderSide(
+                              //             width: 0, style: BorderStyle.none)),
+                              //     filled: true,
+                              //     hintText: "Birth date",
+                              //     hintStyle: const TextStyle(
+                              //       color: text_dark,
+                              //       fontSize: 14,
+                              //       fontWeight: FontWeight.w900,
+                              //     ),
+                              //   ),
+                              // ),
                               Container(height: 10),
-                              TextField(
-                                onTap: () async {
-                                  _setTimePicker(matchGirlBirthTimeController);
-                             /*     FocusScope.of(context)
-                                      .requestFocus(FocusNode());
-                                  final TimeOfDay? picked_s =
-                                      await showTimePicker(
-                                          context: context,
-                                          initialTime: TimeOfDay.now(),
-                                          builder: (BuildContext context,
-                                              Widget? child) {
-                                            return Theme(
-                                              data: ThemeData.dark().copyWith(
-                                                colorScheme:
-                                                    const ColorScheme.dark(
-                                                  primary: white,
-                                                  onPrimary: white,
-                                                  surface: text_light,
-                                                  onSurface: black,
-                                                ),
-                                                dialogBackgroundColor: white,
-                                              ),
-                                              child: child!,
-                                            );
+
+
+                              ResponsiveWidget.isSmallScreen(context)
+                                  ? Container(
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(top: 10, right: 18, left: 18),
+                                child: TextField(
+                                  onTap: (){
+                                    _setTimePicker(matchGirlBirthTimeController);
+                                  },
+                                  controller: matchGirlBirthTimeController,
+                                  keyboardType: TextInputType.text,
+                                  cursorColor: text_dark,
+                                  style: const TextStyle(
+                                      color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                  decoration: InputDecoration(
+                                    fillColor: white_blue,
+                                    counterText: "",
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        borderSide: const BorderSide(width: 0,style: BorderStyle.none)
+                                    ),
+                                    filled: true,
+                                    hintText: "Time of Birth",
+                                    hintStyle: const TextStyle(
+                                      color: text_dark,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ),
+                              )
+                                  : Container(
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(top: 10,),
+                                child: TextField(
+                                  onTap: () async {
+                                    TimeOfDay? pickedTime =  await showTimePicker(
+                                        initialTime: TimeOfDay.fromDateTime(DateTime.now()),
+                                        context: context,
+                                        initialEntryMode: TimePickerEntryMode.dial
+                                    );
+
+                                    if(pickedTime != null ){
+                                      print(pickedTime.format(context));   //output 10:51 PM
+
+                                      var selectedTodayTime = toDouble(pickedTime);
+                                      var todaysTime = toDouble(TimeOfDay.now());
+
+                                      var todayDate = DateTime.now();
+                                      String formattedTodayDate = DateFormat('dd MMM,yyyy').format(todayDate);
+
+                                      if (selectedDate == formattedTodayDate)
+                                      {
+                                        if (todaysTime > selectedTodayTime)
+                                        {
+                                          showToast("Please select time as per today ", context);
+                                        }
+                                        else
+                                        {
+                                          setState(() {
+                                            selectedTime = pickedTime.format(context);
+                                            matchGirlBirthTimeController.text = pickedTime.format(context); //set the value of text field.
                                           });
-                                  if (picked_s != null &&
-                                      picked_s != TimeOfDay) {
-                                    setState(() {
-                                      selectedTime =
-                                          ("${picked_s.hour}:${picked_s.minute} ${picked_s.period.name}")
-                                              .toString();
-                                      matchGirlBirthTimeController.text =
-                                          selectedTime;
-                                    });
-                                  }*/
-                                },
-                                controller: matchGirlBirthTimeController,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                    color: title,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                                decoration: InputDecoration(
-                                  fillColor: white_blue,
-                                  counterText: "",
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      borderSide: const BorderSide(
-                                          width: 0, style: BorderStyle.none)),
-                                  filled: true,
-                                  hintText: "Birth time",
-                                  hintStyle: const TextStyle(
-                                    color: text_dark,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w900,
+                                        }
+                                      }
+                                      else
+                                      {
+                                        setState(() {
+                                          selectedTime = pickedTime.format(context);
+                                          matchBoyBirthTimeController.text = pickedTime.format(context); //set the value of text field.
+                                        });
+                                      }
+                                      print(selectedTime);
+                                    }else{
+                                      print("Time is not selected");
+                                    }
+                                  },
+                                  controller: matchBoyBirthTimeController,
+                                  keyboardType: TextInputType.text,
+                                  cursorColor: text_dark,
+                                  style: const TextStyle(
+                                      color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                  decoration: InputDecoration(
+                                    fillColor: white_blue,
+                                    counterText: "",
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        borderSide: const BorderSide(width: 0,style: BorderStyle.none)
+                                    ),
+                                    filled: true,
+                                    hintText: "Time of Birth",
+                                    hintStyle: const TextStyle(
+                                      color: text_dark,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w900,
+                                    ),
                                   ),
                                 ),
                               ),
+
+                             //   TextField(
+                             //    onTap: () async {
+                             //      _setTimePicker(matchGirlBirthTimeController);
+                             // /*     FocusScope.of(context)
+                             //          .requestFocus(FocusNode());
+                             //      final TimeOfDay? picked_s =
+                             //          await showTimePicker(
+                             //              context: context,
+                             //              initialTime: TimeOfDay.now(),
+                             //              builder: (BuildContext context,
+                             //                  Widget? child) {
+                             //                return Theme(
+                             //                  data: ThemeData.dark().copyWith(
+                             //                    colorScheme:
+                             //                        const ColorScheme.dark(
+                             //                      primary: white,
+                             //                      onPrimary: white,
+                             //                      surface: text_light,
+                             //                      onSurface: black,
+                             //                    ),
+                             //                    dialogBackgroundColor: white,
+                             //                  ),
+                             //                  child: child!,
+                             //                );
+                             //              });
+                             //      if (picked_s != null &&
+                             //          picked_s != TimeOfDay) {
+                             //        setState(() {
+                             //          selectedTime =
+                             //              ("${picked_s.hour}:${picked_s.minute} ${picked_s.period.name}")
+                             //                  .toString();
+                             //          matchGirlBirthTimeController.text =
+                             //              selectedTime;
+                             //        });
+                             //      }*/
+                             //    },
+                             //    controller: matchGirlBirthTimeController,
+                             //    keyboardType: TextInputType.text,
+                             //    cursorColor: text_dark,
+                             //    style: const TextStyle(
+                             //        color: title,
+                             //        fontSize: 14,
+                             //        fontWeight: FontWeight.w600),
+                             //    decoration: InputDecoration(
+                             //      fillColor: white_blue,
+                             //      counterText: "",
+                             //      border: OutlineInputBorder(
+                             //          borderRadius: BorderRadius.circular(12.0),
+                             //          borderSide: const BorderSide(
+                             //              width: 0, style: BorderStyle.none)),
+                             //      filled: true,
+                             //      hintText: "Birth time",
+                             //      hintStyle: const TextStyle(
+                             //        color: text_dark,
+                             //        fontSize: 14,
+                             //        fontWeight: FontWeight.w900,
+                             //      ),
+                             //    ),
+                             //  ),
                               Container(height: 10),
                               TextField(
                                 controller: matchGirlBirthPlaceController,
@@ -1325,128 +1510,314 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
                                 ),
                               ),
                               Container(height: 10),
-                              TextField(
-                                onTap: () async {
-                                  _setDatePicker(matchBoyBirthDateController);
 
-                                 /* FocusScope.of(context)
-                                      .requestFocus(FocusNode());
-                                  DateTime? pickedDate = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1900),
-                                      lastDate: DateTime.now(),
-                                      builder: (BuildContext context,
-                                          Widget? child) {
-                                        return Theme(
-                                          data: ThemeData.dark().copyWith(
-                                            colorScheme: const ColorScheme.dark(
-                                              primary: text_light,
-                                              onPrimary: white,
-                                              surface: text_light,
-                                              onSurface: black,
-                                            ),
-                                            dialogBackgroundColor: white,
-                                          ),
-                                          child: child!,
-                                        );
-                                      });
-                                  if (pickedDate != null) {
-                                    String formattedDate =
-                                        DateFormat('dd MMM,yyyy')
-                                            .format(pickedDate);
-                                    print(formattedDate);
-                                    //you can implement different kind of Date Format here according to your requirement
-                                    setState(() {
-                                      matchBoyBirthDateController.text =
-                                          formattedDate;
-                                    });
-                                  }*/
-                                },
-                                controller: matchBoyBirthDateController,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                    color: title,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                                decoration: InputDecoration(
-                                  fillColor: white_blue,
-                                  counterText: "",
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      borderSide: const BorderSide(
-                                          width: 0, style: BorderStyle.none)),
-                                  filled: true,
-                                  hintText: "Birth date",
-                                  hintStyle: const TextStyle(
-                                    color: text_dark,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w900,
+                              ResponsiveWidget.isSmallScreen(context)
+                                  ? Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    color: white_blue
+                                ),
+                                child:  Padding(
+                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                  child: TextField(
+                                    readOnly: true,
+                                    controller:matchBoyBirthDateController,
+                                    cursorColor: text_dark,
+                                    onTap: () async {
+                                      _setDatePicker(matchBoyBirthDateController);
+                                    },
+                                    style: const TextStyle(
+                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600
+                                    ),
+                                    decoration: const InputDecoration(
+                                        fillColor: white_blue,
+                                        border: InputBorder.none,
+                                        hintText: 'Date of Birth',
+                                        hintStyle: TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900
+                                        )
+                                    ),
+                                  ),
+                                ),
+                              )
+                                  : Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    color: white_blue
+                                ),
+                                child:  Padding(
+                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                  child: TextField(
+                                    readOnly: true,
+                                    controller:matchBoyBirthDateController,
+                                    cursorColor: text_dark,
+                                    onTap: () async {
+                                      DateTime? pickedDate = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        //DateTime.now() - not to allow to choose before today.
+                                        lastDate: DateTime.now(),
+                                        helpText: 'Preferred Move Date',
+                                      );
+                                      if (pickedDate != null) {
+                                        String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                                        //you can implement different kind of Date Format here according to your requirement
+                                        setState(() {
+                                          selectedDate = formattedDate;
+                                          matchBoyBirthDateController.text = formattedDate;
+                                        });
+                                      }
+                                    },
+
+                                    style: const TextStyle(
+                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600
+                                    ),
+                                    decoration: const InputDecoration(
+                                        fillColor: white_blue,
+                                        border: InputBorder.none,
+                                        hintText: 'Date of Birth',
+                                        hintStyle: TextStyle(
+                                            color: text_dark,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900
+                                        )
+                                    ),
                                   ),
                                 ),
                               ),
+
+
+
+
+                              // TextField(
+                              //   onTap: () async {
+                              //     _setDatePicker(matchBoyBirthDateController);
+                              //
+                              //    /* FocusScope.of(context)
+                              //         .requestFocus(FocusNode());
+                              //     DateTime? pickedDate = await showDatePicker(
+                              //         context: context,
+                              //         initialDate: DateTime.now(),
+                              //         firstDate: DateTime(1900),
+                              //         lastDate: DateTime.now(),
+                              //         builder: (BuildContext context,
+                              //             Widget? child) {
+                              //           return Theme(
+                              //             data: ThemeData.dark().copyWith(
+                              //               colorScheme: const ColorScheme.dark(
+                              //                 primary: text_light,
+                              //                 onPrimary: white,
+                              //                 surface: text_light,
+                              //                 onSurface: black,
+                              //               ),
+                              //               dialogBackgroundColor: white,
+                              //             ),
+                              //             child: child!,
+                              //           );
+                              //         });
+                              //     if (pickedDate != null) {
+                              //       String formattedDate =
+                              //           DateFormat('dd MMM,yyyy')
+                              //               .format(pickedDate);
+                              //       print(formattedDate);
+                              //       //you can implement different kind of Date Format here according to your requirement
+                              //       setState(() {
+                              //         matchBoyBirthDateController.text =
+                              //             formattedDate;
+                              //       });
+                              //     }*/
+                              //   },
+                              //   controller: matchBoyBirthDateController,
+                              //   keyboardType: TextInputType.text,
+                              //   cursorColor: text_dark,
+                              //   style: const TextStyle(
+                              //       color: title,
+                              //       fontSize: 14,
+                              //       fontWeight: FontWeight.w600),
+                              //   decoration: InputDecoration(
+                              //     fillColor: white_blue,
+                              //     counterText: "",
+                              //     border: OutlineInputBorder(
+                              //         borderRadius: BorderRadius.circular(12.0),
+                              //         borderSide: const BorderSide(
+                              //             width: 0, style: BorderStyle.none)),
+                              //     filled: true,
+                              //     hintText: "Birth date",
+                              //     hintStyle: const TextStyle(
+                              //       color: text_dark,
+                              //       fontSize: 14,
+                              //       fontWeight: FontWeight.w900,
+                              //     ),
+                              //   ),
+                              // ),
                               Container(height: 10),
-                              TextField(
-                                onTap: () async {
-                                  _setTimePicker(matchBoyBirthTimeController);
-                                /*  FocusScope.of(context)
-                                      .requestFocus(FocusNode());
 
-                                  final TimeOfDay? picked_s =
-                                      await showTimePicker(
-                                          context: context,
-                                          initialTime: TimeOfDay.now(),
-                                          builder: (BuildContext context,
-                                              Widget? child) {
-                                            return Theme(
-                                              data: ThemeData.dark().copyWith(
-                                                colorScheme:
-                                                    const ColorScheme.dark(
-                                                  primary: white,
-                                                  onPrimary: white,
-                                                  surface: text_light,
-                                                  onSurface: black,
-                                                ),
-                                                dialogBackgroundColor: white,
-                                              ),
-                                              child: child!,
-                                            );
+                              ResponsiveWidget.isSmallScreen(context)
+                                  ? Container(
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(top: 10, right: 18, left: 18),
+                                child: TextField(
+                                  onTap: (){
+                                    _setTimePicker(matchBoyBirthTimeController);
+                                  },
+                                  controller: matchBoyBirthTimeController,
+                                  keyboardType: TextInputType.text,
+                                  cursorColor: text_dark,
+                                  style: const TextStyle(
+                                      color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                  decoration: InputDecoration(
+                                    fillColor: white_blue,
+                                    counterText: "",
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        borderSide: const BorderSide(width: 0,style: BorderStyle.none)
+                                    ),
+                                    filled: true,
+                                    hintText: "Time of Birth",
+                                    hintStyle: const TextStyle(
+                                      color: text_dark,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ),
+                              )
+                                  : Container(
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(top: 10, ),
+                                child: TextField(
+                                  onTap: () async {
+                                    TimeOfDay? pickedTime =  await showTimePicker(
+                                        initialTime: TimeOfDay.fromDateTime(DateTime.now()),
+                                        context: context,
+                                        initialEntryMode: TimePickerEntryMode.dial
+                                    );
+
+                                    if(pickedTime != null ){
+                                      print(pickedTime.format(context));   //output 10:51 PM
+
+                                      var selectedTodayTime = toDouble(pickedTime);
+                                      var todaysTime = toDouble(TimeOfDay.now());
+
+                                      var todayDate = DateTime.now();
+                                      String formattedTodayDate = DateFormat('dd MMM,yyyy').format(todayDate);
+
+                                      if (selectedDate == formattedTodayDate)
+                                      {
+                                        if (todaysTime > selectedTodayTime)
+                                        {
+                                          showToast("Please select time as per today ", context);
+                                        }
+                                        else
+                                        {
+                                          setState(() {
+                                            selectedTime = pickedTime.format(context);
+                                            matchBoyBirthTimeController.text = pickedTime.format(context); //set the value of text field.
                                           });
-                                  if (picked_s != null &&
-                                      picked_s != TimeOfDay) {
-                                    setState(() {
-                                      selectedTime =
-                                          ("${picked_s.hour}:${picked_s.minute} ${picked_s.period.name}")
-                                              .toString();
-                                      matchBoyBirthTimeController.text =
-                                          selectedTime;
-                                    });
-                                  }*/
-                                },
-                                controller: matchBoyBirthTimeController,
-                                keyboardType: TextInputType.text,
-                                cursorColor: text_dark,
-                                style: const TextStyle(
-                                    color: title,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                                decoration: InputDecoration(
-                                  fillColor: white_blue,
-                                  counterText: "",
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      borderSide: const BorderSide(
-                                          width: 0, style: BorderStyle.none)),
-                                  filled: true,
-                                  hintText: "Birth time",
-                                  hintStyle: const TextStyle(
-                                    color: text_dark,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w900,
+                                        }
+                                      }
+                                      else
+                                      {
+                                        setState(() {
+                                          selectedTime = pickedTime.format(context);
+                                          matchBoyBirthTimeController.text = pickedTime.format(context); //set the value of text field.
+                                        });
+                                      }
+                                      print(selectedTime);
+                                    }else{
+                                      print("Time is not selected");
+                                    }
+                                  },
+                                  controller: matchBoyBirthTimeController,
+                                  keyboardType: TextInputType.text,
+                                  cursorColor: text_dark,
+                                  style: const TextStyle(
+                                      color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                  decoration: InputDecoration(
+                                    fillColor: white_blue,
+                                    counterText: "",
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        borderSide: const BorderSide(width: 0,style: BorderStyle.none)
+                                    ),
+                                    filled: true,
+                                    hintText: "Time of Birth",
+                                    hintStyle: const TextStyle(
+                                      color: text_dark,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w900,
+                                    ),
                                   ),
                                 ),
                               ),
+
+                              // TextField(
+                              //   onTap: () async {
+                              //     _setTimePicker(matchBoyBirthTimeController);
+                              //   /*  FocusScope.of(context)
+                              //         .requestFocus(FocusNode());
+                              //
+                              //     final TimeOfDay? picked_s =
+                              //         await showTimePicker(
+                              //             context: context,
+                              //             initialTime: TimeOfDay.now(),
+                              //             builder: (BuildContext context,
+                              //                 Widget? child) {
+                              //               return Theme(
+                              //                 data: ThemeData.dark().copyWith(
+                              //                   colorScheme:
+                              //                       const ColorScheme.dark(
+                              //                     primary: white,
+                              //                     onPrimary: white,
+                              //                     surface: text_light,
+                              //                     onSurface: black,
+                              //                   ),
+                              //                   dialogBackgroundColor: white,
+                              //                 ),
+                              //                 child: child!,
+                              //               );
+                              //             });
+                              //     if (picked_s != null &&
+                              //         picked_s != TimeOfDay) {
+                              //       setState(() {
+                              //         selectedTime =
+                              //             ("${picked_s.hour}:${picked_s.minute} ${picked_s.period.name}")
+                              //                 .toString();
+                              //         matchBoyBirthTimeController.text =
+                              //             selectedTime;
+                              //       });
+                              //     }*/
+                              //   },
+                              //   controller: matchBoyBirthTimeController,
+                              //   keyboardType: TextInputType.text,
+                              //   cursorColor: text_dark,
+                              //   style: const TextStyle(
+                              //       color: title,
+                              //       fontSize: 14,
+                              //       fontWeight: FontWeight.w600),
+                              //   decoration: InputDecoration(
+                              //     fillColor: white_blue,
+                              //     counterText: "",
+                              //     border: OutlineInputBorder(
+                              //         borderRadius: BorderRadius.circular(12.0),
+                              //         borderSide: const BorderSide(
+                              //             width: 0, style: BorderStyle.none)),
+                              //     filled: true,
+                              //     hintText: "Birth time",
+                              //     hintStyle: const TextStyle(
+                              //       color: text_dark,
+                              //       fontSize: 14,
+                              //       fontWeight: FontWeight.w900,
+                              //     ),
+                              //   ),
+                              // ),
                               Container(height: 10),
                               TextField(
                                 controller: matchBoyBirthPlaceController,
@@ -1906,7 +2277,10 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
                                 setState(() {
                                   countryCode = listCountryCode[i].dialCode;
                                 });
-                                updateState(() {});
+                                updateState(() {
+                                  countryCode = listCountryCode[i].dialCode;
+                                });
+
                                 Navigator.pop(context);
                               },
                               child: Container(
@@ -2111,6 +2485,7 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
         }
     );
   }
+  double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute/60.0;
 
   _setTimePicker(TextEditingController controller){
     showCupertinoModalPopup(

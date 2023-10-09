@@ -11,9 +11,6 @@ import 'package:kuber/screen/FeedScreen.dart';
 import 'package:kuber/screen/MatchMakingScreen.dart';
 import 'package:kuber/screen/PrayerRequestScreen.dart';
 import 'package:kuber/screen/RashiScreen.dart';
-
-
-
 import '../constant/colors.dart';
 import '../utils/responsive.dart';
 import '../utils/session_manager.dart';

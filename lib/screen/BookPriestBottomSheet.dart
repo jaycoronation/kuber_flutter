@@ -1470,22 +1470,43 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                       Container(width: 65,),
                                       GestureDetector(
                                         behavior: HitTestBehavior.opaque,
-                                        // onTap: () async {
-                                        //   _setTimePicker(pickTimeController,setState);
-                                        // },
                                         onTap: () async {
                                           TimeOfDay? pickedTime =  await showTimePicker(
-                                            initialTime: TimeOfDay.now(),
+                                            initialTime: TimeOfDay.fromDateTime(DateTime.now()),
                                             context: context,
+                                            initialEntryMode: TimePickerEntryMode.dial
                                           );
 
                                           if(pickedTime != null ){
                                             print(pickedTime.format(context));   //output 10:51 PM
 
-                                            setState(() {
-                                              selectedTime = pickedTime.format(context);
-                                              pickTimeController.text = pickedTime.format(context); //set the value of text field.
-                                            });
+                                            var selectedTodayTime = toDouble(pickedTime);
+                                            var todaysTime = toDouble(TimeOfDay.now());
+
+                                            var todayDate = DateTime.now();
+                                            String formattedTodayDate = DateFormat('dd MMM,yyyy').format(todayDate);
+
+                                            if (selectedDate == formattedTodayDate)
+                                              {
+                                                if (todaysTime > selectedTodayTime)
+                                                  {
+                                                    showToast("Please select time as per today ", context);
+                                                  }
+                                                else
+                                                  {
+                                                    setState(() {
+                                                      selectedTime = pickedTime.format(context);
+                                                      pickTimeController.text = pickedTime.format(context); //set the value of text field.
+                                                    });
+                                                  }
+                                              }
+                                            else
+                                              {
+                                                setState(() {
+                                                  selectedTime = pickedTime.format(context);
+                                                  pickTimeController.text = pickedTime.format(context); //set the value of text field.
+                                                });
+                                              }
                                             print(selectedTime);
                                           }else{
                                             print("Time is not selected");
@@ -2683,7 +2704,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
   }
 
   bookPujaRequest() async {
-    setState(() {
+    setState (() {
       _isLoading = true;
     });
     Navigator.pop(context);
@@ -2765,6 +2786,8 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
       Navigator.pop(context);
     },);
   }
+
+  double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute/60.0;
 
 
 }

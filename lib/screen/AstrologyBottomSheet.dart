@@ -751,7 +751,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
         :  Wrap(
         children: [
           StatefulBuilder(
-              builder: (context,setState){
+              builder: (context,updateState){
                 return Container(
                   height: MediaQuery.of(context).size.height * 0.84,
                   decoration: const BoxDecoration(
@@ -978,7 +978,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                               )
                                           ),
                                           onTap: (){
-                                            countryDialog(setState);
+                                            countryDialog(updateState);
                                           },
                                         ),
                                         Container(
@@ -1564,6 +1564,9 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                   setState((){
                                     countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
                                   });
+                                  updateState((){
+                                    countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
+                                  });
                                   Navigator.pop(context);
                                 },
                                 child: Container(
@@ -1786,7 +1789,9 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w700,
                                           color: title,
-                                          fontSize: 14)),
+                                          fontSize: 14
+                                      )
+                                  ),
                                 )
                               ],
                             ),

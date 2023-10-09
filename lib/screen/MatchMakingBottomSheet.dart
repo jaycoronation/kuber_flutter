@@ -1205,7 +1205,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
           children: [
             Padding(
               padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: StatefulBuilder(builder: (context, setState) {
+              child: StatefulBuilder(builder: (context, updateState) {
                 return Container(
                   height: MediaQuery.of(context).size.height * 0.88,
                   decoration: const BoxDecoration(
@@ -1431,9 +1431,11 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                             style: const TextStyle(
                                                 color: text_dark,
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 14)),
+                                                fontSize: 14
+                                            )
+                                        ),
                                         onTap: (){
-                                          countryDialog(setState);
+                                          countryDialog(updateState);
                                         },
                                       ),
                                       Container(
@@ -2396,6 +2398,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
   List<CountryListResponseModel> listSearchCountryName = [];
   TextEditingController countryCodeSeachController = TextEditingController();
 
+  List data = [];
+
   countryDialog(StateSetter updateState) {
     showModalBottomSheet(
         context: context,
@@ -2412,7 +2416,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12.0),
                         topRight: Radius.circular(12.0),
-                      )),
+                      )
+                  ),
                   child: Column(
                     children:  [
                       Container(
@@ -2496,6 +2501,9 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                   setState((){
                                     countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
                                   });
+                                  updateState((){
+                                    countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
+                                  });
                                   Navigator.pop(context);
                                 },
                                 child: Container(
@@ -2527,6 +2535,21 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
               }
           );
         });
+  }
+
+  Future<void> getCountryData() async {
+    var jsonText = await rootBundle.loadString('assets/countries.json');
+    setState(() => data = json.decode(jsonText));
+    var name = "";
+    var code = "";
+    var dial_code = "";
+    for (var i=0; i < data.length; i++)
+    {
+      name = data[i]['name'];
+      code = data[i]['code'];
+      dial_code = data[i]['dial_code'] ?? "";
+      listCountryCode.add(CountryListResponseModel(name: name, dialCode: dial_code, code: code));
+    }
   }
 
   _setDatePicker(TextEditingController controller){
@@ -3233,22 +3256,6 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
     }
   }
 
-  List data = [];
-
-  Future<void> getCountryData() async {
-    var jsonText = await rootBundle.loadString('assets/countries.json');
-    setState(() => data = json.decode(jsonText));
-    var name = "";
-    var code = "";
-    var dialCode = "";
-    for (var i=0; i < data.length; i++)
-    {
-      name = data[i]['name'];
-      code = data[i]['code'];
-      dialCode = data[i]['dial_code'] != null ? data[i]['dial_code'] : "";
-      listCountryCode.add(CountryListResponseModel(name: name, dialCode: dialCode, code: code));
-    }
-  }
 
 
   _showAlertDialog(String image, String text) {

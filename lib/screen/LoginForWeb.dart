@@ -132,6 +132,23 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                           textAlign: TextAlign.left,
                           keyboardType: TextInputType.number,
                           cursorColor: black,
+                          onSubmitted: (value) {
+                            if (numberController.text.isEmpty) {
+                              showToast('Please enter mobile number', context);
+                            }
+                            else if (numberController.text.length <= 7) {
+                              showToast('Please enter valid mobile number', context);
+                            }
+                            else if (numberController.text.length >= 13) {
+                              showToast('Please enter valid mobile number', context);
+                            }
+                            else {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              _sendOTPApi();
+                            }
+                          },
                           decoration: const InputDecoration(
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.transparent),),

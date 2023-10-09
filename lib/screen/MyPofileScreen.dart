@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -834,7 +835,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 margin: const EdgeInsets.only(top: 16,right: 14,left: 14),
                                 alignment: Alignment.topLeft,
                                 child:  Text("Profile Details",
-                                    style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20) ),
+                                    style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 20)
+                                ),
                               ),
 
                               Container(
@@ -1593,7 +1595,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
   Widget setUpTextDate() {
     return Container(
       margin: const EdgeInsets.only(top: 10,),
-      child: TextField(
+      child: ResponsiveWidget.isSmallScreen(context)
+        ? TextField(
         readOnly: true,
         controller: bdyController,
         keyboardType: TextInputType.number,
@@ -1618,8 +1621,52 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         onTap: () async {
           _setDatePicker(bdyController);
         },
-      ),
-    );
+      )
+        : TextField(
+            readOnly: true,
+            controller: bdyController,
+            keyboardType: TextInputType.number,
+            cursorColor: title,
+            style: const TextStyle(
+                color: black,
+                fontSize: 14,
+                fontWeight: FontWeight.w500
+            ),
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: const BorderSide(color: Colors.grey)
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: const BorderSide(color: Colors.grey,),
+              ),
+              labelText: "Date of birth",
+              labelStyle: const TextStyle(color: darkbrown, fontWeight: FontWeight.w500, fontSize: 16),
+            ),
+            // onTap: () async {
+            //   _setDatePicker(bdyController);
+            // },
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    //DateTime.now() - not to allow to choose before today.
+                    lastDate: DateTime.now(),
+                    helpText: 'Preferred Move Date',
+                  );
+                  if (pickedDate != null) {
+                    String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                    //you can implement different kind of Date Format here according to your requirement
+                    setState(() {
+                      selectedDate = formattedDate;
+                      bdyController.text = formattedDate;
+                    });
+                  }
+                },
+          )
+          );
   }
 
   Widget cardProfileImage() {
@@ -2440,7 +2487,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12.0),
                         topRight: Radius.circular(12.0),
-                      )),
+                      )
+                  ),
                   child: Column(
                     children:  [
                       Container(
@@ -2450,7 +2498,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                             height: 1.5,
                             thickness: 1.5,
                             color: Colors.grey,
-                          )),
+                          )
+                      ),
                       Container(
                         margin: const EdgeInsets.only(top: 20),
                         child: const Text(
@@ -2471,30 +2520,31 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                               color: title,
                               fontSize: 14,
                               fontWeight: FontWeight.w600),
-                          onChanged: (editable){
-                            updateState((){
-                              if (listCountryCode.isNotEmpty)
-                              {
-                                listSearchCountryName = [];
-
-                                for (var i=0; i < listCountryCode.length; i++)
+                            onChanged: (editable){
+                              updateState((){
+                                if (listCountryCode.isNotEmpty)
                                 {
-                                  if (listCountryCode[i].name.toLowerCase().contains(editable.toString().toLowerCase()))
+                                  listSearchCountryName = [];
+
+                                  for (var i=0; i < listCountryCode.length; i++)
                                   {
-                                    listSearchCountryName.add(listCountryCode[i]);
-                                    print(listSearchCountryName.length);
+                                    if (listCountryCode[i].name.toLowerCase().contains(editable.toString().toLowerCase()))
+                                    {
+                                      listSearchCountryName.add(listCountryCode[i]);
+                                      print(listSearchCountryName.length);
+                                    }
                                   }
                                 }
-                              }
-                            });
-                          },
+                              });
+                            },
                           decoration: InputDecoration(
                             fillColor: white_blue,
                             counterText: "",
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(14.0),
                                 borderSide: const BorderSide(
-                                    width: 0, style: BorderStyle.none)),
+                                    width: 0, style: BorderStyle.none)
+                            ),
                             filled: true,
                             hintText: "Search",
                             hintStyle: const TextStyle(

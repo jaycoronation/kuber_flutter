@@ -163,7 +163,7 @@ class _LoginScreen extends State<LoginScreen> {
                                            Padding(
                                             padding: const EdgeInsets.only(left: 22.0),
                                             child: Text(countryCode,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: darkbrown,
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 16
@@ -186,7 +186,8 @@ class _LoginScreen extends State<LoginScreen> {
                                         cursorColor: black,
                                         decoration: const InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.transparent),),
+                                              borderSide: BorderSide(color: Colors.transparent),
+                                            ),
                                             focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(color: Colors.transparent),
                                             ),
@@ -201,12 +202,12 @@ class _LoginScreen extends State<LoginScreen> {
                               ),
                               Center(
                                 child: Container(
-                                  padding: EdgeInsets.only(bottom: 18, top: 18),
+                                  padding: const EdgeInsets.only(bottom: 18, top: 18),
                                   child: RichText(
                                     textAlign: TextAlign.center,
                                     text: TextSpan(
                                       text: 'By signing up or operating an account,you agree to our \n ',
-                                      style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14, height: 1.4),
+                                      style: const TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14, height: 1.4),
                                       children: <TextSpan>[
                                         TextSpan(
                                           text: 'Privacy Policy', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
@@ -216,10 +217,10 @@ class _LoginScreen extends State<LoginScreen> {
                                         ),
                                         const TextSpan(text: ' and ', style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
                                         TextSpan(
-                                            text: 'Terms of Service', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                            recognizer: TapGestureRecognizer()..onTap = () {
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/terms-and-conditions', 'Terms of Service')));
-                                            }
+                                          text: 'Terms of Service', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                          recognizer: TapGestureRecognizer()..onTap = () {
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/terms-and-conditions', 'Terms of Service')));
+                                          }
                                         ),
                                       ],
                                     ),
@@ -600,7 +601,7 @@ class _LoginScreen extends State<LoginScreen> {
                               ), */
                             ],
                           ),
-                          Spacer(),
+                          const Spacer(),
                           GestureDetector(
                             onTap: () {
                               // Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
@@ -1183,7 +1184,8 @@ class _LoginScreen extends State<LoginScreen> {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12.0),
                         topRight: Radius.circular(12.0),
-                      )),
+                      )
+                  ),
                   child: Column(
                     children:  [
                       Container(
@@ -1199,7 +1201,8 @@ class _LoginScreen extends State<LoginScreen> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: title,
-                              fontSize: 18),
+                              fontSize: 18
+                          ),
                         ),
                       ),
                       Container(
@@ -1211,9 +1214,9 @@ class _LoginScreen extends State<LoginScreen> {
                           style: const TextStyle(
                               color: title,
                               fontSize: 14,
-                              fontWeight: FontWeight.w600),
+                              fontWeight: FontWeight.w600
+                          ),
                           onChanged: (editable){
-
                             setState((){
                               if (listCountryCode != null && listCountryCode.length > 0) {
                                 listSearchCountryName = [];
@@ -1243,7 +1246,9 @@ class _LoginScreen extends State<LoginScreen> {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(14.0),
                                 borderSide: const BorderSide(
-                                    width: 0, style: BorderStyle.none)),
+                                    width: 0, style: BorderStyle.none
+                                )
+                            ),
                             filled: true,
                             hintText: "Search",
                             hintStyle: const TextStyle(
@@ -1286,7 +1291,6 @@ class _LoginScreen extends State<LoginScreen> {
                                       const Divider(height: 1,color: text_light,indent: 1,)
                                     ],
                                   ),
-
                                 ),
                               );
                             }

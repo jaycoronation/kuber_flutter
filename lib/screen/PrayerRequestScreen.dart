@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/CommonResponseModel.dart';
@@ -48,6 +49,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
   @override
   void initState() {
     prayerNumberController.text= sessionManager.getPhone().toString();
+    getCountryData();
     getPrayerListApi();
     super.initState();
   }
@@ -347,7 +349,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
         backgroundColor: Colors.transparent,
         builder: (context){
           return StatefulBuilder(
-              builder: (context,setState){
+              builder: (context,updateState){
                 return Wrap(
                   children: [
                     Container(
@@ -430,12 +432,15 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                 ),
                               ),
                             ),
-                            Container(
+
+                            ResponsiveWidget.isSmallScreen(context)
+                            ? Container(
                               margin: const EdgeInsets.only(top: 10),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16.0),
-                                  color: white_blue),
+                                  color: white_blue
+                              ),
                               child:  Padding(
                                 padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
                                 child: TextField(
@@ -444,39 +449,10 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                   cursorColor: text_dark,
                                   onTap: () async {
                                     _setDatePicker(prayerDOBController);
-
-                                 /*   DateTime? pickedDate = await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(1900),
-                                        lastDate: DateTime.now(),
-                                        builder: (BuildContext context, Widget? child) {
-                                          return Theme(
-                                            data: ThemeData.dark().copyWith(
-                                              colorScheme: const ColorScheme.dark(
-                                                primary: text_light,
-                                                onPrimary: white,
-                                                surface: text_light,
-                                                onSurface: black,
-                                              ),
-                                              dialogBackgroundColor: white,
-                                            ),
-                                            child: child!,
-                                          );
-                                        });
-                                    if (pickedDate != null) {
-
-                                      String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
-                                      print(formattedDate);
-                                      //you can implement different kind of Date Format here according to your requirement
-                                      setState(() {
-                                        prayerDOBController.text = formattedDate;
-                                      });
-                                    }*/
-
                                   },
                                   style: const TextStyle(
-                                      color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                      color: text_dark, fontSize: 14, fontWeight: FontWeight.w600
+                                  ),
                                   decoration: const InputDecoration(
                                       fillColor: white_blue,
                                       border: InputBorder.none,
@@ -484,16 +460,70 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                       hintStyle: TextStyle(
                                           color: text_dark,
                                           fontSize: 14,
-                                          fontWeight: FontWeight.w900)),
+                                          fontWeight: FontWeight.w900
+                                      )
+                                  ),
+                                ),
+                              ),
+                            )
+                            : Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                  color: white_blue
+                              ),
+                              child:  Padding(
+                                padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                child: TextField(
+                                  readOnly: true,
+                                  controller:prayerDOBController,
+                                  cursorColor: text_dark,
+                                  onTap: () async {
+                                    DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1900),
+                                      //DateTime.now() - not to allow to choose before today.
+                                      lastDate: DateTime.now(),
+                                      helpText: 'Preferred Move Date',
+                                    );
+                                    if (pickedDate != null) {
+                                      String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                                      //you can implement different kind of Date Format here according to your requirement
+                                      setState(() {
+                                        selectedDate = formattedDate;
+                                        prayerDOBController.text = formattedDate;
+                                      });
+                                    }
+                                  },
+
+                                  style: const TextStyle(
+                                      color: text_dark, fontSize: 14, fontWeight: FontWeight.w600
+                                  ),
+                                  decoration: const InputDecoration(
+                                      fillColor: white_blue,
+                                      border: InputBorder.none,
+                                      hintText: 'Date of Birth',
+                                      hintStyle: TextStyle(
+                                          color: text_dark,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900
+                                      )
+                                  ),
                                 ),
                               ),
                             ),
+
+
+
                             Container(
                               margin: const EdgeInsets.only(top: 10),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16.0),
-                                  color: white_blue),
+                                  color: white_blue
+                              ),
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
                                 child: TextField(
@@ -529,12 +559,14 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                 children: [
                                   InkWell(
                                     child: Text(countryCode,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: text_dark,
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 14)),
+                                            fontSize: 14
+                                        )
+                                    ),
                                     onTap: () {
-                                      countryDialog(setState);
+                                      countryDialog(updateState);
                                     },
                                   ),
                                   Flexible(
@@ -1116,6 +1148,33 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
     );
   }
 
+  _setDatePickerWeb(TextEditingController controller){
+    showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext builder) {
+          return Container(
+            height: MediaQuery.of(context).copyWith().size.height*0.25,
+            color: Colors.white,
+            child: CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.date,
+              onDateTimeChanged: (value) {
+                if (value != selectedDate) {
+                  setState(()
+                  {
+                    String formattedDate = DateFormat('MMMM dd,yyyy').format(value);
+                    controller.text = formattedDate;
+                  });
+                }
+              },
+              initialDateTime: DateTime.now(),
+              minimumYear: 1900,
+              maximumYear: int.parse(getCurrentYear()),
+            ),
+          );
+        }
+    );
+  }
+
   _setDatePicker(TextEditingController controller){
     showCupertinoModalPopup(
         context: context,
@@ -1143,10 +1202,15 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
     );
   }
 
+  double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute/60.0;
+
+
   String countryCode = "+27";
   List<CountryListResponseModel> listCountryCode = [];
   List<CountryListResponseModel> listSearchCountryName = [];
   TextEditingController countryCodeSeachController = TextEditingController();
+
+  List data = [];
 
   countryDialog(StateSetter updateState) {
     showModalBottomSheet(
@@ -1162,7 +1226,8 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12.0),
                     topRight: Radius.circular(12.0),
-                  )),
+                  )
+              ),
               child: Column(
                 children: [
                   Container(
@@ -1172,7 +1237,8 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                         height: 1.5,
                         thickness: 1.5,
                         color: Colors.grey,
-                      )),
+                      )
+                  ),
                   Container(
                     margin: const EdgeInsets.only(top: 20),
                     child: const Text(
@@ -1244,10 +1310,9 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                           itemBuilder: (BuildContext context, int i) {
                             return InkWell(
                               onTap: () {
-                                setState(() {
+                                updateState(() {
                                   countryCode = listCountryCode[i].dialCode;
                                 });
-                                updateState(() {});
                                 Navigator.pop(context);
                               },
                               child: Container(
@@ -1277,7 +1342,8 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.w300,
                                                 color: text_new,
-                                                fontSize: 16),
+                                                fontSize: 16
+                                            ),
                                           )
                                         ],
                                       ),
@@ -1291,7 +1357,8 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                                 ),
                               ),
                             );
-                          }),
+                          }
+                          ),
                     ),
                   )
                 ],
@@ -1299,6 +1366,21 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
             );
           });
         });
+  }
+
+  Future<void> getCountryData() async {
+    var jsonText = await rootBundle.loadString('assets/countries.json');
+    setState(() => data = json.decode(jsonText));
+    var name = "";
+    var code = "";
+    var dial_code = "";
+    for (var i=0; i < data.length; i++)
+    {
+      name = data[i]['name'];
+      code = data[i]['code'];
+      dial_code = data[i]['dial_code'] ?? "";
+      listCountryCode.add(CountryListResponseModel(name: name, dialCode: dial_code, code: code));
+    }
   }
 
   _savePrayerRequest(Requests getSet) async {

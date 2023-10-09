@@ -3,12 +3,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:flutter_google_places_web/flutter_google_places_web.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding/google_geocoding.dart';
+import 'package:http/browser_client.dart';
 import 'package:kuber/model/TempleListResponseModel.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
+import 'package:kuber/screen/places_autocomplete.dart';
+import 'package:kuber/screen/places_autocomplete_util.dart';
 import 'package:kuber/utils/full_screen_image.dart';
 import 'package:kuber/widget/loading_more.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -42,8 +46,11 @@ class _TempleListScreen extends State<TempleListScreen> {
   bool _isNoDataVisible = false;
   bool isScrollingDown = false;
   bool _isLastPage = false;
+  bool _isVisible = false;
   bool _isLoadingMore = false;
   String nextPageToken = '';
+  String test = '';
+  List<Suggestion> suggestion = [];
 
   @override
   void initState() {
@@ -92,7 +99,8 @@ class _TempleListScreen extends State<TempleListScreen> {
                 style: TextStyle(
                     color: black,
                     fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold
+                ),
               ),
               actions: [
                 GestureDetector(
@@ -134,7 +142,8 @@ class _TempleListScreen extends State<TempleListScreen> {
                           children: [
                             Container(
                                 margin: const EdgeInsets.only(top: 10),
-                                child: const Text('Temple visit is spiritual experience that makes a person better.',style: TextStyle(fontWeight: FontWeight.w500,color: black,fontSize: 14),)),
+                                child: const Text('Temple visit is spiritual experience that makes a person better.',style: TextStyle(fontWeight: FontWeight.w500,color: black,fontSize: 14),)
+                            ),
                             Container(
                               alignment: Alignment.center,
                               margin: const EdgeInsets.only(top: 10,bottom: 20),
@@ -197,15 +206,17 @@ class _TempleListScreen extends State<TempleListScreen> {
                                                               fontWeight:
                                                               FontWeight.w600,
                                                               color: Colors.black),
-                                                          textAlign: TextAlign.start),
+                                                          textAlign: TextAlign.start
+                                                      ),
                                                       Text(_listTemples[i].vicinity.toString(),
                                                           style: const TextStyle(
                                                               fontSize: 14,
                                                               fontWeight:
                                                               FontWeight.w500,
-                                                              color: Colors.black),
-                                                          textAlign: TextAlign.start),
-
+                                                              color: Colors.black
+                                                          ),
+                                                          textAlign: TextAlign.start
+                                                      ),
                                                     ]),
                                               ),
                                               GestureDetector(
@@ -218,11 +229,13 @@ class _TempleListScreen extends State<TempleListScreen> {
                                                     padding: const EdgeInsets.all(4.0),
                                                     decoration: BoxDecoration(
                                                         borderRadius: BorderRadius.circular(10.0),
-                                                        color: black),
+                                                        color: black
+                                                    ),
                                                     child: Padding(
                                                       padding: const EdgeInsets.all(6.0),
                                                       child: Image.asset("assets/images/ic_right_arrow.png",width: 14,height:14,color:white),
-                                                    )),
+                                                    )
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -230,7 +243,8 @@ class _TempleListScreen extends State<TempleListScreen> {
                                       ],
                                     ),
                                   );
-                                })
+                                }
+                                )
                           ],
                         ),
                       ),
@@ -265,7 +279,7 @@ class _TempleListScreen extends State<TempleListScreen> {
                   Navigator.pop(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
                 },
               ),
-              title: const Text("Temple List",
+              title:  Text("Temple List " + test,
                 style: TextStyle(
                     color: black,
                     fontSize: 18,
@@ -275,21 +289,10 @@ class _TempleListScreen extends State<TempleListScreen> {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () async {
-                    Prediction? prediction = await PlacesAutocomplete.show(
-                      context: context,
-                      apiKey: API_KEY,
-                      mode: Mode.fullscreen,
-                      components: [],
-                      strictbounds: true,
-                      region: "",
-                      proxyBaseUrl: "https://www.panditbookings.com/https://maps.googleapis.com/maps/api",
-                      decoration: const InputDecoration(
-                        hintText: 'Search',
-                      ),
-                      types: [],
-                      language: "en",
-                    );
-                    displayPrediction(prediction);
+
+                    setState(() {
+                      _isVisible = !_isVisible;
+                    });
                   },
                   child: Image.asset("assets/images/ic_search.png",height: 24,width: 24),
                 ),
@@ -300,126 +303,145 @@ class _TempleListScreen extends State<TempleListScreen> {
             body: _isLoading
                 ? const LoadingWidget()
                 : Column(
-              children: [
-                Expanded(
-                    child: SingleChildScrollView(
-                      controller: _scrollViewController,
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 14,right: 14),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                child: const Text('Temple visit is spiritual experience that makes a person better.',style: TextStyle(fontWeight: FontWeight.w500,color: black,fontSize: 14),)),
-                            Container(
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.only(top: 10,bottom: 20),
-                              padding: const EdgeInsets.only(left: 14,right: 14),
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                color: light_yellow,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    _isLoading
-                                        ? "0 Temple found"
-                                        : _listTemples.isEmpty
-                                        ? "0 Temple found"
-                                        : "${_listTemples.length} Temple found",
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        color: title,
-                                        fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                                ),
-                              ),
-                            ),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                scrollDirection: Axis.vertical,
-                                itemCount:_listTemples.length,
-                                itemBuilder: (BuildContext context, int i) {
-                                  return Card(
-                                    margin: const EdgeInsets.only( top: 6, bottom: 6),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(6.0),
-                                    ),
-                                    color:  priest_light,
-                                    child: Column(
-                                      children: [
-                                        Visibility(
-                                          visible:_listTemples[i].photos != null ,
-                                          child: GestureDetector(
-                                              onTap: (){
-                                                Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenImage("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${_listTemples[i].photos?[0].photoReference}&key=$API_KEY", [], 0)));
-                                              },
-                                              child: FadeInImage.assetNetwork( width: MediaQuery.of(context).size.width,fit: BoxFit.fitWidth,placeholder: "assets/images/placeholder.png", image: "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${_listTemples[i].photos?[0].photoReference}&key=$API_KEY")),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 18.0, right: 18),
+                        child: Visibility(
+                          visible: _isVisible,
+                          child: FlutterGooglePlacesWeb(
+                            apiKey: API_KEY,
+                            proxyURL: 'https://cors-anywhere.herokuapp.com/',
+                            required: true,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                          child: SingleChildScrollView(
+                            controller: _scrollViewController,
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 14,right: 14),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 10),
+                                      child: const Text('Temple visit is spiritual experience that makes a person better.',style: TextStyle(fontWeight: FontWeight.w500,color: black,fontSize: 14),)
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    margin: const EdgeInsets.only(top: 10,bottom: 20),
+                                    padding: const EdgeInsets.only(left: 14,right: 14),
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20.0),
+                                      ),
+                                      color: light_yellow,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Text(
+                                          _isLoading
+                                              ? "0 Temple found"
+                                              : _listTemples.isEmpty
+                                              ? "0 Temple found"
+                                              : "${_listTemples.length} Temple found",
+                                          style: const TextStyle(
+                                              fontSize: 14,
+                                              color: title,
+                                              fontWeight: FontWeight.bold
+                                          ),
+                                          textAlign: TextAlign.center,
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(12),
-                                          child: Row(
+                                      ),
+                                    ),
+                                  ),
+                                  ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:_listTemples.length,
+                                      itemBuilder: (BuildContext context, int i) {
+                                        return Card(
+                                          margin: const EdgeInsets.only( top: 6, bottom: 6),
+                                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(6.0),
+                                          ),
+                                          color:  priest_light,
+                                          child: Column(
                                             children: [
-                                              Expanded(
-                                                child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(_listTemples[i].name.toString(),
-                                                          style: const TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                              FontWeight.w600,
-                                                              color: Colors.black),
-                                                          textAlign: TextAlign.start),
-                                                      Container(height: 8,),
-                                                      Text(_listTemples[i].vicinity.toString(),
-                                                          style: const TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                              FontWeight.w500,
-                                                              color: Colors.black),
-                                                          textAlign: TextAlign.start),
-
-                                                    ]),
+                                              Visibility(
+                                                visible:_listTemples[i].photos != null ,
+                                                child: GestureDetector(
+                                                    onTap: (){
+                                                      Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenImage("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${_listTemples[i].photos?[0].photoReference}&key=$API_KEY", [], 0)));
+                                                    },
+                                                    child: FadeInImage.assetNetwork( width: MediaQuery.of(context).size.width,fit: BoxFit.fitWidth,placeholder: "assets/images/placeholder.png", image: "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${_listTemples[i].photos?[0].photoReference}&key=$API_KEY")),
                                               ),
-                                              GestureDetector(
-                                                onTap: (){
-                                                  launchUrl(Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=${_listTemples[i].placeId}"),mode: LaunchMode.externalApplication );
-                                                },
-                                                child: Container(
-                                                    width: 38,
-                                                    height: 38,
-                                                    padding: const EdgeInsets.all(4.0),
-                                                    decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(10.0),
-                                                        color: black),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.all(6.0),
-                                                      child: Image.asset("assets/images/ic_right_arrow.png",width: 14,height:14,color:white),
-                                                    )),
+                                              Padding(
+                                                padding: const EdgeInsets.all(12),
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(_listTemples[i].name.toString(),
+                                                                style: const TextStyle(
+                                                                    fontSize: 16,
+                                                                    fontWeight:
+                                                                    FontWeight.w600,
+                                                                    color: Colors.black),
+                                                                textAlign: TextAlign.start
+                                                            ),
+                                                            Container(height: 8,),
+                                                            Text(_listTemples[i].vicinity.toString(),
+                                                                style: const TextStyle(
+                                                                    fontSize: 14,
+                                                                    fontWeight:
+                                                                    FontWeight.w500,
+                                                                    color: Colors.black
+                                                                ),
+                                                                textAlign: TextAlign.start
+                                                            ),
+                                                          ]),
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: (){
+                                                        launchUrl(Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=${_listTemples[i].placeId}"),mode: LaunchMode.externalApplication );
+                                                      },
+                                                      child: Container(
+                                                          width: 38,
+                                                          height: 38,
+                                                          padding: const EdgeInsets.all(4.0),
+                                                          decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(10.0),
+                                                              color: black
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(6.0),
+                                                            child: Image.asset("assets/images/ic_right_arrow.png",width: 14,height:14,color:white),
+                                                          )
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                })
-                          ],
-                        ),
+                                        );
+                                      })
+                                ],
+                              ),
+                            ),
+                          )
                       ),
-                    )
-                ),
-                Visibility(
-                    visible: _isLoadingMore,
-                    child: const LoadingMoreWidget()
-                )
-              ],
+                      Visibility(
+                          visible: _isLoadingMore,
+                          child: const LoadingMoreWidget()
+                      )
+                    ],
             )
         ),
         onWillPop: () {
@@ -448,6 +470,19 @@ class _TempleListScreen extends State<TempleListScreen> {
     }
   }
 
+  Future<void> displayPredictionForWeb(Prediction? p) async {
+    if (p != null) {
+
+      final places = new GoogleMapsPlaces(apiKey: API_KEY, httpClient: new BrowserClient());
+
+      PlacesSearchResponse response = await places.searchByText("123 Main Street");
+      print("<><>?> WEBBBB B :::" + response.results.length.toString() + "");
+
+    }
+  }
+
+
+
   void checkPermission() async {
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied)
@@ -473,7 +508,8 @@ class _TempleListScreen extends State<TempleListScreen> {
 
     if (!haspermission)
     {
-      openAppSettings();
+      //openAppSettings();
+      permission = await Geolocator.requestPermission();
     }
     else
     {
@@ -492,6 +528,33 @@ class _TempleListScreen extends State<TempleListScreen> {
       long = position.longitude;
     });
     getTempleList(true);
+    var location = "$lat,$long";
+    print("Test$location");
+    _makeSearchPlaceRequest(location);
+  }
+
+  void _makeSearchPlaceRequest(String text) async {
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    Map<String, dynamic> jsonBody = {
+      'latlng': text,
+      'location_type': "ROOFTOP",
+      'key': "AIzaSyC7HlgldL9ietWQF8Y3oHxf_LJnYPMHhDU",
+    };
+
+    var uri = Uri.https('maps.googleapis.com', '/maps/api/geocode/json', jsonBody);
+
+    var response = await http.get(uri, headers: {
+      HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded; charset=UTF-8',
+    });
+
+    final statusCode = response.statusCode;
+
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+
   }
 
   void getTempleList(bool isFirstTime) async {
@@ -519,10 +582,11 @@ class _TempleListScreen extends State<TempleListScreen> {
       'key': API_KEY,
     };
 
+    // var uri = Uri.https('cors-anywhere.herokuapp.com', '/https://maps.googleapis.com/maps/api/place/nearbysearch/json', jsonBody);
     var uri = Uri.https('maps.googleapis.com', '/maps/api/place/nearbysearch/json', jsonBody);
 
     var response = await http.get(uri, headers: {
-      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded; charset=UTF-8',
     });
 
     final statusCode = response.statusCode;

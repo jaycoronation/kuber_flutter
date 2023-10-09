@@ -437,90 +437,184 @@ class _RashiScreen extends State<RashiScreen> {
                                       ),
                                     ),
                                   ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    margin: const EdgeInsets.only(top: 10, right: 18, left: 18),
-                                    child: TextField(
-                                      onTap: (){
-                                        _setDatePicker(rashiDOBController);
-                                      },
-                                      controller: rashiDOBController,
-                                      keyboardType: TextInputType.text,
-                                      cursorColor: text_dark,
-                                      style: const TextStyle(
-                                          color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                      decoration: InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(12.0),
-                                            borderSide: const BorderSide(width: 0,style: BorderStyle.none)
+                                  ResponsiveWidget.isSmallScreen(context)
+                                    ?  Container(
+                                        alignment: Alignment.center,
+                                        margin: const EdgeInsets.only(top: 10, right: 18, left: 18),
+                                        child: TextField(
+                                          onTap: (){
+                                            _setDatePicker(rashiDOBController);
+                                          },
+                                          controller: rashiDOBController,
+                                          keyboardType: TextInputType.text,
+                                          cursorColor: text_dark,
+                                          style: const TextStyle(
+                                              color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                          decoration: InputDecoration(
+                                            fillColor: white_blue,
+                                            counterText: "",
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(12.0),
+                                                borderSide: const BorderSide(width: 0,style: BorderStyle.none)
+                                            ),
+                                            filled: true,
+                                            hintText: "Date of Birth",
+                                            hintStyle: const TextStyle(
+                                              color: text_dark,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                          ),
                                         ),
-                                        filled: true,
-                                        hintText: "Date of Birth",
-                                        hintStyle: const TextStyle(
-                                          color: text_dark,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w900,
+                                      )
+                                    : Container(
+                                        margin: const EdgeInsets.only(top: 10, left: 18, right: 18),
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(16.0),
+                                            color: white_blue
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    margin: const EdgeInsets.only(top: 10, right: 18, left: 18),
-                                    child: TextField(
-                                      onTap: (){
-                                        _setTimePicker(rashiTOBController);
-                                      },
-                                      controller: rashiTOBController,
-                                      keyboardType: TextInputType.text,
-                                      cursorColor: text_dark,
-                                      style: const TextStyle(
-                                          color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                      decoration: InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(12.0),
-                                            borderSide: const BorderSide(width: 0,style: BorderStyle.none)
-                                        ),
-                                        filled: true,
-                                        hintText: "Time of Birth",
-                                        hintStyle: const TextStyle(
-                                          color: text_dark,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w900,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    margin: const EdgeInsets.only(top: 10, right: 18, left: 18),
-                                    child: TextField(
-                                      controller: rashiPOBController,
-                                      keyboardType: TextInputType.text,
-                                      cursorColor: text_dark,
-                                      style: const TextStyle(
-                                          color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                      decoration: InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(12.0),
-                                            borderSide: const BorderSide(width: 0,style: BorderStyle.none)
-                                        ),
-                                        filled: true,
-                                        hintText: "Place of Birth",
-                                        hintStyle: const TextStyle(
-                                          color: text_dark,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w900,
+                                        child:  Padding(
+                                          padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
+                                          child: TextField(
+                                            readOnly: true,
+                                            controller:rashiDOBController,
+                                            cursorColor: text_dark,
+                                            onTap: () async {
+                                              DateTime? pickedDate = await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(1900),
+                                                //DateTime.now() - not to allow to choose before today.
+                                                lastDate: DateTime.now(),
+                                                helpText: 'Preferred Move Date',
+                                              );
+                                              if (pickedDate != null) {
+                                                String formattedDate = DateFormat('dd MMM,yyyy').format(pickedDate);
+                                                //you can implement different kind of Date Format here according to your requirement
+                                                setState(() {
+                                                  selectedDate = formattedDate;
+                                                  rashiDOBController.text = formattedDate;
+                                                });
+                                              }
+                                            },
+
+                                            style: const TextStyle(
+                                                color: text_dark, fontSize: 14, fontWeight: FontWeight.w600
+                                            ),
+                                            decoration: const InputDecoration(
+                                                fillColor: white_blue,
+                                                border: InputBorder.none,
+                                                hintText: 'Date of Birth',
+                                                hintStyle: TextStyle(
+                                                    color: text_dark,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w900
+                                                )
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
+
+                                  ResponsiveWidget.isSmallScreen(context)
+                                      ? Container(
+                                          alignment: Alignment.center,
+                                          margin: const EdgeInsets.only(top: 10, right: 18, left: 18),
+                                          child: TextField(
+                                            onTap: (){
+                                              _setTimePicker(rashiTOBController);
+                                            },
+                                            controller: rashiTOBController,
+                                            keyboardType: TextInputType.text,
+                                            cursorColor: text_dark,
+                                            style: const TextStyle(
+                                                color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                            decoration: InputDecoration(
+                                              fillColor: white_blue,
+                                              counterText: "",
+                                              border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(12.0),
+                                                  borderSide: const BorderSide(width: 0,style: BorderStyle.none)
+                                              ),
+                                              filled: true,
+                                              hintText: "Time of Birth",
+                                              hintStyle: const TextStyle(
+                                                color: text_dark,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w900,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(
+                                          alignment: Alignment.center,
+                                          margin: const EdgeInsets.only(top: 10, right: 18, left: 18),
+                                          child: TextField(
+                                            onTap: () async {
+                                              TimeOfDay? pickedTime =  await showTimePicker(
+                                                  initialTime: TimeOfDay.fromDateTime(DateTime.now()),
+                                                  context: context,
+                                                  initialEntryMode: TimePickerEntryMode.dial
+                                              );
+
+                                              if(pickedTime != null ){
+                                                print(pickedTime.format(context));   //output 10:51 PM
+
+                                                var selectedTodayTime = toDouble(pickedTime);
+                                                var todaysTime = toDouble(TimeOfDay.now());
+
+                                                var todayDate = DateTime.now();
+                                                String formattedTodayDate = DateFormat('dd MMM,yyyy').format(todayDate);
+
+                                                if (selectedDate == formattedTodayDate)
+                                                {
+                                                  if (todaysTime > selectedTodayTime)
+                                                  {
+                                                    showToast("Please select time as per today ", context);
+                                                  }
+                                                  else
+                                                  {
+                                                    setState(() {
+                                                      selectedTime = pickedTime.format(context);
+                                                      rashiTOBController.text = pickedTime.format(context); //set the value of text field.
+                                                    });
+                                                  }
+                                                }
+                                                else
+                                                {
+                                                  setState(() {
+                                                    selectedTime = pickedTime.format(context);
+                                                    rashiTOBController.text = pickedTime.format(context); //set the value of text field.
+                                                  });
+                                                }
+                                                print(selectedTime);
+                                              }else{
+                                                print("Time is not selected");
+                                              }
+                                            },
+                                            controller: rashiTOBController,
+                                            keyboardType: TextInputType.text,
+                                            cursorColor: text_dark,
+                                            style: const TextStyle(
+                                                color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                            decoration: InputDecoration(
+                                              fillColor: white_blue,
+                                              counterText: "",
+                                              border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(12.0),
+                                                  borderSide: const BorderSide(width: 0,style: BorderStyle.none)
+                                              ),
+                                              filled: true,
+                                              hintText: "Time of Birth",
+                                              hintStyle: const TextStyle(
+                                                color: text_dark,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w900,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+
                                   Container(
                                     alignment: Alignment.center,
                                     margin: const EdgeInsets.only(top: 10, right: 18, left: 18),
@@ -1243,6 +1337,9 @@ class _RashiScreen extends State<RashiScreen> {
         }
     );
   }
+
+  double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute/60.0;
+
 
   void callDeleteRashiRequestAPI(Requests getSet) async {
     setState(() {

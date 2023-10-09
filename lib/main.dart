@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:html';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart' show PlatformDispatcher, kIsWeb;
@@ -40,6 +39,9 @@ import 'firebase_options.dart';
        xfbml: true,
        version: "v15.0",
      );
+
+     print(FacebookAuth.i.isWebSdkInitialized);
+     print("IS WEB INIT");
    }
    else
    {
@@ -113,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
     audio.play(AssetSource("audio/flute.mp3"));
     print("opq");
     Future.delayed(Duration.zero,(){
+      print(_sessionManager);
       if(_sessionManager.checkIsLoggedIn() ?? false)
       {
         print(_sessionManager.getPhone().toString());
@@ -125,7 +128,11 @@ class _MyHomePageState extends State<MyHomePage> {
         {
           if (kIsWeb)
             {
-              GoRouter.of(context).go(AppRoutes.homeRoute);
+              print("dash");
+              // GoRouter.of(context).go(AppRoutes.homeRoute);
+              // context.go(AppRoutes.homeRoute);
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => false);
+
             }
           else
             {
