@@ -25,7 +25,6 @@ import 'firebase_options.dart';
   await SessionManagerMethods.init();
    if (kIsWeb)
    {
-     print("IS WEB");
      var isInit = await Firebase.initializeApp(
        options: DefaultFirebaseOptions.currentPlatform,
      );
@@ -86,8 +85,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
            routerConfig: AppRoutes.routes,
             theme: ThemeData(
-                textTheme: GoogleFonts.rubikTextTheme(Theme.of(context).textTheme)),
-
+                textTheme: GoogleFonts.rubikTextTheme(Theme.of(context).textTheme)
+            ),
           );
         },
       maximumSize: const Size(1160.0, 812.0),
