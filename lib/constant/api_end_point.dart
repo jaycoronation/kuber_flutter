@@ -9,6 +9,7 @@ const String QULIFICATION = "Qualification";
 const String EXPRIENCE = "Experience";
 const String API_KEY = kIsWeb ? "AIzaSyBiwi0bSUa4QTj59ojKgmS8fc_pfBb6eaU" : "AIzaSyBiwi0bSUa4QTj59ojKgmS8fc_pfBb6eaU"; // KUBER
 // const String API_KEY = "AIzaSyC7HlgldL9ietWQF8Y3oHxf_LJnYPMHhDU"; // KUBER
+
 //LOCAL
 // const String PAYPAL_CLIENT_ID = "AeYZUWJt5EZkyHcf2PzpzhMjt6H-KfQ5G35B0UvNcofNDn5Ewle8kyTbYEuaAeI7vtxNNPWbZ1ZDiyMt";
 // const String PAYPAL_CLIENT_SECRET = "EP9ItIeLUhZ6TnIif7aKygizoqXs-GoUSGqDSlx8wg154XZ2UV8dAcKxjSOY_g_QRLN3JwJBA6E66I3-";
@@ -16,7 +17,7 @@ const String API_KEY = kIsWeb ? "AIzaSyBiwi0bSUa4QTj59ojKgmS8fc_pfBb6eaU" : "AIz
 //Live
 const String PAYPAL_CLIENT_ID = "AUQiip1nmdXa4N_Igtsu6kG0lQOYHtq_63pb_hDcckOgQOr6kGaxHf0JwPzuyOdA4lO904urH8lkpWBy";
 const String PAYPAL_CLIENT_SECRET = "EKWbMBN0C295I8y9Zd-fuestKwdq46l3Kq5Q2JOjYduKSvCVqvx1kvONKWNLXapZ2xMG0trMtOrNRfo7";
-const bool SANDBOX = true;
+const bool SANDBOX = false;
 // const String API_KEY = "AIzaSyAoqW5iG6Ez-kxsxi7RNPfP8CvFMk3yz8A"; // FOOD BOSS
 
 /*Login*/

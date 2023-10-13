@@ -1592,71 +1592,6 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
                                   ),
                                 ),
                               ),
-
-
-
-
-                              // TextField(
-                              //   onTap: () async {
-                              //     _setDatePicker(matchBoyBirthDateController);
-                              //
-                              //    /* FocusScope.of(context)
-                              //         .requestFocus(FocusNode());
-                              //     DateTime? pickedDate = await showDatePicker(
-                              //         context: context,
-                              //         initialDate: DateTime.now(),
-                              //         firstDate: DateTime(1900),
-                              //         lastDate: DateTime.now(),
-                              //         builder: (BuildContext context,
-                              //             Widget? child) {
-                              //           return Theme(
-                              //             data: ThemeData.dark().copyWith(
-                              //               colorScheme: const ColorScheme.dark(
-                              //                 primary: text_light,
-                              //                 onPrimary: white,
-                              //                 surface: text_light,
-                              //                 onSurface: black,
-                              //               ),
-                              //               dialogBackgroundColor: white,
-                              //             ),
-                              //             child: child!,
-                              //           );
-                              //         });
-                              //     if (pickedDate != null) {
-                              //       String formattedDate =
-                              //           DateFormat('dd MMM,yyyy')
-                              //               .format(pickedDate);
-                              //       print(formattedDate);
-                              //       //you can implement different kind of Date Format here according to your requirement
-                              //       setState(() {
-                              //         matchBoyBirthDateController.text =
-                              //             formattedDate;
-                              //       });
-                              //     }*/
-                              //   },
-                              //   controller: matchBoyBirthDateController,
-                              //   keyboardType: TextInputType.text,
-                              //   cursorColor: text_dark,
-                              //   style: const TextStyle(
-                              //       color: title,
-                              //       fontSize: 14,
-                              //       fontWeight: FontWeight.w600),
-                              //   decoration: InputDecoration(
-                              //     fillColor: white_blue,
-                              //     counterText: "",
-                              //     border: OutlineInputBorder(
-                              //         borderRadius: BorderRadius.circular(12.0),
-                              //         borderSide: const BorderSide(
-                              //             width: 0, style: BorderStyle.none)),
-                              //     filled: true,
-                              //     hintText: "Birth date",
-                              //     hintStyle: const TextStyle(
-                              //       color: text_dark,
-                              //       fontSize: 14,
-                              //       fontWeight: FontWeight.w900,
-                              //     ),
-                              //   ),
-                              // ),
                               Container(height: 10),
 
                               ResponsiveWidget.isSmallScreen(context)
@@ -2224,25 +2159,26 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
                           color: title,
                           fontSize: 14,
                           fontWeight: FontWeight.w600),
-                      onChanged: (editable)
-                      {
-                        if (listCountryCode != null &&
-                            listCountryCode.length > 0)
+                      onChanged: (editable){
+                        if (listCountryCode != null && listCountryCode.length > 0)
                         {
                           listSearchCountryName = [];
+
                           if (editable.length > 0)
                           {
-                            for (var i = 0; i < listCountryCode.length; i++)
+                            for (var i=0; i < listCountryCode.length; i++)
                             {
-                              if (listCountryCode[i]
-                                  .name
-                                  .toLowerCase()
-                                  .contains(
-                                      editable.toString().toLowerCase())) {
+                              if (listCountryCode[i].name.toLowerCase().contains(editable.toString().toLowerCase()))
+                              {
                                 listSearchCountryName.add(listCountryCode[i]);
                               }
                             }
-                          } else {}
+                          }
+                          else
+                          {
+                            listSearchCountryName = [];
+                          }
+                          setState((){});
                           /*adapterCountry = AdapterCountry(activity, listSearchCountryName, dialog)
                               rvCountry.adapter = adapterCountry*/
                         }
@@ -2265,66 +2201,43 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
                     ),
                   ),
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const ScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          itemCount: listCountryCode.length,
-                          itemBuilder: (BuildContext context, int i) {
-                            return InkWell(
-                              onTap: () {
-                                setState(() {
-                                  countryCode = listCountryCode[i].dialCode;
-                                });
-                                updateState(() {
-                                  countryCode = listCountryCode[i].dialCode;
-                                });
-
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                margin:
-                                    const EdgeInsets.only(left: 14, right: 14),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Flexible(
-                                              child: Text(
-                                            listCountryCode[i].name.toString(),
-                                            style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w200,
-                                                color: title),
-                                            textAlign: TextAlign.start,
-                                          )),
-                                          Text(
-                                            listCountryCode[i]
-                                                .dialCode
-                                                .toString(),
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w300,
-                                                color: text_new,
-                                                fontSize: 16),
-                                          )
-                                        ],
-                                      ),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        itemCount: listSearchCountryName.isNotEmpty ? listSearchCountryName.length : listCountryCode.length,
+                        itemBuilder: (BuildContext context, int i) {
+                          return InkWell(
+                            onTap: (){
+                              setState((){
+                                countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
+                              });
+                              updateState((){
+                                countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
+                              });
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 14, right: 14),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(child: Text( listSearchCountryName.isNotEmpty ? listSearchCountryName[i].name : listCountryCode[i].name.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w200,color: title), textAlign: TextAlign.start,)),
+                                        Text(listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode.toString(),style: const TextStyle(fontWeight: FontWeight.w300,color: text_new,fontSize: 16),)
+                                      ],
                                     ),
-                                    const Divider(
-                                      height: 1,
-                                      color: text_light,
-                                      indent: 1,
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  const Divider(height: 1,color: text_light,indent: 1,)
+                                ],
                               ),
-                            );
-                          }),
+
+                            ),
+                          );
+                        }
                     ),
                   )
                 ],

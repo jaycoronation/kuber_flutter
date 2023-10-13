@@ -995,8 +995,6 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                       )
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children:  [
                       Container(
                           width: 50,
@@ -1005,8 +1003,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                             height: 1.5,
                             thickness: 1.5,
                             color: Colors.grey,
-                          )
-                      ),
+                          )),
                       Container(
                         margin: const EdgeInsets.only(top: 20),
                         child: const Text(
@@ -1018,7 +1015,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(bottom: 10,left: 14,right: 14),
+                        margin: const EdgeInsets.only(top: 20,bottom: 10,left: 14,right: 14),
                         child: TextField(
                           controller: countryCodeSeachController,
                           keyboardType: TextInputType.text,
@@ -1044,8 +1041,9 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                               }
                               else
                               {
-
+                                listSearchCountryName = [];
                               }
+                              setState((){});
                               /*adapterCountry = AdapterCountry(activity, listSearchCountryName, dialog)
                               rvCountry.adapter = adapterCountry*/
                             }
@@ -1068,48 +1066,45 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                         ),
                       ),
                       Expanded(
-                        child: SingleChildScrollView(
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const ScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              itemCount: listCountryCode.length,
-                              itemBuilder: (BuildContext context, int i) {
-                                return InkWell(
-                                  onTap: (){
-                                    setState((){
-                                      countryCode = listCountryCode[i].dialCode;
-                                    });
-                                    updateState((){
-                                      countryCode = listCountryCode[i].dialCode;
-                                    });
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.only(right: 14,left: 14,top: 6,bottom: 6),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Flexible(child: Text(listCountryCode[i].name.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w200,color: title), textAlign: TextAlign.start,)),
-                                              Text(listCountryCode[i].dialCode.toString(),style: const TextStyle(fontWeight: FontWeight.w300,color: text_new,fontSize: 16),)
-                                            ],
-                                          ),
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            itemCount: listSearchCountryName.isNotEmpty ? listSearchCountryName.length : listCountryCode.length,
+                            itemBuilder: (BuildContext context, int i) {
+                              return InkWell(
+                                onTap: (){
+                                  setState((){
+                                    countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
+                                  });
+                                  updateState((){
+                                    countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
+                                  });
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 14, right: 14),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Flexible(child: Text( listSearchCountryName.isNotEmpty ? listSearchCountryName[i].name : listCountryCode[i].name.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w200,color: title), textAlign: TextAlign.start,)),
+                                            Text(listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode.toString(),style: const TextStyle(fontWeight: FontWeight.w300,color: text_new,fontSize: 16),)
+                                          ],
                                         ),
-                                        const Divider(height: 1,color: text_light,indent: 1,)
-                                      ],
-                                    ),
-
+                                      ),
+                                      const Divider(height: 1,color: text_light,indent: 1,)
+                                    ],
                                   ),
-                                );
-                              }
-                          ),
+
+                                ),
+                              );
+                            }
                         ),
                       )
-
                     ],
                   ),
                 );
@@ -1130,7 +1125,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
     {
       name = data[i]['name'];
       code = data[i]['code'];
-      dial_code = data[i]['dial_code'] != null ? data[i]['dial_code'] : "";
+      dial_code = data[i]['dial_code'] ?? "";
       listCountryCode.add(CountryListResponseModel(name: name, dialCode: dial_code, code: code));
     }
   }

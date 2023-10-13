@@ -2210,17 +2210,15 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
         hintText: 'Search',
       ),
       types: [],
-      language: "en",);
+      language: "en",
+    );
 
     if (prediction != null) {
-
-      GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: API_KEY,
-        apiHeaders: await const GoogleApiHeaders().getHeaders(),
-      );
-      PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(prediction.placeId!);
-      controller.text = prediction.description.toString();
-      updateState((){});
+      updateState((){
+        controller.text = prediction.description.toString();
+        addressController.text = prediction.description.toString();
+        print(addressController.text);
+      });
     }
   }
   

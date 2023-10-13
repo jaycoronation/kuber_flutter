@@ -210,8 +210,8 @@ class _DonationScreenState extends State<DonationScreen> {
                                     sandboxMode: SANDBOX,
                                     clientId: PAYPAL_CLIENT_ID,
                                     secretKey:PAYPAL_CLIENT_SECRET,
-                                    returnURL: "https://panditbookings.com/return",
-                                    cancelURL: "http://panditbookings.com/cancel",
+                                    returnURL: "https://www.panditbookings.com/return",
+                                    cancelURL: "http://www.panditbookings.com/cancel",
                                     transactions: [
                                       {
                                         "amount": {

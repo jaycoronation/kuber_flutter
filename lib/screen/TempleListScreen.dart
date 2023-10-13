@@ -266,7 +266,6 @@ class _TempleListScreen extends State<TempleListScreen> {
             resizeToAvoidBottomInset: true,
             backgroundColor: bg_skin,
             appBar:AppBar(
-              // systemOverlayStyle: SystemUiOverlayStyle.dark,
               toolbarHeight: 60,
               automaticallyImplyLeading: false,
               backgroundColor: bg_skin,
@@ -279,8 +278,8 @@ class _TempleListScreen extends State<TempleListScreen> {
                   Navigator.pop(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
                 },
               ),
-              title:  Text("Temple List " + test,
-                style: TextStyle(
+              title: Text("Temple List $test",
+                style: const TextStyle(
                     color: black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold),
@@ -289,7 +288,6 @@ class _TempleListScreen extends State<TempleListScreen> {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () async {
-
                     setState(() {
                       _isVisible = !_isVisible;
                     });
@@ -476,7 +474,7 @@ class _TempleListScreen extends State<TempleListScreen> {
       final places = new GoogleMapsPlaces(apiKey: API_KEY, httpClient: new BrowserClient());
 
       PlacesSearchResponse response = await places.searchByText("123 Main Street");
-      print("<><>?> WEBBBB B :::" + response.results.length.toString() + "");
+      print("<><>?> WEBBBB B :::${response.results.length}");
 
     }
   }
@@ -530,7 +528,7 @@ class _TempleListScreen extends State<TempleListScreen> {
     getTempleList(true);
     var location = "$lat,$long";
     print("Test$location");
-    _makeSearchPlaceRequest(location);
+    //_makeSearchPlaceRequest(location);
   }
 
   void _makeSearchPlaceRequest(String text) async {
@@ -539,12 +537,10 @@ class _TempleListScreen extends State<TempleListScreen> {
     ]);
 
     Map<String, dynamic> jsonBody = {
-      'latlng': text,
-      'location_type': "ROOFTOP",
-      'key': "AIzaSyC7HlgldL9ietWQF8Y3oHxf_LJnYPMHhDU",
+      'input': text,
     };
 
-    var uri = Uri.https('maps.googleapis.com', '/maps/api/geocode/json', jsonBody);
+    var uri = Uri.https('www.panditbookings.com', 'google_template.php', jsonBody);
 
     var response = await http.get(uri, headers: {
       HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -579,11 +575,12 @@ class _TempleListScreen extends State<TempleListScreen> {
       'rankby': "distance",
       'keyword': "hindu temple",
       'pagetoken' : nextPageToken,
-      'key': API_KEY,
     };
 
     // var uri = Uri.https('cors-anywhere.herokuapp.com', '/https://maps.googleapis.com/maps/api/place/nearbysearch/json', jsonBody);
-    var uri = Uri.https('maps.googleapis.com', '/maps/api/place/nearbysearch/json', jsonBody);
+    //var uri = Uri.https('maps.googleapis.com', '/maps/api/place/nearbysearch/json', jsonBody);
+
+    var uri = Uri.https('www.panditbookings.com', '/google_template.php', jsonBody);
 
     var response = await http.get(uri, headers: {
       HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded; charset=UTF-8',

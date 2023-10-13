@@ -1,28 +1,26 @@
-
-
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'package:google_api_headers/google_api_headers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
+import 'dart:html' as html;
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
 import '../model/PrayerListResponseModel.dart';
-import '../model/PujaListResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../utils/session_manager.dart';
 import '../widget/loading.dart';
-import 'PujaListScreen.dart';
 
 class MatchaMakingBottomSheet extends StatefulWidget {
 
@@ -2392,6 +2390,104 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
 
   }
 
+  Future<void> createPayPalPayment() async {
+    setState(() {
+      _isLoading = true;
+    });
+    Uri url = Uri.parse("");
+    if (SANDBOX)
+    {
+      url = Uri.parse('https://api.sandbox.paypal.com/v1/payments/payment');
+    }
+    else
+    {
+      url = Uri.parse('https://api.paypal.com/v1/payments/payment');
+    }
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization': 'Basic ${base64Encode(utf8.encode('$PAYPAL_CLIENT_ID:$PAYPAL_CLIENT_SECRET'))}', // Use your access token here
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'intent': 'sale',
+        'payer': {
+          'payment_method': 'paypal',
+        },
+        "transactions": [
+          {
+            "amount": {
+              "total": "21",
+              "currency": "USD",
+              "details": const {
+                "subtotal": '21',
+                "shipping": '0',
+                "shipping_discount": 0
+              }
+            },
+            "description": "The payment transaction description.",
+            // "payment_options": {
+            //   "allowed_payment_method":
+            //       "INSTANT_FUNDING_SOURCE"
+            // },
+            "item_list": {
+              "items": const [
+                {
+                  "name": "Astrology Request",
+                  "quantity": 1,
+                  "price": '21',
+                  "currency": "USD"
+                }
+              ],
+              // shipping address is not required though
+              "shipping_address": {
+                "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
+                "line1": "2 Gila Crescent",
+                "line2": "",
+                "city": "Johannesburg",
+                "country_code": "SA",
+                "postal_code": "2090",
+                "phone": "+00000000",
+                "state": 'Gauteng'
+              },
+            }
+          }
+        ],
+        'redirect_urls': {
+          'return_url': 'https://www.panditbookings.com/kuber/sucess',
+          'cancel_url': 'https://www.panditbookings.com/kuber/failed',
+        },
+      }),
+    );
+
+    print(jsonDecode(response.body));
+
+    if (response.statusCode == 201) {
+      final paymentResponse = json.decode(response.body);
+
+      final approvalUrl = paymentResponse['links']
+          .firstWhere((link) => link['rel'] == 'approval_url')['href'];
+
+      html.window.open(approvalUrl,"_self");
+
+      var url = html.window.location.href;
+
+      if (url.contains("sucess"))
+      {
+        print("Done");
+      }
+
+
+      setState(() {
+        _isLoading = false;
+      });
+      // Redirect the user to the approval URL to complete the payment
+      // You can use webview or window.open to achieve this
+    } else {
+      // Handle error
+    }
+  }
+
 
   String countryCode = "+27";
   List<CountryListResponseModel> listCountryCode = [];
@@ -3103,70 +3199,77 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                           child: GestureDetector(
                             onTap: (){
                               // _callsaveMatchdataAPI("");
-                               Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => UsePaypal(
-                                    sandboxMode: SANDBOX,
-                                    clientId: PAYPAL_CLIENT_ID,
-                                    secretKey:PAYPAL_CLIENT_SECRET,
-                                    returnURL: "https://panditbookings.com/return",
-                                    cancelURL: "http://panditbookings.com/cancel",
-                                    transactions: [
-                                      {
-                                        "amount": const {
-                                          "total": "11",
-                                          "currency": "USD",
-                                          "details": {
-                                            "subtotal": '11',
-                                            "shipping": '0',
-                                            "shipping_discount": 0
-                                          }
-                                        },
-                                        "description":
-                                        "The payment transaction description.",
-                                        // "payment_options": {
-                                        //   "allowed_payment_method":
-                                        //       "INSTANT_FUNDING_SOURCE"
-                                        // },
-                                        "item_list": {
-                                          "items": const [
+                              if (kIsWeb)
+                                {
+                                  createPayPalPayment();
+                                }
+                              else
+                                {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) => UsePaypal(
+                                          sandboxMode: SANDBOX,
+                                          clientId: PAYPAL_CLIENT_ID,
+                                          secretKey:PAYPAL_CLIENT_SECRET,
+                                          returnURL: "https://www.panditbookings.com/return",
+                                          cancelURL: "http://www.panditbookings.com/cancel",
+                                          transactions: [
                                             {
-                                              "name": "Match Making Request",
-                                              "quantity": 1,
-                                              "price": '11',
-                                              "currency": "USD"
+                                              "amount": const {
+                                                "total": "11",
+                                                "currency": "USD",
+                                                "details": {
+                                                  "subtotal": '11',
+                                                  "shipping": '0',
+                                                  "shipping_discount": 0
+                                                }
+                                              },
+                                              "description":
+                                              "The payment transaction description.",
+                                              // "payment_options": {
+                                              //   "allowed_payment_method":
+                                              //       "INSTANT_FUNDING_SOURCE"
+                                              // },
+                                              "item_list": {
+                                                "items": const [
+                                                  {
+                                                    "name": "Match Making Request",
+                                                    "quantity": 1,
+                                                    "price": '11',
+                                                    "currency": "USD"
+                                                  }
+                                                ],
+                                                // shipping address is not required though
+                                                "shipping_address": {
+                                                  "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
+                                                  "line1": "2 Gila Crescent",
+                                                  "line2": "",
+                                                  "city": "Johannesburg",
+                                                  "country_code": "SA",
+                                                  "postal_code": "2090",
+                                                  "phone": "+00000000",
+                                                  "state": 'Gauteng'
+                                                },
+                                              }
                                             }
                                           ],
-                                          // shipping address is not required though
-                                          "shipping_address": {
-                                            "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
-                                            "line1": "2 Gila Crescent",
-                                            "line2": "",
-                                            "city": "Johannesburg",
-                                            "country_code": "SA",
-                                            "postal_code": "2090",
-                                            "phone": "+00000000",
-                                            "state": 'Gauteng'
+                                          note: "Contact us for any questions on your order.",
+                                          onSuccess: (Map params) async {
+                                            print("onSuccess: $params");
+                                            String paymentId = "";
+                                            paymentId = params['paymentId'];
+                                            _callsaveMatchdataAPI(paymentId);
                                           },
-                                        }
-                                      }
-                                    ],
-                                    note: "Contact us for any questions on your order.",
-                                    onSuccess: (Map params) async {
-                                      print("onSuccess: $params");
-                                      String paymentId = "";
-                                      paymentId = params['paymentId'];
-                                      _callsaveMatchdataAPI(paymentId);
-                                    },
-                                    onError: (error) {
-                                      print("onError: $error");
-                                    },
-                                    onCancel: (params) {
-                                      print('cancelled: $params');
-                                    }
-                                ),
-                              ),
-                            );
+                                          onError: (error) {
+                                            print("onError: $error");
+                                          },
+                                          onCancel: (params) {
+                                            print('cancelled: $params');
+                                          }
+                                      ),
+                                    ),
+                                  );
+                                }
                             },
                             child: Card(
                               shape: RoundedRectangleBorder(
@@ -3307,13 +3410,10 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
 
     if (prediction != null) {
 
-      GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: API_KEY,
-        apiHeaders: await const GoogleApiHeaders().getHeaders(),
-      );
-      PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(prediction.placeId!);
-      controller.text = prediction.description.toString();
-      updateState((){});
+
+      updateState((){
+        controller.text = prediction.description.toString();
+      });
     }
   }
 

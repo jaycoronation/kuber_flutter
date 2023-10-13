@@ -192,35 +192,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                     ),
                                   )
                                 ),
-
-                                /* Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiFathersNameController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Father's Name",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ),*/
-
-
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
                                     child: TextField(
@@ -243,35 +214,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                       ),
                                     )
                                 ),
-
-                                /*  Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiEmailController,
-                                    keyboardType: TextInputType.emailAddress,
-                                    cursorColor: text_dark,
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Email",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ), */
-
-
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
                                     child: TextField(
@@ -295,38 +237,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                         labelStyle: const TextStyle(color: text_new),                                     ),
                                     )
                                 ),
-
-                                /*  Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiDOBController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    readOnly: true,
-                                    onTap: () async {
-                                      _setDatePicker(rashiDOBController);
-                                    },
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Date of Birth",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ), */
-
 
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
@@ -1395,13 +1305,9 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
 
     if (prediction != null) {
 
-      GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: API_KEY,
-        apiHeaders: await const GoogleApiHeaders().getHeaders(),
-      );
-      PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(prediction.placeId!);
-      controller.text = prediction.description.toString();
-      updateState((){});
+      updateState((){
+        controller.text = prediction.description.toString();
+      });
     }
   }
 

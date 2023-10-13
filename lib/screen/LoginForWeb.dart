@@ -73,11 +73,6 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
         elevation: 0,
         titleSpacing: 0,
         centerTitle: true,
-        /*title: const Center(
-          child: Text("Login or Sign up",
-              style: TextStyle(fontWeight: FontWeight.w600, color: darkbrown, fontSize: 22),
-              textAlign: TextAlign.center),
-        ),*/
       ),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -233,7 +228,9 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                       padding: const EdgeInsets.fromLTRB(0 , 22,0 ,22),
                       textStyle: const TextStyle(fontSize: 22, color: darkbrown, fontWeight: FontWeight.w600),
                     ),
-                    child: const Text('Continue', style: TextStyle(color: darkbrown, fontSize: 16),),
+                    child:_isLoading
+                        ? CircularProgressIndicator(color: white,strokeWidth: 4,)
+                        : const Text('Continue', style: TextStyle(color: darkbrown, fontSize: 16),),
                   ),
                 ),
                 Container(height: 22,),
