@@ -8,14 +8,11 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding/google_geocoding.dart';
-import 'package:http/browser_client.dart';
 import 'package:kuber/model/TempleListResponseModel.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/places_autocomplete.dart';
-import 'package:kuber/screen/places_autocomplete_util.dart';
 import 'package:kuber/utils/full_screen_image.dart';
 import 'package:kuber/widget/loading_more.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -371,10 +368,10 @@ class _TempleListScreen extends State<TempleListScreen> {
                                               Visibility(
                                                 visible:_listTemples[i].photos != null ,
                                                 child: GestureDetector(
-                                                    onTap: (){
-                                                      Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenImage("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${_listTemples[i].photos?[0].photoReference}&key=$API_KEY", [], 0)));
-                                                    },
-                                                    child: FadeInImage.assetNetwork( width: MediaQuery.of(context).size.width,fit: BoxFit.fitWidth,placeholder: "assets/images/placeholder.png", image: "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${_listTemples[i].photos?[0].photoReference}&key=$API_KEY")),
+                                                  onTap: (){
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenImage("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${_listTemples[i].photos?[0].photoReference}&key=$API_KEY", [], 0)));
+                                                  },
+                                                  child: FadeInImage.assetNetwork( width: MediaQuery.of(context).size.width,fit: BoxFit.fitWidth,placeholder: "assets/images/placeholder.png", image: "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${_listTemples[i].photos?[0].photoReference}&key=$API_KEY")),
                                               ),
                                               Padding(
                                                 padding: const EdgeInsets.all(12),
@@ -395,13 +392,13 @@ class _TempleListScreen extends State<TempleListScreen> {
                                                             ),
                                                             Container(height: 8,),
                                                             Text(_listTemples[i].vicinity.toString(),
-                                                                style: const TextStyle(
-                                                                    fontSize: 14,
-                                                                    fontWeight:
-                                                                    FontWeight.w500,
-                                                                    color: Colors.black
-                                                                ),
-                                                                textAlign: TextAlign.start
+                                                              style: const TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                  FontWeight.w500,
+                                                                  color: Colors.black
+                                                              ),
+                                                              textAlign: TextAlign.start
                                                             ),
                                                           ]),
                                                     ),
@@ -467,19 +464,6 @@ class _TempleListScreen extends State<TempleListScreen> {
       getTempleList(true);
     }
   }
-
-  Future<void> displayPredictionForWeb(Prediction? p) async {
-    if (p != null) {
-
-      final places = new GoogleMapsPlaces(apiKey: API_KEY, httpClient: new BrowserClient());
-
-      PlacesSearchResponse response = await places.searchByText("123 Main Street");
-      print("<><>?> WEBBBB B :::${response.results.length}");
-
-    }
-  }
-
-
 
   void checkPermission() async {
     permission = await Geolocator.checkPermission();

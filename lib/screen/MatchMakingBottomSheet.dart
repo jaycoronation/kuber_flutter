@@ -10,12 +10,14 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;
-import 'dart:html' as html;
+// import 'dart:html' as html;
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
+import '../constant/global_context.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
+import '../model/DonationResonseModel.dart';
 import '../model/PrayerListResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
@@ -2416,26 +2418,23 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
         },
         "transactions": [
           {
-            "amount": {
-              "total": "21",
+            "amount": const {
+              "total": "11",
               "currency": "USD",
-              "details": const {
-                "subtotal": '21',
+              "details": {
+                "subtotal": '11',
                 "shipping": '0',
                 "shipping_discount": 0
               }
             },
-            "description": "The payment transaction description.",
-            // "payment_options": {
-            //   "allowed_payment_method":
-            //       "INSTANT_FUNDING_SOURCE"
-            // },
+            "description":
+            "The payment transaction description.",
             "item_list": {
               "items": const [
                 {
-                  "name": "Astrology Request",
+                  "name": "Match Making Request",
                   "quantity": 1,
-                  "price": '21',
+                  "price": '11',
                   "currency": "USD"
                 }
               ],
@@ -2454,8 +2453,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
           }
         ],
         'redirect_urls': {
-          'return_url': 'https://www.panditbookings.com/kuber/sucess',
-          'cancel_url': 'https://www.panditbookings.com/kuber/failed',
+          'return_url': "https://www.panditbookings.com/kuber/success_match",
+          'cancel_url': 'https://www.panditbookings.com/kuber/cancle_match',
         },
       }),
     );
@@ -2465,18 +2464,10 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
     if (response.statusCode == 201) {
       final paymentResponse = json.decode(response.body);
 
-      final approvalUrl = paymentResponse['links']
-          .firstWhere((link) => link['rel'] == 'approval_url')['href'];
+      final approvalUrl = paymentResponse['links'].firstWhere((link) => link['rel'] == 'approval_url')['href'];
+      final id = paymentResponse['id'];
 
-      html.window.open(approvalUrl,"_self");
-
-      var url = html.window.location.href;
-
-      if (url.contains("sucess"))
-      {
-        print("Done");
-      }
-
+       //html.window.open(approvalUrl,"_self");
 
       setState(() {
         _isLoading = false;
@@ -2487,7 +2478,6 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
       // Handle error
     }
   }
-
 
   String countryCode = "+27";
   List<CountryListResponseModel> listCountryCode = [];
@@ -2744,7 +2734,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(12.0),
                       topRight: Radius.circular(12.0),
-                    )),
+                    )
+                ),
                 child: Column(
                   children: [
                     Container(
@@ -2754,7 +2745,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                           height: 1.5,
                           thickness: 1.5,
                           color: Colors.grey,
-                        )),
+                        )
+                    ),
                     Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: const Text(
@@ -2779,7 +2771,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                               Container(
                                   alignment: Alignment.topLeft,
                                   margin: const EdgeInsets.only(left: 10, right: 10, top: 6, bottom: 10),
-                                  child: const Text("Yajman's Details",style: TextStyle(fontSize: 18,fontWeight:FontWeight.bold,color: title),)),
+                                  child: const Text("Yajman's Details",style: TextStyle(fontSize: 18,fontWeight:FontWeight.bold,color: title),)
+                              ),
                               Row(
                                 children: [
                                   const Expanded(
@@ -2790,17 +2783,20 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w700,
-                                            color: text_light),
+                                            color: text_light
+                                        ),
                                       ),
                                     ),
                                   ),
                                   Expanded(
                                     child: Text(
-                                        matchFnameController.value.text,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: title,
-                                            fontSize: 14)),
+                                      matchFnameController.value.text,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: title,
+                                          fontSize: 14
+                                      )
+                                    ),
                                   )
                                 ],
                               ),
@@ -3198,10 +3194,10 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                           margin: const EdgeInsets.only(top: 20,bottom: 20,right: 10),
                           child: GestureDetector(
                             onTap: (){
-                              // _callsaveMatchdataAPI("");
+                              //
                               if (kIsWeb)
                                 {
-                                  createPayPalPayment();
+                                  _callsaveMatchdataAPI("");
                                 }
                               else
                                 {
@@ -3294,7 +3290,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                       ],
                     )
                   ],
-                ));
+                )
+            );
           });
         });
   }
@@ -3316,12 +3313,12 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
       "user_id": sessionManager.getUserId().toString(),
       "bride_name": matchGirlFnameController.value.text,
       "bride_surname": matchGirlLNameController.value.text,
-      "bride_birth_date": universalDateConverter("MMMM dd, yyyy","dd-MM-yyyy", matchGirlBirthDateController.value.text),
+      "bride_birth_date": universalDateConverter("dd MMM,yyyy", "dd-MM-yyyy", matchGirlBirthDateController.value.text),
       "bride_birth_time": matchGirlBirthTimeController.value.text,
       "bride_address": matchGirlBirthPlaceController.value.text,
       "groom_name": matchBoyFNameController.value.text,
       "groom_surname": matchBoyLNameController.value.text,
-      "groom_birth_date": universalDateConverter("MMMM dd, yyyy","dd-MM-yyyy", matchBoyBirthDateController.value.text),
+      "groom_birth_date": universalDateConverter("dd MMM,yyyy", "dd-MM-yyyy", matchBoyBirthDateController.value.text),
       "groom_birth_time": matchBoyBirthTimeController.value.text,
       "groom_address": matchBoyBirthPlaceController.value.text,
       "comments": matchNoteController.value.text,
@@ -3331,7 +3328,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
       "mobile": matchNumberController.value.text,
       "country_code": countryCode,
       "match_id": "",
-      'payment_id' :paymentId
+      "payment_id" : paymentId
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -3340,11 +3337,19 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
 
     final body = response.body;
     Map<String, dynamic> user = jsonDecode(body);
-    var dataResponse = CommonResponseModel.fromJson(user);
+    var dataResponse = DonationResonseModel.fromJson(user);
 
     if (statusCode == 200 && dataResponse.success == 1)
     {
-      afterMethod();
+      if (kIsWeb)
+        {
+          sessionManager.setMatchId(dataResponse.lastInsertId.toString());
+          createPayPalPayment();
+        }
+      else
+        {
+          afterMethod();
+        }
       setState(()
       {
         _isLoading = false;
@@ -3358,8 +3363,6 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
       showToast(dataResponse.message, context);
     }
   }
-
-
 
   _showAlertDialog(String image, String text) {
     Widget okButton = Image.asset(image,height: 160,width:160);

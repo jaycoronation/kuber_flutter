@@ -541,8 +541,17 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       }
       else
       {
-        //GoRouter.of(context).go(AppRoutes.homeRoute);
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => true);
+        //
+        if (ResponsiveWidget.isSmallScreen(context))
+        {
+          GoRouter.of(context).go(AppRoutes.homeRoute);
+          //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+        }
+        else
+        {
+          //GoRouter.of(context).go(AppRoutes.homeRoute);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => false);
+        }
       }
     }
     else

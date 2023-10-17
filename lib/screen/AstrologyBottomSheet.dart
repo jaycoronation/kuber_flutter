@@ -10,12 +10,14 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;
-import 'dart:html' as html;
+// import 'dart:html' as html;
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
+import '../constant/global_context.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
+import '../model/DonationResonseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../utils/session_manager.dart';
@@ -62,6 +64,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
   String matchMakingPrice = "";
   String astroPrice = "";
   String rashiPrice = "";
+  String paymentId = "";
 
 
   @override
@@ -1987,11 +1990,11 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                         ),
                         InkWell(
                           onTap:(){
-                            //callAstrologySaveApi("");
+                            //
 
                             if (kIsWeb)
                               {
-                                createPayPalPayment();
+                                callAstrologySaveApi();
                               }
                             else
                               {
@@ -2045,9 +2048,8 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                         note: "Contact us for any questions on your order.",
                                         onSuccess: (Map params) async {
                                           print("onSuccess: $params");
-                                          String paymentId = "";
                                           paymentId = params['paymentId'];
-                                          callAstrologySaveApi(paymentId);
+                                          callAstrologySaveApi();
                                         },
                                         onError: (error) {
                                           print("onError: $error");
@@ -2155,8 +2157,8 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
           }
         ],
         'redirect_urls': {
-          'return_url': 'https://www.panditbookings.com/kuber/sucess',
-          'cancel_url': 'https://www.panditbookings.com/kuber/failed',
+          'return_url': "https://www.panditbookings.com/kuber/success_astro",
+          'cancel_url': 'https://www.panditbookings.com/kuber/cancle_astro',
         },
       }),
     );
@@ -2166,18 +2168,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
     if (response.statusCode == 201) {
       final paymentResponse = json.decode(response.body);
 
-      final approvalUrl = paymentResponse['links']
-          .firstWhere((link) => link['rel'] == 'approval_url')['href'];
+      final approvalUrl = paymentResponse['links'].firstWhere((link) => link['rel'] == 'approval_url')['href'];
+      final id = paymentResponse['id'];
 
-      html.window.open(approvalUrl,"_self");
-
-      var url = html.window.location.href;
-
-      if (url.contains("sucess"))
-      {
-        print("Done");
-      }
-
+      // html.window.open(approvalUrl,"_self");
 
       setState(() {
         _isLoading = false;
@@ -2206,13 +2200,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
     }
   }
 
-
-
-  callAstrologySaveApi(String paymentId) async {
+  callAstrologySaveApi() async {
     setState(() {
       _isLoading = true;
     });
-    Navigator.pop(context);
     HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
       HttpLogger(logLevel: LogLevel.BODY),
     ]);
@@ -2227,11 +2218,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
       "address": astroBirthPlaceController.value.text,
       "comments": astroNotesController.value.text,
       "user_id": sessionManager.getUserId().toString(),
-      "astrology_id": "",
       "email": astroEmailController.value.text,
       "mobile": astroMobileNumberController.value.text,
       "notes": astroNotesController.value.text,
-      'payment_id' :paymentId
+      "payment_id" : paymentId
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -2240,10 +2230,20 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
 
     final body = response.body;
     Map<String, dynamic> user = jsonDecode(body);
-    var astroResponse = CommonResponseModel.fromJson(user);
+    var astroResponse = DonationResonseModel.fromJson(user);
 
     if (statusCode == 200 && astroResponse.success == 1) {
-      Navigator.pop(context, true);
+
+      if (kIsWeb)
+      {
+        sessionManager.setAstrologyId(astroResponse.lastInsertId.toString() ?? "");
+        print(sessionManager.getAstrologyId() ?? "");
+        createPayPalPayment();
+      }
+      else
+      {
+        Navigator.pop(context,true);
+      }
       setState(() {
         _isLoading = false;
       });

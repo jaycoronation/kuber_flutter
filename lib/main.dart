@@ -14,6 +14,7 @@ import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/LoginForWeb.dart';
 import 'package:kuber/screen/LoginScreen.dart';
 import 'package:kuber/screen/MyPofileScreen.dart';
+import 'package:kuber/utils/responsive.dart';
 import 'package:kuber/utils/routes.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/utils/session_manager_methods.dart';
@@ -130,8 +131,14 @@ class _MyHomePageState extends State<MyHomePage> {
               print("dash");
               // GoRouter.of(context).go(AppRoutes.homeRoute);
               // context.go(AppRoutes.homeRoute);
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => false);
-
+              if (ResponsiveWidget.isSmallScreen(context))
+                {
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+                }
+              else
+                {
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => false);
+                }
             }
           else
             {

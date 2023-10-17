@@ -65,6 +65,7 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
   void initState() {
 
     rashiEmailController.text= sessionManager.getEmail().toString();
+    rashiDOBController.text= sessionManager.getDob().toString();
 
 
     super.initState();
@@ -1745,7 +1746,7 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
     Map<String, dynamic> jsonBody = {
       'mother_name' : rashiMothersNameController.value.text,
       'father_name' : rashiFathersNameController.value.text,
-      'date_of_birth' : universalDateConverter("MMMM dd, yyyy", "dd-MM-yyyy", rashiDOBController.value.text),
+      'date_of_birth' : universalDateConverter("dd MMM,yyyy", "dd-MM-yyyy", rashiDOBController.value.text),
       'time_of_birth' : rashiTOBController.value.text,
       'place_of_birth' : rashiPOBController.value.text,
       'user_id' : sessionManager.getUserId().toString(),

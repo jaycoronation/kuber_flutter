@@ -2091,14 +2091,14 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                         }
                                         else
                                         {
-                                          var dateForShow = "${universalDateConverter("MMM dd, yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
+                                          var dateForShow = "${universalDateConverter("dd MMM,yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
                                           dateTimeForShow = dateTime;
                                           dateTimeForPass = dateForShow;
                                         }
                                       }
                                       else
                                       {
-                                        var dateForShow = "${universalDateConverter("MMM dd, yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
+                                        var dateForShow = "${universalDateConverter("dd MMM,yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
                                         dateTimeForShow = dateTime;
                                         dateTimeForPass = dateForShow;
                                       }

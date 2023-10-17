@@ -39,6 +39,10 @@ class SessionManager {
   final String countryCode = "countryCode";
   final String userType = "userType";
 
+  final String donationId = "donationId";
+  final String matchId = "matchId";
+  final String astrologyId = "astrologyId";
+
   //set data into shared preferences...
   Future createLoginSession(Profile getSet) async {
     print(getSet.birthdate);
@@ -62,6 +66,34 @@ class SessionManager {
     await SessionManagerMethods.setString(userType, getSet.type.toString());
     await SessionManagerMethods.setBool(isPujari, getSet.type.toString() == "Pujari" ? true : false);
 
+  }
+
+
+  Future<void> setDonationId(String apiDonationId)
+  async {
+    await SessionManagerMethods.setString(donationId, apiDonationId);
+  }
+
+  String? getDonationId() {
+    return SessionManagerMethods.getString(donationId);
+  }
+
+  Future<void> setMatchId(String apiMatchId)
+  async {
+    await SessionManagerMethods.setString(matchId, apiMatchId);
+  }
+
+  String? getMatchId() {
+    return SessionManagerMethods.getString(matchId);
+  }
+
+  Future<void> setAstrologyId(String apiAstrologyId)
+  async {
+    await SessionManagerMethods.setString(astrologyId, apiAstrologyId);
+  }
+
+  String? getAstrologyId() {
+    return SessionManagerMethods.getString(astrologyId);
   }
 
   Future<void> setType(String apitype)

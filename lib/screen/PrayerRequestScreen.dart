@@ -49,6 +49,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
   @override
   void initState() {
     prayerNumberController.text= sessionManager.getPhone().toString();
+    prayerDOBController.text= sessionManager.getDob().toString();
     getCountryData();
     getPrayerListApi();
     super.initState();
@@ -1210,8 +1211,6 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
   List<CountryListResponseModel> listSearchCountryName = [];
   TextEditingController countryCodeSeachController = TextEditingController();
 
-  List data = [];
-
   countryDialog(StateSetter updateState) {
     showModalBottomSheet(
         context: context,
@@ -1226,8 +1225,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12.0),
                     topRight: Radius.circular(12.0),
-                  )
-              ),
+                  )),
               child: Column(
                 children: [
                   Container(
@@ -1237,8 +1235,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                         height: 1.5,
                         thickness: 1.5,
                         color: Colors.grey,
-                      )
-                  ),
+                      )),
                   Container(
                     margin: const EdgeInsets.only(top: 20),
                     child: const Text(
@@ -1260,25 +1257,26 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                           color: title,
                           fontSize: 14,
                           fontWeight: FontWeight.w600),
-                      onChanged: (editable)
-                      {
-                        if (listCountryCode != null &&
-                            listCountryCode.length > 0)
+                      onChanged: (editable){
+                        if (listCountryCode != null && listCountryCode.length > 0)
                         {
                           listSearchCountryName = [];
+
                           if (editable.length > 0)
                           {
-                            for (var i = 0; i < listCountryCode.length; i++)
+                            for (var i=0; i < listCountryCode.length; i++)
                             {
-                              if (listCountryCode[i]
-                                  .name
-                                  .toLowerCase()
-                                  .contains(
-                                  editable.toString().toLowerCase())) {
+                              if (listCountryCode[i].name.toLowerCase().contains(editable.toString().toLowerCase()))
+                              {
                                 listSearchCountryName.add(listCountryCode[i]);
                               }
                             }
-                          } else {}
+                          }
+                          else
+                          {
+                            listSearchCountryName = [];
+                          }
+                          setState((){});
                           /*adapterCountry = AdapterCountry(activity, listSearchCountryName, dialog)
                               rvCountry.adapter = adapterCountry*/
                         }
@@ -1301,64 +1299,43 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                     ),
                   ),
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const ScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          itemCount: listCountryCode.length,
-                          itemBuilder: (BuildContext context, int i) {
-                            return InkWell(
-                              onTap: () {
-                                updateState(() {
-                                  countryCode = listCountryCode[i].dialCode;
-                                });
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                margin:
-                                const EdgeInsets.only(left: 14, right: 14),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Flexible(
-                                              child: Text(
-                                                listCountryCode[i].name.toString(),
-                                                style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w200,
-                                                    color: title),
-                                                textAlign: TextAlign.start,
-                                              )),
-                                          Text(
-                                            listCountryCode[i]
-                                                .dialCode
-                                                .toString(),
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w300,
-                                                color: text_new,
-                                                fontSize: 16
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        itemCount: listSearchCountryName.isNotEmpty ? listSearchCountryName.length : listCountryCode.length,
+                        itemBuilder: (BuildContext context, int i) {
+                          return InkWell(
+                            onTap: (){
+                              setState((){
+                                countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
+                              });
+                              updateState((){
+                                countryCode = listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode;
+                              });
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 14, right: 14),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(child: Text( listSearchCountryName.isNotEmpty ? listSearchCountryName[i].name : listCountryCode[i].name.toString(),style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w200,color: title), textAlign: TextAlign.start,)),
+                                        Text(listSearchCountryName.isNotEmpty ? listSearchCountryName[i].dialCode : listCountryCode[i].dialCode.toString(),style: const TextStyle(fontWeight: FontWeight.w300,color: text_new,fontSize: 16),)
+                                      ],
                                     ),
-                                    const Divider(
-                                      height: 1,
-                                      color: text_light,
-                                      indent: 1,
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  const Divider(height: 1,color: text_light,indent: 1,)
+                                ],
                               ),
-                            );
-                          }
-                          ),
+
+                            ),
+                          );
+                        }
                     ),
                   )
                 ],
@@ -1368,20 +1345,23 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
         });
   }
 
+  List data = [];
+
   Future<void> getCountryData() async {
     var jsonText = await rootBundle.loadString('assets/countries.json');
     setState(() => data = json.decode(jsonText));
     var name = "";
     var code = "";
     var dial_code = "";
-    for (var i=0; i < data.length; i++)
-    {
+    for (var i = 0; i < data.length; i++) {
       name = data[i]['name'];
       code = data[i]['code'];
-      dial_code = data[i]['dial_code'] ?? "";
-      listCountryCode.add(CountryListResponseModel(name: name, dialCode: dial_code, code: code));
+      dial_code = data[i]['dial_code'] != null ? data[i]['dial_code'] : "";
+      listCountryCode.add(CountryListResponseModel(
+          name: name, dialCode: dial_code, code: code));
     }
   }
+
 
   _savePrayerRequest(Requests getSet) async {
     setState(() {

@@ -11,13 +11,13 @@ const String API_KEY = kIsWeb ? "AIzaSyBiwi0bSUa4QTj59ojKgmS8fc_pfBb6eaU" : "AIz
 // const String API_KEY = "AIzaSyC7HlgldL9ietWQF8Y3oHxf_LJnYPMHhDU"; // KUBER
 
 //LOCAL
-// const String PAYPAL_CLIENT_ID = "AeYZUWJt5EZkyHcf2PzpzhMjt6H-KfQ5G35B0UvNcofNDn5Ewle8kyTbYEuaAeI7vtxNNPWbZ1ZDiyMt";
-// const String PAYPAL_CLIENT_SECRET = "EP9ItIeLUhZ6TnIif7aKygizoqXs-GoUSGqDSlx8wg154XZ2UV8dAcKxjSOY_g_QRLN3JwJBA6E66I3-";
+const String PAYPAL_CLIENT_ID = "AeYZUWJt5EZkyHcf2PzpzhMjt6H-KfQ5G35B0UvNcofNDn5Ewle8kyTbYEuaAeI7vtxNNPWbZ1ZDiyMt";
+const String PAYPAL_CLIENT_SECRET = "EP9ItIeLUhZ6TnIif7aKygizoqXs-GoUSGqDSlx8wg154XZ2UV8dAcKxjSOY_g_QRLN3JwJBA6E66I3-";
 
 //Live
-const String PAYPAL_CLIENT_ID = "AUQiip1nmdXa4N_Igtsu6kG0lQOYHtq_63pb_hDcckOgQOr6kGaxHf0JwPzuyOdA4lO904urH8lkpWBy";
-const String PAYPAL_CLIENT_SECRET = "EKWbMBN0C295I8y9Zd-fuestKwdq46l3Kq5Q2JOjYduKSvCVqvx1kvONKWNLXapZ2xMG0trMtOrNRfo7";
-const bool SANDBOX = false;
+// const String PAYPAL_CLIENT_ID = "AUQiip1nmdXa4N_Igtsu6kG0lQOYHtq_63pb_hDcckOgQOr6kGaxHf0JwPzuyOdA4lO904urH8lkpWBy";
+// const String PAYPAL_CLIENT_SECRET = "EKWbMBN0C295I8y9Zd-fuestKwdq46l3Kq5Q2JOjYduKSvCVqvx1kvONKWNLXapZ2xMG0trMtOrNRfo7";
+const bool SANDBOX = true;
 // const String API_KEY = "AIzaSyAoqW5iG6Ez-kxsxi7RNPfP8CvFMk3yz8A"; // FOOD BOSS
 
 /*Login*/
@@ -47,6 +47,8 @@ String getRashiList = "services/rashi_calculator/list";
 String getMatchList = "users_services/match_making/list";
 String getPrayerRequestList = "services/prayer_requests/list";
 String getAstrologyList = "users_services/astrology/list";
+String getAstrologyDetail = "users_services/astrology/details";
+String getMatchDetail = "users_services/match_making/details";
 String deletePrayerRequest = "services/prayer_requests/delete";
 String saveRashiRequest = "services/rashi_calculator/save";
 String deleteRashiRequest = "services/rashi_calculator/delete";
@@ -68,6 +70,7 @@ String getUserFeed = "admin_services/manage_feeds/list";
 String getUserThoughts = "admin_services/manage_thoughts/list";
 
 String getDonationList = "admin_services/manage_donations/list";
+String getDonationDetail = "admin_services/manage_donations/details";
 String donationSave = "admin_services/manage_donations/save";
 
 /*JSON*/

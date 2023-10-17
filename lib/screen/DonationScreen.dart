@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:html' as html;
+// import 'dart:html' as html;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
+import 'package:kuber/constant/global_context.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +16,7 @@ import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/DonateResponseModel.dart';
+import '../model/DonationResonseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../widget/loading.dart';
@@ -31,8 +34,9 @@ class _DonationScreenState extends State<DonationScreen> {
   String selectedItem = "";
   SessionManager sessionManager = SessionManager();
   bool _isLoading = false;
-
   List<DonateResponseModel> donatePrice = [];
+  String paymentId = "";
+
 
   @override
   void initState(){
@@ -91,7 +95,7 @@ class _DonationScreenState extends State<DonationScreen> {
         margin: const EdgeInsets.only(top: 6),
         child: Text(
           getSet.price.toString(),
-          style: TextStyle(fontWeight: getSet!.isSelected ?? false ? FontWeight.w500 : FontWeight.w400, color: getSet?.isSelected  ?? false ? white : black, fontSize: 14),
+          style: TextStyle(fontWeight: getSet.isSelected ?? false ? FontWeight.w500 : FontWeight.w400, color: getSet.isSelected  ?? false ? white : black, fontSize: 14),
         ),
       ),
     );
@@ -254,9 +258,8 @@ class _DonationScreenState extends State<DonationScreen> {
                                     note: "Contact us for any questions on your order.",
                                     onSuccess: (Map params) async {
                                       print("onSuccess: $params");
-                                      String paymentId = "";
                                       paymentId = params['paymentId'];
-                                      callsDonationAPI(paymentId);
+                                      callsDonationAPI();
                                     },
                                     onError: (error) {
                                       print("onError: $error");
@@ -456,7 +459,8 @@ class _DonationScreenState extends State<DonationScreen> {
                                   ),
                                 ),
                               );*/
-                              createPayPalPayment();
+                              //
+                              callsDonationAPI();
                             },
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -549,8 +553,8 @@ class _DonationScreenState extends State<DonationScreen> {
           }
         ],
         'redirect_urls': {
-          'return_url': 'https://www.panditbookings.com/kuber/sucess',
-          'cancel_url': 'https://www.panditbookings.com/kuber/failed',
+          'return_url': "https://www.panditbookings.com/kuber/success_donation",
+          'cancel_url': 'https://www.panditbookings.com/kuber/cancle_donation',
         },
       }),
     );
@@ -560,18 +564,12 @@ class _DonationScreenState extends State<DonationScreen> {
     if (response.statusCode == 201) {
       final paymentResponse = json.decode(response.body);
 
-      final approvalUrl = paymentResponse['links']
-          .firstWhere((link) => link['rel'] == 'approval_url')['href'];
+      final approvalUrl = paymentResponse['links'].firstWhere((link) => link['rel'] == 'approval_url')['href'];
+      final id = paymentResponse['id'];
 
-      html.window.open(approvalUrl,"_self");
+      //var value = html.window.open(approvalUrl,"_self");
 
-      var url = html.window.location.href;
-
-      if (url.contains("sucess"))
-        {
-          print("Done");
-        }
-
+      print(approvalUrl);
 
       setState(() {
         _isLoading = false;
@@ -583,7 +581,7 @@ class _DonationScreenState extends State<DonationScreen> {
     }
   }
 
-  callsDonationAPI(String paymentId) async {
+  callsDonationAPI() async {
     setState(() {
       _isLoading = true;
     });
@@ -600,7 +598,8 @@ class _DonationScreenState extends State<DonationScreen> {
       'last_name': sessionManager.getLastName().toString(),
       'email': sessionManager.getEmail().toString(),
       'contact_no': sessionManager.getPhone().toString(),
-      'user_id': sessionManager.getUserId().toString()
+      'user_id': sessionManager.getUserId().toString(),
+      "payment_id": paymentId
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -609,14 +608,22 @@ class _DonationScreenState extends State<DonationScreen> {
 
     final body = response.body;
     Map<String, dynamic> user = jsonDecode(body);
-    var astroResponse = CommonResponseModel.fromJson(user);
+    var astroResponse = DonationResonseModel.fromJson(user);
 
     if (statusCode == 200 && astroResponse.success == 1) {
+      if (kIsWeb)
+        {
+          NavigationService.donation_id = astroResponse.lastInsertId.toString() ?? "";
+          sessionManager.setDonationId(astroResponse.lastInsertId.toString());
+          createPayPalPayment();
+        }
+      else
+        {
+          afterMethod();
+        }
       setState(() {
         _isLoading = false;
       });
-      afterMethod();
-
     }
     else
     {

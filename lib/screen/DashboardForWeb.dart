@@ -1,8 +1,7 @@
-import 'dart:developer';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:html';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/screen/AstrologyScreen.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
@@ -11,7 +10,15 @@ import 'package:kuber/screen/FeedScreen.dart';
 import 'package:kuber/screen/MatchMakingScreen.dart';
 import 'package:kuber/screen/PrayerRequestScreen.dart';
 import 'package:kuber/screen/RashiScreen.dart';
+import 'package:pretty_http_logger/pretty_http_logger.dart';
 import '../constant/colors.dart';
+import '../model/AstroDetailResponseModel.dart';
+import '../model/CommonResponseModel.dart';
+import '../model/DonationDetailResponseModel.dart';
+import '../model/DonationResonseModel.dart';
+import '../model/FeedListResponseModel.dart';
+import '../model/MatchDetailResponseModel.dart';
+import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../utils/session_manager.dart';
 import '../utils/session_manager_methods.dart';
@@ -29,14 +36,44 @@ class DashboardForWeb extends StatefulWidget {
 class _DashboardForWeb extends State<DashboardForWeb> {
   SessionManager sessionManager = SessionManager();
   int currentIndex = 0;
+  bool _isNoDataVisible = false;
+  bool _isLoading = false;
+  String paymentId = "";
+
+  List<Feeds> listFeed = [];
+
 
   @override
   void initState(){
     super.initState();
-    var url = window.location.href;
+    /*var url = window.location.href;
 
     print("Current Url === $url");
     log("Current Url === $url");
+
+    if (url.contains("success_donation"))
+      {
+        paymentId = Uri.parse(url).queryParameters['paymentId'] ?? "" ;
+        print(Uri.parse(url).queryParameters['paymentId']);
+        print(Uri.parse(url).queryParameters['token']);
+        DonationDetail();
+      }
+
+    if (url.contains("success_match"))
+      {
+        paymentId = Uri.parse(url).queryParameters['paymentId'] ?? "";
+        print(Uri.parse(url).queryParameters['paymentId']);
+        print(Uri.parse(url).queryParameters['token']);
+        MatchDetail();
+      }
+
+     if (url.contains("success_astro"))
+       {
+         paymentId = Uri.parse(url).queryParameters['paymentId'] ?? "";
+         print(Uri.parse(url).queryParameters['paymentId']);
+         print(Uri.parse(url).queryParameters['token']);
+         AstrologyDetail();
+       }*/
   }
 
   @override
@@ -858,6 +895,37 @@ class _DashboardForWeb extends State<DashboardForWeb> {
         );
   }
 
+  _showAlertDialog(String image, String text) {
+    Widget okButton = Image.asset(image,height: 160,width:160);
+
+    showToast(text, context);
+   /* AlertDialog alert = AlertDialog(
+      content: Wrap(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.only(left: 12,right: 12),
+            child: Column(
+              children: [
+                okButton,
+                Container(height: 12,),
+                Text(text,style: const TextStyle(fontSize: 18,color: text_new,fontWeight: FontWeight.w900),textAlign: TextAlign.center),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );*/
+  }
+
   void _showLogoutBottomSheet() {
     showModalBottomSheet(
       context: context,
@@ -961,5 +1029,262 @@ class _DashboardForWeb extends State<DashboardForWeb> {
       },
     );
   }
+
+  callsaveMatchdataAPI(Match getSet) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    final url = Uri.parse(MAIN_URL + matchmakingsave);
+
+    Map<String, String> jsonBody = {
+      "user_id": sessionManager.getUserId().toString(),
+      "bride_name": getSet.brideName.toString(),
+      "bride_surname": getSet.brideSurname.toString(),
+      "bride_birth_date": getSet.brideBirthDate.toString(),
+      "bride_birth_time": getSet.brideBirthTime.toString(),
+      "bride_address": getSet.brideAddress.toString(),
+      "groom_name": getSet.groomName.toString(),
+      "groom_surname": getSet.groomSurname.toString(),
+      "groom_birth_date": getSet.groomBirthDate.toString(),
+      "groom_birth_time": getSet.groomBirthTime.toString(),
+      "groom_address": getSet.groomAddress.toString(),
+      "comments": getSet.comments.toString(),
+      "first_name": getSet.firstName.toString(),
+      "last_name": getSet.lastName.toString(),
+      "email": getSet.email.toString(),
+      "mobile": getSet.mobile.toString(),
+      "country_code": getSet.mobile.toString(),
+      "match_id": getSet.matchId.toString(),
+      'payment_id' :paymentId
+    };
+
+    final response = await http.post(url, body: jsonBody);
+
+    final statusCode = response.statusCode;
+
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+    var dataResponse = CommonResponseModel.fromJson(user);
+
+    if (statusCode == 200 && dataResponse.success == 1)
+    {
+      _showAlertDialog("assets/images/ic_match_only.png","Your request\nfor match making is received,\nwill contact you shortly.");
+      setState(()
+      {
+        _isLoading = false;
+      });
+    } else
+    {
+      setState(()
+      {
+        _isLoading = false;
+      });
+      showToast(dataResponse.message, context);
+    }
+  }
+
+  _callAstrologySaveApi(Astrology getSet) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    final url = Uri.parse(MAIN_URL + astrologySave);
+
+    Map<String, String> jsonBody = {
+      "first_name": getSet.firstName.toString(),
+      "last_name": getSet.lastName.toString(),
+      "birth_date": getSet.birthDate.toString(),
+      "birth_time": getSet.birthTime.toString(),
+      "address": getSet.address.toString(),
+      "comments": getSet.comments.toString(),
+      "user_id": sessionManager.userId.toString(),
+      "astrology_id": getSet.astrologyId.toString(),
+      "email": getSet.email.toString(),
+      "mobile": getSet.mobile.toString(),
+      "notes": getSet.comments.toString(),
+      "payment_id": paymentId
+    };
+
+    final response = await http.post(url, body: jsonBody);
+
+    final statusCode = response.statusCode;
+
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+    var astroResponse = CommonResponseModel.fromJson(user);
+
+    if (statusCode == 200 && astroResponse.success == 1) {
+      _showAlertDialog("assets/images/ic_astro_only.png","Your request\nfor astrology is received,\nwill contact you shortly.");
+      setState(() {
+        _isLoading = false;
+      });
+    }
+    else
+    {
+      setState(() {
+        _isLoading = false;
+      });
+      showSnackBar(astroResponse.message, context);
+    }
+  }
+
+  AstrologyDetail() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    final url = Uri.parse(MAIN_URL + getAstrologyDetail);
+
+    Map<String, String> jsonBody = {
+      'astrology_id' : sessionManager.getAstrologyId() ?? "",
+    };
+
+    final response = await http.post(url, body: jsonBody);
+
+    final statusCode = response.statusCode;
+
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+    var dataResponse = AstroDetailResponseModel.fromJson(user);
+    if (statusCode == 200) {
+      _callAstrologySaveApi(dataResponse.astrology ?? Astrology());
+    }
+    else
+    {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+
+  }
+
+  MatchDetail() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    final url = Uri.parse(MAIN_URL + getMatchDetail);
+
+    Map<String, String> jsonBody = {
+      'match_id' : sessionManager.getMatchId() ?? "",
+    };
+
+    final response = await http.post(url, body: jsonBody);
+
+    final statusCode = response.statusCode;
+
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+    var dataResponse = MatchDetailResponseModel.fromJson(user);
+    if (statusCode == 200) {
+      callsaveMatchdataAPI(dataResponse.match ?? Match());
+    }
+    else
+    {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+
+  }
+
+  DonationDetail() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    final url = Uri.parse(MAIN_URL + getDonationDetail);
+
+    Map<String, String> jsonBody = {
+      'id' : sessionManager.getDonationId() ?? "",
+    };
+
+    final response = await http.post(url, body: jsonBody);
+
+    final statusCode = response.statusCode;
+
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+    var dataResponse = DonationDetailResponseModel.fromJson(user);
+    if (statusCode == 200 && dataResponse.success == 1) {
+      callsDonationAPI(dataResponse.donation ?? Donation());
+    }
+    else
+    {
+      setState(() {
+        _isLoading = false;
+      });
+      showToast(dataResponse.message, context);
+    }
+
+  }
+
+  callsDonationAPI(Donation getSet) async {
+    setState(() {
+      _isLoading = true;
+    });
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    final url = Uri.parse(MAIN_URL + donationSave);
+
+    Map<String, String> jsonBody = {
+      'reason_for_donation': getSet.reasonForDonation.toString(),
+      'amount': getSet.amount.toString(),
+      'first_name': sessionManager.getName().toString(),
+      'last_name': sessionManager.getLastName().toString(),
+      'email': sessionManager.getEmail().toString(),
+      'contact_no': sessionManager.getPhone().toString(),
+      'user_id': sessionManager.getUserId().toString(),
+      'id' : getSet.id ?? "",
+      'payment_id': paymentId
+    };
+
+    final response = await http.post(url, body: jsonBody);
+
+    final statusCode = response.statusCode;
+
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+    var astroResponse = DonationResonseModel.fromJson(user);
+
+    if (statusCode == 200 && astroResponse.success == 1) {
+      _showAlertDialog("assets/images/ic_donation_vec.png"," Thank You for\n Your Donation");
+
+      setState(() {
+        _isLoading = false;
+      });
+    }
+    else
+    {
+      setState(() {
+        _isLoading = false;
+      });
+      showToast(astroResponse.message, context);
+    }
+  }
+
 
 }

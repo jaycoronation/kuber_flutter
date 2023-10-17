@@ -797,9 +797,9 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                                                         Image.asset("assets/images/ic_delete_account.png",height: 20,),
                                                         Container(
                                                             margin: const EdgeInsets.only(left: 14,right: 14),
-                                                            child: const Text('Delete Account',style: TextStyle(fontWeight: FontWeight.w600,color: darkbrown,fontSize: 16),)),
+                                                            child: const Text('Delete Account',style: TextStyle(fontWeight: FontWeight.w600,color: darkbrown,fontSize: 16),)
+                                                        ),
                                                         const Spacer(),
-
                                                       ],
                                                     ),
                                                   ),
@@ -815,7 +815,7 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                                             Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountScreen()));
                                           },
                                         ),
-          /*
+                                          /*
                                             Visibility(
                                               visible: _sessionManager.getType().toString() != "User",
                                               child: InkWell(
@@ -916,7 +916,6 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                                                             child: const Text('Privacy policy',style: TextStyle(fontWeight: FontWeight.w600,color: darkbrown,fontSize: 16),)
                                                         ),
                                                         const Spacer(),
-
                                                       ],
                                                     ),
                                                   ),

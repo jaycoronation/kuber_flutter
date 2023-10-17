@@ -6,6 +6,7 @@ import 'package:kuber/constant/global_context.dart';
 import 'package:kuber/main.dart';
 import 'package:kuber/screen/BookedPujaScreen.dart';
 import 'package:kuber/screen/DashboardForWeb.dart';
+import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/DonationListScreen.dart';
 import 'package:kuber/screen/FeedScreen.dart';
 import 'package:kuber/screen/LoginForWeb.dart';
@@ -14,12 +15,16 @@ import 'package:kuber/screen/PrayerRequestScreen.dart';
 import 'package:kuber/screen/RashiScreen.dart';
 import 'package:kuber/screen/TempleListScreen.dart';
 import 'package:kuber/screen/VerifyOtpScreen.dart';
+import 'package:kuber/utils/responsive.dart';
 import '../utils/session_manager.dart';
 
 class AppRoutes {
   static const mainRoute = "/";
   static const homeRoute = "/home";
   static const suceesRoute = "/sucess";
+  static const suceesAstroRoute = "/success_astro";
+  static const suceesMatchRoute = "/success_match";
+  static const suceesDonationRoute = "/success_donation";
   static const loginRoute = "/login";
   static const otpRoute = "/verify-otp";
   static const templesRoute = "/temples";
@@ -38,12 +43,12 @@ class AppRoutes {
     routes: <GoRoute> [
       GoRoute(
         path: homeRoute,
-        builder: (BuildContext context, state) => const DashboardForWeb(),
+        builder: (BuildContext context, state) => ResponsiveWidget.isSmallScreen(context) ? const DashboardScreen() : const DashboardForWeb(),
         redirect: (context, state) => redirectToDashboard(context, state),
       ),
       GoRoute(
         path: mainRoute,
-        builder: (BuildContext context, state) => MyHomePage(title: ""),
+        builder: (BuildContext context, state) => const MyHomePage(title: ""),
         redirect: (context, state) => redirectToLogin(context, state),
       ),
       GoRoute(
@@ -54,7 +59,7 @@ class AppRoutes {
       GoRoute(
         path: feedsRoute,
         builder: (context, state) {
-          return FeedScreen();
+          return const FeedScreen();
         },
         // builder: (BuildContext context, GoRouterState state) {
         //   final chat = state.pathParameters['chat']!;
@@ -67,28 +72,28 @@ class AppRoutes {
       GoRoute(
         path: prayersRoute,
         builder: (BuildContext context, GoRouterState state) {
-          return PrayerRequestScreen();
+          return const PrayerRequestScreen();
         },
         redirect: (context, state) => redirectToLogin(context, state),
       ),
       GoRoute(
         path: bookedPujaRoute,
         builder: (BuildContext context, GoRouterState state) {
-          return BookedPujaScreen();
+          return const BookedPujaScreen();
         },
         redirect: (context, state) => redirectToLogin(context, state),
       ),
       GoRoute(
         path: rashiRoute,
         builder: (context, state) {
-          return RashiScreen();
+          return const RashiScreen();
         },
         redirect: (context, state) => redirectToLogin(context, state),
       ),
       GoRoute(
         path: matchMakingRoute,
         builder: (context, state) {
-          return MatchMakingScreen();
+          return const MatchMakingScreen();
         },
         redirect: (context, state) => redirectToLogin(context, state),
       ),
@@ -100,6 +105,21 @@ class AppRoutes {
 
       GoRoute(
         path: suceesRoute,
+        builder: (BuildContext context, state) => const DashboardForWeb(),
+        redirect: (context, state) => redirectToDashboard(context, state),
+      ),
+      GoRoute(
+        path: suceesAstroRoute,
+        builder: (BuildContext context, state) => const DashboardForWeb(),
+        redirect: (context, state) => redirectToDashboard(context, state),
+      ),
+      GoRoute(
+        path: suceesMatchRoute,
+        builder: (BuildContext context, state) => const DashboardForWeb(),
+        redirect: (context, state) => redirectToDashboard(context, state),
+      ),
+      GoRoute(
+        path: suceesDonationRoute,
         builder: (BuildContext context, state) => const DashboardForWeb(),
         redirect: (context, state) => redirectToDashboard(context, state),
       ),

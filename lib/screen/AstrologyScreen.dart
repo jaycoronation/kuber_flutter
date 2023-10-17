@@ -10,9 +10,11 @@ import 'package:kuber/model/AstrologyResponseModel.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import '../constant/api_end_point.dart';
+import '../constant/global_context.dart';
 import '../model/AstrologyResponseModel.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
+import '../model/DonationResonseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../widget/loading.dart';
@@ -952,9 +954,10 @@ class _AstrologyScreen extends State<AstrologyScreen> {
 
     final body = response.body;
     Map<String, dynamic> user = jsonDecode(body);
-    var astroResponse = CommonResponseModel.fromJson(user);
+    var astroResponse = DonationResonseModel.fromJson(user);
 
     if (statusCode == 200 && astroResponse.success == 1) {
+      NavigationService.donation_id = astroResponse.lastInsertId.toString() ?? "";
       showSnackBar(astroResponse.message, context);
       getAstrologyApi();
 
@@ -1146,11 +1149,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
     );
 
     if (prediction != null) {
-      GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: API_KEY,
-        apiHeaders: await const GoogleApiHeaders().getHeaders(),
-      );
-      PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(prediction.placeId!);
+
       controller.text = prediction.description.toString();
       updateState((){});
     }

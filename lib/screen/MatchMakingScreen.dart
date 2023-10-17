@@ -2281,12 +2281,6 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
     );
 
     if (prediction != null) {
-      GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: API_KEY,
-        apiHeaders: await const GoogleApiHeaders().getHeaders(),
-      );
-      PlacesDetailsResponse detail =
-          await _places.getDetailsByPlaceId(prediction.placeId!);
       controller.text = prediction.description.toString();
       updateState(() {});
     }

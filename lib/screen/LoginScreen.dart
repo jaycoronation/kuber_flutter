@@ -14,10 +14,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/constant/colors.dart';
-import 'package:kuber/model/SocialResponseModel.dart' as social;
 import 'package:kuber/screen/LoginWithEmailScreen.dart';
-import 'package:kuber/screen/LoginWithOtpScreen.dart';
-import 'package:kuber/screen/SignUpScreen.dart';
 import 'package:kuber/screen/WebViewContainer.dart';
 import 'package:kuber/utils/routes.dart';
 import 'package:kuber/utils/session_manager.dart';
@@ -34,7 +31,6 @@ import 'DashboardScreen.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 import 'MyPofileScreen.dart';
-import 'VerifyOtpScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

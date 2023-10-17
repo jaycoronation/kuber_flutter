@@ -857,7 +857,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                         borderSide: const BorderSide(color: Colors.grey,),
                                       ),
                                       labelText: "First Name",
-                                      labelStyle: const TextStyle(color: darkbrown),                                     ),
+                                      labelStyle: const TextStyle(color: darkbrown),
+                                    ),
                                   )
                               ),
 
@@ -879,7 +880,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                         borderSide: const BorderSide(color: Colors.grey,),
                                       ),
                                       labelText: "Last Name",
-                                      labelStyle: const TextStyle(color: darkbrown),                                     ),
+                                      labelStyle: const TextStyle(color: darkbrown),
+                                    ),
                                   )
                               ),
 
@@ -1547,14 +1549,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
   Future<void> displayPrediction(Prediction? p, BuildContext context) async {
     if (p != null) {
       // get detail (lat/lng)
-      GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: API_KEY,
-        apiHeaders: await const GoogleApiHeaders().getHeaders(),
-      );
-      PlacesDetailsResponse detail =
-      await _places.getDetailsByPlaceId(p.placeId!);
-      final lat = detail.result.geometry!.location.lat;
-      final lng = detail.result.geometry!.location.lng;
+
       addressController.text = p.description.toString();
     }
   }
@@ -2157,7 +2152,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           "city": cityController.value.text,
           "city_id": cityId,
           "address": addressController.value.text,
-          "birthdate":universalDateConverter("MMMM dd, yyyy", "yyyy-MM-dd",bdyController.value.text),
+          "birthdate":universalDateConverter("dd MMM,yyyy", "yyyy-MM-dd",bdyController.value.text),
           "birthplace":"",
           "gender":"1",
           "qualification":qualificationController.value.text,
@@ -2259,7 +2254,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           "state":stateId,
           "city":cityId,
           "address":addressController.value.text,
-          "birthdate": universalDateConverter("MMMM dd, yyyy", "yyyy-MM-dd", bdyController.value.text),
+          "birthdate": universalDateConverter("dd MMM,yyyy", "yyyy-MM-dd", bdyController.value.text),
           "birthplace":addressController.value.text,
           "profile_pic_name":profilepicName,
           "type": sessionManager.getType().toString()
@@ -2327,7 +2322,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
             lastNameController.text = getSet.lastName ?? "";
             numberController.text = getSet.mobile ?? "";
             emailController.text = getSet.email ?? "";
-            bdyController.text = universalDateConverter( "yyyy-MM-dd","MMMM dd, yyyy", getSet.birthdate.toString() ?? "");
+            bdyController.text = universalDateConverter( "yyyy-MM-dd","dd MMM,yyyy", getSet.birthdate.toString() ?? "");
             addressController.text = getSet.address.toString() ?? "";
             countryController.text = getSet.countryName == null ? "" : getSet.countryName ?? "";
             stateController.text = getSet.stateName == null ? "" : getSet.stateName ?? "";
@@ -2410,7 +2405,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
           lastNameController.text = getSet.lastName.toString() ?? "";
           numberController.text = getSet.mobile.toString() ?? "";
           emailController.text = getSet.email.toString() ?? "";
-          bdyController.text = universalDateConverter("yyyy-MM-dd","MMMM dd, yyyy",getSet.birthdate.toString() ?? "");
+          bdyController.text = universalDateConverter("yyyy-MM-dd","dd MMM,yyyy",getSet.birthdate.toString() ?? "");
           addressController.text = getSet.address.toString() ?? "";
           countryController.text = getSet.countryName ?? "";
           stateController.text = getSet.stateName ?? "";
@@ -2452,7 +2447,14 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         stopLoader();
         if(isSaveData)
         {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => kIsWeb? DashboardForWeb() : const DashboardScreen()));
+          if (ResponsiveWidget.isSmallScreen(context))
+          {
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
+          }
+          else
+          {
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => false);
+          }
         }
       }
 
