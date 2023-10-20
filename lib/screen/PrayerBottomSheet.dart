@@ -1,10 +1,6 @@
-
-
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:google_maps_webservice/places.dart';
-import 'package:google_api_headers/google_api_headers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -70,7 +66,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
     PrayerMobileController.text= sessionManager.getPhone().toString();
     prayerDOBController.text= sessionManager.getDob().toString();
     print(sessionManager.getDob().toString());
-    prayerDOBController.text= universalDateConverter("dd-MM-yyyy", "MMMM dd,yyyy", sessionManager.getDob().toString());
+    prayerDOBController.text= universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", sessionManager.getDob().toString());
     getCountryData();
     _callListPrayer();
     super.initState();
@@ -79,7 +75,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget.isSmallScreen(context)
-      ? Padding(
+        ? Padding(
       padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom),
       child:SingleChildScrollView(
@@ -604,7 +600,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
             ]),
       ),
     )
-        :  Padding(
+        : Padding(
           padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom),
           child:SingleChildScrollView(
@@ -1158,7 +1154,6 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                 ]),
           ),
         );
-
   }
 
   String countryCode = "+27";
@@ -1335,7 +1330,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                 if (value != selectedDate) {
                   setState(()
                   {
-                    String formattedDate = DateFormat('MMMM dd,yyyy').format(value);
+                    String formattedDate = DateFormat('dd MMM,yyyy').format(value);
                     controller.text = formattedDate;
                   });
                 }
@@ -1694,7 +1689,8 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
       'email' : prayerEmailController.value.text,
       'prayer_id' : prayerID,
       'notes' : prayerNotesController.value.text,
-      'mobile': PrayerMobileController.value.text
+      'mobile': PrayerMobileController.value.text,
+      "country_code" : countryCode
     };
 
     final response = await http.post(url, body: jsonBody);

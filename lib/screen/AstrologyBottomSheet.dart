@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice_ex/places.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;
-// import 'dart:html' as html;
+//import 'dart:html' as html;
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -726,15 +726,9 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                       backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
                                     ),
 
-                                    child: Padding(
+                                    child: const Padding(
                                       padding: EdgeInsets.all(4.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Text('Get For 21\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
-                                        ],
-                                      ),
+                                      child: Text('Get For 21\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
                                     ),
                                   ),
                                   Container(height: 22,),
@@ -1436,7 +1430,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                       backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
                                     ),
 
-                                    child: Padding(
+                                    child: const Padding(
                                       padding: EdgeInsets.all(4.0),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -1998,6 +1992,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                               }
                             else
                               {
+                                Navigator.pop(context,true);
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (BuildContext context) => UsePaypal(
@@ -2049,6 +2044,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                         onSuccess: (Map params) async {
                                           print("onSuccess: $params");
                                           paymentId = params['paymentId'];
+
                                           callAstrologySaveApi();
                                         },
                                         onError: (error) {
@@ -2171,7 +2167,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
       final approvalUrl = paymentResponse['links'].firstWhere((link) => link['rel'] == 'approval_url')['href'];
       final id = paymentResponse['id'];
 
-      // html.window.open(approvalUrl,"_self");
+      //html.window.open(approvalUrl,"_self");
 
       setState(() {
         _isLoading = false;
@@ -2195,7 +2191,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
     {
       name = data[i]['name'];
       code = data[i]['code'];
-      dialCode = data[i]['dial_code'] != null ? data[i]['dial_code'] : "";
+      dialCode = data[i]['dial_code'] ?? "";
       listCountryCode.add(CountryListResponseModel(name: name, dialCode: dialCode, code: code));
     }
   }
@@ -2221,6 +2217,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
       "email": astroEmailController.value.text,
       "mobile": astroMobileNumberController.value.text,
       "notes": astroNotesController.value.text,
+      "country_code":countryCode,
       "payment_id" : paymentId
     };
 

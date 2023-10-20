@@ -53,8 +53,11 @@ pod 'GoogleUtilities', :modular_headers => true
 pod 'DKPhotoGallery', :modular_headers => true
 pod 'SDWebImage', :modular_headers => true
 
+
 target 'Runner' do
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '9.3.0'
+
 end
 
 post_install do |installer|

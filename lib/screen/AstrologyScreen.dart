@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice_ex/places.dart';
 import 'package:intl/intl.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/AstrologyResponseModel.dart';
@@ -18,8 +19,6 @@ import '../model/DonationResonseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../widget/loading.dart';
-import 'package:google_maps_webservice/places.dart';
-import 'package:google_api_headers/google_api_headers.dart';
 
 import '../widget/no_data_new.dart';
 
@@ -96,7 +95,6 @@ class _AstrologyScreen extends State<AstrologyScreen> {
               Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,
-                  reverse: false,
                   physics: const AlwaysScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   itemCount: _listAstrology.length,
@@ -318,6 +316,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
     astroBirthTimeController.text = getSet.birthTime;
     astroBirthPlaceController.text = getSet.address;
     astroNotesController.text = getSet.notes;
+    countryCode = getSet.countryCode;
 
     showModalBottomSheet(
       context: context,
@@ -861,7 +860,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                           elevation: 10,
                                           child: const Padding(
                                             padding: EdgeInsets.all(14.0),
-                                            child: Text("Review Request",
+                                            child: Text("Submit Request",
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   color: title,
@@ -916,17 +915,16 @@ class _AstrologyScreen extends State<AstrologyScreen> {
     }
     else
     {
+      print("IS CALLING");
+
       callAstrologySaveApi(getSet);
     }
   }
 
   callAstrologySaveApi(Astrology getSet) async {
-
     setState(() {
       _isLoading = true;
     });
-
-    Navigator.pop(context);
 
     HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
       HttpLogger(logLevel: LogLevel.BODY),
@@ -945,25 +943,26 @@ class _AstrologyScreen extends State<AstrologyScreen> {
       "astrology_id": getSet.astrologyId.toString(),
       "email": astroEmailController.value.text,
       "mobile": astroMobileNumberController.value.text,
+      "country_code":countryCode,
       "notes": astroNotesController.value.text,
     };
 
     final response = await http.post(url, body: jsonBody);
 
     final statusCode = response.statusCode;
-
+    print("IS IN $statusCode");
     final body = response.body;
+    print("IS IN $body");
     Map<String, dynamic> user = jsonDecode(body);
+    print("IS IN $user");
     var astroResponse = DonationResonseModel.fromJson(user);
-
+    print("IS IN OUT");
     if (statusCode == 200 && astroResponse.success == 1) {
-      NavigationService.donation_id = astroResponse.lastInsertId.toString() ?? "";
-      showSnackBar(astroResponse.message, context);
+      print("IS IN IF");
       getAstrologyApi();
+      Navigator.pop(context);
 
-      setState(() {
-        _isLoading = false;
-      });
+      showSnackBar(astroResponse.message, context);
     }
     else
     {
@@ -1156,8 +1155,6 @@ class _AstrologyScreen extends State<AstrologyScreen> {
   }
   double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute/60.0;
 
-
-
   getAstrologyApi() async {
     setState(() {
       _isLoading = true;
@@ -1184,7 +1181,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
     if (statusCode == 200) {
       _listAstrology = [];
       _listAstrology = dataResponse.astrology;
-      _listAstrology.reversed.toList();
+      _listAstrology = _listAstrology.reversed.toList();
 
       if (_listAstrology.isNotEmpty)
       {

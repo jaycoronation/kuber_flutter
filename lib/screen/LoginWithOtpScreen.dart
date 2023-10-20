@@ -65,7 +65,7 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
                                         color: black,
                                         fontWeight: FontWeight.w400,
                                         fontSize: 14)
-                              ),
+                                 ),
                                  onTap: (){
                                    countryDialog();
                                  },

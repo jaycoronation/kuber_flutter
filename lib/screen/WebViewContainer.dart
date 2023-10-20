@@ -22,6 +22,27 @@ class _WebViewContainerState extends State<WebViewContainer> {
     super.initState();
     print("URL IN Init State ==== ${widget.url}");
 
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {},
+          onWebResourceError: (WebResourceError error) {},
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.url));
+
     setState((){
       isLoading = true;
     });
@@ -53,18 +74,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
       ),
       body: Stack(
         children: [
-          WebView(
-            initialUrl: widget.url,
-            javascriptMode: JavascriptMode.unrestricted,
-            onProgress: (progress) {
-              if (progress == 100)
-              {
-                setState(() {
-                  isLoading = false;
-                });
-              }
-            },
-          ),
+          WebViewWidget(controller: controller),
           Visibility(
               visible: isLoading,
               child: const Center(

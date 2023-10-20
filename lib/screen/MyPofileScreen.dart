@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice_ex/places.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -25,12 +26,9 @@ import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
-import 'package:google_api_headers/google_api_headers.dart';
-import 'package:google_maps_webservice/places.dart';
 
 import '../model/CountryListResponseModel.dart';
 import '../model/PujariResponseModel.dart';
-import '../model/PujariUserReponseModel.dart' as pujari;
 import '../model/UserProfileResponseModel.dart';
 import '../model/VerifyOtpResponseModel.dart' as verify;
 import '../utils/responsive.dart';
@@ -1554,8 +1552,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
     }
   }
 
-
-
   // Widget setUpTextDate() {
   //   return Container(
   //     padding: const EdgeInsets.only(left: 14, right: 10),
@@ -2634,7 +2630,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                 if (value != null && value != selectedDate) {
                   setState(()
                   {
-                    String formattedDate = DateFormat('MMMM dd, yyyy').format(value);
+                    String formattedDate = DateFormat('dd MMM,yyyy').format(value);
                     controller.text = formattedDate;
                   });
                 }

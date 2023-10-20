@@ -1047,7 +1047,7 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                           margin: const EdgeInsets.only(left:12,right: 12,bottom: 30,top:12),
                           child: TextButton(
                             onPressed: () {
-                              Navigator.pop(context);
+
                               SessionManagerMethods.clear();
                               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginScreen()), (Route<dynamic> route) => false);
                             },

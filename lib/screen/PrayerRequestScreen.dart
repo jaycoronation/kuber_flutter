@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -95,7 +96,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  reverse: true,
+                  reverse: false,
                   scrollDirection: Axis.vertical,
                   itemCount: _listPrayers.length,
                   itemBuilder: (context, i) {
@@ -309,7 +310,10 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
     if (statusCode == 200 && dataResponse.success == 1) {
       _listPrayers = [];
       _listPrayers = dataResponse.requests;
-      _listPrayers.reversed.toList();
+      if (!kIsWeb)
+        {
+          _listPrayers = _listPrayers.reversed.toList();
+        }
 
       if (_listPrayers.isNotEmpty)
         {
@@ -343,6 +347,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
     pPrayerForController.text = getSet.prayer;
     prayerID = getSet.prayerId;
     prayerNotesController.text = getSet.notes;
+    countryCode = getSet.countryCode;
 
     showModalBottomSheet(
         context: context,
@@ -1384,6 +1389,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
       'mobile' : prayerNumberController.value.text,
       'prayer_id' : prayerID,
       'notes' : prayerNotesController.value.text,
+      "country_code" : countryCode,
       'request_id': getSet.requestId.toString()
     };
 

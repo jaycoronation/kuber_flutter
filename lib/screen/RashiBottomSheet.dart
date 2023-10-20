@@ -1,12 +1,9 @@
-
-
 import 'dart:async';
 import 'dart:convert';
-import 'package:google_maps_webservice/places.dart';
-import 'package:google_api_headers/google_api_headers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice_ex/places.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
@@ -14,7 +11,6 @@ import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/PrayerListResponseModel.dart';
-import '../model/PujaListResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../utils/session_manager.dart';
@@ -58,15 +54,11 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
   String matchMakingPrice = "";
   String astroPrice = "";
   String rashiPrice = "";
-  List<Prayers> _prayerList = List<Prayers>.empty(growable: true);
-
 
   @override
   void initState() {
-
     rashiEmailController.text= sessionManager.getEmail().toString();
-    rashiDOBController.text= sessionManager.getDob().toString();
-
+    rashiDOBController.text= universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", sessionManager.getDob().toString());
 
     super.initState();
   }
@@ -1206,7 +1198,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
 
   }
 
-
   _setDatePicker(TextEditingController controller){
     showCupertinoModalPopup(
         context: context,
@@ -1220,7 +1211,7 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                 if (value != selectedDate) {
                   setState(()
                   {
-                    String formattedDate = DateFormat('MMMM dd, yyyy').format(value);
+                    String formattedDate = DateFormat('dd MMM,yyyy').format(value);
                     controller.text = formattedDate;
                   });
                 }

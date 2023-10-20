@@ -541,27 +541,19 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       }
       else
       {
-        //
-        if (ResponsiveWidget.isSmallScreen(context))
-        {
-          GoRouter.of(context).go(AppRoutes.homeRoute);
-          //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
-        }
-        else
-        {
-          //GoRouter.of(context).go(AppRoutes.homeRoute);
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => false);
-        }
+        GoRouter.of(context).go(AppRoutes.homeRoute);
       }
     }
     else
     {
       if(dataResponse.profile?.email?.toString().isEmpty ?? true)
       {
+        //GoRouter.of(context).go(AppRoutes.loginRoute);
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
       }
       else
       {
+        print("IS IN DASHBOARD");
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
       }
     }

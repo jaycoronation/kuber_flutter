@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-// import 'dart:html' as html;
+//import 'dart:html' as html;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -567,7 +567,7 @@ class _DonationScreenState extends State<DonationScreen> {
       final approvalUrl = paymentResponse['links'].firstWhere((link) => link['rel'] == 'approval_url')['href'];
       final id = paymentResponse['id'];
 
-      //var value = html.window.open(approvalUrl,"_self");
+      //html.window.open(approvalUrl,"_self");
 
       print(approvalUrl);
 

@@ -35,7 +35,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.4
   pin_code_fields: ^8.0.1
-  http: ^0.13.4
+  http: any
   http_interceptor: ^1.0.2
   pretty_http_logger:
   otp_text_field: ^1.1.3
@@ -43,38 +43,35 @@ dependencies:
   file_picker:
   intl:
   shared_preferences: ^2.0.12
-  flutter_google_places: ^0.3.0
+  flutter_google_places:
+  google_maps_webservice_ex: ^0.0.1+2
   audioplayers:
   google_geocoding: ^0.2.0
   geocoding: ^2.0.4
   geolocator: ^9.0.2
   permission_handler: ^10.2.0
-  fluttertoast: ^8.0.9
+  fluttertoast:
   photo_view:
   smooth_page_indicator: ^1.0.0+2
   google_sign_in: ^6.1.4
   flutter_login_facebook:
-  firebase_auth: ^4.7.3
-  firebase_core: ^2.15.1
+  firebase_auth: ^4.10.1
+  firebase_core: ^2.17.0
   flutter_facebook_keyhash: ^0.0.4
   #firebase_crashlytics: ^3.3.4
   change_app_package_name: ^1.1.0
   the_apple_sign_in: ^1.1.1
   flutter_secure_storage: ^8.0.0
-  flutter_paypal: ^0.0.8
+  flutter_paypal: ^0.2.0
   image_picker: ^1.0.1
-  webview_flutter: ^2.8.0
+  webview_flutter: ^4.4.1
   like_button: ^2.0.5
   share_plus: ^7.1.0
   flutter_web_frame: ^0.0.3
-  flutter_facebook_auth: ^4.2.0
+  flutter_facebook_auth: ^4.4.1+1
   google_sign_in_web: ^0.12.0+2
   go_router: ^10.0.0
-  flutter_google_places_web: ^1.0.2
-  flutter_google_places_sdk:
-  uuid:
-
-
+  get: ^4.6.6
 
 dev_dependencies:
   flutter_test:

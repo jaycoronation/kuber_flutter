@@ -72,33 +72,52 @@ class MyApp extends StatelessWidget {
       statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
       statusBarBrightness: Brightness.light,
     ));
-    return FlutterWebFrame(
-      backgroundColor: kuber,
-        builder: (context) {
-         return MaterialApp.router(
-            builder: (context, child) {
-              return MediaQuery(
-                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                child: child!,
-              );
-            },
-            title: 'Kuber',
-            debugShowCheckedModeBanner: false,
-           routerConfig: AppRoutes.routes,
-            theme: ThemeData(
-                textTheme: GoogleFonts.rubikTextTheme(Theme.of(context).textTheme)
-            ),
-          );
-        },
-      maximumSize: const Size(1160.0, 812.0),
-    );
+
+    if (kIsWeb)
+      {
+        return FlutterWebFrame(
+          backgroundColor: kuber,
+          builder: (context) {
+            return MaterialApp.router(
+              builder: (context, child) {
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  child: child!,
+                );
+              },
+              title: 'Kuber',
+              debugShowCheckedModeBanner: false,
+              routerConfig: AppRoutes.routes,
+              theme: ThemeData(
+                  textTheme: GoogleFonts.rubikTextTheme(Theme.of(context).textTheme)
+              ),
+            );
+          },
+          maximumSize: const Size(1160.0, 812.0),
+        );
+      }
+    else
+      {
+        return MaterialApp(
+          builder: (context, child) {
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: child!,
+            );
+          },
+          title: 'Kuber',
+          home: const MyHomePage(),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              textTheme: GoogleFonts.rubikTextTheme(Theme.of(context).textTheme)
+          ),
+        );
+      }
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key,});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -137,15 +156,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
               else
                 {
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => false);
+                  GoRouter.of(context).go(AppRoutes.homeRoute);
+                  //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => false);
                 }
             }
           else
             {
+              print("IS IN ELSE ELSE");
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
             }
         }
-        // Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardScreen())));
       }
       else
       {
@@ -158,7 +178,8 @@ class _MyHomePageState extends State<MyHomePage> {
         else
         {
           print("xyz");
-          Timer(const Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen())));
+          //GoRouter.of(context).go(AppRoutes.loginRoute);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
         }
       }
     });

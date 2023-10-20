@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice_ex/places.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;
-// import 'dart:html' as html;
+//import 'dart:html' as html;
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -2651,7 +2651,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                 if (value != selectedDate) {
                   setState(()
                   {
-                    String formattedDate = DateFormat('MMMM dd, yyyy').format(value);
+                    String formattedDate = DateFormat('dd MMM,yyyy').format(value);
                     controller.text = formattedDate;
                   });
                 }
@@ -2678,7 +2678,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                 if (value != null && value != selectedDate) {
                   setState(()
                   {
-                    String formattedDate = DateFormat('MMM dd, yyyy').format(value);
+                    String formattedDate = DateFormat('dd MMM,yyyy').format(value);
                     // controller.text = formattedDate;
                     selectedDate = formattedDate;
                   });
@@ -3412,8 +3412,6 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
       language: "en",);
 
     if (prediction != null) {
-
-
       updateState((){
         controller.text = prediction.description.toString();
       });
