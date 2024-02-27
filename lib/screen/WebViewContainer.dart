@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kuber/constant/common_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../constant/colors.dart';
@@ -60,11 +61,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
             FocusManager.instance.primaryFocus?.unfocus();
             Navigator.pop(context);
           },
-          child: Container(
-            alignment: Alignment.center,
-            child: Image.asset('assets/images/ic_back_arrow.png',
-              height: 20, width: 20,),
-          ),
+          child: getBackArrow()
         ),
         title: Text(widget.title,style: GoogleFonts.manrope(fontSize: 18,color: black,fontWeight: FontWeight.w800),),
         elevation: 0,

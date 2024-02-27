@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_maps_webservice_ex/places.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -1030,16 +1030,31 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                         }
                                         else
                                         {
-                                          var dateForShow = "${universalDateConverter("MMM dd, yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
-                                          dateTimeForShow = dateTime;
-                                          dateTimeForPass = dateForShow;
+                                          if (selectedTime.isNotEmpty)
+                                            {
+                                              var dateForShow = "${universalDateConverter("MMM dd, yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
+                                              dateTimeForShow = dateTime;
+                                              dateTimeForPass = dateForShow;
+                                            }
+                                          else
+                                            {
+                                              showToast("Please select time", context);
+                                            }
                                         }
                                       }
                                       else
                                       {
-                                        var dateForShow = "${universalDateConverter("MMM dd, yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
-                                        dateTimeForShow = dateTime;
-                                        dateTimeForPass = dateForShow;
+
+                                        if (selectedTime.isNotEmpty)
+                                          {
+                                            var dateForShow = "${universalDateConverter("MMM dd, yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
+                                            dateTimeForShow = dateTime;
+                                            dateTimeForPass = dateForShow;
+                                          }
+                                        else
+                                          {
+                                            showToast("Please select time", context);
+                                          }
                                       }
                                       _bookPristValidation();
                                     },
@@ -1305,7 +1320,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                                   {
                                                     setState(() {
                                                       selectedTime = pickedTime.format(context);
-                                                      pickTimeController.text = pickedTime.format(context); //set the value of text field.
+                                                      pickTimeController.text = pickedTime.format(context);
                                                     });
                                                   }
                                               }
@@ -1313,7 +1328,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                               {
                                                 setState(() {
                                                   selectedTime = pickedTime.format(context);
-                                                  pickTimeController.text = pickedTime.format(context); //set the value of text field.
+                                                  pickTimeController.text = pickedTime.format(context);
                                                 });
                                               }
                                             print(selectedTime);
@@ -2069,11 +2084,11 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
         showToast("Select date for pooja ",context);
         return;
       }
-      // if(selectedTime.toString()==("Pick Time"))
-      // {
-      //   showToast("Select time for pooja ",context);
-      //   return;
-      // }
+      if(selectedTime.toString()==("Pick Time"))
+      {
+        showToast("Select time for pooja ",context);
+        return;
+      }
     }
     _reviewBookingDialog();
   }

@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
+import '../constant/common_widget.dart';
 import '../model/FeedListResponseModel.dart';
 import '../widget/loading_more.dart';
 
@@ -81,14 +82,15 @@ class _FeedScreen extends State<FeedScreen> {
             automaticallyImplyLeading: false,
             backgroundColor: bg_skin,
             elevation: 0,
-            leading:IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
+            leading: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
                 Navigator.pop(context);
               },
-            ) ,
+              child: getBackArrow(),
+            ),
+            centerTitle: true,
+            title: getTitle('Feed'),
           ),
           body: isLoading
               ? const LoadingWidget()
@@ -96,14 +98,6 @@ class _FeedScreen extends State<FeedScreen> {
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 12),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                          "Feed",
-                          style: getTitleFontStyle()
-                      ),
-                    ),
                       Expanded(
                         child: ListView.builder(
                           shrinkWrap: true,

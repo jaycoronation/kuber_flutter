@@ -9,6 +9,7 @@ import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
+import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
 import '../utils/session_manager.dart';
 import '../widget/loading.dart';
@@ -42,13 +43,12 @@ class _ChangePassWordScreen extends State<ChangePassWordScreen> {
          automaticallyImplyLeading: false,
          centerTitle: true,
          elevation: 0,
-         leading: IconButton(
-           icon: Image.asset("assets/images/ic_back_arrow.png",
-               width: 18, height: 18),
-           iconSize: 28,
-           onPressed: () {
+         leading: GestureDetector(
+           behavior: HitTestBehavior.opaque,
+           onTap: () {
              Navigator.pop(context);
            },
+           child: getBackArrow(),
          ),
        ),
        body: _isLoading

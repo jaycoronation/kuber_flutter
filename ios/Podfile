@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '12.0'
+# platform :ios, '12.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -9,21 +9,6 @@ project 'Runner', {
   'Profile' => :release,
   'Release' => :release,
 }
-
-    def run_podfile_post_install_hook
-      podfile.post_install!(self)
-    rescue => e
-      raise Informative, 'An error occurred while processing the post-install ' \
-        'hook of the Podfile.' \
-        "\n\n#{e.message}\n\n#{e.backtrace * "\n"}"
-    end
-
-    def run_podfile_post_integrate_hooks
-      UI.message '- Running post integrate hooks' do
-        executed = run_podfile_post_integrate_hook
-        UI.message '- Podfile' if executed
-      end
-    end
 
 def flutter_root
   generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
@@ -42,22 +27,11 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 
 flutter_ios_podfile_setup
 
-use_modular_headers!
-
-pod 'RealmSwift', '~> 3.17', :modular_headers => true
-pod 'Realm', '~> 3.17', :modular_headers => true
-pod 'Firebase', :modular_headers => true
-pod 'FirebaseCore', :modular_headers => true
-pod 'FirebaseCoreInternal', :modular_headers => true
-pod 'GoogleUtilities', :modular_headers => true
-pod 'DKPhotoGallery', :modular_headers => true
-pod 'SDWebImage', :modular_headers => true
-
-
 target 'Runner' do
-  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '9.3.0'
+  use_frameworks!
+  use_modular_headers!
 
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
 post_install do |installer|

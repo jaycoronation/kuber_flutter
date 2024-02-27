@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:intl/intl.dart';
+import 'package:kuber/constant/common_widget.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../constant/api_end_point.dart';
@@ -12,12 +12,10 @@ import '../constant/colors.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
 import '../model/PrayerListResponseModel.dart';
-import '../model/PujaListResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../utils/session_manager.dart';
 import '../widget/loading.dart';
-import 'PujaListScreen.dart';
 
 class PrayerBottomSheet extends StatefulWidget {
 
@@ -31,8 +29,8 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
   TextEditingController prayerLNameController = TextEditingController();
   TextEditingController prayerDOBController = TextEditingController();
   TextEditingController prayerEmailController = TextEditingController();
-  TextEditingController PrayerForController = TextEditingController();
-  TextEditingController PrayerMobileController = TextEditingController();
+  TextEditingController prayerForController = TextEditingController();
+  TextEditingController prayerMobileController = TextEditingController();
   TextEditingController prayerNotesController = TextEditingController();
   SessionManager sessionManager = SessionManager();
 
@@ -44,7 +42,6 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
   String selectedTime = "Pick Time";
   String pujaDescription = "";
   String pujaId = "";
-  String _currentAddress = "";
   String dateTimeForShow = "";
   String dateTimeForPass = "";
   bool isWantGoods = false;
@@ -60,13 +57,12 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
 
   @override
   void initState() {
-    prayerFNameController.text= sessionManager.getName().toString();
-    prayerLNameController.text= sessionManager.getLastName().toString();
-    prayerEmailController.text= sessionManager.getEmail().toString();
-    PrayerMobileController.text= sessionManager.getPhone().toString();
-    prayerDOBController.text= sessionManager.getDob().toString();
-    print(sessionManager.getDob().toString());
-    prayerDOBController.text= universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", sessionManager.getDob().toString());
+    prayerFNameController.text = sessionManager.getName().toString();
+    prayerLNameController.text = sessionManager.getLastName().toString();
+    prayerEmailController.text = sessionManager.getEmail().toString();
+    prayerMobileController.text = sessionManager.getPhone().toString();
+    prayerDOBController.text = universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", sessionManager.getDob().toString());
+
     getCountryData();
     _callListPrayer();
     super.initState();
@@ -76,530 +72,471 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
   Widget build(BuildContext context) {
     return ResponsiveWidget.isSmallScreen(context)
         ? Padding(
-      padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom),
-      child:SingleChildScrollView(
-        child: Wrap(
-            children: [
-              StatefulBuilder(
-                  builder: (context,setState){
-                    return Wrap(
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: bottomSheetBg,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(22.0),
-                              topRight: Radius.circular(22.0),
-                            ),
-                          ),
-                          child:  _isLoading
-                              ? Container(
-                                height: MediaQuery.of(context).size.height * 0.88,
-                                child: const LoadingWidget()
-                            )
-                              :Container(
-                                margin: const EdgeInsets.only(left: 14,right: 14),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                        width: 50,
-                                        margin: const EdgeInsets.only(top: 12),
-                                        child: const Divider(
-                                          height: 2,
-                                          thickness: 2,
-                                          color: bottomSheetline,
-                                        )
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top:20,bottom: 20),
-                                      child: const Text(
-                                        "Request a Prayer",
-                                        style: TextStyle(fontWeight: FontWeight.bold, color: darkbrown, fontSize: 18),
-                                      ),
-                                    ),
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child:SingleChildScrollView(
+            child: Wrap(
+                children: [
+                  StatefulBuilder(
+                      builder: (context,setState){
+                        return Wrap(
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                color: bottomSheetBg,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(22.0),
+                                  topRight: Radius.circular(22.0),
+                                ),
+                              ),
+                              child:  _isLoading
+                                  ? Container(
+                                    height: MediaQuery.of(context).size.height * 0.88,
+                                    child: const LoadingWidget()
+                                )
+                                  :Container(
+                                    margin: const EdgeInsets.only(left: 14,right: 14),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            width: 50,
+                                            margin: const EdgeInsets.only(top: 12),
+                                            child: const Divider(
+                                              height: 2,
+                                              thickness: 2,
+                                              color: bottomSheetline,
+                                            )
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.only(top:20,bottom: 20),
+                                          child: const Text(
+                                            "Request a Prayer",
+                                            style: TextStyle(fontWeight: FontWeight.bold, color: darkbrown, fontSize: 18),
+                                          ),
+                                        ),
 
-                                    Container(
-                                        margin: const EdgeInsets.only(top: 10),
+                                        Container(
+                                            margin: const EdgeInsets.only(top: 10),
+                                            child: TextField(
+                                              onTap: (){
+                                              },
+                                              controller: prayerFNameController,
+                                              keyboardType: TextInputType.text,
+                                              cursorColor: Colors.grey,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    borderSide: const BorderSide(color: Colors.grey)
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  borderSide: const BorderSide(color: Colors.grey,),
+                                                ),
+                                                labelText: 'First name',
+                                                labelStyle: const TextStyle(color: text_new),                                     ),
+                                            )
+                                        ),
+
+                                        /*  Container(
+                                      margin: const EdgeInsets.only(top: 10),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(16.0),
+                                          color: white_blue),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
                                         child: TextField(
-                                          onTap: (){
-                                          },
                                           controller: prayerFNameController,
                                           keyboardType: TextInputType.text,
-                                          cursorColor: Colors.grey,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(20),
-                                                borderSide: const BorderSide(color: Colors.grey)
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(20),
-                                              borderSide: const BorderSide(color: Colors.grey,),
-                                            ),
-                                            labelText: 'First name',
-                                            labelStyle: const TextStyle(color: text_new),                                     ),
-                                        )
-                                    ),
+                                          cursorColor: text_dark,
+                                          style: const TextStyle(
+                                              color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                          decoration: const InputDecoration(
+                                              fillColor: white_blue,
+                                              counterText: "",
+                                              border: InputBorder.none,
+                                              hintText: 'First name',
+                                              hintStyle: TextStyle(
+                                                  color: text_dark,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w900)),
+                                        ),
+                                      ),
+                                    ), */
 
-                                    /*  Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                      color: white_blue),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                    child: TextField(
-                                      controller: prayerFNameController,
-                                      keyboardType: TextInputType.text,
-                                      cursorColor: text_dark,
-                                      style: const TextStyle(
-                                          color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                      decoration: const InputDecoration(
-                                          fillColor: white_blue,
-                                          counterText: "",
-                                          border: InputBorder.none,
-                                          hintText: 'First name',
-                                          hintStyle: TextStyle(
-                                              color: text_dark,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w900)),
-                                    ),
-                                  ),
-                                ), */
+                                        Container(
+                                            margin: const EdgeInsets.only(top: 20),
+                                            child: TextField(
+                                              onTap: (){
+                                              },
+                                              controller: prayerLNameController,
+                                              keyboardType: TextInputType.text,
+                                              cursorColor: Colors.grey,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    borderSide: const BorderSide(color: Colors.grey)
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  borderSide: const BorderSide(color: Colors.grey,),
+                                                ),
+                                                labelText: 'Last name',
+                                                labelStyle: const TextStyle(color: text_new),                                     ),
+                                            )
+                                        ),
 
-                                    Container(
-                                        margin: const EdgeInsets.only(top: 20),
+                                        /*  Container(
+                                      margin: const EdgeInsets.only(top: 10),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(16.0),
+                                          color: white_blue),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
                                         child: TextField(
-                                          onTap: (){
-                                          },
                                           controller: prayerLNameController,
                                           keyboardType: TextInputType.text,
-                                          cursorColor: Colors.grey,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(20),
-                                                borderSide: const BorderSide(color: Colors.grey)
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(20),
-                                              borderSide: const BorderSide(color: Colors.grey,),
-                                            ),
-                                            labelText: 'Last name',
-                                            labelStyle: const TextStyle(color: text_new),                                     ),
-                                        )
-                                    ),
+                                          cursorColor: text_dark,
+                                          style: const TextStyle(
+                                              color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                          decoration: const InputDecoration(
+                                              fillColor: white_blue,
+                                              counterText: "",
+                                              border: InputBorder.none,
+                                              hintText: 'Last name',
+                                              hintStyle: TextStyle(
+                                                  color: text_dark,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w900)),
+                                        ),
+                                      ),
+                                    ), */
 
-                                    /*  Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                      color: white_blue),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                    child: TextField(
-                                      controller: prayerLNameController,
-                                      keyboardType: TextInputType.text,
-                                      cursorColor: text_dark,
-                                      style: const TextStyle(
-                                          color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                      decoration: const InputDecoration(
-                                          fillColor: white_blue,
-                                          counterText: "",
-                                          border: InputBorder.none,
-                                          hintText: 'Last name',
-                                          hintStyle: TextStyle(
-                                              color: text_dark,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w900)),
-                                    ),
-                                  ),
-                                ), */
+                                        Container(
+                                            margin: const EdgeInsets.only(top: 20),
+                                            child: TextField(
+                                              onTap: () async {
+                                                _setDatePicker(prayerDOBController);
+                                              },
+                                              readOnly: true,
+                                              controller: prayerDOBController,
+                                              keyboardType: TextInputType.text,
+                                              cursorColor: Colors.grey,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    borderSide: const BorderSide(color: Colors.grey)
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  borderSide: const BorderSide(color: Colors.grey,),
+                                                ),
+                                                labelText: 'Date of Birth',
+                                                labelStyle: const TextStyle(color: text_new),                                     ),
+                                            )
+                                        ),
 
-                                    Container(
-                                        margin: const EdgeInsets.only(top: 20),
+                                        /* Container(
+                                      margin: const EdgeInsets.only(top: 10),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(16.0),
+                                          color: white_blue),
+                                      child:  Padding(
+                                        padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
                                         child: TextField(
+                                          readOnly: true,
+                                          controller:prayerDOBController,
+                                          cursorColor: text_dark,
                                           onTap: () async {
                                             _setDatePicker(prayerDOBController);
                                           },
-                                          readOnly: true,
-                                          controller: prayerDOBController,
-                                          keyboardType: TextInputType.text,
-                                          cursorColor: Colors.grey,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(20),
-                                                borderSide: const BorderSide(color: Colors.grey)
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(20),
-                                              borderSide: const BorderSide(color: Colors.grey,),
-                                            ),
-                                            labelText: 'Date of Birth',
-                                            labelStyle: const TextStyle(color: text_new),                                     ),
-                                        )
-                                    ),
-
-                                    /* Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                      color: white_blue),
-                                  child:  Padding(
-                                    padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                    child: TextField(
-                                      readOnly: true,
-                                      controller:prayerDOBController,
-                                      cursorColor: text_dark,
-                                      onTap: () async {
-                                        _setDatePicker(prayerDOBController);
-                                      },
-                                      style: const TextStyle(
-                                          color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                      decoration: const InputDecoration(
-                                          fillColor: white_blue,
-                                          border: InputBorder.none,
-                                          hintText: 'Date of Birth',
-                                          hintStyle: TextStyle(
-                                              color: text_dark,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w900)),
-                                    ),
-                                  ),
-                                ),  */
-
-
-                                    Container(
-                                        margin: const EdgeInsets.only(top: 20),
-                                        child: TextField(
-                                          controller: prayerEmailController,
-                                          keyboardType: TextInputType.text,
-                                          cursorColor: Colors.grey,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(20),
-                                                borderSide: const BorderSide(color: Colors.grey)
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(20),
-                                              borderSide: const BorderSide(color: Colors.grey,),
-                                            ),
-                                            labelText: 'Email',
-                                            labelStyle: const TextStyle(color: text_new),                                     ),
-                                        )
-                                    ),
-
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 10),
-                                      alignment: Alignment.center,
-                                      padding: const EdgeInsets.only(left: 14, right: 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: Colors.grey,
-                                          width: 1,
-                                        ),
-
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(18),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          GestureDetector(
-                                            child: Text(countryCode,
-                                                style: const TextStyle(
-                                                    color: text_dark,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 14)),
-                                            onTap: (){
-                                              countryDialog(setState);
-                                            },
-                                          ),
-                                          Container(
-                                            margin: const EdgeInsets.only(left: 10),
-                                            height: 20,
-                                            width: 1,
-                                            color: text_light,
-                                          ),
-                                          Flexible(
-                                            child:TextField(
-                                              controller: PrayerMobileController,
-                                              maxLength: 12,
-                                              keyboardType: TextInputType.number,
-                                              cursorColor: text_dark,
-                                              style: const TextStyle(
-                                                  color: title,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500),
-                                              decoration: InputDecoration(
-                                                contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
-                                                fillColor: bottomSheetBg,
-                                                counterText: "",
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(14.0),
-                                                    borderSide: const BorderSide(
-                                                        width: 0, style: BorderStyle.none)),
-                                                filled: true,
-                                                hintText: "Mobile Number",
-                                                hintStyle: const TextStyle(
+                                          style: const TextStyle(
+                                              color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
+                                          decoration: const InputDecoration(
+                                              fillColor: white_blue,
+                                              border: InputBorder.none,
+                                              hintText: 'Date of Birth',
+                                              hintStyle: TextStyle(
                                                   color: text_dark,
                                                   fontSize: 14,
-                                                  fontWeight: FontWeight.w900,
+                                                  fontWeight: FontWeight.w900)),
+                                        ),
+                                      ),
+                                    ),  */
+
+
+                                        Container(
+                                            margin: const EdgeInsets.only(top: 20),
+                                            child: TextField(
+                                              controller: prayerEmailController,
+                                              keyboardType: TextInputType.text,
+                                              cursorColor: Colors.grey,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    borderSide: const BorderSide(color: Colors.grey)
                                                 ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  borderSide: const BorderSide(color: Colors.grey,),
+                                                ),
+                                                labelText: 'Email',
+                                                labelStyle: const TextStyle(color: text_new),                                     ),
+                                            )
+                                        ),
+
+                                        Container(
+                                          margin: const EdgeInsets.only(top: 10),
+                                          alignment: Alignment.center,
+                                          padding: const EdgeInsets.only(left: 14, right: 10),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.grey,
+                                              width: 1,
+                                            ),
+
+                                            borderRadius: const BorderRadius.all(
+                                              Radius.circular(18),
+                                            ),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              GestureDetector(
+                                                child: Text(countryCode,
+                                                    style: const TextStyle(
+                                                        color: text_dark,
+                                                        fontWeight: FontWeight.w600,
+                                                        fontSize: 14)),
+                                                onTap: (){
+                                                  countryDialog(setState);
+                                                },
+                                              ),
+                                              Container(
+                                                margin: const EdgeInsets.only(left: 10),
+                                                height: 20,
+                                                width: 1,
+                                                color: text_light,
+                                              ),
+                                              Flexible(
+                                                child:TextField(
+                                                  controller: prayerMobileController,
+                                                  maxLength: 12,
+                                                  keyboardType: TextInputType.number,
+                                                  cursorColor: text_dark,
+                                                  style: const TextStyle(
+                                                      color: title,
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w500),
+                                                  decoration: InputDecoration(
+                                                    contentPadding: const EdgeInsets.only(left:15,top:20,bottom:20),
+                                                    fillColor: bottomSheetBg,
+                                                    counterText: "",
+                                                    border: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.circular(14.0),
+                                                        borderSide: const BorderSide(
+                                                            width: 0, style: BorderStyle.none)),
+                                                    filled: true,
+                                                    hintText: "Mobile Number",
+                                                    hintStyle: const TextStyle(
+                                                      color: text_dark,
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w900,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+
+                                        Container(
+                                            margin: const EdgeInsets.only(top: 20),
+                                            child: TextField(
+                                              onTap: (){
+                                                _openPrayerTypeBottomSheet(setState);
+                                              },
+                                              readOnly: true,
+                                              controller: prayerForController,
+                                              keyboardType: TextInputType.text,
+                                              cursorColor: Colors.grey,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    borderSide: const BorderSide(color: Colors.grey)
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  borderSide: const BorderSide(color: Colors.grey,),
+                                                ),
+                                                labelText: 'Prayer For',
+                                                labelStyle: const TextStyle(color: text_new),
+                                              ),
+                                            )
+                                        ),
+                                        Container(
+                                            alignment: Alignment.topLeft,
+                                            margin: const EdgeInsets.only(top: 20),
+                                            child: TextField(
+                                              minLines: 4,
+                                              maxLines: 4,
+                                              controller: prayerNotesController,
+                                              keyboardType: TextInputType.text,
+                                              cursorColor: Colors.grey,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    borderSide: const BorderSide(color: Colors.grey)
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  borderSide: const BorderSide(color: Colors.grey,),
+                                                ),
+                                                counterText: "",
+                                                hintText: 'Leave Your Detail',
+                                                hintStyle: const TextStyle(color: text_new),
+                                              ),
+                                            )
+                                        ),
+
+                                        Container(height: 22,),
+                                        getCommonButton('Review Request', () {
+                                          if (prayerFNameController.value.text.isEmpty)
+                                          {
+                                            showToast("Please enter first name", context);
+                                          }
+                                          else if (prayerLNameController.value.text.isEmpty)
+                                          {
+                                            showToast("Please enter last name", context);
+                                          }
+                                          else if (prayerDOBController.value.text.isEmpty)
+                                          {
+                                            showToast("Please enter date of birth", context);
+                                          }
+                                          else if (prayerEmailController.value.text.isEmpty)
+                                          {
+                                            showToast("Please enter email", context);
+                                          }
+                                          else if (prayerForController.value.text.isEmpty)
+                                          {
+                                            showToast("Please enter prayer type", context);
+                                          }
+                                          else
+                                          {
+                                            _confirmPrayerRequest();
+                                          }
+                                        }),
+                                        Visibility(
+                                          visible: false,
+                                          child: TextButton(
+                                            onPressed: (){
+                                              if (prayerFNameController.value.text.isEmpty)
+                                              {
+                                                showToast("Please enter first name", context);
+                                              }
+                                              else if (prayerLNameController.value.text.isEmpty)
+                                              {
+                                                showToast("Please enter last name", context);
+                                              }
+                                              else if (prayerDOBController.value.text.isEmpty)
+                                              {
+                                                showToast("Please enter date of birth", context);
+                                              }
+                                              else if (prayerEmailController.value.text.isEmpty)
+                                              {
+                                                showToast("Please enter email", context);
+                                              }
+                                              else if (prayerForController.value.text.isEmpty)
+                                              {
+                                                showToast("Please enter prayer type", context);
+                                              }
+                                              else
+                                              {
+                                                _confirmPrayerRequest();
+                                              }
+                                            },
+                                            style: ButtonStyle(
+                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
+                                              ),
+                                              backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
+                                            ),
+
+                                            child: const Padding(
+                                              padding: EdgeInsets.all(4.0),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Text('Review Request', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
+                                                ],
                                               ),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-
-
-
-                                    /*  Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                      color: white_blue),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                    child: TextField(
-                                      controller: prayerEmailController,
-                                      keyboardType: TextInputType.text,
-                                      cursorColor: text_dark,
-                                      style: const TextStyle(
-                                          color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                      decoration: const InputDecoration(
-                                          fillColor: white_blue,
-                                          counterText: "",
-                                          border: InputBorder.none,
-                                          hintText: 'Email',
-                                          hintStyle: TextStyle(
-                                              color: text_dark,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w900)),
-                                    ),
-                                  ),
-                                ), */
-
-                                    Container(
-                                        margin: const EdgeInsets.only(top: 20),
-                                        child: TextField(
-                                          onTap: (){
-                                            _openPrayerTypeBottomSheet(setState);
-                                          },
-                                          readOnly: true,
-                                          controller: PrayerForController,
-                                          keyboardType: TextInputType.text,
-                                          cursorColor: Colors.grey,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(20),
-                                                borderSide: const BorderSide(color: Colors.grey)
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(20),
-                                              borderSide: const BorderSide(color: Colors.grey,),
-                                            ),
-                                            labelText: 'Prayer For',
-                                            labelStyle: const TextStyle(color: text_new),                                     ),
-                                        )
-                                    ),
-
-                                    /* Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                      color: white_blue),
-                                  child:  Padding(
-                                    padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                    child: TextField(
-                                      controller: PrayerForController,
-                                      onTap: (){
-                                        _openPrayerTypeBottomSheet(setState);
-                                      },
-                                      readOnly: true,
-                                      keyboardType: TextInputType.text,
-                                      cursorColor: text_dark,
-                                      style: const TextStyle(
-                                          color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                      decoration: const InputDecoration(
-                                          fillColor: white_blue,
-                                          counterText: "",
-                                          border: InputBorder.none,
-                                          hintText: 'Prayer For',
-                                          hintStyle: TextStyle(
-                                              color: text_dark,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w900)),
-                                    ),
-                                  ),
-                                ), */
-
-                                    Container(
-                                        alignment: Alignment.topLeft,
-                                        margin: const EdgeInsets.only(top: 20),
-                                        child: TextField(
-                                          minLines: 4,
-                                          maxLines: 4,
-                                          controller: prayerNotesController,
-                                          keyboardType: TextInputType.text,
-                                          cursorColor: Colors.grey,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(20),
-                                                borderSide: const BorderSide(color: Colors.grey)
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(20),
-                                              borderSide: const BorderSide(color: Colors.grey,),
-                                            ),
-                                            counterText: "",
-                                            hintText: 'Leave Your Detail',
-                                            hintStyle: const TextStyle(color: text_new),                                     ),
-                                        )
-                                    ),
-
-                                    /*  Container(
-                                  alignment: Alignment.center,
-                                  margin: const EdgeInsets.only(top: 10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      color: white_blue),
-                                  child:  Padding(
-                                    padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                    child: TextField(
-                                      controller: prayerNotesController,
-                                      minLines: 4,
-                                      maxLines: 4,
-                                      keyboardType: TextInputType.text,
-                                      cursorColor: title,
-                                      style:  const TextStyle(
-                                          color: title, fontSize: 14, fontWeight: FontWeight.w600),
-                                      decoration: const InputDecoration(
-                                          counterText: "",
-                                          border: InputBorder.none,
-                                          hintText: 'Leave Your Detail',
-                                          hintStyle: TextStyle(
-                                              color: text_dark,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w900)),
-                                    ),
-                                  ),
-                                ), */
-
-                                    Container(height: 22,),
-                                    TextButton(
-                                      onPressed: (){
-                                        if (prayerFNameController.value.text.isEmpty)
-                                        {
-                                          showToast("Please enter first name", context);
-                                        }
-                                        else if (prayerLNameController.value.text.isEmpty)
-                                        {
-                                          showToast("Please enter last name", context);
-                                        }
-                                        else if (prayerDOBController.value.text.isEmpty)
-                                        {
-                                          showToast("Please enter date of birth", context);
-                                        }
-                                        else if (prayerEmailController.value.text.isEmpty)
-                                        {
-                                          showToast("Please enter email", context);
-                                        }
-                                        else if (PrayerForController.value.text.isEmpty)
-                                        {
-                                          showToast("Please enter prayer type", context);
-                                        }
-                                        else
-                                        {
-                                          _confirmPrayerRequest();
-                                        }
-                                      },
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
+                                          ),
                                         ),
-                                        backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
-                                      ),
-
+                                        Container(height: 22,),
+                                        /*  InkWell(
                                       child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: const [
-                                            Text('Review Request', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
-                                          ],
+                                        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                                        child: Container(
+                                          alignment: Alignment.bottomRight,
+                                          margin: const EdgeInsets.only(top: 10,bottom: 30),
+                                          padding: const EdgeInsets.only(left: 14,right: 14),
+                                          child: Card(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(20.0),
+                                            ),
+                                            color: light_yellow,
+                                            elevation: 10,
+                                            child: const Padding(
+                                              padding: EdgeInsets.all(14.0),
+                                              child: Text("Review Request",
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: title,
+                                                    fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                                            ),
+                                          ),
                                         ),
                                       ),
+                                      onTap: (){
+                                        if (prayerFNameController.value.text.isEmpty)
+                                          {
+                                            showToast("Please enter first name", context);
+                                          }
+                                        else if (prayerLNameController.value.text.isEmpty)
+                                          {
+                                            showToast("Please enter last name", context);
+                                          }
+                                        else if (prayerDOBController.value.text.isEmpty)
+                                          {
+                                            showToast("Please enter date of birth", context);
+                                          }
+                                        else if (prayerEmailController.value.text.isEmpty)
+                                          {
+                                            showToast("Please enter email", context);
+                                          }
+                                        else if (PrayerForController.value.text.isEmpty)
+                                          {
+                                            showToast("Please enter prayer type", context);
+                                          }
+                                        else
+                                          {
+                                            _confirmPrayerRequest();
+                                          }
+                                      },
+                                    ) */
+                                      ],
                                     ),
-                                    Container(height: 22,),
-                                    /*  InkWell(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                                    child: Container(
-                                      alignment: Alignment.bottomRight,
-                                      margin: const EdgeInsets.only(top: 10,bottom: 30),
-                                      padding: const EdgeInsets.only(left: 14,right: 14),
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20.0),
-                                        ),
-                                        color: light_yellow,
-                                        elevation: 10,
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(14.0),
-                                          child: Text("Review Request",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: title,
-                                                fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  onTap: (){
-                                    if (prayerFNameController.value.text.isEmpty)
-                                      {
-                                        showToast("Please enter first name", context);
-                                      }
-                                    else if (prayerLNameController.value.text.isEmpty)
-                                      {
-                                        showToast("Please enter last name", context);
-                                      }
-                                    else if (prayerDOBController.value.text.isEmpty)
-                                      {
-                                        showToast("Please enter date of birth", context);
-                                      }
-                                    else if (prayerEmailController.value.text.isEmpty)
-                                      {
-                                        showToast("Please enter email", context);
-                                      }
-                                    else if (PrayerForController.value.text.isEmpty)
-                                      {
-                                        showToast("Please enter prayer type", context);
-                                      }
-                                    else
-                                      {
-                                        _confirmPrayerRequest();
-                                      }
-                                  },
-                                ) */
-                                  ],
-                                ),
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-              ),
-            ]),
-      ),
-    )
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                  ),
+                ]),
+          ),
+        )
         : Padding(
           padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -874,7 +811,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                               ),
                                               Flexible(
                                                 child:TextField(
-                                                  controller: PrayerMobileController,
+                                                  controller: prayerMobileController,
                                                   maxLength: 12,
                                                   keyboardType: TextInputType.number,
                                                   cursorColor: text_dark,
@@ -940,7 +877,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                                 _openPrayerTypeBottomSheet(setState);
                                               },
                                               readOnly: true,
-                                              controller: PrayerForController,
+                                              controller: prayerForController,
                                               keyboardType: TextInputType.text,
                                               cursorColor: Colors.grey,
                                               decoration: InputDecoration(
@@ -1061,7 +998,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                             {
                                               showToast("Please enter email", context);
                                             }
-                                            else if (PrayerForController.value.text.isEmpty)
+                                            else if (prayerForController.value.text.isEmpty)
                                             {
                                               showToast("Please enter prayer type", context);
                                             }
@@ -1077,12 +1014,12 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                             backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
                                           ),
 
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(4.0),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(4.0),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: const [
+                                              children: [
                                                 Padding(
                                                   padding: EdgeInsets.only(top: 8.0, bottom: 8),
                                                   child: Text('Review Request', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
@@ -1416,7 +1353,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                                         ),
                                                         onTap: (){
                                                           prayerID = _prayerList[i].prayerId.toString();
-                                                          PrayerForController.text = toDisplayCase(_prayerList[i].prayer.toString());
+                                                          prayerForController.text = toDisplayCase(_prayerList[i].prayer.toString());
                                                           updateState((){});
                                                           Navigator.pop(context);
                                                         },
@@ -1560,7 +1497,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: Text(PrayerForController.value.text,
+                                      child: Text(prayerForController.value.text,
                                           style:const TextStyle(fontWeight: FontWeight.w700,color: text_dark,fontSize: 14)),
                                     )
                                   ],
@@ -1604,7 +1541,17 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                InkWell(
+                                Expanded(
+                                    child: getCommonButton('Edit Request', () {  Navigator.pop(context);})
+                                ),
+                                Container(width: 12,),
+                                Expanded(
+                                    child: getCommonButton('Submit Request', () {
+                                      Navigator.pop(context);
+                                      _savePrayerRequest();
+                                    })
+                                ),
+                                /*InkWell(
                                   onTap: (){
                                     Navigator.pop(context);
                                   },
@@ -1652,7 +1599,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                       ),
                                     ),
                                   ),
-                                )
+                                )*/
                               ],
                             ),
                           )
@@ -1689,7 +1636,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
       'email' : prayerEmailController.value.text,
       'prayer_id' : prayerID,
       'notes' : prayerNotesController.value.text,
-      'mobile': PrayerMobileController.value.text,
+      'mobile': prayerMobileController.value.text,
       "country_code" : countryCode
     };
 

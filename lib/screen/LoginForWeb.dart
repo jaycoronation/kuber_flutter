@@ -6,13 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/screen/DashboardForWeb.dart';
-import 'package:kuber/utils/routes.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,11 +20,9 @@ import '../model/SocialResponseModel.dart';
 import '../model/VerifyOtpResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/session_manager.dart';
-import 'DashboardScreen.dart';
 import 'LoginWithEmailScreen.dart';
 import 'MyPofileScreen.dart';
 import 'VerifyOtpScreen.dart';
-import 'WebViewContainer.dart';
 
 class LoginScreenForWeb extends StatefulWidget {
   const LoginScreenForWeb({Key? key}) : super(key: key);
@@ -42,7 +36,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
   TextEditingController numberController = TextEditingController();
   SessionManager sessionManager = SessionManager();
   bool _isLoading = false;
-  final fb = FacebookLogin();
+  // final fb = FacebookLogin();
 
 
   @override
@@ -299,12 +293,12 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                     ),
                   ),
                 ),
-                Container(height: 18,),
-                Container(
+                //Container(height: 18,),
+                /*Container(
                   width: 700,
                   child: GestureDetector(
                     onTap: () {
-                      loginFB();
+                      //loginFB();
                     },
                     child: Container(
                       margin: const EdgeInsets.only( right: 20, left: 20),
@@ -338,7 +332,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                       ),
                     ),
                   ),
-                ),
+                ),*/
                 Container(height: 32,),
               ],
             ),
@@ -686,7 +680,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
     }
   }
 
-  Future<void> loginFB() async {
+  /*Future<void> loginFB() async {
     final LoginResult result = await FacebookAuth.instance.login(); // by default we request the email and the public profile
       // or FacebookAuth.i.login()
     if (result.status == LoginStatus.success) {
@@ -696,9 +690,9 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
       print(result.status);
       print(result.message);
     }
-  }
+  }*/
 
-  Future<void> loginWithFaceBook() async {
+  /*Future<void> loginWithFaceBook() async {
     // Log in
     final res = await fb.logIn(permissions: [
       FacebookPermission.publicProfile,
@@ -745,7 +739,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
       // Log in failed
         break;
     }
-  }
+  }*/
 
   _makeSocialLoginRequest(String loginType, String firstName, String lastName, String email, String image) async {
     setState(() {

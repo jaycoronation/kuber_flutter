@@ -7,11 +7,13 @@ import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/ForgotPasswordScreen.dart';
+import 'package:kuber/screen/PujariDashboard.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
+import '../constant/common_widget.dart';
 import '../model/Emal_login_response_model.dart';
 import '../model/VerifyOtpResponseModel.dart';
 import '../utils/responsive.dart';
@@ -26,7 +28,7 @@ class LoginWithEmailScreen extends StatefulWidget {
 
 class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
   bool _isLoading = false;
-  bool _passwordVisible = false;
+  bool _passwordVisible = true;
   double width = 700;
   SessionManager sessionManager = SessionManager();
   TextEditingController emailController = TextEditingController();
@@ -46,13 +48,12 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
             automaticallyImplyLeading: false,
             centerTitle: true,
             elevation: 0,
-            leading: IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
+            leading: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
                 Navigator.pop(context);
               },
+              child: getBackArrow(),
             ),
           ),
           body: LayoutBuilder(
@@ -194,7 +195,7 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                   colors: [gradient_start, gradient_end],
                                 )
                             ),
-                            child: ElevatedButton(
+                            child: TextButton(
                               onPressed: () {
                                 if(emailController.text.isEmpty)
                                 {
@@ -339,13 +340,12 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                 automaticallyImplyLeading: false,
                 centerTitle: true,
                 elevation: 0,
-                leading: IconButton(
-                  icon: Image.asset("assets/images/ic_back_arrow.png",
-                      width: 18, height: 18),
-                  iconSize: 28,
-                  onPressed: () {
+                leading: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
                     Navigator.pop(context);
                   },
+                  child: getBackArrow(),
                 ),
               ),
               body: LayoutBuilder(
@@ -673,7 +673,7 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
       getSet.countryCode = dataResponse.countryCode;
 
       await sessionManager.createLoginSession(getSet);
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardScreen()),(route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => PujariDashboard()),(route) => false);
       setState(() {
         _isLoading = false;
       });

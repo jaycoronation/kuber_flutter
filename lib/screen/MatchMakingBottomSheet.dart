@@ -6,8 +6,9 @@ import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_maps_webservice_ex/places.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
+import 'package:kuber/constant/common_widget.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;
 //import 'dart:html' as html;
@@ -1028,89 +1029,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
 
 
                                 Container(height: 22,),
-                                TextButton(
-                                  onPressed: () {
-                                    if (matchFnameController.text.isEmpty)
-                                    {
-                                      showToast('Please enter first name', context);
-                                    }
-                                    else if (matchLnameController.text.isEmpty)
-                                    {
-                                      showToast('Please enter last name', context);
-                                    }
-                                    else if (matchEmailcontroller.text.isEmpty)
-                                    {
-                                      showToast("Please enter email", context);
-                                    }
-                                    else if (matchNumberController.text.isEmpty)
-                                    {
-                                      showToast("Please enter phone number", context);
-                                    }
-                                    else if (matchGirlFnameController.text.isEmpty)
-                                    {
-                                      showToast("Please enter girl first name", context);
-                                    }
-                                    else if (matchGirlLNameController.text.isEmpty)
-                                    {
-                                      showToast("Please enter girl last name", context);
-                                    }
-                                    else if (matchGirlBirthDateController.text.isEmpty)
-                                    {
-                                      showToast("Please enter girl birth", context);
-                                    }
-                                    else if (matchGirlBirthTimeController.text.isEmpty)
-                                    {
-                                      showToast("Please enter girl birth time", context);
-                                    }
-                                    else if (matchGirlBirthPlaceController.text.isEmpty)
-                                    {
-                                      showToast("Please enter girl birth place", context);
-                                    }
-                                    else if (matchBoyFNameController.text.isEmpty)
-                                    {
-                                      showToast("Please enter boy first name", context);
-                                    }
-                                    else if (matchBoyLNameController.text.isEmpty)
-                                    {
-                                      showToast("Please enter boy last name", context);
-                                    }
-                                    else if (matchBoyBirthPlaceController.text.isEmpty)
-                                    {
-                                      showToast("Please enter boy birthplace", context);
-                                    }
-                                    else if (matchBoyBirthDateController.text.isEmpty)
-                                    {
-                                      showToast("Please enter boy birth date", context);
-                                    }
-                                    else
-                                    {
-                                      _confirmMatchMaking();
-                                    }
-                                  },
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
-                                    ),
-                                    backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
-                                  ),
 
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: const [
-                                        Text('Get For 11\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Container(height: 22,),
-                              ],
-                            ),
-                          ),
-                          /* InkWell(
-                                onTap: () {
+                                getCommonButton('Get For 11\$', () {
                                   if (matchFnameController.text.isEmpty)
                                   {
                                     showToast('Please enter first name', context);
@@ -1167,27 +1087,92 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                   {
                                     _confirmMatchMaking();
                                   }
-                                },
-                                child: Container(
-                                  alignment: Alignment.bottomRight,
-                                  padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 20),
-                                  child:  Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
+                                }),
+
+                                Visibility(
+                                  visible: false,
+                                  child: TextButton(
+                                    onPressed: () {
+                                      if (matchFnameController.text.isEmpty)
+                                      {
+                                        showToast('Please enter first name', context);
+                                      }
+                                      else if (matchLnameController.text.isEmpty)
+                                      {
+                                        showToast('Please enter last name', context);
+                                      }
+                                      else if (matchEmailcontroller.text.isEmpty)
+                                      {
+                                        showToast("Please enter email", context);
+                                      }
+                                      else if (matchNumberController.text.isEmpty)
+                                      {
+                                        showToast("Please enter phone number", context);
+                                      }
+                                      else if (matchGirlFnameController.text.isEmpty)
+                                      {
+                                        showToast("Please enter girl first name", context);
+                                      }
+                                      else if (matchGirlLNameController.text.isEmpty)
+                                      {
+                                        showToast("Please enter girl last name", context);
+                                      }
+                                      else if (matchGirlBirthDateController.text.isEmpty)
+                                      {
+                                        showToast("Please enter girl birth", context);
+                                      }
+                                      else if (matchGirlBirthTimeController.text.isEmpty)
+                                      {
+                                        showToast("Please enter girl birth time", context);
+                                      }
+                                      else if (matchGirlBirthPlaceController.text.isEmpty)
+                                      {
+                                        showToast("Please enter girl birth place", context);
+                                      }
+                                      else if (matchBoyFNameController.text.isEmpty)
+                                      {
+                                        showToast("Please enter boy first name", context);
+                                      }
+                                      else if (matchBoyLNameController.text.isEmpty)
+                                      {
+                                        showToast("Please enter boy last name", context);
+                                      }
+                                      else if (matchBoyBirthPlaceController.text.isEmpty)
+                                      {
+                                        showToast("Please enter boy birthplace", context);
+                                      }
+                                      else if (matchBoyBirthDateController.text.isEmpty)
+                                      {
+                                        showToast("Please enter boy birth date", context);
+                                      }
+                                      else
+                                      {
+                                        _confirmMatchMaking();
+                                      }
+                                    },
+                                    style: ButtonStyle(
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
+                                      ),
+                                      backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
                                     ),
-                                    color: light_yellow,
-                                    elevation: 10,
+
                                     child: const Padding(
-                                      padding: EdgeInsets.all(14.0),
-                                      child: Text("Review Request",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: title,
-                                            fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                                      padding: EdgeInsets.all(4.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text('Get For 11\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ) */
+                                Container(height: 22,),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
 
@@ -2280,12 +2265,12 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                     backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
                                   ),
 
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(4.0),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: const [
+                                      children: [
                                         Padding(
                                           padding: EdgeInsets.only(top: 8.0, bottom: 8),
                                           child: Text('Get For 11\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
@@ -3151,8 +3136,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                       ),
                     ),
                     Container(height: 18,),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 18.0, right: 18),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 18.0, right: 18),
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: Text("*By clicking submit, you will be redirected for "
@@ -3162,7 +3147,75 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                     ),
                     Row(
                       children: [
-                        Flexible(
+                        Expanded(child: getCommonButton('Edit Request', () {Navigator.pop(context); })),
+                        Container(width: 12,),
+                        Expanded(child: getCommonButton("Submit Request", () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => UsePaypal(
+                                  sandboxMode: SANDBOX,
+                                  clientId: PAYPAL_CLIENT_ID,
+                                  secretKey:PAYPAL_CLIENT_SECRET,
+                                  returnURL: "https://www.panditbookings.com/return",
+                                  cancelURL: "http://www.panditbookings.com/cancel",
+                                  transactions: [
+                                    {
+                                      "amount": const {
+                                        "total": "11",
+                                        "currency": "USD",
+                                        "details": {
+                                          "subtotal": '11',
+                                          "shipping": '0',
+                                          "shipping_discount": 0
+                                        }
+                                      },
+                                      "description":
+                                      "The payment transaction description.",
+                                      // "payment_options": {
+                                      //   "allowed_payment_method":
+                                      //       "INSTANT_FUNDING_SOURCE"
+                                      // },
+                                      "item_list": {
+                                        "items": const [
+                                          {
+                                            "name": "Match Making Request",
+                                            "quantity": 1,
+                                            "price": '11',
+                                            "currency": "USD"
+                                          }
+                                        ],
+                                        // shipping address is not required though
+                                        "shipping_address": {
+                                          "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
+                                          "line1": "2 Gila Crescent",
+                                          "line2": "",
+                                          "city": "Johannesburg",
+                                          "country_code": "SA",
+                                          "postal_code": "2090",
+                                          "phone": "+00000000",
+                                          "state": 'Gauteng'
+                                        },
+                                      }
+                                    }
+                                  ],
+                                  note: "Contact us for any questions on your order.",
+                                  onSuccess: (Map params) async {
+                                    print("onSuccess: $params");
+                                    String paymentId = "";
+                                    paymentId = params['paymentId'];
+                                    _callsaveMatchdataAPI(paymentId);
+                                  },
+                                  onError: (error) {
+                                    print("onError: $error");
+                                  },
+                                  onCancel: (params) {
+                                    print('cancelled: $params');
+                                  }
+                              ),
+                            ),
+                          );
+                        })),
+                        /*Flexible(
                           child:GestureDetector(
                             onTap: (){
                               Navigator.pop(context);
@@ -3286,7 +3339,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                               ),
                             ),
                           ),
-                        ),
+                        ),*/
                       ],
                     )
                   ],

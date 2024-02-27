@@ -93,6 +93,7 @@ class BookingList {
       String? pujaDate, 
       String? pujaTime, 
       String? pujaDay, 
+      num? isreviewdone,
       String? bookedOn,}){
     _bookingAddress = bookingAddress;
     _pujaId = pujaId;
@@ -111,6 +112,7 @@ class BookingList {
     _pujaTime = pujaTime;
     _pujaDay = pujaDay;
     _bookedOn = bookedOn;
+    _isReviewDone = isreviewdone;
 }
 
   BookingList.fromJson(dynamic json) {
@@ -131,6 +133,7 @@ class BookingList {
     _pujaTime = json['puja_time'];
     _pujaDay = json['puja_day'];
     _bookedOn = json['booked_on'];
+    _isReviewDone = json['isreviewdone'];
   }
   String? _bookingAddress;
   String? _pujaId;
@@ -149,6 +152,7 @@ class BookingList {
   String? _pujaTime;
   String? _pujaDay;
   String? _bookedOn;
+  num? _isReviewDone;
 BookingList copyWith({  String? bookingAddress,
   String? pujaId,
   String? bookingId,
@@ -166,6 +170,7 @@ BookingList copyWith({  String? bookingAddress,
   String? pujaTime,
   String? pujaDay,
   String? bookedOn,
+  num? isReviewDone,
 }) => BookingList(  bookingAddress: bookingAddress ?? _bookingAddress,
   pujaId: pujaId ?? _pujaId,
   bookingId: bookingId ?? _bookingId,
@@ -183,6 +188,7 @@ BookingList copyWith({  String? bookingAddress,
   pujaTime: pujaTime ?? _pujaTime,
   pujaDay: pujaDay ?? _pujaDay,
   bookedOn: bookedOn ?? _bookedOn,
+  isreviewdone: isReviewDone ?? _isReviewDone,
 );
   String? get bookingAddress => _bookingAddress;
   String? get pujaId => _pujaId;
@@ -201,6 +207,7 @@ BookingList copyWith({  String? bookingAddress,
   String? get pujaTime => _pujaTime;
   String? get pujaDay => _pujaDay;
   String? get bookedOn => _bookedOn;
+  num? get isReviewDone => _isReviewDone;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -221,6 +228,7 @@ BookingList copyWith({  String? bookingAddress,
     map['puja_time'] = _pujaTime;
     map['puja_day'] = _pujaDay;
     map['booked_on'] = _bookedOn;
+    map['isreviewdone'] = _isReviewDone;
     return map;
   }
 

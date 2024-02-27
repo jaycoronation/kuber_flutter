@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:google_geocoding/google_geocoding.dart';
-import 'package:google_maps_webservice_ex/places.dart';
 import 'package:kuber/model/TempleListResponseModel.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/places_autocomplete.dart';
@@ -17,6 +17,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
+import '../constant/common_widget.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../widget/loading.dart';
@@ -83,21 +84,14 @@ class _TempleListScreen extends State<TempleListScreen> {
               automaticallyImplyLeading: false,
               backgroundColor: bg_skin,
               elevation: 0,
-              leading: IconButton(
-                icon: Image.asset("assets/images/ic_back_arrow.png",
-                    width: 18, height: 18),
-                iconSize: 28,
-                onPressed: () {
-                  Navigator.pop(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
+              leading: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  Navigator.pop(context);
                 },
+                child: getBackArrow(),
               ),
-              title: const Text("Temple List",
-                style: TextStyle(
-                    color: black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
+              title: getTitle("Temple List"),
               actions: [
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -266,13 +260,12 @@ class _TempleListScreen extends State<TempleListScreen> {
               automaticallyImplyLeading: false,
               backgroundColor: bg_skin,
               elevation: 0,
-              leading: IconButton(
-                icon: Image.asset("assets/images/ic_back_arrow.png",
-                    width: 18, height: 18),
-                iconSize: 28,
-                onPressed: () {
-                  Navigator.pop(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
+              leading: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  Navigator.pop(context);
                 },
+                child: getBackArrow(),
               ),
               title: Text("Temple List $test",
                 style: const TextStyle(

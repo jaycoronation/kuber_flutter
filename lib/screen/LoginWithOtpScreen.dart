@@ -14,6 +14,7 @@ import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
+import '../constant/common_widget.dart';
 import '../model/CountryListResponseModel.dart';
 import '../utils/routes.dart';
 import 'WebViewContainer.dart';
@@ -142,6 +143,7 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
                                   _sendOTPApi();
                                 }
                               },
+                              style: ButtonStyle(),
                               child: const Text(
                                 "Continue",
                                 textAlign: TextAlign.center,
@@ -150,7 +152,8 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                               ),
-                            )),
+                            )
+                        ),
                         Container(
                           margin: const EdgeInsets.only(
                                bottom: 24, right: 30, left: 30),
@@ -230,19 +233,14 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
       automaticallyImplyLeading: false,
       backgroundColor: bg_skin,
       elevation: 0,
-      leading: IconButton(
-        icon: Image.asset("assets/images/ic_back_arrow.png",
-            width: 18, height: 18),
-        iconSize: 28,
-        onPressed: () {
-          Navigator.pop(context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()));
+      leading: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          Navigator.pop(context);
         },
+        child: getBackArrow(),
       ),
-      title: Text(
-        "Login With Otp",
-        style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 18)
-      ),
+      title: getTitle("Login With Otp"),
       titleSpacing: 0,
     );
   }

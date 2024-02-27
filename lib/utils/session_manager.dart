@@ -42,6 +42,7 @@ class SessionManager {
   final String donationId = "donationId";
   final String matchId = "matchId";
   final String astrologyId = "astrologyId";
+  final String deviceToken = "deviceToken";
 
   //set data into shared preferences...
   Future createLoginSession(Profile getSet) async {
@@ -68,6 +69,14 @@ class SessionManager {
 
   }
 
+  Future<void> setDeviceToken(String apiDonationId)
+  async {
+    await SessionManagerMethods.setString(deviceToken, apiDonationId);
+  }
+
+  String? getDeviceToken() {
+    return SessionManagerMethods.getString(deviceToken);
+  }
 
   Future<void> setDonationId(String apiDonationId)
   async {

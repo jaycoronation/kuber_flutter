@@ -12,13 +12,14 @@ import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
+import '../constant/common_widget.dart';
 import '../model/CountryListResponseModel.dart';
 
 class SelectionScreen extends StatefulWidget {
- final String isFor;
+  final String isFor;
   final String id;
 
-  SelectionScreen(this.isFor, this.id,{Key? key}) : super(key: key);
+  const SelectionScreen(this.isFor, this.id, {Key? key}) : super(key: key);
 
   @override
   State<SelectionScreen> createState() => _SelectionScreen();
@@ -42,30 +43,31 @@ class _SelectionScreen extends State<SelectionScreen> {
       appBarTitle = "Select Country";
     }
     else if (widget.isFor == STATE)
-    {
-      _getStateList();
-      appBarTitle = "Select State";
-    }
+      {
+        _getStateList();
+        appBarTitle = "Select State";
+      }
+    else if (widget.isFor == CITY_WORK)
+      {
+        _getCityListNew();
+        appBarTitle = "Select City";
+      }
     else if (widget.isFor == QULIFICATION)
-      {
-        appBarTitle = "Select Qualification";
-        _listQualification.add("Astrologer");
-        _listQualification.add("Palm reader");
-        _listQualification.add("Face reader");
-        _listQualification.add("Tarot card reader");
-        _listQualification.add("Vedacharya");
-        _listQualification.add("Puranacharya");
-        _listQualification.add("Others");
-      }
-    else if (widget.isFor == EXPRIENCE)
-      {
-        appBarTitle = "Select Experience";
-        listExperience.add("Started");
-        listExperience.add("Completed");
-        listExperience.add("Experienced");
-      }
-    else
     {
+      appBarTitle = "Select Qualification";
+      _listQualification.add("Astrologer");
+      _listQualification.add("Palm reader");
+      _listQualification.add("Face reader");
+      _listQualification.add("Tarot card reader");
+      _listQualification.add("Vedacharya");
+      _listQualification.add("Puranacharya");
+      _listQualification.add("Others");
+    } else if (widget.isFor == EXPRIENCE) {
+      appBarTitle = "Select Experience";
+      listExperience.add("Started");
+      listExperience.add("Completed");
+      listExperience.add("Experienced");
+    } else {
       appBarTitle = "Select City";
       _getCityList();
     }
@@ -87,74 +89,69 @@ class _SelectionScreen extends State<SelectionScreen> {
               automaticallyImplyLeading: false,
               backgroundColor: bg_skin,
               elevation: 0,
-              leading: IconButton(
-                icon: Image.asset("assets/images/ic_back_arrow.png",
-                    width: 18, height: 18),
-                iconSize: 28,
-                onPressed: () {
-                  Navigator.pop(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MyAccountScreen()));
+              leading: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  Navigator.pop(context);
                 },
+                child: getBackArrow(),
               ),
-              title:  Text(
-                appBarTitle,
-                style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.bold, color: black),
-                textAlign: TextAlign.center,
-              ),
+              centerTitle: true,
+              title: getTitle(appBarTitle),
             ),
             body: _isLoading
                 ? const LoadingWidget()
                 : Column(
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(left: 16, right: 16, bottom: 6),
-                        child:  TextField(
-                          onChanged: (s){
-                            setState((){
-                              if(widget.isFor  == COUNTRY){
-                                if (_countryList.isNotEmpty)
-                                {
+                        margin: const EdgeInsets.only(
+                            left: 16, right: 16, bottom: 6),
+                        child: TextField(
+                          onChanged: (s) {
+                            setState(() {
+                              if (widget.isFor == COUNTRY) {
+                                if (_countryList.isNotEmpty) {
                                   listSearchCountryName = [];
 
-                                  for (var i=0; i < _countryList.length; i++)
-                                  {
-                                    if (_countryList[i].name.toString().toLowerCase().contains(s.toString().toLowerCase()))
-                                    {
-                                      listSearchCountryName.add(_countryList[i]);
+                                  for (var i = 0;
+                                      i < _countryList.length;
+                                      i++) {
+                                    if (_countryList[i]
+                                        .name
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(s.toString().toLowerCase())) {
+                                      listSearchCountryName
+                                          .add(_countryList[i]);
                                       print(listSearchCountryName.length);
                                     }
                                   }
                                 }
-                              }
-                              else if (widget.isFor == STATE)
-                              {
-                                if (_stateList.isNotEmpty)
-                                {
+                              } else if (widget.isFor == STATE) {
+                                if (_stateList.isNotEmpty) {
                                   listSearchStateName = [];
 
-                                  for (var i=0; i < _stateList.length; i++)
-                                  {
-                                    if (_stateList[i].name.toString().toLowerCase().contains(s.toString().toLowerCase()))
-                                    {
+                                  for (var i = 0; i < _stateList.length; i++) {
+                                    if (_stateList[i]
+                                        .name
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(s.toString().toLowerCase())) {
                                       listSearchStateName.add(_stateList[i]);
                                       print(listSearchStateName.length);
                                     }
                                   }
                                 }
-                              }
-                              else if(widget.isFor==CITY)
-                              {
-                                if (_cityList.isNotEmpty)
-                                {
+                              } else if ((widget.isFor == CITY) || (widget.isFor == CITY_WORK)) {
+                                if (_cityList.isNotEmpty) {
                                   listSearchCityName = [];
 
-                                  for (var i=0; i < _cityList.length; i++)
-                                  {
-                                    if (_cityList[i].name.toString().toLowerCase().contains(s.toString().toLowerCase()))
-                                    {
+                                  for (var i = 0; i < _cityList.length; i++) {
+                                    if (_cityList[i]
+                                        .name
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(s.toString().toLowerCase())) {
                                       listSearchCityName.add(_cityList[i]);
                                       print(listSearchCityName.length);
                                     }
@@ -175,7 +172,7 @@ class _SelectionScreen extends State<SelectionScreen> {
                       ),
                       Expanded(
                         child: SingleChildScrollView(
-                          child:selection(widget.isFor) ,
+                          child: selection(widget.isFor),
                         ),
                       )
                     ],
@@ -187,217 +184,234 @@ class _SelectionScreen extends State<SelectionScreen> {
   }
 
   ListView selection(String isFor) {
-    if (isFor == COUNTRY)
-      {
-        return ListView.builder(
-            shrinkWrap: true,
-            physics: const ScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemCount: listSearchCountryName.isNotEmpty ? listSearchCountryName.length:_countryList.length,
-            itemBuilder: (BuildContext context, int i) {
-              return InkWell(
-                child: Container(
-                  margin:
-                  const EdgeInsets.only(left: 14, right: 14),
-                  child: Column(
+    if (isFor == COUNTRY) {
+      return ListView.builder(
+          shrinkWrap: true,
+          physics: const ScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          itemCount: listSearchCountryName.isNotEmpty
+              ? listSearchCountryName.length
+              : _countryList.length,
+          itemBuilder: (BuildContext context, int i) {
+            return InkWell(
+              child: Container(
+                margin: const EdgeInsets.only(left: 14, right: 14),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          listSearchCountryName.isNotEmpty
+                                              ? listSearchCountryName[i]
+                                                  .name
+                                                  .toString()
+                                              : _countryList[i].name.toString(),
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black),
+                                          textAlign: TextAlign.center),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(
+                                  color: text_light,
+                                  thickness: 0.5,
+                                  // thickness of the line
+                                  height: 20,
+                                )
+                              ]),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(
+                    context,
+                    (listSearchCountryName.isNotEmpty
+                        ? listSearchCountryName[i]
+                        : _countryList[i]));
+              },
+            );
+          });
+    } else if (isFor == STATE) {
+      return ListView.builder(
+          shrinkWrap: true,
+          physics: const ScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          itemCount: listSearchStateName.isNotEmpty
+              ? listSearchStateName.length
+              : _stateList.length,
+          itemBuilder: (BuildContext context, int i) {
+            return InkWell(
+              child: Container(
+                margin: const EdgeInsets.only(left: 14, right: 14),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          listSearchStateName.isNotEmpty
+                                              ? listSearchStateName[i]
+                                                  .name
+                                                  .toString()
+                                              : _stateList[i].name.toString(),
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black),
+                                          textAlign: TextAlign.center),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(
+                                  color: text_light,
+                                  thickness: 0.5,
+                                  // thickness of the line
+                                  height: 20,
+                                )
+                              ]),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(
+                    context,
+                    listSearchStateName.isNotEmpty
+                        ? listSearchStateName[i]
+                        : _stateList[i]);
+              },
+            );
+          });
+    } else if ((isFor == CITY) || (isFor == CITY_WORK)) {
+      return ListView.builder(
+          shrinkWrap: true,
+          physics: const ScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          itemCount: listSearchCityName.isNotEmpty
+              ? listSearchCityName.length
+              : _cityList.length,
+          itemBuilder: (BuildContext context, int i) {
+            return InkWell(
+              child: Container(
+                margin: const EdgeInsets.only(left: 14, right: 14),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          listSearchCityName.isNotEmpty
+                                              ? listSearchCityName[i]
+                                                  .name
+                                                  .toString()
+                                              : _cityList[i].name.toString(),
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black),
+                                          textAlign: TextAlign.center),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(
+                                  color: text_light,
+                                  thickness: 0.5,
+                                  // thickness of the line
+                                  height: 20,
+                                )
+                              ]),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(
+                    context,
+                    listSearchCityName.isNotEmpty
+                        ? listSearchCityName[i]
+                        : _cityList[i]);
+              },
+            );
+          });
+    } else if (isFor == QULIFICATION) {
+      return ListView.builder(
+          shrinkWrap: true,
+          physics: const ScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          itemCount: _listQualification.length,
+          itemBuilder: (BuildContext context, int i) {
+            return InkWell(
+              onTap: () {
+                Navigator.pop(context, _listQualification[i]);
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 14, right: 14),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
                         children: [
-                          Expanded(
-                            child: Column(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                crossAxisAlignment:
-                                CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(listSearchCountryName.isNotEmpty ? listSearchCountryName[i].name.toString():_countryList[i].name.toString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black), textAlign: TextAlign.center),
-                                      ],
-                                    ),
-                                  ),
-                                  const Divider(
-                                    color: text_light,
-                                    thickness: 0.5,
-                                    // thickness of the line
-                                    height: 20,
-                                  )
-                                ]),
+
+                          Container(
+                            padding: const EdgeInsets.all(4),
+                            margin: const EdgeInsets.only(right: 6, left: 8),
+                            child: Text(_listQualification[i].toString(),
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
+                                textAlign: TextAlign.center),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context, (listSearchCountryName.isNotEmpty ? listSearchCountryName[i] : _countryList[i]));
-                },
-              );
-            });
-      }
-    else if (isFor == STATE)
-      {
-        return ListView.builder(
-            shrinkWrap: true,
-            physics: const ScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemCount: listSearchStateName.isNotEmpty ? listSearchStateName.length:_stateList.length,
-            itemBuilder: (BuildContext context, int i) {
-              return InkWell(
-                child: Container(
-                  margin:
-                  const EdgeInsets.only(left: 14, right: 14),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                crossAxisAlignment:
-                                CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(listSearchStateName.isNotEmpty ? listSearchStateName[i].name.toString():_stateList[i].name.toString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black), textAlign: TextAlign.center),
-                                      ],
-                                    ),
-                                  ),
-                                  const Divider(
-                                    color: text_light,
-                                    thickness: 0.5,
-                                    // thickness of the line
-                                    height: 20,
-                                  )
-                                ]),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context,  listSearchStateName.isNotEmpty? listSearchStateName[i]:_stateList[i]);
-                },
-              );
-            });
-      }
-    else if (isFor == CITY)
-      {
-        return ListView.builder(
-            shrinkWrap: true,
-            physics: const ScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemCount: listSearchCityName.isNotEmpty ? listSearchCityName.length : _cityList.length,
-            itemBuilder: (BuildContext context, int i) {
-              return InkWell(
-                child: Container(
-                  margin:
-                  const EdgeInsets.only(left: 14, right: 14),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                crossAxisAlignment:
-                                CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                   padding: const EdgeInsets.all(8),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(listSearchCityName.isNotEmpty ? listSearchCityName[i].name.toString() :_cityList[i].name.toString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black), textAlign: TextAlign.center),
-                                      ],
-                                    ),
-                                  ),
-                                  const Divider(
-                                    color: text_light,
-                                    thickness: 0.5,
-                                    // thickness of the line
-                                    height: 20,
-                                  )
-                                ]),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context, listSearchCityName.isNotEmpty?listSearchCityName[i]: _cityList[i]);
-                },
-              );
-            });
-      }
-    else if (isFor == QULIFICATION)
-      {
-        return ListView.builder(
-            shrinkWrap: true,
-            physics: const ScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemCount: _listQualification.length,
-            itemBuilder: (BuildContext context, int i) {
-              return InkWell(
-                child: Container(
-                  margin:
-                  const EdgeInsets.only(left: 14, right: 14),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                crossAxisAlignment:
-                                CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding:
-                                    const EdgeInsets.all(4),
-                                    margin: const EdgeInsets.only(
-                                        right: 6, left: 8),
-                                    child: Text(_listQualification[i].toString(),
-                                        style:
-                                        const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight:
-                                            FontWeight.w600,
-                                            color: Colors.black),
-                                        textAlign:
-                                        TextAlign.center),
-                                  ),
-                                  const Divider(
-                                    color: text_light,
-                                    thickness: 0.5,
-                                    height: 20,
-                                  )
-                                ]),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pop(context, _listQualification[i]);
-                },
-              );
-            });
-      }
-    else
-    {
+                      const Divider(
+                        color: text_light,
+                        thickness: 0.5,
+                        height: 20,
+                      )
+                    ]),
+              ),
+            );
+          });
+    } else {
       return ListView.builder(
           shrinkWrap: true,
           physics: const ScrollPhysics(),
@@ -406,37 +420,26 @@ class _SelectionScreen extends State<SelectionScreen> {
           itemBuilder: (BuildContext context, int i) {
             return InkWell(
               child: Container(
-                margin:
-                const EdgeInsets.only(left: 14, right: 14),
+                margin: const EdgeInsets.only(left: 14, right: 14),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         Expanded(
                           child: Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
-                              crossAxisAlignment:
-                              CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  padding:
-                                  const EdgeInsets.all(4),
-                                  margin: const EdgeInsets.only(
-                                      right: 6, left: 8),
+                                  padding: const EdgeInsets.all(4),
+                                  margin:
+                                      const EdgeInsets.only(right: 6, left: 8),
                                   child: Text(listExperience[i].toString(),
-                                      style:
-                                      const TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 16,
-                                          fontWeight:
-                                          FontWeight
-                                              .w600,
-                                          color: Colors
-                                              .black
-                                      ),
-                                      textAlign:
-                                      TextAlign.center
-                                  ),
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black),
+                                      textAlign: TextAlign.center),
                                 ),
                                 const Divider(
                                   color: text_light,
@@ -457,8 +460,8 @@ class _SelectionScreen extends State<SelectionScreen> {
             );
           });
     }
-
   }
+
   _getCountryList() async {
     setState(() {
       _isLoading = true;
@@ -505,9 +508,7 @@ class _SelectionScreen extends State<SelectionScreen> {
 
     final url = Uri.parse(MAIN_URL + getState);
 
-    Map<String, String> jsonBody = {
-      "country_id": widget.id
-    };
+    Map<String, String> jsonBody = {"country_id": widget.id};
 
     final response = await http.post(url, body: jsonBody);
 
@@ -543,9 +544,7 @@ class _SelectionScreen extends State<SelectionScreen> {
 
     final url = Uri.parse(MAIN_URL + getCity);
 
-    Map<String, String> jsonBody = {
-    "state_id": widget.id
-    };
+    Map<String, String> jsonBody = {"state_id": widget.id};
 
     final response = await http.post(url, body: jsonBody);
 
@@ -559,6 +558,46 @@ class _SelectionScreen extends State<SelectionScreen> {
       if (dataResponse.cities != null) {
         _cityList = dataResponse.cities!;
       }
+
+      setState(() {
+        _isLoading = false;
+      });
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  _getCityListNew() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
+      HttpLogger(logLevel: LogLevel.BODY),
+    ]);
+
+    final url = Uri.parse(MAIN_URL + getCityWork);
+
+    Map<String, String> jsonBody = {"country_id": widget.id};
+
+    final response = await http.post(url, body: jsonBody);
+
+    final statusCode = response.statusCode;
+
+    final body = response.body;
+    Map<String, dynamic> user = jsonDecode(body);
+    var dataResponse = CityResponseModel.fromJson(user);
+
+    if (statusCode == 200 && dataResponse.success == 1)
+    {
+
+      if (dataResponse.cities != null)
+        {
+          _cityList = dataResponse.cities ?? [];
+          print(_cityList.length);
+        }
 
       setState(() {
         _isLoading = false;

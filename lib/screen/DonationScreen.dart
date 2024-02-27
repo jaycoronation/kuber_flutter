@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
+import 'package:kuber/constant/common_widget.dart';
 import 'package:kuber/constant/global_context.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
@@ -205,87 +206,153 @@ class _DonationScreenState extends State<DonationScreen> {
                             child: Text("* Donation amount is in USD", style: TextStyle(color: lighttxtGrey),)
                         ),
                         Container(height: 8,),
-
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => UsePaypal(
-                                    sandboxMode: SANDBOX,
-                                    clientId: PAYPAL_CLIENT_ID,
-                                    secretKey:PAYPAL_CLIENT_SECRET,
-                                    returnURL: "https://www.panditbookings.com/return",
-                                    cancelURL: "http://www.panditbookings.com/cancel",
-                                    transactions: [
-                                      {
-                                        "amount": {
-                                          "total": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
-                                          "currency": "USD",
-                                          "details": {
-                                            "subtotal": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
-                                            "shipping": '0',
-                                            "shipping_discount": 0
-                                          }
-                                        },
-                                        "description": "The payment transaction description.",
-                                        // "payment_options": {
-                                        //   "allowed_payment_method":
-                                        //       "INSTANT_FUNDING_SOURCE"
-                                        // },
-                                        "item_list": {
-                                          "items": [
-                                            {
-                                              "name": "Donation",
-                                              "quantity": 1,
-                                              "price": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
-                                              "currency": "USD"
-                                            }
-                                          ],
-                                          // shipping address is not required though
-                                          "shipping_address": {
-                                            "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
-                                            "line1": "2 Gila Crescent",
-                                            "line2": "",
-                                            "city": "Johannesburg",
-                                            "country_code": "SA",
-                                            "postal_code": "2090",
-                                            "phone": "+00000000",
-                                            "state": 'Gauteng'
-                                          },
+                        getCommonButton('Donate', () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => UsePaypal(
+                                  sandboxMode: SANDBOX,
+                                  clientId: PAYPAL_CLIENT_ID,
+                                  secretKey:PAYPAL_CLIENT_SECRET,
+                                  returnURL: "https://www.panditbookings.com/return",
+                                  cancelURL: "http://www.panditbookings.com/cancel",
+                                  transactions: [
+                                    {
+                                      "amount": {
+                                        "total": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
+                                        "currency": "USD",
+                                        "details": {
+                                          "subtotal": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
+                                          "shipping": '0',
+                                          "shipping_discount": 0
                                         }
+                                      },
+                                      "description": "The payment transaction description.",
+                                      // "payment_options": {
+                                      //   "allowed_payment_method":
+                                      //       "INSTANT_FUNDING_SOURCE"
+                                      // },
+                                      "item_list": {
+                                        "items": [
+                                          {
+                                            "name": "Donation",
+                                            "quantity": 1,
+                                            "price": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
+                                            "currency": "USD"
+                                          }
+                                        ],
+                                        // shipping address is not required though
+                                        "shipping_address": {
+                                          "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
+                                          "line1": "2 Gila Crescent",
+                                          "line2": "",
+                                          "city": "Johannesburg",
+                                          "country_code": "SA",
+                                          "postal_code": "2090",
+                                          "phone": "+00000000",
+                                          "state": 'Gauteng'
+                                        },
                                       }
-                                    ],
-                                    note: "Contact us for any questions on your order.",
-                                    onSuccess: (Map params) async {
-                                      print("onSuccess: $params");
-                                      paymentId = params['paymentId'];
-                                      callsDonationAPI();
-                                    },
-                                    onError: (error) {
-                                      print("onError: $error");
-                                    },
-                                    onCancel: (params) {
-                                      print('cancelled: $params');
                                     }
-                                ),
+                                  ],
+                                  note: "Contact us for any questions on your order.",
+                                  onSuccess: (Map params) async {
+                                    print("onSuccess: $params");
+                                    paymentId = params['paymentId'];
+                                    callsDonationAPI();
+                                  },
+                                  onError: (error) {
+                                    print("onError: $error");
+                                  },
+                                  onCancel: (params) {
+                                    print('cancelled: $params');
+                                  }
                               ),
-                            );
-                          },
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
                             ),
-                            backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
-                          ),
+                          );
+                        }),
+                        Visibility(
+                          visible: false,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) => UsePaypal(
+                                      sandboxMode: SANDBOX,
+                                      clientId: PAYPAL_CLIENT_ID,
+                                      secretKey:PAYPAL_CLIENT_SECRET,
+                                      returnURL: "https://www.panditbookings.com/return",
+                                      cancelURL: "http://www.panditbookings.com/cancel",
+                                      transactions: [
+                                        {
+                                          "amount": {
+                                            "total": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
+                                            "currency": "USD",
+                                            "details": {
+                                              "subtotal": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
+                                              "shipping": '0',
+                                              "shipping_discount": 0
+                                            }
+                                          },
+                                          "description": "The payment transaction description.",
+                                          // "payment_options": {
+                                          //   "allowed_payment_method":
+                                          //       "INSTANT_FUNDING_SOURCE"
+                                          // },
+                                          "item_list": {
+                                            "items": [
+                                              {
+                                                "name": "Donation",
+                                                "quantity": 1,
+                                                "price": selectedItem == "Custom" ? donateController.value.text : selectedItem.replaceAll("\$ ", ""),
+                                                "currency": "USD"
+                                              }
+                                            ],
+                                            // shipping address is not required though
+                                            "shipping_address": {
+                                              "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
+                                              "line1": "2 Gila Crescent",
+                                              "line2": "",
+                                              "city": "Johannesburg",
+                                              "country_code": "SA",
+                                              "postal_code": "2090",
+                                              "phone": "+00000000",
+                                              "state": 'Gauteng'
+                                            },
+                                          }
+                                        }
+                                      ],
+                                      note: "Contact us for any questions on your order.",
+                                      onSuccess: (Map params) async {
+                                        print("onSuccess: $params");
+                                        paymentId = params['paymentId'];
+                                        callsDonationAPI();
+                                      },
+                                      onError: (error) {
+                                        print("onError: $error");
+                                      },
+                                      onCancel: (params) {
+                                        print('cancelled: $params');
+                                      }
+                                  ),
+                                ),
+                              );
+                            },
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
+                              ),
+                              backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
+                            ),
 
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
-                                Text('Donate', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
-                              ],
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: const [
+                                  Text('Donate', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
+                                ],
+                              ),
                             ),
                           ),
                         ),

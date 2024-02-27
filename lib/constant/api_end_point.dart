@@ -5,19 +5,20 @@ const String WEBSITE_URL = "https://www.panditbookings.com/";
 const String COUNTRY = "Country";
 const String STATE = "State";
 const String CITY = "City";
+const String CITY_WORK = "City_Work";
 const String QULIFICATION = "Qualification";
 const String EXPRIENCE = "Experience";
 const String API_KEY = kIsWeb ? "AIzaSyBiwi0bSUa4QTj59ojKgmS8fc_pfBb6eaU" : "AIzaSyBiwi0bSUa4QTj59ojKgmS8fc_pfBb6eaU"; // KUBER
 // const String API_KEY = "AIzaSyC7HlgldL9ietWQF8Y3oHxf_LJnYPMHhDU"; // KUBER
 
 //LOCAL
-const String PAYPAL_CLIENT_ID = "AeYZUWJt5EZkyHcf2PzpzhMjt6H-KfQ5G35B0UvNcofNDn5Ewle8kyTbYEuaAeI7vtxNNPWbZ1ZDiyMt";
-const String PAYPAL_CLIENT_SECRET = "EP9ItIeLUhZ6TnIif7aKygizoqXs-GoUSGqDSlx8wg154XZ2UV8dAcKxjSOY_g_QRLN3JwJBA6E66I3-";
+// const String PAYPAL_CLIENT_ID = "AeYZUWJt5EZkyHcf2PzpzhMjt6H-KfQ5G35B0UvNcofNDn5Ewle8kyTbYEuaAeI7vtxNNPWbZ1ZDiyMt";
+// const String PAYPAL_CLIENT_SECRET = "EP9ItIeLUhZ6TnIif7aKygizoqXs-GoUSGqDSlx8wg154XZ2UV8dAcKxjSOY_g_QRLN3JwJBA6E66I3-";
 
 //Live
-//const String PAYPAL_CLIENT_ID = "AUQiip1nmdXa4N_Igtsu6kG0lQOYHtq_63pb_hDcckOgQOr6kGaxHf0JwPzuyOdA4lO904urH8lkpWBy";
-//const String PAYPAL_CLIENT_SECRET = "EKWbMBN0C295I8y9Zd-fuestKwdq46l3Kq5Q2JOjYduKSvCVqvx1kvONKWNLXapZ2xMG0trMtOrNRfo7";
-const bool SANDBOX = true;
+const String PAYPAL_CLIENT_ID = "AUQiip1nmdXa4N_Igtsu6kG0lQOYHtq_63pb_hDcckOgQOr6kGaxHf0JwPzuyOdA4lO904urH8lkpWBy";
+const String PAYPAL_CLIENT_SECRET = "EKWbMBN0C295I8y9Zd-fuestKwdq46l3Kq5Q2JOjYduKSvCVqvx1kvONKWNLXapZ2xMG0trMtOrNRfo7";
+const bool SANDBOX = false;
 // const String API_KEY = "AIzaSyAoqW5iG6Ez-kxsxi7RNPfP8CvFMk3yz8A"; // FOOD BOSS
 
 /*Login*/
@@ -33,6 +34,7 @@ String forgotPassword = "services/user/forgot_password";
 String deletAccount = "services/user/delete";
 String getCountry = "services/get_countries";
 String getCity = "services/get_city";
+String getCityWork = "services/get_city_from_country";
 String getState = "services/get_states";
 String updateProfileForUser = "users_services/user/updateProfile";
 String updateProfileForPriest = "services/user/updateProfile";
@@ -72,6 +74,9 @@ String getUserThoughts = "admin_services/manage_thoughts/list";
 String getDonationList = "admin_services/manage_donations/list";
 String getDonationDetail = "admin_services/manage_donations/details";
 String donationSave = "admin_services/manage_donations/save";
+String getAssignedPoojaForPujari = 'admin_services/priest_requests/list';
+String reviewSave = 'services/feedbacks/save';
+String updateDeviceToken = 'services/update_device_token';
 
 /*JSON*/
 

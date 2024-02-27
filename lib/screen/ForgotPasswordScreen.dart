@@ -10,6 +10,8 @@ import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
+import '../constant/common_widget.dart';
+
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
 
@@ -34,13 +36,12 @@ class _ForgotPasswordScreen extends State<ForgotPasswordScreen> {
           automaticallyImplyLeading: false,
           centerTitle: true,
           elevation: 0,
-          leading: IconButton(
-            icon: Image.asset("assets/images/ic_back_arrow.png",
-                width: 18, height: 18),
-            iconSize: 28,
-            onPressed: () {
+          leading: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
               Navigator.pop(context);
             },
+            child: getBackArrow(),
           ),
         ),
         body: _isLoading

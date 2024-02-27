@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -7,28 +6,23 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/screen/LoginWithEmailScreen.dart';
 import 'package:kuber/screen/WebViewContainer.dart';
-import 'package:kuber/utils/routes.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../constant/api_end_point.dart';
+import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
 import '../model/SocialResponseModel.dart';
 import '../model/VerifyOtpResponseModel.dart';
 import '../utils/app_utils.dart';
 import 'DashboardScreen.dart';
-import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 import 'MyPofileScreen.dart';
 import 'VerifyOtpScreen.dart';
@@ -43,7 +37,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   TextEditingController numberController = TextEditingController();
 
-  final fb = FacebookLogin();
+  // final fb = FacebookLogin();
   String _keyHash = 'Unknown';
   SessionManager sessionManager = SessionManager();
   var loginType = "";
@@ -225,40 +219,64 @@ class _LoginScreen extends State<LoginScreen> {
                               Container(height: 12,),
                               Padding(
                                 padding: const EdgeInsets.only(left: 18.0, right: 18),
-                                child: Container(
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
-                                  decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(12),),
-                                      gradient: LinearGradient(
-                                        colors: [gradient_start, gradient_end],
-                                      )
-                                  ),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      FocusScope.of(context).unfocus();
-                                      if (numberController.text.isEmpty) {
-                                        showToast('Please enter mobile number', context);
-                                      }
-                                      else if (numberController.text.length <= 7) {
-                                        showToast('Please enter valid mobile number', context);
-                                      }
-                                      else if (numberController.text.length >= 13) {
-                                        showToast('Please enter valid mobile number', context);
-                                      }
-                                      else {
-                                        setState(() {
-                                          _isLoading = true;
-                                        });
-                                        _sendOTPApi();
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.transparent,
-                                        shadowColor: Colors.transparent),
-                                    child: const Text('Continue', style: TextStyle(color: darkbrown, fontSize: 16),),
+                                child: getCommonButton('Continue', () {
+                                  FocusScope.of(context).unfocus();
+                                  if (numberController.text.isEmpty) {
+                                    showToast('Please enter mobile number', context);
+                                  }
+                                  else if (numberController.text.length <= 7) {
+                                    showToast('Please enter valid mobile number', context);
+                                  }
+                                  else if (numberController.text.length >= 13) {
+                                    showToast('Please enter valid mobile number', context);
+                                  }
+                                  else {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    _sendOTPApi();
+                                  }
+                                }),
+                              ),
+                              Visibility(
+                                visible: false,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 18.0, right: 18),
+                                  child: Container(
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width,
+                                    decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(12),),
+                                        gradient: LinearGradient(
+                                          colors: [gradient_start, gradient_end],
+                                        )
+                                    ),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        FocusScope.of(context).unfocus();
+                                        if (numberController.text.isEmpty) {
+                                          showToast('Please enter mobile number', context);
+                                        }
+                                        else if (numberController.text.length <= 7) {
+                                          showToast('Please enter valid mobile number', context);
+                                        }
+                                        else if (numberController.text.length >= 13) {
+                                          showToast('Please enter valid mobile number', context);
+                                        }
+                                        else {
+                                          setState(() {
+                                            _isLoading = true;
+                                          });
+                                          _sendOTPApi();
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.transparent,
+                                          shadowColor: Colors.transparent),
+                                      child: const Text('Continue', style: TextStyle(color: darkbrown, fontSize: 16),),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -322,7 +340,7 @@ class _LoginScreen extends State<LoginScreen> {
                                 ),
                               ),
                               Container(height: 18,),
-                              GestureDetector(
+                              /*GestureDetector(
                                 onTap: () {
                                   loginFB();
                                 },
@@ -393,7 +411,7 @@ class _LoginScreen extends State<LoginScreen> {
                                     ),
                                   ),
                                 ),
-                              ),
+                              ),*/
 /*
                               GestureDetector(
                                 onTap: () {
@@ -808,7 +826,7 @@ class _LoginScreen extends State<LoginScreen> {
     );
   }
 
-  Future<void> loginFB() async {
+  /*Future<void> loginFB() async {
     final LoginResult result = await FacebookAuth.instance.login(); // by default we request the email and the public profile
 // or FacebookAuth.i.login()
     if (result.status == LoginStatus.success) {
@@ -818,7 +836,7 @@ class _LoginScreen extends State<LoginScreen> {
       print(result.status);
       print(result.message);
     }
-  }
+  }*/
 
 
   Future<User?> signInWithGoogle({required BuildContext context}) async {
@@ -1035,19 +1053,15 @@ class _LoginScreen extends State<LoginScreen> {
       automaticallyImplyLeading: false,
       backgroundColor: bg_skin,
       elevation: 0,
-      leading: IconButton(
-        icon: Image.asset("assets/images/ic_back_arrow.png",
-            width: 18, height: 18),
-        iconSize: 28,
-        onPressed: () {
-          Navigator.pop(context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()));
+      leading: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          Navigator.pop(context);
         },
+        child: getBackArrow(),
       ),
-      title: Text(
-          "Login With Otp",
-          style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 18)
-      ),
+      centerTitle: true,
+      title: getTitle("Login With Otp"),
       titleSpacing: 0,
     );
   }

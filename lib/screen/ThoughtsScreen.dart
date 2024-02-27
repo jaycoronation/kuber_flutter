@@ -7,6 +7,7 @@ import 'package:kuber/model/ThoughtsResponseModel.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../constant/api_end_point.dart';
+import '../constant/common_widget.dart';
 import '../utils/app_utils.dart';
 import '../widget/loading.dart';
 import '../widget/loading_more.dart';
@@ -74,85 +75,79 @@ class _ThoughtsScreen extends State<ThoughtsScreen> {
             automaticallyImplyLeading: false,
             backgroundColor: bg_skin,
             elevation: 0,
-            leading:IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
+            leading: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
                 Navigator.pop(context);
               },
-            ) ,
+              child: getBackArrow(),
+            ),
+            centerTitle: true,
+            title: getTitle('Thoughts'),
           ),
           body: isLoading
               ? const LoadingWidget()
               : Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                      "Thoughts",
-                      style: getTitleFontStyle()
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 4,bottom: 12),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                      style: getSecondaryTitleFontStyle()
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    primary: false,
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: listThoughts.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: (){
-                          openDetailsBottomSheet(listThoughts[index]);
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: white
-                          ),
-                          padding: const EdgeInsets.all(12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Container(
-                                    margin: const EdgeInsets.only(right: 12),
-                                    child: Text(
-                                        listThoughts[index].title.toString(),
-                                        overflow: TextOverflow.clip,
-                                        style: const TextStyle(fontWeight: FontWeight.w900,color: black,fontSize: 14)
-                                    )
-                                ),
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 4,bottom: 12),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                          style: getSecondaryTitleFontStyle()
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        primary: false,
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        itemCount: listThoughts.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: (){
+                              openDetailsBottomSheet(listThoughts[index]);
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 12),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: white
                               ),
-                              const Icon(Icons.keyboard_arrow_right,size: 24,color: black,)
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                              padding: const EdgeInsets.all(12),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                        margin: const EdgeInsets.only(right: 12),
+                                        child: Text(
+                                            listThoughts[index].title.toString(),
+                                            overflow: TextOverflow.clip,
+                                            style: const TextStyle(fontWeight: FontWeight.w900,color: black,fontSize: 14)
+                                        )
+                                    ),
+                                  ),
+                                  const Icon(Icons.keyboard_arrow_right,size: 24,color: black,)
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Visibility(
+                        visible: _isLoadingMore,
+                        child: const LoadingMoreWidget()
+                    )
+                  ],
                 ),
-                Visibility(
-                    visible: _isLoadingMore,
-                    child: const LoadingMoreWidget()
-                )
-              ],
-            ),
-          ),
+              ),
         ),
         onWillPop: (){
           Navigator.pop(context);

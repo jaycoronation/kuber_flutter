@@ -1,12 +1,13 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/constant/colors.dart';
+import 'package:kuber/constant/common_widget.dart';
 import 'package:kuber/model/BookingListResponseModel.dart';
 import 'package:kuber/screen/BookingDetailsScreen.dart';
 import 'package:kuber/screen/MyAccountScreen.dart';
+import 'package:kuber/screen/PujaReviewScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
@@ -38,7 +39,21 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: bg_skin,
-        appBar: setUpNavigationBar(),
+        appBar: AppBar(
+          // systemOverlayStyle: SystemUiOverlayStyle.dark,
+          toolbarHeight: 55,
+          automaticallyImplyLeading: false,
+          backgroundColor: bg_skin,
+          elevation: 0,
+          leading: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: getBackArrow(),
+          ),
+          title: getTitle('My Puja List',),
+        ),
         body: _isLoading
             ? const LoadingWidget()
             : _isNoDataVisible
@@ -50,145 +65,123 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
                 itemCount: _bookingList.length,
                 itemBuilder: (BuildContext context, int i) {
                   return GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => BookingDetailsScreen(_bookingList[i].bookingId.toString())));
+                    },
                     child: Container(
                       margin: const EdgeInsets.only(left: 14, right: 14, top: 6, bottom: 10),
+                      padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: priest_light),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Container(
+                            margin: const EdgeInsets.only(top: 6, right: 6),
+                            child: Text(
+                                _bookingList[i].pujaName.toString(),
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.green
+                                ),
+                                textAlign: TextAlign.start
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(top: 2, bottom: 2),
+                                child: Text(
+                                  "${_bookingList[i].pujaDay} ,${_bookingList[i].pujaDate}",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: black,
+                                      fontSize: 14),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              const Spacer(),
+                              Container(
+                                margin: const EdgeInsets.only(top: 2, bottom: 2),
+                                child: Text(
+                                  _bookingList[i].pujaTime.toString(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: black,
+                                      fontSize: 14),
+                                  textAlign: TextAlign.end,
+                                ),
+                              )
+                            ],
+                          ),
                           Row(
                             children: [
                               Expanded(
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.all(4),
-                                        margin: const EdgeInsets.only(
-                                            top: 6, right: 6, left: 8),
-                                        child: Text(
-                                            " ${_bookingList[i].pujaName.toString()}",
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight:
-                                                    FontWeight.w600,
-                                                color: Colors.green),
-                                            textAlign: TextAlign.start
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(4),
-                                            margin: const EdgeInsets.only(
-                                                top: 2,
-                                                bottom: 2,
-                                                right: 8,
-                                                left: 8),
-                                            child: Text(
-                                              _bookingList[i]
-                                                      .pujaDay
-                                                      .toString() +" ," +
-                                                  _bookingList[i]
-                                                      .pujaDate
-                                                      .toString(),
-                                              style: const TextStyle(
-                                                  fontWeight:
-                                                      FontWeight.bold,
-                                                  color: black,
-                                                  fontSize: 14),
-                                              textAlign: TextAlign.start,
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          Container(
-                                            padding: const EdgeInsets.all(4),
-                                            margin: const EdgeInsets.only(
-                                                top: 2,
-                                                bottom: 2,
-                                                right: 8,
-                                                left: 8),
-                                            child: Text(
-                                              _bookingList[i]
-                                                  .pujaTime
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                  fontWeight:
-                                                      FontWeight.w900,
-                                                  color: black,
-                                                  fontSize: 14),
-                                              textAlign: TextAlign.end,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                              child: Container(
-                                            padding: const EdgeInsets.all(4),
-                                            margin: const EdgeInsets.only(
-                                                top: 2,
-                                                bottom: 2,
-                                                right: 8,
-                                                left: 8),
-                                            child: Text(
-                                              _bookingList[i]
-                                                  .bookingAddress
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                  fontWeight:
-                                                      FontWeight.w400,
-                                                  color: black,
-                                                  fontSize: 14),
-                                              textAlign: TextAlign.start,
-                                            ),
-                                          )),
-                                          Container(
-                                            padding: const EdgeInsets.all(4),
-                                            margin: const EdgeInsets.only(
-                                                top: 2,
-                                                bottom: 2,
-                                                right: 8,
-                                                left: 8),
-                                            child: const Text(
-                                              "",
-                                              style: TextStyle(
-                                                  fontWeight:
-                                                      FontWeight.w500,
-                                                  color: black,
-                                                  fontSize: 14),
-                                              textAlign: TextAlign.end,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.all(4),
-                                        margin: const EdgeInsets.only(
-                                            top: 6,
-                                            right: 6,
-                                            left: 6,
-                                            bottom: 8),
-                                        child: Text(
-                                            "Booked On ${_bookingList[i].bookedOn.toString()}",
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight:
-                                                    FontWeight.w600,
-                                                color: text_light),
-                                            textAlign: TextAlign.start),
-                                      ),
-                                    ]),
+                                  child: Container(
+                                    margin: const EdgeInsets.only(top: 2, bottom: 2,),
+                                    child: Text(
+                                      _bookingList[i].bookingAddress.toString(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: black,
+                                          fontSize: 14),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  )
                               ),
                             ],
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 2, right: 2,),
+                            child: Text(
+                                "Booked On ${_bookingList[i].bookedOn.toString()}",
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: black),
+                                textAlign: TextAlign.start),
+                          ),
+                          Visibility(
+                            visible: _bookingList[i].isReviewDone == 0,
+                            child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: const EdgeInsets.only(bottom: 8, top: 8),
+                                child: TextButton(
+                                  onPressed: () async {
+                                    startActivity(context, PujaReviewScreen(_bookingList[i]));
+                                  },
+                                  style: ButtonStyle(
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          side: const BorderSide(
+                                              color: black,
+                                              width: 1,
+                                              style: BorderStyle.solid
+                                          ),
+                                          borderRadius: BorderRadius.circular(8.0),
+                                        ),
+                                      ),
+                                      backgroundColor: MaterialStateProperty.all<Color>(priest_light)
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(6.0),
+                                    child: Text(
+                                      "Review",
+                                      style: TextStyle(
+                                          color: black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400
+                                      ),
+                                    ),
+                                  ),
+                                )
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => BookingDetailsScreen(_bookingList[i].bookingId.toString())));
-                    },
                   );
                 }),
       ),
@@ -248,27 +241,4 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
     }
   }
 
-  PreferredSizeWidget setUpNavigationBar() {
-    return AppBar(
-      // systemOverlayStyle: SystemUiOverlayStyle.dark,
-      toolbarHeight: 55,
-      automaticallyImplyLeading: false,
-      backgroundColor: bg_skin,
-      elevation: 0,
-      leading: IconButton(
-        icon: Image.asset("assets/images/ic_back_arrow.png",
-            width: 18, height: 18),
-        iconSize: 28,
-        onPressed: () {
-          Navigator.pop(context,
-              MaterialPageRoute(builder: (context) => const MyAccountScreen()));
-        },
-      ),
-      title: const Text(
-        'My Puja List',
-        style:
-            const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: black),
-      ),
-    );
-  }
 }

@@ -11,6 +11,7 @@ import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
+import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
@@ -60,14 +61,15 @@ class _RashiScreen extends State<RashiScreen> {
             automaticallyImplyLeading: false,
             backgroundColor: bg_skin,
             elevation: 0,
-            leading:IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
+            leading: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
                 Navigator.pop(context);
               },
-            ) ,
+              child: getBackArrow(),
+            ),
+            centerTitle: true,
+            title: getTitle('Rashi'),
           ),
           body: _isLoading
               ? const LoadingWidget()
@@ -76,11 +78,6 @@ class _RashiScreen extends State<RashiScreen> {
               : SingleChildScrollView(
             child: Column(
               children:  [
-                Container(
-                    alignment: Alignment.centerLeft,
-                    margin: const EdgeInsets.only(left: 12,right: 12),
-                    child: Text("Rashi",style: getTitleFontStyle())
-                ),
                 Container(
                     margin: const EdgeInsets.only(left: 12,top: 8,right: 12),
                     child: Text("Rashi, also known as the Zodiac sign, is a significant astrological "
@@ -185,14 +182,13 @@ class _RashiScreen extends State<RashiScreen> {
             automaticallyImplyLeading: false,
             backgroundColor: bg_skin,
             elevation: 0,
-            leading:IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
+            leading: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
                 Navigator.pop(context);
               },
-            ) ,
+              child: getBackArrow(),
+            ),
           ),
           body: _isLoading
               ? const LoadingWidget()
