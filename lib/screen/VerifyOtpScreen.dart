@@ -155,7 +155,10 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
                                 style: const TextStyle(
                                     color: black,
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 16))),
+                                    fontSize: 16
+                                )
+                            )
+                        ),
                       ),
                       Padding(
                         padding:
