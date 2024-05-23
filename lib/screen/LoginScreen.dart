@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -7,30 +6,26 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/screen/LoginWithEmailScreen.dart';
 import 'package:kuber/screen/WebViewContainer.dart';
-import 'package:kuber/utils/routes.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../constant/api_end_point.dart';
+import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
 import '../model/SocialResponseModel.dart';
 import '../model/VerifyOtpResponseModel.dart';
 import '../utils/app_utils.dart';
 import 'DashboardScreen.dart';
-import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 import 'MyPofileScreen.dart';
+import 'VerifyOtpScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -42,7 +37,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   TextEditingController numberController = TextEditingController();
 
-  final fb = FacebookLogin();
+  // final fb = FacebookLogin();
   String _keyHash = 'Unknown';
   SessionManager sessionManager = SessionManager();
   var loginType = "";
@@ -62,8 +57,6 @@ class _LoginScreen extends State<LoginScreen> {
     print(key??"");
 
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -206,14 +199,14 @@ class _LoginScreen extends State<LoginScreen> {
                                       style: const TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14, height: 1.4),
                                       children: <TextSpan>[
                                         TextSpan(
-                                          text: 'Privacy Policy', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                          text: 'Privacy Policy', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
                                           recognizer: TapGestureRecognizer()..onTap = () {
                                             Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/privacy_policy', 'Privacy Policy')));
                                           }
                                         ),
                                         const TextSpan(text: ' and ', style: TextStyle(fontWeight: FontWeight.w400, color: black, fontSize: 14),),
                                         TextSpan(
-                                          text: 'Terms of Service', style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                                          text: 'Terms of Service', style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
                                           recognizer: TapGestureRecognizer()..onTap = () {
                                             Navigator.push(context, MaterialPageRoute(builder: (context) => const WebViewContainer('https://panditbookings.com/terms-and-conditions', 'Terms of Service')));
                                           }
@@ -226,46 +219,70 @@ class _LoginScreen extends State<LoginScreen> {
                               Container(height: 12,),
                               Padding(
                                 padding: const EdgeInsets.only(left: 18.0, right: 18),
-                                child: Container(
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
-                                  decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(12),),
-                                      gradient: LinearGradient(
-                                        colors: [gradient_start, gradient_end],
-                                      )
-                                  ),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      FocusScope.of(context).unfocus();
-                                      if (numberController.text.isEmpty) {
-                                        showToast('Please enter mobile number', context);
-                                      }
-                                      else if (numberController.text.length <= 7) {
-                                        showToast('Please enter valid mobile number', context);
-                                      }
-                                      else if (numberController.text.length >= 13) {
-                                        showToast('Please enter valid mobile number', context);
-                                      }
-                                      else {
-                                        setState(() {
-                                          _isLoading = true;
-                                        });
-                                        _sendOTPApi();
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.transparent,
-                                        shadowColor: Colors.transparent),
-                                    child: const Text('Continue', style: TextStyle(color: darkbrown, fontSize: 16),),
+                                child: getCommonButton('Continue', () {
+                                  FocusScope.of(context).unfocus();
+                                  if (numberController.text.isEmpty) {
+                                    showToast('Please enter mobile number', context);
+                                  }
+                                  else if (numberController.text.length <= 7) {
+                                    showToast('Please enter valid mobile number', context);
+                                  }
+                                  else if (numberController.text.length >= 13) {
+                                    showToast('Please enter valid mobile number', context);
+                                  }
+                                  else {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    _sendOTPApi();
+                                  }
+                                }),
+                              ),
+                              Visibility(
+                                visible: false,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 18.0, right: 18),
+                                  child: Container(
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width,
+                                    decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(12),),
+                                        gradient: LinearGradient(
+                                          colors: [gradient_start, gradient_end],
+                                        )
+                                    ),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        FocusScope.of(context).unfocus();
+                                        if (numberController.text.isEmpty) {
+                                          showToast('Please enter mobile number', context);
+                                        }
+                                        else if (numberController.text.length <= 7) {
+                                          showToast('Please enter valid mobile number', context);
+                                        }
+                                        else if (numberController.text.length >= 13) {
+                                          showToast('Please enter valid mobile number', context);
+                                        }
+                                        else {
+                                          setState(() {
+                                            _isLoading = true;
+                                          });
+                                          _sendOTPApi();
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.transparent,
+                                          shadowColor: Colors.transparent),
+                                      child: const Text('Continue', style: TextStyle(color: darkbrown, fontSize: 16),),
+                                    ),
                                   ),
                                 ),
                               ),
                               Container(height: 22,),
-                              Row(
-                                children: const [
+                              const Row(
+                                children: [
                                   Flexible(
                                     flex: 1,
                                     child: Padding(
@@ -289,8 +306,8 @@ class _LoginScreen extends State<LoginScreen> {
                               Container(height: 22,),
                               GestureDetector(
                                 onTap: () async {
+                                  print("GOOGLE LOGIN");
                                   signInWithGoogle(context: context);
-                                  //FirebaseCrashlytics.instance.crash();
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.only( right: 20, left: 20),
@@ -323,9 +340,9 @@ class _LoginScreen extends State<LoginScreen> {
                                 ),
                               ),
                               Container(height: 18,),
-                              GestureDetector(
+                              /*GestureDetector(
                                 onTap: () {
-                                  loginWithFaceBook();
+                                  loginFB();
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.only( right: 20, left: 20),
@@ -394,7 +411,7 @@ class _LoginScreen extends State<LoginScreen> {
                                     ),
                                   ),
                                 ),
-                              ),
+                              ),*/
 /*
                               GestureDetector(
                                 onTap: () {
@@ -809,7 +826,7 @@ class _LoginScreen extends State<LoginScreen> {
     );
   }
 
-  Future<void> loginFB() async {
+  /*Future<void> loginFB() async {
     final LoginResult result = await FacebookAuth.instance.login(); // by default we request the email and the public profile
 // or FacebookAuth.i.login()
     if (result.status == LoginStatus.success) {
@@ -819,121 +836,8 @@ class _LoginScreen extends State<LoginScreen> {
       print(result.status);
       print(result.message);
     }
-  }
+  }*/
 
-  void logIn() async {
-    final AuthorizationResult result = await TheAppleSignIn.performRequests([
-      const AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-    ]);
-
-    switch (result.status) {
-      case AuthorizationStatus.authorized:
-        var sessionSecure = const FlutterSecureStorage();
-        var firstName = "";
-        var lastName = "";
-        var email = "";
-        if (result.credential?.email != null) {
-          await sessionSecure.write(key: "userId", value: result.credential?.user);
-          await sessionSecure.write(key: "email", value: result.credential!.email.toString());
-          await sessionSecure.write(key: "givenName", value: result.credential!.fullName!.givenName.toString());
-          await sessionSecure.write(key: "familyName", value: result.credential!.fullName!.familyName.toString());
-          firstName = result.credential!.fullName!.givenName.toString();
-          lastName = result.credential!.fullName!.familyName.toString();
-          email = result.credential?.email ?? "";
-        } else {
-          email = await sessionSecure.read(key: "email") ?? "";
-          firstName = await sessionSecure.read(key: "givenName") ?? "";
-          lastName = await sessionSecure.read(key: "familyName") ?? "";
-        }
-
-        if (kDebugMode) {
-          print("Apple Login Email ==== ${result.credential!.email}");
-          print("Apple Login nameSuffix ==== ${result.credential!.fullName!.nameSuffix}");
-          print("Apple Login nameSuffix ==== ${result.credential!.fullName!.givenName}");
-          print("Apple Login nameSuffix ==== ${result.credential!.fullName!.nickname}");
-          print("Apple Login familyName ==== ${result.credential!.fullName!.familyName}");
-          print("Apple Login User ==== ${result.credential!.user}");
-        }
-
-        if (email.isNotEmpty) {
-          _makeSocialLoginRequest("apple", firstName, lastName, email, "");
-        } else {
-          if (mounted) {
-            showSnackBar("Email is needed", context);
-          }
-        }
-
-        break;
-
-      case AuthorizationStatus.error:
-        if (kDebugMode) {
-          print("Sign in failed: ${result.error?.localizedDescription}");
-        }
-        setState(() {
-          _isLoading = false;
-          errorMessage = "Sign in failed";
-        });
-        break;
-
-      case AuthorizationStatus.cancelled:
-        setState(() {
-          _isLoading = false;
-        });
-        if (kDebugMode) {
-          print('User cancelled');
-        }
-        break;
-    }
-  }
-
-  Future<void> loginWithFaceBook() async {
-    // Log in
-    final res = await fb.logIn(permissions: [
-      FacebookPermission.publicProfile,
-      FacebookPermission.email,
-    ]);
-
-    // Check result status
-    switch (res.status) {
-      case FacebookLoginStatus.success:
-      // Send access token to server for validation and auth
-        final FacebookAccessToken? accessToken = res.accessToken;
-
-        // Get profile data
-        final profile = await fb.getUserProfile();
-
-        // Get user profile image url
-        final imageUrl = await fb.getProfileImageUrl(width: 100);
-
-        // Get email (since we request email permission)
-        final email = await fb.getUserEmail();
-        // But user can decline permission
-
-        if (email != null && email.isNotEmpty) {
-          String firstName = "";
-          String lastName = "";
-          if (profile!.name != null && profile.name!.isNotEmpty) {
-            final splitted = profile.name.toString().split(' ');
-
-            if (splitted.isNotEmpty) {
-              firstName = splitted[0];
-              lastName = splitted[1];
-            }
-          }
-          _makeSocialLoginRequest("1", firstName, lastName, email, "");
-        }
-        else {
-          showSnackBar("Email not found.", context);
-        }
-        break;
-      case FacebookLoginStatus.cancel:
-      // User cancel log in
-        break;
-      case FacebookLoginStatus.error:
-      // Log in failed
-        break;
-    }
-  }
 
   Future<User?> signInWithGoogle({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -952,8 +856,16 @@ class _LoginScreen extends State<LoginScreen> {
     }
     else {
       final GoogleSignIn googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
 
+      print("googleSignIn ===== $googleSignIn");
+
+      try {
+        final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      } on Exception catch (e) {
+        print("ERROR OCCUR ==== $e");
+      }
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      print("googleSignInAccount ===== $googleSignInAccount");
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
@@ -979,7 +891,7 @@ class _LoginScreen extends State<LoginScreen> {
           _makeSocialLoginRequest("2", firstName, lastName, email, profilePic);
         }
         on FirebaseAuthException catch (e) {
-          print(e);
+          print("error ==== $e");
           if (e.code == 'account-exists-with-different-credential') {
             // ...
 
@@ -1125,8 +1037,8 @@ class _LoginScreen extends State<LoginScreen> {
       setState(() {
         _isLoading = false;
       });
-      context.goNamed(AppRoutes.otpRoute,pathParameters:  {'mobileNumber': numberController.value.text, 'countryCode': countryCode});
-      //Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(numberController.value.text, countryCode)));
+      //context.goNamed(AppRoutes.otpRoute,pathParameters:  {'mobileNumber': numberController.value.text, 'countryCode': countryCode});
+      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(mobileNumber: numberController.value.text, countryCode: countryCode)));
     } else {
       setState(() {
         _isLoading = false;
@@ -1141,19 +1053,15 @@ class _LoginScreen extends State<LoginScreen> {
       automaticallyImplyLeading: false,
       backgroundColor: bg_skin,
       elevation: 0,
-      leading: IconButton(
-        icon: Image.asset("assets/images/ic_back_arrow.png",
-            width: 18, height: 18),
-        iconSize: 28,
-        onPressed: () {
-          Navigator.pop(context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()));
+      leading: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          Navigator.pop(context);
         },
+        child: getBackArrow(),
       ),
-      title: Text(
-          "Login With Otp",
-          style: getTextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 18)
-      ),
+      centerTitle: true,
+      title: getTitle("Login With Otp"),
       titleSpacing: 0,
     );
   }

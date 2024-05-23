@@ -44,6 +44,7 @@ class Astrology {
     required this.comments,
     required this.country,
     required this.state,
+    required this.countryCode,
     required this.city,
   });
   late final String astrologyId;
@@ -63,6 +64,7 @@ class Astrology {
   late final String comments;
   late final String country;
   late final String state;
+  late final String countryCode;
   late final String city;
 
   Astrology.fromJson(Map<String, dynamic> json){
@@ -83,6 +85,7 @@ class Astrology {
     comments = json['comments'];
     country = json['country'];
     state = json['state'];
+    countryCode = json['country_code'];
     city = json['city'];
   }
 
@@ -105,6 +108,7 @@ class Astrology {
     _data['comments'] = comments;
     _data['country'] = country;
     _data['state'] = state;
+    _data['country_code'] = countryCode;
     _data['city'] = city;
     return _data;
   }

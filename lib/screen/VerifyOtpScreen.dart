@@ -17,6 +17,7 @@ import 'package:kuber/widget/loading.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
+import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
 import '../utils/responsive.dart';
 import '../utils/routes.dart';
@@ -24,8 +25,8 @@ import 'DashboardForWeb.dart';
 import 'MyPofileScreen.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
- String? mobileNumber="";
- String? countryCode;
+  final String? mobileNumber;
+ final String? countryCode;
 
   VerifyOtpScreen({Key? key, this.mobileNumber, this.countryCode}) : super(key: key);
 
@@ -422,18 +423,15 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       automaticallyImplyLeading: false,
       backgroundColor: kuber,
       elevation: 0,
-      leading: IconButton(
-        icon: Image.asset("assets/images/ic_back_arrow.png", width: 18, height: 18),
-        iconSize: 28,
-        onPressed: () {
-          Navigator.pop(context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()));
+      leading: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          Navigator.pop(context);
         },
+        child: getBackArrow(),
       ),
-      title: const Text(
-        "Verify OTP",
-        style: TextStyle(fontWeight: FontWeight.w600, color: black, fontSize: 18),
-      ),
+      centerTitle: true,
+      title: getTitle("Verify OTP"),
     );
   }
 
@@ -544,27 +542,19 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       }
       else
       {
-        //
-        if (ResponsiveWidget.isSmallScreen(context))
-        {
-          GoRouter.of(context).go(AppRoutes.homeRoute);
-          //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
-        }
-        else
-        {
-          //GoRouter.of(context).go(AppRoutes.homeRoute);
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardForWeb()), (route) => false);
-        }
+        GoRouter.of(context).go(AppRoutes.homeRoute);
       }
     }
     else
     {
       if(dataResponse.profile?.email?.toString().isEmpty ?? true)
       {
+        //GoRouter.of(context).go(AppRoutes.loginRoute);
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(true)), (route) => false);
       }
       else
       {
+        print("IS IN DASHBOARD");
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
       }
     }

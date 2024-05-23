@@ -10,6 +10,7 @@ import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/DonationListScreen.dart';
 import 'package:kuber/screen/FeedScreen.dart';
 import 'package:kuber/screen/LoginForWeb.dart';
+import 'package:kuber/screen/LoginScreen.dart';
 import 'package:kuber/screen/MatchMakingScreen.dart';
 import 'package:kuber/screen/PrayerRequestScreen.dart';
 import 'package:kuber/screen/RashiScreen.dart';
@@ -35,8 +36,6 @@ class AppRoutes {
   static const matchMakingRoute = "/match-making";
   static const donationsRoute = "/donations";
 
-
-
   static final GoRouter routes = GoRouter(
     initialLocation: mainRoute,
     navigatorKey: NavigationService.navigatorKey,
@@ -48,7 +47,7 @@ class AppRoutes {
       ),
       GoRoute(
         path: mainRoute,
-        builder: (BuildContext context, state) => const MyHomePage(title: ""),
+        builder: (BuildContext context, state) => const MyHomePage(),
         redirect: (context, state) => redirectToLogin(context, state),
       ),
       GoRoute(
@@ -125,7 +124,7 @@ class AppRoutes {
       ),
       GoRoute(
         path: loginRoute,
-        builder: (BuildContext context, state) => const LoginScreenForWeb(),
+        builder: (BuildContext context, state) => kIsWeb ? LoginScreenForWeb() : LoginScreen(),
         redirect: (context, state) => redirectToLogin(context, state),
       ),
       GoRoute(
@@ -145,10 +144,12 @@ class AppRoutes {
     }
 
     if (userId == "" || userId == null) {
-      return null;
+      return Uri(
+        path: '/home',
+      ).toString();
     } else {
       return Uri(
-          path: '/',
+          path: '/home',
         ).toString();
     }
   }

@@ -8,6 +8,7 @@ import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
+import '../constant/common_widget.dart';
 import 'PujaDetailsScreen.dart';
 
 class PujaListScreen extends StatefulWidget {
@@ -41,15 +42,15 @@ class _PujaListScreen extends State<PujaListScreen> {
           backgroundColor: bg_skin,
           titleSpacing: 0,
           elevation: 0,
+          leading: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: getBackArrow(),
+          ),
           title: Row(
             children: [
-              IconButton(
-                icon: Image.asset("assets/images/ic_back_arrow.png", width: 18, height: 18),
-                iconSize: 28,
-                onPressed: () {
-                Navigator.pop(context);
-                },
-              ),
               const Text(
                 "Puja List",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: black),

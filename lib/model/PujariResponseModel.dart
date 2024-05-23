@@ -1,5 +1,5 @@
 import 'dart:convert';
-/// profile : {"id":"45","is_password_set":1,"first_name":"pratiksha","last_name":"panchal","email":"panchalpratiksha99@gmail.com","mobile":"9510831651","country_code":"+27","birthdate":"2023-08-01","birthdate_old":"2023-08-01","birthplace":"New Maninagar, Ahmedabad, Gujarat, India","pathshala":"","gender":0,"gender_label":"Female","country":"101","city":"12","state":"783","country_id":"101","city_id":"12","state_id":"783","country_name":"INDIA","city_name":"Akkayapalle","state_name":"Caqueta","gurukul":"","qualification":"","qualification_other":"","experience":"","experience_other":"","address":"New Maninagar, Ahmedabad, Gujarat, India","certificate":"","certificate_name":"","timestamp":"1659422590","profile_pic":"https://www.panditbookings.com/api/assets/images/default-user.png","profile_pic_name":""}
+/// profile : {"id":"88","is_password_set":1,"first_name":"Jay","last_name":"Mistry","email":"jmistry383@coronation.in","mobile":"9879144508","country_code":"+27","birthdate":"2024-02-12","birthdate_old":"2024-02-12","birthplace":"","pathshala":"Pataskala test","gender":"1","gender_label":"Male","country":"101","city":"811","state":"12","middle_name":"Rajeshbhai","gotra":"Vaisnav","work_country":"101","work_city":"1041","work_suburb":"Prahlad Nagar","country_name":"INDIA","city_name":"Bardoli","state_name":"Gujarat","gurukul":"gurujul test","qualification":"Others","qualification_other":"Palm reader, Face reader, Tarot card reader","experience":"Experienced","experience_other":"Experienced","address":"506 Pinnacle Avenue, Ambergate Busselton, WA, Australia","certificate":"","certificate_name":"","timestamp":"1708336136","document":"","profile_pic":"https://www.panditbookings.com/api/assets/uploads/profile_pic/1708435810_image_picker_E46D2978-2046-44A1-BEB5-5E95DA37B9D0-8703-000000AB5D787DEB.jpg","profile_pic_name":"1708435810_image_picker_E46D2978-2046-44A1-BEB5-5E95DA37B9D0-8703-000000AB5D787DEB.jpg"}
 /// success : 1
 /// message : ""
 
@@ -46,39 +46,42 @@ PujariResponseModel copyWith({  PujariGetSet? profile,
 
 }
 
-/// id : "45"
+/// id : "88"
 /// is_password_set : 1
-/// first_name : "pratiksha"
-/// last_name : "panchal"
-/// email : "panchalpratiksha99@gmail.com"
-/// mobile : "9510831651"
+/// first_name : "Jay"
+/// last_name : "Mistry"
+/// email : "jmistry383@coronation.in"
+/// mobile : "9879144508"
 /// country_code : "+27"
-/// birthdate : "2023-08-01"
-/// birthdate_old : "2023-08-01"
-/// birthplace : "New Maninagar, Ahmedabad, Gujarat, India"
-/// pathshala : ""
-/// gender : 0
-/// gender_label : "Female"
+/// birthdate : "2024-02-12"
+/// birthdate_old : "2024-02-12"
+/// birthplace : ""
+/// pathshala : "Pataskala test"
+/// gender : "1"
+/// gender_label : "Male"
 /// country : "101"
-/// city : "12"
-/// state : "783"
-/// country_id : "101"
-/// city_id : "12"
-/// state_id : "783"
+/// city : "811"
+/// state : "12"
+/// middle_name : "Rajeshbhai"
+/// gotra : "Vaisnav"
+/// work_country : "101"
+/// work_city : "1041"
+/// work_suburb : "Prahlad Nagar"
 /// country_name : "INDIA"
-/// city_name : "Akkayapalle"
-/// state_name : "Caqueta"
-/// gurukul : ""
-/// qualification : ""
-/// qualification_other : ""
-/// experience : ""
-/// experience_other : ""
-/// address : "New Maninagar, Ahmedabad, Gujarat, India"
+/// city_name : "Bardoli"
+/// state_name : "Gujarat"
+/// gurukul : "gurujul test"
+/// qualification : "Others"
+/// qualification_other : "Palm reader, Face reader, Tarot card reader"
+/// experience : "Experienced"
+/// experience_other : "Experienced"
+/// address : "506 Pinnacle Avenue, Ambergate Busselton, WA, Australia"
 /// certificate : ""
 /// certificate_name : ""
-/// timestamp : "1659422590"
-/// profile_pic : "https://www.panditbookings.com/api/assets/images/default-user.png"
-/// profile_pic_name : ""
+/// timestamp : "1708336136"
+/// document : ""
+/// profile_pic : "https://www.panditbookings.com/api/assets/uploads/profile_pic/1708435810_image_picker_E46D2978-2046-44A1-BEB5-5E95DA37B9D0-8703-000000AB5D787DEB.jpg"
+/// profile_pic_name : "1708435810_image_picker_E46D2978-2046-44A1-BEB5-5E95DA37B9D0-8703-000000AB5D787DEB.jpg"
 
 PujariGetSet profileFromJson(String str) => PujariGetSet.fromJson(json.decode(str));
 String profileToJson(PujariGetSet data) => json.encode(data.toJson());
@@ -95,14 +98,18 @@ class PujariGetSet {
       String? birthdateOld, 
       String? birthplace, 
       String? pathshala, 
-      num? gender, 
+      String? gender, 
       String? genderLabel, 
       String? country, 
       String? city, 
       String? state, 
-      String? countryId, 
-      String? cityId, 
-      String? stateId, 
+      String? middleName, 
+      String? gotra, 
+      String? workCountry, 
+      String? workCountryName,
+      String? workCity,
+      String? workCityName,
+      String? workSuburb,
       String? countryName, 
       String? cityName, 
       String? stateName, 
@@ -115,6 +122,7 @@ class PujariGetSet {
       String? certificate, 
       String? certificateName, 
       String? timestamp, 
+      String? document, 
       String? profilePic, 
       String? profilePicName,}){
     _id = id;
@@ -133,9 +141,12 @@ class PujariGetSet {
     _country = country;
     _city = city;
     _state = state;
-    _countryId = countryId;
-    _cityId = cityId;
-    _stateId = stateId;
+    _middleName = middleName;
+    _gotra = gotra;
+    _workCountry = workCountry;
+    _workCountryName = workCountryName;
+    _workCity = workCity;
+    _workSuburb = workSuburb;
     _countryName = countryName;
     _cityName = cityName;
     _stateName = stateName;
@@ -148,6 +159,7 @@ class PujariGetSet {
     _certificate = certificate;
     _certificateName = certificateName;
     _timestamp = timestamp;
+    _document = document;
     _profilePic = profilePic;
     _profilePicName = profilePicName;
 }
@@ -169,9 +181,13 @@ class PujariGetSet {
     _country = json['country'];
     _city = json['city'];
     _state = json['state'];
-    _countryId = json['country_id'];
-    _cityId = json['city_id'];
-    _stateId = json['state_id'];
+    _middleName = json['middle_name'];
+    _gotra = json['gotra'];
+    _workCountry = json['work_country'];
+    _workCountryName = json['work_country_name'];
+    _workCity = json['work_city'];
+    _workCityName = json['work_city_name'];
+    _workSuburb = json['work_suburb'];
     _countryName = json['country_name'];
     _cityName = json['city_name'];
     _stateName = json['state_name'];
@@ -184,6 +200,7 @@ class PujariGetSet {
     _certificate = json['certificate'];
     _certificateName = json['certificate_name'];
     _timestamp = json['timestamp'];
+    _document = json['document'];
     _profilePic = json['profile_pic'];
     _profilePicName = json['profile_pic_name'];
   }
@@ -198,14 +215,18 @@ class PujariGetSet {
   String? _birthdateOld;
   String? _birthplace;
   String? _pathshala;
-  num? _gender;
+  String? _gender;
   String? _genderLabel;
   String? _country;
   String? _city;
   String? _state;
-  String? _countryId;
-  String? _cityId;
-  String? _stateId;
+  String? _middleName;
+  String? _gotra;
+  String? _workCountry;
+  String? _workCountryName;
+  String? _workCity;
+  String? _workCityName;
+  String? _workSuburb;
   String? _countryName;
   String? _cityName;
   String? _stateName;
@@ -218,6 +239,7 @@ class PujariGetSet {
   String? _certificate;
   String? _certificateName;
   String? _timestamp;
+  String? _document;
   String? _profilePic;
   String? _profilePicName;
 PujariGetSet copyWith({  String? id,
@@ -231,14 +253,18 @@ PujariGetSet copyWith({  String? id,
   String? birthdateOld,
   String? birthplace,
   String? pathshala,
-  num? gender,
+  String? gender,
   String? genderLabel,
   String? country,
   String? city,
   String? state,
-  String? countryId,
-  String? cityId,
-  String? stateId,
+  String? middleName,
+  String? gotra,
+  String? workCountry,
+  String? workCountryName,
+  String? workCity,
+  String? workCityName,
+  String? workSuburb,
   String? countryName,
   String? cityName,
   String? stateName,
@@ -251,6 +277,7 @@ PujariGetSet copyWith({  String? id,
   String? certificate,
   String? certificateName,
   String? timestamp,
+  String? document,
   String? profilePic,
   String? profilePicName,
 }) => PujariGetSet(  id: id ?? _id,
@@ -269,9 +296,13 @@ PujariGetSet copyWith({  String? id,
   country: country ?? _country,
   city: city ?? _city,
   state: state ?? _state,
-  countryId: countryId ?? _countryId,
-  cityId: cityId ?? _cityId,
-  stateId: stateId ?? _stateId,
+  middleName: middleName ?? _middleName,
+  gotra: gotra ?? _gotra,
+  workCountry: workCountry ?? _workCountry,
+  workCountryName: workCountryName ?? _workCountryName,
+  workCity: workCity ?? _workCity,
+  workCityName: workCityName ?? _workCityName,
+  workSuburb: workSuburb ?? _workSuburb,
   countryName: countryName ?? _countryName,
   cityName: cityName ?? _cityName,
   stateName: stateName ?? _stateName,
@@ -284,6 +315,7 @@ PujariGetSet copyWith({  String? id,
   certificate: certificate ?? _certificate,
   certificateName: certificateName ?? _certificateName,
   timestamp: timestamp ?? _timestamp,
+  document: document ?? _document,
   profilePic: profilePic ?? _profilePic,
   profilePicName: profilePicName ?? _profilePicName,
 );
@@ -298,14 +330,18 @@ PujariGetSet copyWith({  String? id,
   String? get birthdateOld => _birthdateOld;
   String? get birthplace => _birthplace;
   String? get pathshala => _pathshala;
-  num? get gender => _gender;
+  String? get gender => _gender;
   String? get genderLabel => _genderLabel;
   String? get country => _country;
   String? get city => _city;
   String? get state => _state;
-  String? get countryId => _countryId;
-  String? get cityId => _cityId;
-  String? get stateId => _stateId;
+  String? get middleName => _middleName;
+  String? get gotra => _gotra;
+  String? get workCountry => _workCountry;
+  String? get workCountryName => _workCountryName;
+  String? get workCity => _workCity;
+  String? get workCityName => _workCityName;
+  String? get workSuburb => _workSuburb;
   String? get countryName => _countryName;
   String? get cityName => _cityName;
   String? get stateName => _stateName;
@@ -318,6 +354,7 @@ PujariGetSet copyWith({  String? id,
   String? get certificate => _certificate;
   String? get certificateName => _certificateName;
   String? get timestamp => _timestamp;
+  String? get document => _document;
   String? get profilePic => _profilePic;
   String? get profilePicName => _profilePicName;
 
@@ -339,9 +376,13 @@ PujariGetSet copyWith({  String? id,
     map['country'] = _country;
     map['city'] = _city;
     map['state'] = _state;
-    map['country_id'] = _countryId;
-    map['city_id'] = _cityId;
-    map['state_id'] = _stateId;
+    map['middle_name'] = _middleName;
+    map['gotra'] = _gotra;
+    map['work_country'] = _workCountry;
+    map['work_country_name'] = _workCountryName;
+    map['work_city'] = _workCity;
+    map['work_city_name'] = _workCityName;
+    map['work_suburb'] = _workSuburb;
     map['country_name'] = _countryName;
     map['city_name'] = _cityName;
     map['state_name'] = _stateName;
@@ -354,6 +395,7 @@ PujariGetSet copyWith({  String? id,
     map['certificate'] = _certificate;
     map['certificate_name'] = _certificateName;
     map['timestamp'] = _timestamp;
+    map['document'] = _document;
     map['profile_pic'] = _profilePic;
     map['profile_pic_name'] = _profilePicName;
     return map;

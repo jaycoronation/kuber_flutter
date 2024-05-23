@@ -42,6 +42,7 @@ class Requests {
     required this.email,
     required this.prayerId,
     required this.prayer,
+    required this.countryCode,
   });
 
   late final String name;
@@ -54,6 +55,7 @@ class Requests {
   late final String email;
   late final String prayerId;
   late final String prayer;
+  late final String countryCode;
 
   Requests.fromJson(Map<String, dynamic> json) {
     name = json['name'] ?? "";
@@ -66,6 +68,7 @@ class Requests {
     email = json['email'];
     prayerId = json['prayer_id'] ?? "";
     prayer = json['prayer'] ?? "";
+    countryCode = json['country_code'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
@@ -80,6 +83,7 @@ class Requests {
     _data['email'] = email;
     _data['prayer_id'] = prayerId;
     _data['prayer'] = prayer;
+    _data['country_code'] = countryCode;
     return _data;
   }
 }

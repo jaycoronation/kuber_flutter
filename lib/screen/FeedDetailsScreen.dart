@@ -8,6 +8,7 @@ import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../constant/api_end_point.dart';
+import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/session_manager.dart';
@@ -27,8 +28,6 @@ class _FeedDetailsScreen extends State<FeedDetailsScreen> {
   SessionManager sessionManager = SessionManager();
   bool _isLoading = false;
 
-
-
   @override
   void initState(){
     getFeed();
@@ -46,14 +45,14 @@ class _FeedDetailsScreen extends State<FeedDetailsScreen> {
             automaticallyImplyLeading: false,
             backgroundColor: bg_skin,
             elevation: 0,
-            leading:IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
-                Navigator.pop(context, getSet);
+            leading:GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                Navigator.pop(context);
               },
-            ) ,
+              child: getBackArrow(),
+            ),
+            centerTitle: true,
             actions: [
              Padding(
                 padding: const EdgeInsets.all(8.0),

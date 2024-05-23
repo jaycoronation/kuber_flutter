@@ -9,6 +9,7 @@ import 'package:kuber/screen/PujaListScreen.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../constant/colors.dart';
+import '../constant/common_widget.dart';
 import '../utils/app_utils.dart';
 import '../utils/session_manager.dart';
 import '../widget/loading.dart';
@@ -45,19 +46,14 @@ class _PujaDetailsScreen extends State<PujaDetailsScreen> {
             automaticallyImplyLeading: false,
             backgroundColor: bg_skin,
             elevation: 0,
-            leading: IconButton(
-              icon:
-              Image.asset("assets/images/ic_back_arrow.png", width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
-               Navigator.pop(context);
+            leading: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                Navigator.pop(context);
               },
+              child: getBackArrow(),
             ),
-            title: const Text(
-              "Puja Details",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: black),
-              textAlign: TextAlign.center,
-            ),
+            title: getTitle("Puja Details"),
           ),
           body: _isLoading
               ?const  LoadingWidget()

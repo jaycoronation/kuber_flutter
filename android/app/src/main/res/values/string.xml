@@ -2,4 +2,5 @@
 <resources>
     <string name="facebook_app_id">548919027312741</string>
     <string name="facebook_client_token">a3cc6231369130aeca1068d7981d8864</string>
+    <string name="default_notification_channel_id">Kuber</string>
 </resources>

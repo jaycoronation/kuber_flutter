@@ -4,12 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/MatchListResponseModel.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
-import 'package:google_maps_webservice/places.dart';
 import '../constant/api_end_point.dart';
+import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
 import '../utils/app_utils.dart';
@@ -70,14 +71,15 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
             automaticallyImplyLeading: false,
             backgroundColor: bg_skin,
             elevation: 0,
-            leading: IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
+            leading: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
                 Navigator.pop(context);
               },
+              child: getBackArrow(),
             ),
+            centerTitle: true,
+            title: getTitle('Match Making'),
           ),
           body: _isLoading
               ? const LoadingWidget()
@@ -86,13 +88,6 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
               : SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                    alignment: Alignment.centerLeft,
-                    margin: const EdgeInsets.only(left: 12, right: 12),
-                    child: Text(
-                      "Match Making",
-                      style: getTitleFontStyle(),
-                    )),
                 Container(
                     margin: const EdgeInsets.only(left: 12, top: 8,right: 12),
                     child: Text(
@@ -449,13 +444,12 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
             automaticallyImplyLeading: false,
             backgroundColor: bg_skin,
             elevation: 0,
-            leading: IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
+            leading: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
                 Navigator.pop(context);
               },
+              child: getBackArrow(),
             ),
           ),
           body: _isLoading

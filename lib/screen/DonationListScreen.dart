@@ -11,6 +11,7 @@ import 'package:pretty_http_logger/pretty_http_logger.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
+import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
 import '../model/DonationListResponseModel.dart';
 import '../utils/app_utils.dart';
@@ -48,14 +49,13 @@ class _DonationListScreen extends State<DonationListScreen> {
             automaticallyImplyLeading: false,
             backgroundColor: bg_skin,
             elevation: 0,
-            leading:IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
+            leading: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
                 Navigator.pop(context);
               },
-            ) ,
+              child: getBackArrow(),
+            ),
             titleSpacing: 0,
             title: const Text("Donation List", style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w900),),
           ),
@@ -164,9 +164,6 @@ class _DonationListScreen extends State<DonationListScreen> {
         }
     );
   }
-
-
-
 
   getDonationListApi() async {
     setState(() {

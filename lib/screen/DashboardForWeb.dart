@@ -1106,7 +1106,7 @@ class _DashboardForWeb extends State<DashboardForWeb> {
       "birth_time": getSet.birthTime.toString(),
       "address": getSet.address.toString(),
       "comments": getSet.comments.toString(),
-      "user_id": sessionManager.userId.toString(),
+      "user_id": sessionManager.getUserId().toString(),
       "astrology_id": getSet.astrologyId.toString(),
       "email": getSet.email.toString(),
       "mobile": getSet.mobile.toString(),

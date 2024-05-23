@@ -25,6 +25,15 @@ showSnackBar(String? message,BuildContext? context) {
   }
 }
 
+startActivity(BuildContext context, Widget screen){
+  Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
+}
+
+startActivityRemove(BuildContext context, Widget screen){
+  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => screen),(route) => false,);
+}
+
+
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 Random _rnd = Random();
 

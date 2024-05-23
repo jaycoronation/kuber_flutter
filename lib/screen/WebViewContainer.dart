@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kuber/constant/common_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../constant/colors.dart';
@@ -22,6 +23,27 @@ class _WebViewContainerState extends State<WebViewContainer> {
     super.initState();
     print("URL IN Init State ==== ${widget.url}");
 
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {},
+          onWebResourceError: (WebResourceError error) {},
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.url));
+
     setState((){
       isLoading = true;
     });
@@ -39,11 +61,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
             FocusManager.instance.primaryFocus?.unfocus();
             Navigator.pop(context);
           },
-          child: Container(
-            alignment: Alignment.center,
-            child: Image.asset('assets/images/ic_back_arrow.png',
-              height: 20, width: 20,),
-          ),
+          child: getBackArrow()
         ),
         title: Text(widget.title,style: GoogleFonts.manrope(fontSize: 18,color: black,fontWeight: FontWeight.w800),),
         elevation: 0,
@@ -53,18 +71,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
       ),
       body: Stack(
         children: [
-          WebView(
-            initialUrl: widget.url,
-            javascriptMode: JavascriptMode.unrestricted,
-            onProgress: (progress) {
-              if (progress == 100)
-              {
-                setState(() {
-                  isLoading = false;
-                });
-              }
-            },
-          ),
+          WebViewWidget(controller: controller),
           Visibility(
               visible: isLoading,
               child: const Center(

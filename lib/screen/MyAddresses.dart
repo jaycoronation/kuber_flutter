@@ -3,17 +3,16 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/AddressListResponseModel.dart';
 import 'package:kuber/model/CommonResponseModel.dart';
-import 'package:kuber/screen/MyAccountScreen.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
-import 'package:google_maps_webservice/places.dart';
-import 'package:google_api_headers/google_api_headers.dart';
 
 import '../constant/api_end_point.dart';
+import '../constant/common_widget.dart';
 import '../utils/app_utils.dart';
 
 class MyAddresses extends StatefulWidget {
@@ -48,21 +47,14 @@ class _MyAddresses extends State<MyAddresses> {
             automaticallyImplyLeading: false,
             backgroundColor: bg_skin,
             elevation: 0,
-            leading: IconButton(
-              icon: Image.asset("assets/images/ic_back_arrow.png",
-                  width: 18, height: 18),
-              iconSize: 28,
-              onPressed: () {
-                Navigator.pop(context,
-                    MaterialPageRoute(builder: (context) => const MyAccountScreen()));
+            leading: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                Navigator.pop(context);
               },
+              child: getBackArrow(),
             ),
-            title: const Text(
-              "My Addresses",
-              style:
-              TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: black),
-              textAlign: TextAlign.center,
-            ),
+            title: getTitle("My Addresses"),
             actions: [
               IconButton(
                 icon: Image.asset("assets/images/ic_add.png", width: 18, height: 18),
@@ -225,11 +217,7 @@ class _MyAddresses extends State<MyAddresses> {
 
   Future<void> displayPrediction(Prediction? p, BuildContext context) async {
     if (p != null) {
-      GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: API_KEY,
-        apiHeaders: await const GoogleApiHeaders().getHeaders(),
-      );
-      PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId!);
+
       addressString = p.description.toString();
       openAddAddressDialog(Address(addressId: ""));
     }

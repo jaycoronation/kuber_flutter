@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,16 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDxM-G38CFYtCYbS3ND3fZlirLRKBOoXQc',
-    appId: '1:951814205337:web:904e57267945c244f52d08',
-    messagingSenderId: '951814205337',
-    projectId: 'kuber-167ed',
-    authDomain: 'kuber-167ed.firebaseapp.com',
-    storageBucket: 'kuber-167ed.appspot.com',
-    measurementId: 'G-R0QNF2TEQG',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA8NgvQs8XyzK5goK3yMRB50bsYKsskVFY',
     appId: '1:951814205337:android:35b198da77b1704ff52d08',
@@ -62,17 +58,6 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBMqtm6zHJoJIcfpbzRWdM838C2zwlAOHM',
-    appId: '1:951814205337:ios:8222b1c7f0b8ebcff52d08',
-    messagingSenderId: '951814205337',
-    projectId: 'kuber-167ed',
-    storageBucket: 'kuber-167ed.appspot.com',
-    androidClientId: '951814205337-6r2tfv1e0e8160ehpmq66fhd1hvp7nad.apps.googleusercontent.com',
-    iosClientId: '951814205337-3f4p22bims9728nqnmfc02470bu3tn8g.apps.googleusercontent.com',
-    iosBundleId: 'com.coronation.kuber',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBMqtm6zHJoJIcfpbzRWdM838C2zwlAOHM',
     appId: '1:951814205337:ios:8222b1c7f0b8ebcff52d08',
     messagingSenderId: '951814205337',

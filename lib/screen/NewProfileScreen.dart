@@ -21,6 +21,7 @@ import 'package:kuber/utils/session_manager_methods.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../constant/common_widget.dart';
 import '../model/CountryListResponseModel.dart';
 import '../utils/responsive.dart';
 import 'DonationListScreen.dart';
@@ -38,13 +39,11 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
   final bool _isLoading = false;
   final SessionManager _sessionManager = SessionManager();
 
-
   @override
   void initState(){
     print(_sessionManager.getType().toString());
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +62,7 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: bg_skin, width: 0.5),
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30.0),
                       topRight: Radius.circular(30.0),
                     ),
@@ -75,7 +74,7 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                         margin: const EdgeInsets.only(top: 4,right: 22,left: 22),
                         child:GestureDetector(
                           onTap: () async {
-                            var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
+                            var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(false)));
                             if (value)
                             {
                               setState(() {});
@@ -135,7 +134,7 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                             children: [
                               InkWell(
                                 onTap:() async {
-                                  var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
+                                  var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(false)));
 
                                   if (value)
                                   {
@@ -617,7 +616,7 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
 
                       Container(height: 12,),
                       Container(
-                        margin: EdgeInsets.only(left: 18, right: 18,),
+                        margin: const EdgeInsets.only(left: 18, right: 18,),
                         child: TextButton(
                           onPressed: () {
                             _showLogoutBottomSheet();
@@ -684,7 +683,7 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                                   margin: const EdgeInsets.only(top: 4,right: 22,left: 22),
                                   child:GestureDetector(
                                     onTap: () async {
-                                      var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
+                                      var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(false)));
                                       if (value)
                                       {
                                         setState(() {});
@@ -746,7 +745,7 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                                       children: [
                                         InkWell(
                                           onTap:() async {
-                                            var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfileScreen(false)));
+                                            var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfileScreen(false)));
                                             if (value)
                                             {
                                               setState((){});
@@ -954,15 +953,15 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
       automaticallyImplyLeading: false,
       backgroundColor: bg_skin,
       elevation: 0,
-      leading:IconButton(
-        icon: Image.asset("assets/images/ic_back_arrow.png",
-            width: 18, height: 18),
-        iconSize: 28,
-        onPressed: () {
-          Navigator.pop(context,true);
+      leading: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          Navigator.pop(context);
         },
-      ) ,
-      title: Center(child: Text("My Account",  style: getTitleFontStyle(),)),
+        child: getBackArrow(),
+      ),
+      centerTitle: true,
+      title: getTitle("My Account"),
       /*actions: [
         IconButton(
           icon: Image.asset("assets/images/ic_logout_new.png",
@@ -1047,7 +1046,7 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                           margin: const EdgeInsets.only(left:12,right: 12,bottom: 30,top:12),
                           child: TextButton(
                             onPressed: () {
-                              Navigator.pop(context);
+
                               SessionManagerMethods.clear();
                               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginScreen()), (Route<dynamic> route) => false);
                             },

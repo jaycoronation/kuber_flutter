@@ -2,11 +2,10 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'package:google_maps_webservice/places.dart';
-import 'package:google_api_headers/google_api_headers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -46,6 +45,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
   bool priest = false;
   bool _isLoading = false;
   String selectedDate = "";
+  DateTime selectedDateDateTime = DateTime.now();
   String selectdateOfBirth = "Date Of Birth";
   String selectedTime = "Pick Time";
   String pujaDescription = "";
@@ -1030,16 +1030,31 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                         }
                                         else
                                         {
-                                          var dateForShow = "${universalDateConverter("MMM dd, yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
-                                          dateTimeForShow = dateTime;
-                                          dateTimeForPass = dateForShow;
+                                          if (selectedTime.isNotEmpty)
+                                            {
+                                              var dateForShow = "${universalDateConverter("MMM dd, yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
+                                              dateTimeForShow = dateTime;
+                                              dateTimeForPass = dateForShow;
+                                            }
+                                          else
+                                            {
+                                              showToast("Please select time", context);
+                                            }
                                         }
                                       }
                                       else
                                       {
-                                        var dateForShow = "${universalDateConverter("MMM dd, yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
-                                        dateTimeForShow = dateTime;
-                                        dateTimeForPass = dateForShow;
+
+                                        if (selectedTime.isNotEmpty)
+                                          {
+                                            var dateForShow = "${universalDateConverter("MMM dd, yyyy", "dd-MM-yyyy", selectedDate)} $selectedTime";
+                                            dateTimeForShow = dateTime;
+                                            dateTimeForPass = dateForShow;
+                                          }
+                                        else
+                                          {
+                                            showToast("Please select time", context);
+                                          }
                                       }
                                       _bookPristValidation();
                                     },
@@ -1211,197 +1226,6 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                               ),
                             ],
                           ),
-                          /* Container(
-                                 alignment: Alignment.centerLeft,
-                                 margin:
-                                 const EdgeInsets.only(top: 20, bottom: 10),
-                                 child: const Text(
-                                   "Yajman's Details",
-                                   style: TextStyle(
-                                       fontWeight: FontWeight.bold,
-                                       color: text_new,
-                                       fontSize: 14),
-                                 ),
-                               ),
-                               Container(
-                                 margin: const EdgeInsets.only(top: 14,),
-                                 child: TextField(
-                                   controller: firstNameController,
-                                   keyboardType: TextInputType.text,
-                                   cursorColor: text_dark,
-                                   minLines: 1,
-                                   maxLines: 1,
-                                   style: const TextStyle(color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                   decoration: InputDecoration(
-                                       fillColor: white_blue,
-                                       filled: true,
-                                       border: OutlineInputBorder(
-                                           borderRadius: BorderRadius.circular(16.0),
-                                           borderSide: const BorderSide(width: 0,style: BorderStyle.none)
-                                       ),
-                                       contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
-                                       hintText: 'First name',
-                                       hintStyle: const TextStyle(
-                                           color: text_dark,
-                                           fontSize: 14,
-                                           fontWeight: FontWeight.w900)),
-                                 ),
-                               ),
-                               Container(
-                                 margin: const EdgeInsets.only(top: 10,),
-                                 child: TextField(
-                                   controller: lastNameController,
-                                   keyboardType: TextInputType.text,
-                                   cursorColor: text_dark,
-                                   style: const TextStyle(
-                                       color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                   decoration: InputDecoration(
-                                       fillColor: white_blue,
-                                       filled: true,
-                                       border: OutlineInputBorder(
-                                           borderRadius: BorderRadius.circular(16.0),
-                                           borderSide: const BorderSide(width: 0,style: BorderStyle.none)
-                                       ),
-                                       contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
-                                       hintText: 'Last name',
-                                       hintStyle: const TextStyle(
-                                           color: text_dark,
-                                           fontSize: 14,
-                                           fontWeight: FontWeight.w900)),
-                                 ),
-                               ),
-                               Container(
-                                 margin: const EdgeInsets.only(top: 10),
-                                 child: TextField(
-                                   controller: emailController,
-                                   keyboardType: TextInputType.emailAddress,
-                                   cursorColor: text_dark,
-                                   style: const TextStyle(
-                                       color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                   decoration:  InputDecoration(
-                                       fillColor: white_blue,
-                                       filled: true,
-                                       border: OutlineInputBorder(
-                                           borderRadius: BorderRadius.circular(16.0),
-                                           borderSide: const BorderSide(width: 0,style: BorderStyle.none)
-                                       ),
-                                       contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
-                                       hintText: 'Email',
-                                       hintStyle: const TextStyle(
-                                           color: text_dark,
-                                           fontSize: 14,
-                                           fontWeight: FontWeight.w900)),
-                                 ),
-                               ),
-                               Container(
-                                 alignment: Alignment.center,
-                                 margin: const EdgeInsets.only(top: 10),
-                                 padding: const EdgeInsets.only(left: 18, right: 18),
-                                 decoration: const BoxDecoration(
-                                   color: white_blue,
-                                   borderRadius: BorderRadius.all(
-                                     Radius.circular(18),
-                                   ),
-                                 ),
-                                 child: Row(
-                                   children: [
-                                     GestureDetector(
-                                       behavior: HitTestBehavior.opaque,
-                                       child: Text(countryCode,
-                                           style: const TextStyle(
-                                               color: text_dark,
-                                               fontWeight: FontWeight.w600,
-                                               fontSize: 14)
-                                       ),
-                                       onTap: (){
-                                         print("is DOne");
-                                         countryDialog(setState);
-                                       },
-                                     ),
-                                     Container(
-                                       margin: const EdgeInsets.only(left: 10,right:10),
-                                       height: 20,
-                                       width: 1,
-                                       color: text_light,
-                                     ),
-                                     Flexible(
-                                       child: TextField(
-                                           controller: mobileNumberController,
-                                           keyboardType: TextInputType.number,
-                                           cursorColor: text_dark,
-                                           maxLength: 10,
-                                           style: const TextStyle(
-                                             color: text_dark,
-                                             fontSize: 14,
-                                             fontWeight: FontWeight.w600,
-                                           ),
-                                           decoration: const InputDecoration(
-                                               counterText: "",
-                                               border: InputBorder.none,
-                                               hintText: "Mobile number",
-                                               hintStyle: TextStyle(
-                                                 color: text_dark,
-                                                 fontSize: 14,
-                                                 fontWeight: FontWeight.w600,
-                                               ))),
-                                     )
-                                   ],
-                                 ),
-                               ),
-                               Container(
-                                 alignment: Alignment.centerLeft,
-                                 margin:
-                                 const EdgeInsets.only(top: 20, bottom: 10),
-                                 child: const Text(
-                                   "Puja Name",
-                                   style: TextStyle(
-                                       fontWeight: FontWeight.bold,
-                                       color: text_new,
-                                       fontSize: 14),
-                                 ),
-                               ),
-                               Container(
-                                 margin: const EdgeInsets.only(top: 10),
-                                 child: TextField(
-                                   onTap: () async {
-                                     FocusScope.of(context).requestFocus(FocusNode());
-                                     var value = await Navigator.push(context, MaterialPageRoute(builder: (context) => const PujaListScreen())) as PujaList;
-                                     print(value);
-                                     if (value.pujaId.toString().isNotEmpty)
-                                     {
-                                       print(value.pujaName);
-                                       setState((){
-                                         selectPujaController.text = value.pujaName.toString();
-                                         pujaDescription = value.pujaDescription.toString();
-                                         pujaId = value.pujaId.toString();
-                                       });
-                                     }
-                                   },
-                                   controller: selectPujaController,
-                                   keyboardType: TextInputType.text,
-                                   cursorColor: title,
-                                   style: const TextStyle(
-                                       color: title, fontSize: 14, fontWeight: FontWeight.w600),
-                                   decoration: InputDecoration(
-                                       fillColor: white_blue,
-                                       filled: true,
-                                       border: OutlineInputBorder(
-                                           borderRadius: BorderRadius.circular(16.0),
-                                           borderSide: const BorderSide(width: 0,style: BorderStyle.none)
-                                       ),
-                                       contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
-                                       hintText: 'Select Puja',
-                                       suffixIcon: Padding(
-                                         padding: const EdgeInsets.all(16.0),
-                                         child: Image.asset("assets/images/ic_right.png",height: 14,
-                                           width: 14,),
-                                       ),
-                                       hintStyle: const TextStyle(
-                                           color: text_dark,
-                                           fontSize: 14,
-                                           fontWeight: FontWeight.w900)),
-                                 ),
-                               ), */
                           Visibility(
                             visible: ausoiciousDate == false,
                             child: Column(
@@ -1496,7 +1320,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                                   {
                                                     setState(() {
                                                       selectedTime = pickedTime.format(context);
-                                                      pickTimeController.text = pickedTime.format(context); //set the value of text field.
+                                                      pickTimeController.text = pickedTime.format(context);
                                                     });
                                                   }
                                               }
@@ -1504,7 +1328,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                                               {
                                                 setState(() {
                                                   selectedTime = pickedTime.format(context);
-                                                  pickTimeController.text = pickedTime.format(context); //set the value of text field.
+                                                  pickTimeController.text = pickedTime.format(context);
                                                 });
                                               }
                                             print(selectedTime);
@@ -2159,6 +1983,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                   {
                     String formattedDate = DateFormat('MMM dd, yyyy').format(value);
                     // controller.text = formattedDate;
+                    selectedDateDateTime = value;
                     selectedDate = formattedDate;
                   });
                 }
@@ -2180,6 +2005,7 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
             color: Colors.white,
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.time,
+              minimumDate: selectedDateDateTime == DateTime.now() ? DateTime.now() : null,
               onDateTimeChanged: (value) {
                 if (value != null && value != selectedTime) {
                   setState(() {
@@ -2258,11 +2084,11 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
         showToast("Select date for pooja ",context);
         return;
       }
-      // if(selectedTime.toString()==("Pick Time"))
-      // {
-      //   showToast("Select time for pooja ",context);
-      //   return;
-      // }
+      if(selectedTime.toString()==("Pick Time"))
+      {
+        showToast("Select time for pooja ",context);
+        return;
+      }
     }
     _reviewBookingDialog();
   }

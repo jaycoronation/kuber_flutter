@@ -3,14 +3,15 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
+import 'package:kuber/constant/common_widget.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;
-import 'dart:html' as html;
+//import 'dart:html' as html;
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -684,56 +685,87 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                             ), */
 
                                   Container(height: 22,),
-                                  TextButton(
-                                    onPressed:(){
-                                      if(astroFnameController.text.isEmpty)
-                                      {
-                                        showToast("Please enter first name", context);
-                                      }
-                                      else if(astroLnameController.text.isEmpty)
-                                      {
-                                        showToast("Please enter last name", context);
-                                      }
-                                      else if(astroEmailController.text.isEmpty)
-                                      {
-                                        showToast("Please enter email address", context);
-                                      }
-                                      else if(astroMobileNumberController.text.isEmpty)
-                                      {
-                                        showToast("Please enter mobile number", context);
-                                      }
-                                      else if(astroGirlBirthDateController.text.isEmpty)
-                                      {
-                                        showToast("Please enter birth date", context);
-                                      }
-                                      else if (astroBirthTimeController.text.isEmpty)
-                                      {
-                                        showToast("Please enter birth time ", context);
-                                      }
-                                      else if(astroBirthPlaceController.text.isEmpty)
-                                      {
-                                        showToast("Please enter birth place", context);
-                                      }
-                                      else
-                                      {
-                                        _confirmAstrology();
-                                      }
-                                    },
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
+                                  getCommonButton('Get For 21\$', () {
+                                    if(astroFnameController.text.isEmpty)
+                                    {
+                                      showToast("Please enter first name", context);
+                                    }
+                                    else if(astroLnameController.text.isEmpty)
+                                    {
+                                      showToast("Please enter last name", context);
+                                    }
+                                    else if(astroEmailController.text.isEmpty)
+                                    {
+                                      showToast("Please enter email address", context);
+                                    }
+                                    else if(astroMobileNumberController.text.isEmpty)
+                                    {
+                                      showToast("Please enter mobile number", context);
+                                    }
+                                    else if(astroGirlBirthDateController.text.isEmpty)
+                                    {
+                                      showToast("Please enter birth date", context);
+                                    }
+                                    else if (astroBirthTimeController.text.isEmpty)
+                                    {
+                                      showToast("Please enter birth time ", context);
+                                    }
+                                    else if(astroBirthPlaceController.text.isEmpty)
+                                    {
+                                      showToast("Please enter birth place", context);
+                                    }
+                                    else
+                                    {
+                                      _confirmAstrology();
+                                    }
+                                  }),
+                                  Visibility(
+                                    visible: false,
+                                    child: TextButton(
+                                      onPressed:(){
+                                        if(astroFnameController.text.isEmpty)
+                                        {
+                                          showToast("Please enter first name", context);
+                                        }
+                                        else if(astroLnameController.text.isEmpty)
+                                        {
+                                          showToast("Please enter last name", context);
+                                        }
+                                        else if(astroEmailController.text.isEmpty)
+                                        {
+                                          showToast("Please enter email address", context);
+                                        }
+                                        else if(astroMobileNumberController.text.isEmpty)
+                                        {
+                                          showToast("Please enter mobile number", context);
+                                        }
+                                        else if(astroGirlBirthDateController.text.isEmpty)
+                                        {
+                                          showToast("Please enter birth date", context);
+                                        }
+                                        else if (astroBirthTimeController.text.isEmpty)
+                                        {
+                                          showToast("Please enter birth time ", context);
+                                        }
+                                        else if(astroBirthPlaceController.text.isEmpty)
+                                        {
+                                          showToast("Please enter birth place", context);
+                                        }
+                                        else
+                                        {
+                                          _confirmAstrology();
+                                        }
+                                      },
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
+                                        ),
+                                        backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
                                       ),
-                                      backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
-                                    ),
 
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Text('Get For 21\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
-                                        ],
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(4.0),
+                                        child: Text('Get For 21\$', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: title),),
                                       ),
                                     ),
                                   ),
@@ -1436,7 +1468,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                       backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
                                     ),
 
-                                    child: Padding(
+                                    child: const Padding(
                                       padding: EdgeInsets.all(4.0),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -1959,7 +1991,73 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Flexible(
+                        Expanded(child: getCommonButton("Edit Request", () { Navigator.pop(context); })),
+                        Container(width: 12,),
+                        Expanded(child: getCommonButton('Submit Request', () { Navigator.pop(context,true);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => UsePaypal(
+                                sandboxMode: SANDBOX,
+                                clientId: PAYPAL_CLIENT_ID,
+                                secretKey:PAYPAL_CLIENT_SECRET,
+                                returnURL: "https://www.panditbookings.com/return",
+                                cancelURL: "http://www.panditbookings.com/cancel",
+                                transactions: [
+                                  {
+                                    "amount": {
+                                      "total": "21",
+                                      "currency": "USD",
+                                      "details": const {
+                                        "subtotal": '21',
+                                        "shipping": '0',
+                                        "shipping_discount": 0
+                                      }
+                                    },
+                                    "description": "The payment transaction description.",
+                                    // "payment_options": {
+                                    //   "allowed_payment_method":
+                                    //       "INSTANT_FUNDING_SOURCE"
+                                    // },
+                                    "item_list": {
+                                      "items": const [
+                                        {
+                                          "name": "Astrology Request",
+                                          "quantity": 1,
+                                          "price": '21',
+                                          "currency": "USD"
+                                        }
+                                      ],
+                                      // shipping address is not required though
+                                      "shipping_address": {
+                                        "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
+                                        "line1": "2 Gila Crescent",
+                                        "line2": "",
+                                        "city": "Johannesburg",
+                                        "country_code": "SA",
+                                        "postal_code": "2090",
+                                        "phone": "+00000000",
+                                        "state": 'Gauteng'
+                                      },
+                                    }
+                                  }
+                                ],
+                                note: "Contact us for any questions on your order.",
+                                onSuccess: (Map params) async {
+                                  print("onSuccess: $params");
+                                  paymentId = params['paymentId'];
+
+                                  callAstrologySaveApi();
+                                },
+                                onError: (error) {
+                                  print("onError: $error");
+                                },
+                                onCancel: (params) {
+                                  print('cancelled: $params');
+                                }
+                            ),
+                          ),
+                        ); })),
+                       /* Flexible(
                           child: Container(
                             alignment: Alignment.bottomRight,
                             margin: const EdgeInsets.only(top: 20,bottom: 20),
@@ -1998,6 +2096,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                               }
                             else
                               {
+                                Navigator.pop(context,true);
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (BuildContext context) => UsePaypal(
@@ -2049,6 +2148,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                         onSuccess: (Map params) async {
                                           print("onSuccess: $params");
                                           paymentId = params['paymentId'];
+
                                           callAstrologySaveApi();
                                         },
                                         onError: (error) {
@@ -2084,7 +2184,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                               ),
                             ),
                           ),
-                        ),
+                        ),*/
                       ],
                     )
                   ],
@@ -2171,7 +2271,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
       final approvalUrl = paymentResponse['links'].firstWhere((link) => link['rel'] == 'approval_url')['href'];
       final id = paymentResponse['id'];
 
-      // html.window.open(approvalUrl,"_self");
+      //html.window.open(approvalUrl,"_self");
 
       setState(() {
         _isLoading = false;
@@ -2195,7 +2295,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
     {
       name = data[i]['name'];
       code = data[i]['code'];
-      dialCode = data[i]['dial_code'] != null ? data[i]['dial_code'] : "";
+      dialCode = data[i]['dial_code'] ?? "";
       listCountryCode.add(CountryListResponseModel(name: name, dialCode: dialCode, code: code));
     }
   }
@@ -2221,6 +2321,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
       "email": astroEmailController.value.text,
       "mobile": astroMobileNumberController.value.text,
       "notes": astroNotesController.value.text,
+      "country_code":countryCode,
       "payment_id" : paymentId
     };
 

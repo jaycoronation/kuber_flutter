@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -12,6 +11,8 @@ import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/utils/session_manager_methods.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
+
+import '../constant/common_widget.dart';
 
 class DeleteAccountScreen extends StatefulWidget {
   const DeleteAccountScreen({Key? key}) : super(key: key);
@@ -31,20 +32,18 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
             resizeToAvoidBottomInset: true,
             backgroundColor: bg_skin,
             appBar:AppBar(
-              // systemOverlayStyle: SystemUiOverlayStyle.dark,
               toolbarHeight: 55,
               automaticallyImplyLeading: false,
               backgroundColor: bg_skin,
               elevation: 0,
-              leading:IconButton(
-                icon: Image.asset("assets/images/ic_back_arrow.png",
-                    width: 18, height: 18),
-                iconSize: 28,
-                onPressed: () {
-                  Navigator.pop(context,
-                      MaterialPageRoute(builder: (context) => const LoginScreen()));
+              leading: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  Navigator.pop(context);
                 },
-              ) ,
+                child: getBackArrow(),
+              ),
+              centerTitle: true,
             ),
             body: _isLoading
                 ? const LoadingWidget()
@@ -64,26 +63,33 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
                         style: getSecondaryTitleFontStyle()),
                     ),
                     Container(
-                        margin: const EdgeInsets.all(12),
-                        width: MediaQuery.of(context).size.width,
-                        child: TextButton(
-                          style: ButtonStyle(
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
+                      margin: const EdgeInsets.all(12),
+                      child: getCommonButton('Delete my account now', () {_showDeleteBottomSheet(); }),
+                    ),
+                    Visibility(
+                      visible: false,
+                      child: Container(
+                          margin: const EdgeInsets.all(12),
+                          width: MediaQuery.of(context).size.width,
+                          child: TextButton(
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
                                 ),
-                              ),
-                              backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
-                          ),
-                          onPressed: (){
-                            // _getDeleteAccountApi();
-                            _showDeleteBottomSheet();
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text("Delete my account now",style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 15),),
-                          ),
-                        )
+                                backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
+                            ),
+                            onPressed: (){
+                              // _getDeleteAccountApi();
+                              _showDeleteBottomSheet();
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text("Delete my account now",style: TextStyle(color: black,fontWeight: FontWeight.w600,fontSize: 15),),
+                            ),
+                          )
+                      ),
                     ),
                     // Container(
                     //   alignment: Alignment.center,

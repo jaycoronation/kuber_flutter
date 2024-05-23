@@ -46,6 +46,14 @@
           }
         },
         {
+          "client_id": "951814205337-f7ng387881a7r0r8ci2tt706a56gd9di.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coronation.kuber",
+            "certificate_hash": "6998cefdb365ebd421bd2c5be4ff7be61b5b2a52"
+          }
+        },
+        {
           "client_id": "951814205337-j58r037vc1pfp6hsr9dkj43eaolcpooh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

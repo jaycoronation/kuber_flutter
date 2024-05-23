@@ -34,7 +34,6 @@
    <application
         android:label="Kuber"
         android:name="${applicationName}"
-
        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
 
@@ -62,7 +61,9 @@
 
         </activity>
 
-
+       <meta-data
+           android:name="com.google.firebase.messaging.default_notification_channel_id"
+           android:value="@string/default_notification_channel_id" />
 
        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>

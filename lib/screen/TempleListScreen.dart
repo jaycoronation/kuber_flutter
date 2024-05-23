@@ -3,10 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:flutter_google_places_web/flutter_google_places_web.dart';
 import 'package:google_api_headers/google_api_headers.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:google_geocoding/google_geocoding.dart';
 import 'package:kuber/model/TempleListResponseModel.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
@@ -18,6 +17,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
+import '../constant/common_widget.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../widget/loading.dart';
@@ -84,21 +84,14 @@ class _TempleListScreen extends State<TempleListScreen> {
               automaticallyImplyLeading: false,
               backgroundColor: bg_skin,
               elevation: 0,
-              leading: IconButton(
-                icon: Image.asset("assets/images/ic_back_arrow.png",
-                    width: 18, height: 18),
-                iconSize: 28,
-                onPressed: () {
-                  Navigator.pop(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
+              leading: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  Navigator.pop(context);
                 },
+                child: getBackArrow(),
               ),
-              title: const Text("Temple List",
-                style: TextStyle(
-                    color: black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
+              title: getTitle("Temple List"),
               actions: [
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -267,13 +260,12 @@ class _TempleListScreen extends State<TempleListScreen> {
               automaticallyImplyLeading: false,
               backgroundColor: bg_skin,
               elevation: 0,
-              leading: IconButton(
-                icon: Image.asset("assets/images/ic_back_arrow.png",
-                    width: 18, height: 18),
-                iconSize: 28,
-                onPressed: () {
-                  Navigator.pop(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
+              leading: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  Navigator.pop(context);
                 },
+                child: getBackArrow(),
               ),
               title: Text("Temple List $test",
                 style: const TextStyle(
@@ -299,17 +291,6 @@ class _TempleListScreen extends State<TempleListScreen> {
                 ? const LoadingWidget()
                 : Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 18.0, right: 18),
-                        child: Visibility(
-                          visible: _isVisible,
-                          child: FlutterGooglePlacesWeb(
-                            apiKey: API_KEY,
-                            proxyURL: 'https://cors-anywhere.herokuapp.com/',
-                            required: true,
-                          ),
-                        ),
-                      ),
                       Expanded(
                           child: SingleChildScrollView(
                             controller: _scrollViewController,
@@ -454,11 +435,11 @@ class _TempleListScreen extends State<TempleListScreen> {
       );
       PlacesDetailsResponse detail =
       await _places.getDetailsByPlaceId(p.placeId!);
-      final latitude = detail.result.geometry!.location.lat;
-      final longitude = detail.result.geometry!.location.lng;
+      final latitude = detail.result?.geometry!.location.lat;
+      final longitude = detail.result?.geometry!.location.lng;
 
-      lat = latitude;
-      long = longitude;
+      lat = latitude!;
+      long = longitude!;
       nextPageToken = "";
 
       getTempleList(true);
@@ -515,28 +496,6 @@ class _TempleListScreen extends State<TempleListScreen> {
     //_makeSearchPlaceRequest(location);
   }
 
-  void _makeSearchPlaceRequest(String text) async {
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
-
-    Map<String, dynamic> jsonBody = {
-      'input': text,
-    };
-
-    var uri = Uri.https('www.panditbookings.com', 'google_template.php', jsonBody);
-
-    var response = await http.get(uri, headers: {
-      HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded; charset=UTF-8',
-    });
-
-    final statusCode = response.statusCode;
-
-    final body = response.body;
-    Map<String, dynamic> user = jsonDecode(body);
-
-  }
-
   void getTempleList(bool isFirstTime) async {
 
     if (isFirstTime) {
@@ -559,12 +518,11 @@ class _TempleListScreen extends State<TempleListScreen> {
       'rankby': "distance",
       'keyword': "hindu temple",
       'pagetoken' : nextPageToken,
+      'key' : API_KEY
     };
 
     // var uri = Uri.https('cors-anywhere.herokuapp.com', '/https://maps.googleapis.com/maps/api/place/nearbysearch/json', jsonBody);
-    //var uri = Uri.https('maps.googleapis.com', '/maps/api/place/nearbysearch/json', jsonBody);
-
-    var uri = Uri.https('www.panditbookings.com', '/google_template.php', jsonBody);
+    var uri = Uri.https('maps.googleapis.com', '/maps/api/place/nearbysearch/json', jsonBody);
 
     var response = await http.get(uri, headers: {
       HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded; charset=UTF-8',
