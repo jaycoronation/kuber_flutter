@@ -2,11 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_api_headers/google_api_headers.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_webservice/places.dart';
-import 'package:google_geocoding/google_geocoding.dart';
 import 'package:kuber/model/TempleListResponseModel.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/places_autocomplete.dart';
@@ -35,7 +31,6 @@ class _TempleListScreen extends State<TempleListScreen> {
   bool _isLoading = false;
   double long = 0.0, lat = 0.0;
   bool haspermission = false;
-  late GoogleGeocoding googleGeocoding;
   late LocationPermission permission;
   late Position position;
   List<Results> _listTemples = [];

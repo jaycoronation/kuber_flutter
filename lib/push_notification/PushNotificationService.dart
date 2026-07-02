@@ -94,48 +94,48 @@ class PushNotificationService {
       defaultPresentAlert: true,
       defaultPresentBadge: true,
       defaultPresentSound: true,
-      onDidReceiveLocalNotification: (id, title, body, payload) async {
-        SessionManager sessionManager = SessionManager();
-        var isLoggedIn = sessionManager.checkIsLoggedIn() ?? false;
-        if (title != null && isLoggedIn)
-        {
-          var idAPI = "";
-          var contentType = "";
-          var image = "";
-          var titleAPI = "";
-          var messageData = "";
-
-          titleAPI = title.toString();
-          idAPI = id.toString();
-          messageData = body.toString();
-
-          print('<><> onMessage id--->$id');
-          print('<><> onMessage contentType--->$contentType');
-          print("<><> onMessage Image URL : $image <><>");
-          print("<><> onMessage Payload : $payload <><>");
-          const DarwinNotificationDetails iOSPlatformChannelSpecifics = DarwinNotificationDetails(presentSound: true, presentAlert: true);
-
-          flutterLocalNotificationsPlugin.show(
-            id.hashCode,
-            title,
-            messageData,
-            payload: contentType,
-            NotificationDetails(
-                android: AndroidNotificationDetails('SIRE', 'SIRE',
-                    channelDescription: channel.description,
-                    icon: payload,
-                    playSound: true,
-                    importance: Importance.max,
-                    styleInformation: BigTextStyleInformation(messageData),
-                    priority: Priority.high),
-                iOS: iOSPlatformChannelSpecifics),
-          );
-        }
-        else
-        {
-          print("<><> CHECK DATA : " " <><>");
-        }
-      },
+      // onDidReceiveLocalNotification: (id, title, body, payload) async {
+      //   SessionManager sessionManager = SessionManager();
+      //   var isLoggedIn = sessionManager.checkIsLoggedIn() ?? false;
+      //   if (title != null && isLoggedIn)
+      //   {
+      //     var idAPI = "";
+      //     var contentType = "";
+      //     var image = "";
+      //     var titleAPI = "";
+      //     var messageData = "";
+      //
+      //     titleAPI = title.toString();
+      //     idAPI = id.toString();
+      //     messageData = body.toString();
+      //
+      //     print('<><> onMessage id--->$id');
+      //     print('<><> onMessage contentType--->$contentType');
+      //     print("<><> onMessage Image URL : $image <><>");
+      //     print("<><> onMessage Payload : $payload <><>");
+      //     const DarwinNotificationDetails iOSPlatformChannelSpecifics = DarwinNotificationDetails(presentSound: true, presentAlert: true);
+      //
+      //     flutterLocalNotificationsPlugin.show(
+      //       id.hashCode,
+      //       title,
+      //       messageData,
+      //       payload: contentType,
+      //       NotificationDetails(
+      //           android: AndroidNotificationDetails('SIRE', 'SIRE',
+      //               channelDescription: channel.description,
+      //               icon: payload,
+      //               playSound: true,
+      //               importance: Importance.max,
+      //               styleInformation: BigTextStyleInformation(messageData),
+      //               priority: Priority.high),
+      //           iOS: iOSPlatformChannelSpecifics),
+      //     );
+      //   }
+      //   else
+      //   {
+      //     print("<><> CHECK DATA : " " <><>");
+      //   }
+      // },
     );
 
     var initSettings = InitializationSettings(android: androidSettings, iOS: iOSSettings);

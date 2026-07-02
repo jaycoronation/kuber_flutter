@@ -840,86 +840,86 @@ class _LoginScreen extends State<LoginScreen> {
 
 
   Future<User?> signInWithGoogle({required BuildContext context}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
-
-    if (kIsWeb) {
-      GoogleAuthProvider authProvider = GoogleAuthProvider();
-      try {
-        final UserCredential userCredential =
-        await auth.signInWithPopup(authProvider);
-
-        user = userCredential.user;
-      } catch (e) {
-        print(e);
-      }
-    }
-    else {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-
-      print("googleSignIn ===== $googleSignIn");
-
-      try {
-        final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-      } on Exception catch (e) {
-        print("ERROR OCCUR ==== $e");
-      }
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-      print("googleSignInAccount ===== $googleSignInAccount");
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleSignInAuthentication.accessToken,
-          idToken: googleSignInAuthentication.idToken,
-        );
-        try {
-          final UserCredential userCredential =
-          await auth.signInWithCredential(credential);
-          user = userCredential.user;
-
-          print("User GetSet $user");
-          String? firstName = "";
-          String? lastName = "";
-          String? email = "";
-          String? profilePic = "";
-          firstName = user?.displayName ?? "";
-          lastName = user?.displayName ?? "";
-          email = user?.email ?? "";
-          profilePic = user?.photoURL ?? "";
-
-          _makeSocialLoginRequest("2", firstName, lastName, email, profilePic);
-        }
-        on FirebaseAuthException catch (e) {
-          print("error ==== $e");
-          if (e.code == 'account-exists-with-different-credential') {
-            // ...
-
-          }
-          else if (e.code == 'invalid-credential') {
-            // ...
-          }
-        } catch (e) {
-          // ...
-        }
-      }
-    }
-    return user;
+    // FirebaseAuth auth = FirebaseAuth.instance;
+    // User? user;
+    //
+    // if (kIsWeb) {
+    //   GoogleAuthProvider authProvider = GoogleAuthProvider();
+    //   try {
+    //     final UserCredential userCredential =
+    //     await auth.signInWithPopup(authProvider);
+    //
+    //     user = userCredential.user;
+    //   } catch (e) {
+    //     print(e);
+    //   }
+    // }
+    // else {
+    //   final GoogleSignIn googleSignIn = GoogleSignIn();
+    //
+    //   print("googleSignIn ===== $googleSignIn");
+    //
+    //   try {
+    //     final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    //   } on Exception catch (e) {
+    //     print("ERROR OCCUR ==== $e");
+    //   }
+    //   final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    //   print("googleSignInAccount ===== $googleSignInAccount");
+    //   if (googleSignInAccount != null) {
+    //     final GoogleSignInAuthentication googleSignInAuthentication =
+    //     await googleSignInAccount.authentication;
+    //     final AuthCredential credential = GoogleAuthProvider.credential(
+    //       accessToken: googleSignInAuthentication.accessToken,
+    //       idToken: googleSignInAuthentication.idToken,
+    //     );
+    //     try {
+    //       final UserCredential userCredential =
+    //       await auth.signInWithCredential(credential);
+    //       user = userCredential.user;
+    //
+    //       print("User GetSet $user");
+    //       String? firstName = "";
+    //       String? lastName = "";
+    //       String? email = "";
+    //       String? profilePic = "";
+    //       firstName = user?.displayName ?? "";
+    //       lastName = user?.displayName ?? "";
+    //       email = user?.email ?? "";
+    //       profilePic = user?.photoURL ?? "";
+    //
+    //       _makeSocialLoginRequest("2", firstName, lastName, email, profilePic);
+    //     }
+    //     on FirebaseAuthException catch (e) {
+    //       print("error ==== $e");
+    //       if (e.code == 'account-exists-with-different-credential') {
+    //         // ...
+    //
+    //       }
+    //       else if (e.code == 'invalid-credential') {
+    //         // ...
+    //       }
+    //     } catch (e) {
+    //       // ...
+    //     }
+    //   }
+    // }
+    // return user;
   }
 
   static Future<void> signOut({required BuildContext context}) async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-
-    try {
-      if (!kIsWeb) {
-        await googleSignIn.signOut();
-      }
-      await FirebaseAuth.instance.signOut();
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        showSnackBar('Error signing out. Try again.', context),
-      );
-    }
+    // final GoogleSignIn googleSignIn = GoogleSignIn();
+    //
+    // try {
+    //   if (!kIsWeb) {
+    //     await googleSignIn.signOut();
+    //   }
+    //   await FirebaseAuth.instance.signOut();
+    // } catch (e) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     showSnackBar('Error signing out. Try again.', context),
+    //   );
+    // }
   }
 
   Future<void> getKeyHash() async {

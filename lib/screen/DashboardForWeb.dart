@@ -423,7 +423,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                         children: [
                                           Container(
                                               padding: EdgeInsets.all(4),
-
                                               child: currentIndex == 9
                                                   ? Image.asset('assets/images/ic_logout_new.png', width: 20, height: 20, color: white, )
                                                   : Image.asset('assets/images/ic_logout_new.png', width: 20, height: 20 , color: darkbrown,)

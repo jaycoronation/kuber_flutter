@@ -1629,15 +1629,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
     print(prayerDOBController.value.text);
 
     Map<String, String> jsonBody = {
-      'user_id' : sessionManager.getUserId().toString(),
-      'name' : prayerFNameController.value.text,
-      'surname' : prayerLNameController.value.text,
-      'date_of_birth' : universalDateConverter("dd MMM,yyyy", "dd-MM-yyyy", prayerDOBController.value.text),
-      'email' : prayerEmailController.value.text,
-      'prayer_id' : prayerID,
-      'notes' : prayerNotesController.value.text,
-      'mobile': prayerMobileController.value.text,
-      "country_code" : countryCode
+
     };
 
     final response = await http.post(url, body: jsonBody);
