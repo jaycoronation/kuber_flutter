@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 import '../constant/global_context.dart';
 import '../firebase_options.dart';
 import '../utils/app_utils.dart';

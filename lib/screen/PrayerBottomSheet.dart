@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kuber/constant/common_widget.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -1621,9 +1621,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + savePrayerRequest);
     print(prayerDOBController.value.text);
@@ -1692,9 +1690,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getPrayerList);
 

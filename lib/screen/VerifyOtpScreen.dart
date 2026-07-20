@@ -15,7 +15,7 @@ import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
@@ -439,9 +439,10 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
     setState(() {
       _isLoading = true;
     });
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+
+
+
+    
 
     final url = Uri.parse(MAIN_URL + verifyOtp);
 
@@ -499,9 +500,7 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
   }
 
   _sendOTPApi() async {
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + generateOtp);
 

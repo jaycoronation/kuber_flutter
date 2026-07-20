@@ -4,11 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kuber/model/TempleListResponseModel.dart';
-import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/places_autocomplete.dart';
 import 'package:kuber/utils/full_screen_image.dart';
 import 'package:kuber/widget/loading_more.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/api_end_point.dart';
@@ -88,26 +87,26 @@ class _TempleListScreen extends State<TempleListScreen> {
               ),
               title: getTitle("Temple List"),
               actions: [
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () async {
-                    Prediction? prediction = await PlacesAutocomplete.show(
-                      context: context,
-                      apiKey: API_KEY,
-                      mode: Mode.fullscreen,
-                      components: [],
-                      strictbounds: false,
-                      region: "",
-                      decoration: const InputDecoration(
-                        hintText: 'Search',
-                      ),
-                      types: [],
-                      language: "en",
-                    );
-                    displayPrediction(prediction);
-                  },
-                  child: Image.asset("assets/images/ic_search.png",height: 24,width: 24),
-                ),
+                // GestureDetector(
+                //   behavior: HitTestBehavior.opaque,
+                //   onTap: () async {
+                //     Prediction? prediction = await PlacesAutocomplete.show(
+                //       context: context,
+                //       apiKey: API_KEY,
+                //       mode: Mode.fullscreen,
+                //       components: [],
+                //       strictbounds: false,
+                //       region: "",
+                //       decoration: const InputDecoration(
+                //         hintText: 'Search',
+                //       ),
+                //       types: [],
+                //       language: "en",
+                //     );
+                //     displayPrediction(prediction);
+                //   },
+                //   child: Image.asset("assets/images/ic_search.png",height: 24,width: 24),
+                // ),
                 Container(width: 12,)
               ],
               centerTitle: true,
@@ -422,24 +421,24 @@ class _TempleListScreen extends State<TempleListScreen> {
 
   }
 
-  Future<void> displayPrediction(Prediction? p) async {
-    if (p != null) {
-      GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: API_KEY,
-        apiHeaders: await const GoogleApiHeaders().getHeaders(),
-      );
-      PlacesDetailsResponse detail =
-      await _places.getDetailsByPlaceId(p.placeId!);
-      final latitude = detail.result?.geometry!.location.lat;
-      final longitude = detail.result?.geometry!.location.lng;
-
-      lat = latitude!;
-      long = longitude!;
-      nextPageToken = "";
-
-      getTempleList(true);
-    }
-  }
+  // Future<void> displayPrediction(Prediction? p) async {
+  //   if (p != null) {
+  //     GoogleMapsPlaces _places = GoogleMapsPlaces(
+  //       apiKey: API_KEY,
+  //       apiHeaders: await const GoogleApiHeaders().getHeaders(),
+  //     );
+  //     PlacesDetailsResponse detail =
+  //     await _places.getDetailsByPlaceId(p.placeId!);
+  //     final latitude = detail.result?.geometry!.location.lat;
+  //     final longitude = detail.result?.geometry!.location.lng;
+  //
+  //     lat = latitude!;
+  //     long = longitude!;
+  //     nextPageToken = "";
+  //
+  //     getTempleList(true);
+  //   }
+  // }
 
   void checkPermission() async {
     permission = await Geolocator.checkPermission();
@@ -501,9 +500,7 @@ class _TempleListScreen extends State<TempleListScreen> {
       });
     }
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     var location = "$lat,$long";
     print("Test$location");

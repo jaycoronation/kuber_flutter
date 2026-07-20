@@ -11,7 +11,7 @@ import 'package:kuber/screen/PujariDashboard.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/common_widget.dart';
 import '../model/Emal_login_response_model.dart';
@@ -635,9 +635,7 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
     setState(() {
       _isLoading = true;
     });
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + login);
 

@@ -6,10 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/screen/DashboardForWeb.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/api_end_point.dart';
@@ -45,12 +44,6 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
     getCountryData();
   }
 
-  void printKeyHash() async{
-    String? key=await FlutterFacebookKeyhash.getFaceBookKeyHash ??
-        'Unknown platform version';
-    print(key??"");
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -484,9 +477,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
 
   _sendOTPApi() async {
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + generateOtp);
 
@@ -748,9 +739,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
 
     signOut(context: context);
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + socialLogin);
 

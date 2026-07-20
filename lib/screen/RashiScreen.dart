@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:kuber/model/RashiListResponseModel.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -1073,9 +1073,7 @@ class _RashiScreen extends State<RashiScreen> {
     });
     Navigator.pop(context);
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + saveRashiRequest);
 
@@ -1133,9 +1131,7 @@ class _RashiScreen extends State<RashiScreen> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getRashiList);
 
@@ -1342,9 +1338,7 @@ class _RashiScreen extends State<RashiScreen> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + deleteRashiRequest);
 

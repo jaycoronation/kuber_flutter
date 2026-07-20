@@ -10,7 +10,7 @@ import 'package:kuber/screen/FeedScreen.dart';
 import 'package:kuber/screen/MatchMakingScreen.dart';
 import 'package:kuber/screen/PrayerRequestScreen.dart';
 import 'package:kuber/screen/RashiScreen.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 import '../constant/colors.dart';
 import '../model/AstroDetailResponseModel.dart';
 import '../model/CommonResponseModel.dart';
@@ -1034,9 +1034,7 @@ class _DashboardForWeb extends State<DashboardForWeb> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + matchmakingsave);
 
@@ -1092,9 +1090,7 @@ class _DashboardForWeb extends State<DashboardForWeb> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + astrologySave);
 
@@ -1141,9 +1137,7 @@ class _DashboardForWeb extends State<DashboardForWeb> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getAstrologyDetail);
 
@@ -1175,9 +1169,7 @@ class _DashboardForWeb extends State<DashboardForWeb> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getMatchDetail);
 
@@ -1209,9 +1201,7 @@ class _DashboardForWeb extends State<DashboardForWeb> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getDonationDetail);
 
@@ -1243,9 +1233,7 @@ class _DashboardForWeb extends State<DashboardForWeb> {
     setState(() {
       _isLoading = true;
     });
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + donationSave);
 

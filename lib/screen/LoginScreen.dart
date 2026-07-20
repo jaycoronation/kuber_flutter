@@ -6,14 +6,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_facebook_keyhash/flutter_facebook_keyhash.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/screen/LoginWithEmailScreen.dart';
 import 'package:kuber/screen/WebViewContainer.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/api_end_point.dart';
 import '../constant/common_widget.dart';
@@ -46,17 +44,10 @@ class _LoginScreen extends State<LoginScreen> {
 
   @override
   void initState() {
-    printKeyHash();
     super.initState();
     getCountryData();
   }
 
-  void printKeyHash() async{
-    String? key=await FlutterFacebookKeyhash.getFaceBookKeyHash ??
-        'Unknown platform version';
-    print(key??"");
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -922,28 +913,7 @@ class _LoginScreen extends State<LoginScreen> {
     // }
   }
 
-  Future<void> getKeyHash() async {
-    String keyHash;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      keyHash = await FlutterFacebookKeyhash.getFaceBookKeyHash ??
-          'Unknown platform KeyHash';
-    } on PlatformException {
-      keyHash = 'Failed to get Kay Hash.';
-    }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _keyHash = keyHash;
-    });
-
-    print("++++++HashKey$_keyHash");
-  }
 
   _makeSocialLoginRequest(String loginType, String firstName, String lastName, String email, String image) async {
     setState(() {
@@ -952,9 +922,7 @@ class _LoginScreen extends State<LoginScreen> {
 
     signOut(context: context);
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + socialLogin);
 
@@ -1015,9 +983,7 @@ class _LoginScreen extends State<LoginScreen> {
 
   _sendOTPApi() async {
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + generateOtp);
 

@@ -8,7 +8,7 @@ import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/CommonResponseModel.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/widget/loading.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/common_widget.dart';
 
@@ -140,9 +140,7 @@ class _ForgotPasswordScreen extends State<ForgotPasswordScreen> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + forgotPassword);
 

@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/model/PujaDetailsResponseModel.dart';
 import 'package:kuber/screen/PujaListScreen.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/colors.dart';
 import '../constant/common_widget.dart';
@@ -92,9 +92,7 @@ class _PujaDetailsScreen extends State<PujaDetailsScreen> {
     setState(() {
       _isLoading = true;
     });
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getPujaDetailstUser);
 

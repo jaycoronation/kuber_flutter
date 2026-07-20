@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/ThoughtsResponseModel.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/api_end_point.dart';
 import '../constant/common_widget.dart';
@@ -166,9 +166,7 @@ class _ThoughtsScreen extends State<ThoughtsScreen> {
         _isLastPage = false;
       });
     }
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getUserThoughts);
 

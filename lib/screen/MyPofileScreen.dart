@@ -6,8 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_maps_webservice/places.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -23,7 +22,6 @@ import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/common_widget.dart';
@@ -89,6 +87,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
   var documentName = "";
 
   PujariGetSet getSetPujari = PujariGetSet();
+
+  final FlutterGooglePlacesSdk _places =
+  FlutterGooglePlacesSdk(API_KEY);
 
   var profilepicName="";
   double width = 700;
@@ -521,20 +522,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                             fontWeight: FontWeight.w600,
                           ),
                           onTap: () async {
-                            Prediction? prediction = await PlacesAutocomplete.show(
-                              context: context,
-                              apiKey: API_KEY,
-                              mode: Mode.fullscreen,
-                              components: [],
-                              strictbounds: false,
-                              region: "",
-                              decoration: const InputDecoration(
-                                labelText: 'Search',
-                              ),
-                              types: [],
-                              language: "en",
-                            );
-                            displayPrediction(prediction,context);
+                            placesDialog(addressController, setState);
                           },
 
                           decoration: InputDecoration(
@@ -1483,20 +1471,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 minLines: 3,
                                 maxLines: 4,
                                 onTap: () async {
-                                  Prediction? prediction = await PlacesAutocomplete.show(
-                                    context: context,
-                                    apiKey: API_KEY,
-                                    mode: Mode.fullscreen,
-                                    components: [],
-                                    strictbounds: false,
-                                    region: "",
-                                    decoration: const InputDecoration(
-                                      labelText: 'Search',
-                                    ),
-                                    types: [],
-                                    language: "en",
-                                  );
-                                  displayPrediction(prediction,context);
+                                  placesDialog(addressController, setState);
                                 },
                                 style: const TextStyle(
                                   color: black,
@@ -1810,13 +1785,24 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         );
   }
 
-  Future<void> displayPrediction(Prediction? p, BuildContext context) async {
-    if (p != null) {
-      // get detail (lat/lng)
+  Future<void> placesDialog(
+      TextEditingController controller,
+      StateSetter updateState,
+      ) async {
+    final prediction = await _places.findAutocompletePredictions(
+      " ",
+      countries: [],
+    );
 
-      addressController.text = p.description.toString();
+    if (prediction.predictions.isNotEmpty) {
+      final place = prediction.predictions.first;
+
+      updateState(() {
+        controller.text = place.fullText ?? "";
+      });
     }
   }
+
 
   Widget setUpTextDate() {
     return Container(
@@ -2119,9 +2105,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
     if (sessionManager.getIsPujrai() ?? false)
     {
-      HttpWithMiddleware httpLogger = HttpWithMiddleware.build(middlewares: [
-        HttpLogger(logLevel: LogLevel.BODY),
-      ]);
 
       final url = Uri.parse(MAIN_URL + updateProfilePicPujari);
       var request = http.MultipartRequest("POST", url);
@@ -2159,9 +2142,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
     }
     else if (sessionManager.getIsTemple() ?? false)
     {
-      HttpWithMiddleware httpLogger = HttpWithMiddleware.build(middlewares: [
-        HttpLogger(logLevel: LogLevel.BODY),
-      ]);
 
       final url = Uri.parse(MAIN_URL + updateProfilePicTemple);
 
@@ -2417,9 +2397,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
 
     if (sessionManager.getIsPujrai() ?? false)
       {
-        HttpWithMiddleware httpLogger = HttpWithMiddleware.build(middlewares: [
-          HttpLogger(logLevel: LogLevel.BODY),
-        ]);
 
         final url = Uri.parse(MAIN_URL + updateProfileForPriest);
 
@@ -2512,9 +2489,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       }
       else if (sessionManager.getIsTemple() ?? false)
       {
-        HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-          HttpLogger(logLevel: LogLevel.BODY),
-        ]);
 
         final url = Uri.parse(MAIN_URL + updateProfileForTemple);
 
@@ -2557,11 +2531,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       }
     else
       {
-        HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-          HttpLogger(logLevel: LogLevel.BODY),
-        ]);
-
-
         final url = Uri.parse(MAIN_URL + updateProfileForUser);
 
         Map<String, String> jsonBody = {
@@ -2617,10 +2586,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
     if (sessionManager.getIsPujrai() ?? false)
       {
         try {
-          HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-            HttpLogger(logLevel: LogLevel.BODY),
-          ]);
-
           final url = Uri.parse(MAIN_URL + getUserProfilePujari);
 
           Map<String, String> jsonBody = {
@@ -2721,10 +2686,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       }
     else
       {
-        HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-          HttpLogger(logLevel: LogLevel.BODY),
-        ]);
-
         final url = Uri.parse(MAIN_URL + getUserProfileUser);
 
         Map<String, String> jsonBody = {

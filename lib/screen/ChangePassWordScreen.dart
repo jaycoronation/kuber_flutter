@@ -5,7 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kuber/utils/app_utils.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
+
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -232,10 +233,6 @@ class _ChangePassWordScreen extends State<ChangePassWordScreen> {
     {
       userType =  "User";
     }
-
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
 
     final url = Uri.parse(MAIN_URL + changePassword);
 

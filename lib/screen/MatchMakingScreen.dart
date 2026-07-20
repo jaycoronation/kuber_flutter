@@ -3,12 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/MatchListResponseModel.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 import '../constant/api_end_point.dart';
 import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
@@ -17,7 +15,7 @@ import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../utils/session_manager.dart';
 import '../widget/loading.dart';
-import 'package:google_api_headers/google_api_headers.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 
 import '../widget/no_data_new.dart';
 
@@ -52,6 +50,8 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
   bool _isNoDataVisible = false;
   SessionManager sessionManager = SessionManager();
   List<Matches> _listMatch = [];
+
+  final FlutterGooglePlacesSdk _places = FlutterGooglePlacesSdk(API_KEY);
 
   @override
   void initState() {
@@ -1925,9 +1925,7 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
 
     Navigator.pop(context);
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + matchmakingsave);
 
@@ -2259,24 +2257,20 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
   }
 
   Future<void> placesDialog(
-      TextEditingController controller, StateSetter updateState) async {
-    Prediction? prediction = await PlacesAutocomplete.show(
-      context: context,
-      apiKey: API_KEY,
-      mode: Mode.fullscreen,
-      components: [],
-      strictbounds: false,
-      region: "",
-      decoration: const InputDecoration(
-        hintText: 'Search',
-      ),
-      types: [],
-      language: "en",
+      TextEditingController controller,
+      StateSetter updateState,
+      ) async {
+    final prediction = await _places.findAutocompletePredictions(
+      " ",
+      countries: [],
     );
 
-    if (prediction != null) {
-      controller.text = prediction.description.toString();
-      updateState(() {});
+    if (prediction.predictions.isNotEmpty) {
+      final place = prediction.predictions.first;
+
+      updateState(() {
+        controller.text = place.fullText ?? "";
+      });
     }
   }
 
@@ -2285,9 +2279,7 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getMatchList);
 
@@ -2334,9 +2326,7 @@ class _MatchMakingScreen extends State<MatchMakingScreen> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + deletematch);
 

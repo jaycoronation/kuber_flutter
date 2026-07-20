@@ -2,14 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:kuber/constant/colors.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:kuber/model/AddressListResponseModel.dart';
 import 'package:kuber/model/CommonResponseModel.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/api_end_point.dart';
 import '../constant/common_widget.dart';
@@ -29,6 +28,9 @@ class _MyAddresses extends State<MyAddresses> {
   TextEditingController addressController = TextEditingController();
   List<Address> _listAddress = [];
   String addressString = "";
+
+  final FlutterGooglePlacesSdk _places =
+  FlutterGooglePlacesSdk(API_KEY);
 
   @override
   void initState() {
@@ -153,9 +155,7 @@ class _MyAddresses extends State<MyAddresses> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getAddressList);
 
@@ -199,26 +199,15 @@ class _MyAddresses extends State<MyAddresses> {
   }
 
   Future<void> placesDialog() async {
-    Prediction? prediction = await PlacesAutocomplete.show(
-      context: context,
-      apiKey: API_KEY,
-      mode: Mode.fullscreen,
-      components: [],
-      strictbounds: false,
-      region: "",
-      decoration: const InputDecoration(
-        hintText: 'Search',
-      ),
-      types: [],
-      language: "en",);
+    final prediction = await _places.findAutocompletePredictions(
+      " ",
+      countries: [],
+    );
 
-    displayPrediction(prediction,context);
-  }
+    if (prediction.predictions.isNotEmpty) {
+      final place = prediction.predictions.first;
 
-  Future<void> displayPrediction(Prediction? p, BuildContext context) async {
-    if (p != null) {
-
-      addressString = p.description.toString();
+      addressString = place.fullText.toString();
       openAddAddressDialog(Address(addressId: ""));
     }
   }
@@ -346,9 +335,7 @@ class _MyAddresses extends State<MyAddresses> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
     Navigator.pop(context);
     final url = Uri.parse(MAIN_URL + addAddress);
 
@@ -397,9 +384,7 @@ class _MyAddresses extends State<MyAddresses> {
     setState(() {
       _isLoading = true;
     });
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + updateAddress);
 
@@ -542,9 +527,7 @@ class _MyAddresses extends State<MyAddresses> {
       _isLoading = true;
     });
     Navigator.pop(context);
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + deleteAddress);
 

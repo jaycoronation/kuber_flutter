@@ -6,7 +6,7 @@ import 'package:kuber/model/BookingListResponseModel.dart';
 import 'package:kuber/model/CommonResponseModel.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -154,9 +154,7 @@ class _PujaReviewScreen extends State<PujaReviewScreen> {
     setState(() {
       isLoading = true;
     });
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + reviewSave);
 

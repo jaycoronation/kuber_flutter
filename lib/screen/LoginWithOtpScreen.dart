@@ -12,7 +12,7 @@ import 'package:kuber/screen/LoginScreen.dart';
 import 'package:kuber/screen/VerifyOtpScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/widget/loading.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/common_widget.dart';
 import '../model/CountryListResponseModel.dart';
@@ -194,9 +194,7 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
 
   _sendOTPApi() async {
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + generateOtp);
 

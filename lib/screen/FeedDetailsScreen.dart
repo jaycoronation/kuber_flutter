@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/FeedListResponseModel.dart';
 import 'package:like_button/like_button.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 import 'package:share_plus/share_plus.dart';
 
 import '../constant/api_end_point.dart';
@@ -136,9 +136,7 @@ class _FeedDetailsScreen extends State<FeedDetailsScreen> {
 
   _likeFeeds(Feeds listFeed) async {
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + likeFeeds);
 
@@ -171,9 +169,7 @@ class _FeedDetailsScreen extends State<FeedDetailsScreen> {
 
   getFeed() async {
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getUserFeed);
 

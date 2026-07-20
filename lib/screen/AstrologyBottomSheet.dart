@@ -2,16 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
 import 'package:kuber/constant/common_widget.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;
-//import 'dart:html' as html;
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -45,6 +41,8 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
   TextEditingController pickTimeController = TextEditingController();
 
   SessionManager sessionManager = SessionManager();
+
+  final FlutterGooglePlacesSdk _places = FlutterGooglePlacesSdk(API_KEY);
 
   String prayerID = "";
   bool priest = false;
@@ -2057,134 +2055,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                             ),
                           ),
                         ); })),
-                       /* Flexible(
-                          child: Container(
-                            alignment: Alignment.bottomRight,
-                            margin: const EdgeInsets.only(top: 20,bottom: 20),
-                            child: GestureDetector(
-                              onTap: (){
-                                Navigator.pop(context);
-                              },
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                color: light_yellow,
-                                elevation: 10,
-                                child: const Padding(
-                                  padding: EdgeInsets.all(14.0),
-                                  child: Text(
-                                    "Edit Request",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: title,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap:(){
-                            //
-
-                            if (kIsWeb)
-                              {
-                                callAstrologySaveApi();
-                              }
-                            else
-                              {
-                                Navigator.pop(context,true);
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) => UsePaypal(
-                                        sandboxMode: SANDBOX,
-                                        clientId: PAYPAL_CLIENT_ID,
-                                        secretKey:PAYPAL_CLIENT_SECRET,
-                                        returnURL: "https://www.panditbookings.com/return",
-                                        cancelURL: "http://www.panditbookings.com/cancel",
-                                        transactions: [
-                                          {
-                                            "amount": {
-                                              "total": "21",
-                                              "currency": "USD",
-                                              "details": const {
-                                                "subtotal": '21',
-                                                "shipping": '0',
-                                                "shipping_discount": 0
-                                              }
-                                            },
-                                            "description": "The payment transaction description.",
-                                            // "payment_options": {
-                                            //   "allowed_payment_method":
-                                            //       "INSTANT_FUNDING_SOURCE"
-                                            // },
-                                            "item_list": {
-                                              "items": const [
-                                                {
-                                                  "name": "Astrology Request",
-                                                  "quantity": 1,
-                                                  "price": '21',
-                                                  "currency": "USD"
-                                                }
-                                              ],
-                                              // shipping address is not required though
-                                              "shipping_address": {
-                                                "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
-                                                "line1": "2 Gila Crescent",
-                                                "line2": "",
-                                                "city": "Johannesburg",
-                                                "country_code": "SA",
-                                                "postal_code": "2090",
-                                                "phone": "+00000000",
-                                                "state": 'Gauteng'
-                                              },
-                                            }
-                                          }
-                                        ],
-                                        note: "Contact us for any questions on your order.",
-                                        onSuccess: (Map params) async {
-                                          print("onSuccess: $params");
-                                          paymentId = params['paymentId'];
-
-                                          callAstrologySaveApi();
-                                        },
-                                        onError: (error) {
-                                          print("onError: $error");
-                                        },
-                                        onCancel: (params) {
-                                          print('cancelled: $params');
-                                        }
-                                    ),
-                                  ),
-                                );
-                              }
-                          },
-                          child: Container(
-                            alignment: Alignment.bottomRight,
-                            margin: const EdgeInsets.only(top: 20,bottom: 20, right: 10),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              color: light_yellow,
-                              elevation: 10,
-                              child: const Padding(
-                                padding: EdgeInsets.all(14.0),
-                                child: Text(
-                                  "Submit Request",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: title,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),*/
                       ],
                     )
                   ],
@@ -2304,9 +2174,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
     setState(() {
       _isLoading = true;
     });
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
 
     final url = Uri.parse(MAIN_URL + astrologySave);
 
@@ -2392,23 +2259,20 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
     },);
   }
 
-  Future<void> placesDialog(TextEditingController controller, StateSetter updateState) async {
-    Prediction? prediction = await PlacesAutocomplete.show(
-      context: context,
-      apiKey: API_KEY,
-      mode: Mode.fullscreen,
-      components: [],
-      strictbounds: false,
-      region: "",
-      decoration: const InputDecoration(
-        hintText: 'Search',
-      ),
-      types: [],
-      language: "en",);
+  Future<void> placesDialog(
+      TextEditingController controller,
+      StateSetter updateState,
+      ) async {
+    final prediction = await _places.findAutocompletePredictions(
+      " ",
+      countries: [],
+    );
 
-    if (prediction != null) {
-      updateState((){
-        controller.text = prediction.description.toString();
+    if (prediction.predictions.isNotEmpty) {
+      final place = prediction.predictions.first;
+
+      updateState(() {
+        controller.text = place.fullText ?? "";
       });
     }
   }

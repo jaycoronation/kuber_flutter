@@ -3,17 +3,12 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:kuber/constant/global_context.dart';
 import 'package:kuber/utils/session_manager.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
-import 'dart:convert';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
-import '../model/CommonResponseModel.dart';
 import '../model/DonateResponseModel.dart';
 import '../model/DonationResonseModel.dart';
 import '../utils/app_utils.dart';
@@ -584,9 +579,7 @@ class _DonationScreenState extends State<DonationScreen> {
     setState(() {
       _isLoading = true;
     });
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + donationSave);
 

@@ -2,19 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_paypal/flutter_paypal.dart';
-import 'package:google_maps_webservice/places.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:intl/intl.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
-import '../constant/global_context.dart';
-import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
 import '../model/DonationResonseModel.dart';
 import '../model/PrayerListResponseModel.dart';
@@ -69,6 +64,9 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
   String astroPrice = "";
   String rashiPrice = "";
   List<Prayers> _prayerList = List<Prayers>.empty(growable: true);
+
+  final FlutterGooglePlacesSdk _places =
+  FlutterGooglePlacesSdk(API_KEY);
 
 
   @override
@@ -3302,9 +3300,7 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
 
     Navigator.pop(context);
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + matchmakingsave);
 
@@ -3396,25 +3392,20 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
     },);
   }
 
-  Future<void> placesDialog(TextEditingController controller, StateSetter updateState) async {
-    Prediction? prediction = await PlacesAutocomplete.show(
-      context: context,
-      apiKey: API_KEY,
-      mode: Mode.fullscreen,
-      components: [],
-      strictbounds: false,
-      region: "",
-      decoration: const InputDecoration(
-        hintText: 'Search',
-      ),
-      types: [],
-      language: "en",);
+  Future<void> placesDialog(
+      TextEditingController controller,
+      StateSetter updateState,
+      ) async {
+    final prediction = await _places.findAutocompletePredictions(
+      " ",
+      countries: [],
+    );
 
-    if (prediction != null) {
+    if (prediction.predictions.isNotEmpty) {
+      final place = prediction.predictions.first;
 
-
-      updateState((){
-        controller.text = prediction.description.toString();
+      updateState(() {
+        controller.text = place.fullText ?? "";
       });
     }
   }

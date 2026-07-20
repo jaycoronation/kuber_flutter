@@ -1,6 +1,5 @@
 import 'dart:async';
 
-// import 'package:audioplayers/audioplayers.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -8,7 +7,6 @@ import 'package:flutter/foundation.dart' show PlatformDispatcher, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_web_frame/flutter_web_frame.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kuber/constant/colors.dart';
@@ -92,35 +90,47 @@ class MyApp extends StatelessWidget {
       statusBarBrightness: Brightness.light,
     ));
 
-    if (kIsWeb)
-      {
-        return FlutterWebFrame(
-          backgroundColor: kuber,
-          builder: (context) {
-            return MaterialApp.router(
-              builder: (context, child) {
-                return MediaQuery(
-                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                  child: child!,
-                );
-              },
-              title: 'Kuber',
-              debugShowCheckedModeBanner: false,
-              routerConfig: AppRoutes.routes,
-              theme: ThemeData(
-                  textTheme: GoogleFonts.rubikTextTheme(Theme.of(context).textTheme)
+    if (kIsWeb) {
+      return MaterialApp.router(
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaler: const TextScaler.linear(1.0),
+            ),
+            child: Container(
+              color: kuber,
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: 1160,
+                    maxHeight: 812,
+                  ),
+                  child: ClipRect(
+                    child: child!,
+                  ),
+                ),
               ),
-            );
-          },
-          maximumSize: const Size(1160.0, 812.0),
-        );
-      }
+            ),
+          );
+        },
+        title: 'Kuber',
+        debugShowCheckedModeBanner: false,
+        routerConfig: AppRoutes.routes,
+        theme: ThemeData(
+          textTheme: GoogleFonts.rubikTextTheme(
+            Theme.of(context).textTheme,
+          ),
+        ),
+      );
+    }
     else
       {
         return MaterialApp(
           builder: (context, child) {
             return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              data: MediaQuery.of(context).copyWith(
+                textScaler: const TextScaler.linear(1.0),
+              ),
               child: child!,
             );
           },

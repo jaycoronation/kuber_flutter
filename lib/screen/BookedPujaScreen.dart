@@ -12,7 +12,8 @@ import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:kuber/widget/no_data_new.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
+
 
 class BookedPujaScreen extends StatefulWidget {
   const BookedPujaScreen({Key? key}) : super(key: key);
@@ -196,10 +197,6 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
     setState(() {
       _isLoading = true;
     });
-
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
 
     final url = Uri.parse(MAIN_URL + bookingList);
 

@@ -9,7 +9,7 @@ import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/CommonResponseModel.dart';
 import 'package:kuber/utils/app_utils.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/common_widget.dart';
 import '../model/CountryListResponseModel.dart';
@@ -1299,9 +1299,7 @@ class _SignUpScreen extends State<SignUpScreen> {
   }
 
   _signUpApi() async {
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + signUp);
 

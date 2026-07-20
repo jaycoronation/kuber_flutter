@@ -10,7 +10,7 @@ import 'package:kuber/model/CommonResponseModel.dart';
 import 'package:kuber/model/PrayerListResponseModel.dart';
 import 'package:kuber/model/PrayerRequestListResponseModel.dart';
 import 'package:kuber/utils/session_manager.dart';
-import 'package:pretty_http_logger/pretty_http_logger.dart';
+import 'package:http/http.dart' as http;
 
 import '../constant/api_end_point.dart';
 import '../constant/common_widget.dart';
@@ -285,9 +285,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getPrayerRequestList);
 
@@ -1370,9 +1368,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
     });
     Navigator.pop(context);
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + savePrayerRequest);
 
@@ -1413,9 +1409,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + getPrayerList);
 
@@ -1452,9 +1446,7 @@ class _PrayerRequestScreen extends State<PrayerRequestScreen> {
       _isLoading = true;
     });
 
-    HttpWithMiddleware http = HttpWithMiddleware.build(middlewares: [
-      HttpLogger(logLevel: LogLevel.BODY),
-    ]);
+    
 
     final url = Uri.parse(MAIN_URL + deletePrayerRequest);
 
