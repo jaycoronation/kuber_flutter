@@ -983,9 +983,7 @@ class _LoginScreen extends State<LoginScreen> {
 
   _sendOTPApi() async {
 
-    
-
-    final url = Uri.parse(MAIN_URL + generateOtp);
+    final url = Uri.parse(MAIN_URL + generateEmailOTP);
 
     Map<String, String> jsonBody = {
       'mobile': numberController.value.text,

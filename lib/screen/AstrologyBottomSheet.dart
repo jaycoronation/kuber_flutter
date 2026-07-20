@@ -18,6 +18,7 @@ import '../model/DonationResonseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../utils/session_manager.dart';
+import '../widget/PaypalCheckoutView.dart';
 import '../widget/loading.dart';
 
 class AstrologyBottomSheet extends StatefulWidget {
@@ -1991,71 +1992,103 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                       children: [
                         Expanded(child: getCommonButton("Edit Request", () { Navigator.pop(context); })),
                         Container(width: 12,),
-                        Expanded(child: getCommonButton('Submit Request', () { Navigator.pop(context,true);
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => UsePaypal(
-                                sandboxMode: SANDBOX,
-                                clientId: PAYPAL_CLIENT_ID,
-                                secretKey:PAYPAL_CLIENT_SECRET,
-                                returnURL: "https://www.panditbookings.com/return",
-                                cancelURL: "http://www.panditbookings.com/cancel",
-                                transactions: [
-                                  {
-                                    "amount": {
-                                      "total": "21",
-                                      "currency": "USD",
-                                      "details": const {
-                                        "subtotal": '21',
-                                        "shipping": '0',
-                                        "shipping_discount": 0
-                                      }
-                                    },
-                                    "description": "The payment transaction description.",
-                                    // "payment_options": {
-                                    //   "allowed_payment_method":
-                                    //       "INSTANT_FUNDING_SOURCE"
-                                    // },
-                                    "item_list": {
-                                      "items": const [
-                                        {
-                                          "name": "Astrology Request",
-                                          "quantity": 1,
-                                          "price": '21',
-                                          "currency": "USD"
-                                        }
-                                      ],
-                                      // shipping address is not required though
-                                      "shipping_address": {
-                                        "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
-                                        "line1": "2 Gila Crescent",
-                                        "line2": "",
-                                        "city": "Johannesburg",
-                                        "country_code": "SA",
-                                        "postal_code": "2090",
-                                        "phone": "+00000000",
-                                        "state": 'Gauteng'
-                                      },
-                                    }
-                                  }
-                                ],
-                                note: "Contact us for any questions on your order.",
-                                onSuccess: (Map params) async {
-                                  print("onSuccess: $params");
-                                  paymentId = params['paymentId'];
-
-                                  callAstrologySaveApi();
-                                },
-                                onError: (error) {
-                                  print("onError: $error");
-                                },
-                                onCancel: (params) {
-                                  print('cancelled: $params');
-                                }
-                            ),
-                          ),
-                        ); })),
+                        // Expanded(child: getCommonButton('Submit Request', () { Navigator.pop(context,true);
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (BuildContext context) => UsePaypal(
+                        //         sandboxMode: SANDBOX,
+                        //         clientId: PAYPAL_CLIENT_ID,
+                        //         secretKey:PAYPAL_CLIENT_SECRET,
+                        //         returnURL: "https://www.panditbookings.com/return",
+                        //         cancelURL: "http://www.panditbookings.com/cancel",
+                        //         transactions: [
+                        //           {
+                        //             "amount": {
+                        //               "total": "21",
+                        //               "currency": "USD",
+                        //               "details": const {
+                        //                 "subtotal": '21',
+                        //                 "shipping": '0',
+                        //                 "shipping_discount": 0
+                        //               }
+                        //             },
+                        //             "description": "The payment transaction description.",
+                        //             // "payment_options": {
+                        //             //   "allowed_payment_method":
+                        //             //       "INSTANT_FUNDING_SOURCE"
+                        //             // },
+                        //             "item_list": {
+                        //               "items": const [
+                        //                 {
+                        //                   "name": "Astrology Request",
+                        //                   "quantity": 1,
+                        //                   "price": '21',
+                        //                   "currency": "USD"
+                        //                 }
+                        //               ],
+                        //               // shipping address is not required though
+                        //               "shipping_address": {
+                        //                 "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
+                        //                 "line1": "2 Gila Crescent",
+                        //                 "line2": "",
+                        //                 "city": "Johannesburg",
+                        //                 "country_code": "SA",
+                        //                 "postal_code": "2090",
+                        //                 "phone": "+00000000",
+                        //                 "state": 'Gauteng'
+                        //               },
+                        //             }
+                        //           }
+                        //         ],
+                        //         note: "Contact us for any questions on your order.",
+                        //         onSuccess: (Map params) async {
+                        //           print("onSuccess: $params");
+                        //           paymentId = params['paymentId'];
+                        //
+                        //           callAstrologySaveApi();
+                        //         },
+                        //         onError: (error) {
+                        //           print("onError: $error");
+                        //         },
+                        //         onCancel: (params) {
+                        //           print('cancelled: $params');
+                        //         }
+                        //     ),
+                        //   ),
+                        // );
+                        // })),
+                        Expanded(
+                          child: getCommonButton('Submit Request', () {
+                            Navigator.pop(context, true);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => PaypalCheckoutView(
+                                  sandboxMode: SANDBOX,
+                                  clientId: PAYPAL_CLIENT_ID,
+                                  secretKey: PAYPAL_CLIENT_SECRET,
+                                  amount: '21',
+                                  currency: "USD",
+                                  description: "Astrology Request",
+                                  returnURL: "https://www.panditbookings.com/return",
+                                  cancelURL: "https://www.panditbookings.com/cancel",
+                                  onSuccess: (Map<String, dynamic> params) async {
+                                    print("onSuccess: $params");
+                                    paymentId = params['orderId'] as String;
+                                    callAstrologySaveApi();
+                                  },
+                                  onError: (error) {
+                                    print("onError: $error");
+                                  },
+                                  onCancel: () {
+                                    print('cancelled');
+                                  },
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
                       ],
+
                     )
                   ],
                 ));

@@ -16,6 +16,7 @@ import '../model/PrayerListResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../utils/session_manager.dart';
+import '../widget/PaypalCheckoutView.dart';
 import '../widget/loading.dart';
 
 class MatchaMakingBottomSheet extends StatefulWidget {
@@ -3198,70 +3199,96 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 }
                               else
                                 {
+
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (BuildContext context) => UsePaypal(
-                                          sandboxMode: SANDBOX,
-                                          clientId: PAYPAL_CLIENT_ID,
-                                          secretKey:PAYPAL_CLIENT_SECRET,
-                                          returnURL: "https://www.panditbookings.com/return",
-                                          cancelURL: "http://www.panditbookings.com/cancel",
-                                          transactions: [
-                                            {
-                                              "amount": const {
-                                                "total": "11",
-                                                "currency": "USD",
-                                                "details": {
-                                                  "subtotal": '11',
-                                                  "shipping": '0',
-                                                  "shipping_discount": 0
-                                                }
-                                              },
-                                              "description":
-                                              "The payment transaction description.",
-                                              // "payment_options": {
-                                              //   "allowed_payment_method":
-                                              //       "INSTANT_FUNDING_SOURCE"
-                                              // },
-                                              "item_list": {
-                                                "items": const [
-                                                  {
-                                                    "name": "Match Making Request",
-                                                    "quantity": 1,
-                                                    "price": '11',
-                                                    "currency": "USD"
-                                                  }
-                                                ],
-                                                // shipping address is not required though
-                                                "shipping_address": {
-                                                  "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
-                                                  "line1": "2 Gila Crescent",
-                                                  "line2": "",
-                                                  "city": "Johannesburg",
-                                                  "country_code": "SA",
-                                                  "postal_code": "2090",
-                                                  "phone": "+00000000",
-                                                  "state": 'Gauteng'
-                                                },
-                                              }
-                                            }
-                                          ],
-                                          note: "Contact us for any questions on your order.",
-                                          onSuccess: (Map params) async {
-                                            print("onSuccess: $params");
-                                            String paymentId = "";
-                                            paymentId = params['paymentId'];
-                                            _callsaveMatchdataAPI(paymentId);
-                                          },
-                                          onError: (error) {
-                                            print("onError: $error");
-                                          },
-                                          onCancel: (params) {
-                                            print('cancelled: $params');
-                                          }
+                                      builder: (BuildContext context) => PaypalCheckoutView(
+                                        sandboxMode: SANDBOX,
+                                        clientId: PAYPAL_CLIENT_ID,
+                                        secretKey: PAYPAL_CLIENT_SECRET,
+                                        amount: '11',
+                                        currency: 'USD',
+                                        description: 'Match Making Request',
+                                        returnURL: 'https://www.panditbookings.com/return',
+                                        cancelURL: 'https://www.panditbookings.com/cancel',
+                                        onSuccess: (Map<String, dynamic> params) async {
+                                          print('onSuccess: $params');
+                                          final String paymentId = params['orderId'] as String;
+                                          _callsaveMatchdataAPI(paymentId);
+                                        },
+                                        onError: (error) {
+                                          print('onError: $error');
+                                        },
+                                        onCancel: () {
+                                          print('cancelled');
+                                        },
                                       ),
                                     ),
                                   );
+                                  // Navigator.of(context).push(
+                                  //   MaterialPageRoute(
+                                  //     builder: (BuildContext context) => UsePaypal(
+                                  //         sandboxMode: SANDBOX,
+                                  //         clientId: PAYPAL_CLIENT_ID,
+                                  //         secretKey:PAYPAL_CLIENT_SECRET,
+                                  //         returnURL: "https://www.panditbookings.com/return",
+                                  //         cancelURL: "http://www.panditbookings.com/cancel",
+                                  //         transactions: [
+                                  //           {
+                                  //             "amount": const {
+                                  //               "total": "11",
+                                  //               "currency": "USD",
+                                  //               "details": {
+                                  //                 "subtotal": '11',
+                                  //                 "shipping": '0',
+                                  //                 "shipping_discount": 0
+                                  //               }
+                                  //             },
+                                  //             "description":
+                                  //             "The payment transaction description.",
+                                  //             // "payment_options": {
+                                  //             //   "allowed_payment_method":
+                                  //             //       "INSTANT_FUNDING_SOURCE"
+                                  //             // },
+                                  //             "item_list": {
+                                  //               "items": const [
+                                  //                 {
+                                  //                   "name": "Match Making Request",
+                                  //                   "quantity": 1,
+                                  //                   "price": '11',
+                                  //                   "currency": "USD"
+                                  //                 }
+                                  //               ],
+                                  //               // shipping address is not required though
+                                  //               "shipping_address": {
+                                  //                 "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
+                                  //                 "line1": "2 Gila Crescent",
+                                  //                 "line2": "",
+                                  //                 "city": "Johannesburg",
+                                  //                 "country_code": "SA",
+                                  //                 "postal_code": "2090",
+                                  //                 "phone": "+00000000",
+                                  //                 "state": 'Gauteng'
+                                  //               },
+                                  //             }
+                                  //           }
+                                  //         ],
+                                  //         note: "Contact us for any questions on your order.",
+                                  //         onSuccess: (Map params) async {
+                                  //           print("onSuccess: $params");
+                                  //           String paymentId = "";
+                                  //           paymentId = params['paymentId'];
+                                  //           _callsaveMatchdataAPI(paymentId);
+                                  //         },
+                                  //         onError: (error) {
+                                  //           print("onError: $error");
+                                  //         },
+                                  //         onCancel: (params) {
+                                  //           print('cancelled: $params');
+                                  //         }
+                                  //     ),
+                                  //   ),
+                                  // );
                                 }
                             },
                             child: Card(
