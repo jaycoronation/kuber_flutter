@@ -33,7 +33,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> {
-  TextEditingController numberController = TextEditingController();
+  // TextEditingController numberController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool _passwordVisible = true;
 
   // final fb = FacebookLogin();
   String _keyHash = 'Unknown';
@@ -132,53 +135,71 @@ class _LoginScreen extends State<LoginScreen> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 margin: const EdgeInsets.only(right: 20, left: 20),
-                                child: Row(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        countryDialog();
-                                      },
-                                      child: Row(
-                                        children: [
-                                           Padding(
-                                            padding: const EdgeInsets.only(left: 22.0),
-                                            child: Text(countryCode,
-                                                style: const TextStyle(
-                                                    color: darkbrown,
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 16
-                                                )
-                                            ),
-                                          ),
-                                          Container(width: 4,),
-                                          Image.asset('assets/images/aerrow_down.png', color: darkbrown, width: 16,),
-                                          Container(width: 10,),
-                                        ],
+                                child: TextField(
+                                  controller: emailController,
+                                  textAlign: TextAlign.left,
+                                  keyboardType: TextInputType.emailAddress,
+                                  cursorColor: black,
+                                  decoration: const InputDecoration(
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.transparent),
                                       ),
-                                    ),
-                                    Flexible(
-                                      child:
-                                      TextField(
-                                        maxLength: 12,
-                                        controller: numberController,
-                                        textAlign: TextAlign.left,
-                                        keyboardType: TextInputType.number,
-                                        cursorColor: black,
-                                        decoration: const InputDecoration(
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.transparent),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.transparent),
-                                            ),
-                                            counterText: "",
-                                            hintText: "Mobile Number",
-                                            labelStyle: TextStyle(color: darkbrown)
-                                        ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.transparent),
                                       ),
-                                    )
-                                  ],
+                                      counterText: "",
+                                      hintText: "Enter Email Address",
+                                      labelStyle: TextStyle(color: darkbrown),
+                                    contentPadding: EdgeInsets.only(left: 10)
+                                  ),
                                 ),
+                                // child: Row(
+                                //   children: [
+                                //     GestureDetector(
+                                //       onTap: () {
+                                //         countryDialog();
+                                //       },
+                                //       child: Row(
+                                //         children: [
+                                //            Padding(
+                                //             padding: const EdgeInsets.only(left: 22.0),
+                                //             child: Text(countryCode,
+                                //                 style: const TextStyle(
+                                //                     color: darkbrown,
+                                //                     fontWeight: FontWeight.w400,
+                                //                     fontSize: 16
+                                //                 )
+                                //             ),
+                                //           ),
+                                //           Container(width: 4,),
+                                //           Image.asset('assets/images/aerrow_down.png', color: darkbrown, width: 16,),
+                                //           Container(width: 10,),
+                                //         ],
+                                //       ),
+                                //     ),
+                                //     Flexible(
+                                //       child:
+                                //       TextField(
+                                //         maxLength: 12,
+                                //         controller: numberController,
+                                //         textAlign: TextAlign.left,
+                                //         keyboardType: TextInputType.number,
+                                //         cursorColor: black,
+                                //         decoration: const InputDecoration(
+                                //             enabledBorder: UnderlineInputBorder(
+                                //               borderSide: BorderSide(color: Colors.transparent),
+                                //             ),
+                                //             focusedBorder: UnderlineInputBorder(
+                                //               borderSide: BorderSide(color: Colors.transparent),
+                                //             ),
+                                //             counterText: "",
+                                //             hintText: "Mobile Number",
+                                //             labelStyle: TextStyle(color: darkbrown)
+                                //         ),
+                                //       ),
+                                //     )
+                                //   ],
+                                // ),
                               ),
                               Center(
                                 child: Container(
@@ -212,14 +233,22 @@ class _LoginScreen extends State<LoginScreen> {
                                 padding: const EdgeInsets.only(left: 18.0, right: 18),
                                 child: getCommonButton('Continue', () {
                                   FocusScope.of(context).unfocus();
-                                  if (numberController.text.isEmpty) {
-                                    showToast('Please enter mobile number', context);
+                                  // if (numberController.text.isEmpty) {
+                                  //   showToast('Please enter mobile number', context);
+                                  // }
+                                  // else if (numberController.text.length <= 7) {
+                                  //   showToast('Please enter valid mobile number', context);
+                                  // }
+                                  // else if (numberController.text.length >= 13) {
+                                  //   showToast('Please enter valid mobile number', context);
+                                  // }
+                                  if(emailController.text.isEmpty)
+                                  {
+                                    showToast("Please enter email address", context);
                                   }
-                                  else if (numberController.text.length <= 7) {
-                                    showToast('Please enter valid mobile number', context);
-                                  }
-                                  else if (numberController.text.length >= 13) {
-                                    showToast('Please enter valid mobile number', context);
+                                  else if(!isValidEmail(emailController.text))
+                                  {
+                                    showToast("Please enter valid email", context);
                                   }
                                   else {
                                     setState(() {
@@ -247,14 +276,22 @@ class _LoginScreen extends State<LoginScreen> {
                                     child: ElevatedButton(
                                       onPressed: () {
                                         FocusScope.of(context).unfocus();
-                                        if (numberController.text.isEmpty) {
-                                          showToast('Please enter mobile number', context);
+                                        // if (numberController.text.isEmpty) {
+                                        //   showToast('Please enter mobile number', context);
+                                        // }
+                                        // else if (numberController.text.length <= 7) {
+                                        //   showToast('Please enter valid mobile number', context);
+                                        // }
+                                        // else if (numberController.text.length >= 13) {
+                                        //   showToast('Please enter valid mobile number', context);
+                                        // }
+                                        if(emailController.text.isEmpty)
+                                        {
+                                          showToast("Please enter email address", context);
                                         }
-                                        else if (numberController.text.length <= 7) {
-                                          showToast('Please enter valid mobile number', context);
-                                        }
-                                        else if (numberController.text.length >= 13) {
-                                          showToast('Please enter valid mobile number', context);
+                                        else if(!isValidEmail(emailController.text))
+                                        {
+                                          showToast("Please enter valid email", context);
                                         }
                                         else {
                                           setState(() {
@@ -913,7 +950,18 @@ class _LoginScreen extends State<LoginScreen> {
     // }
   }
 
+  bool isValidEmail(String? email) {
+    if (email == null || email.trim().isEmpty) {
+      return false;
+    }
 
+    // Standard production email regex
+    final emailRegExp = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
+
+    return emailRegExp.hasMatch(email.trim());
+  }
 
   _makeSocialLoginRequest(String loginType, String firstName, String lastName, String email, String image) async {
     setState(() {
@@ -983,31 +1031,52 @@ class _LoginScreen extends State<LoginScreen> {
 
   _sendOTPApi() async {
 
-    final url = Uri.parse(MAIN_URL + generateEmailOTP);
+    try
+    {
+      final url = Uri.parse(MAIN_URL + generateEmailOTP);
 
-    Map<String, String> jsonBody = {
-      'mobile': numberController.value.text,
-      'country_code': countryCode
-    };
+      Map<String, String> jsonBody = {
+        // 'mobile': numberController.value.text,
+        'email_id': emailController.value.text,
+        // 'country_code': countryCode
+      };
 
-    final response = await http.post(url, body: jsonBody);
-    final statusCode = response.statusCode;
+      final response = await http.post(url, body: jsonBody);
+      final statusCode = response.statusCode;
 
-    final body = response.body;
-    Map<String, dynamic> user = jsonDecode(body);
-    var loginResponse = CommonResponseModel.fromJson(user);
+      final body = response.body;
+      Map<String, dynamic> user = jsonDecode(body);
+      var loginResponse = CommonResponseModel.fromJson(user);
 
-    if (statusCode == 200 && loginResponse.success == 1) {
-      setState(() {
-        _isLoading = false;
-      });
-      //context.goNamed(AppRoutes.otpRoute,pathParameters:  {'mobileNumber': numberController.value.text, 'countryCode': countryCode});
-      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(mobileNumber: numberController.value.text, countryCode: countryCode)));
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
-      showSnackBar(loginResponse.message, context);
+      print("Display send otp response : $loginResponse");
+
+      if (statusCode == 200 && loginResponse.success == 1)
+      {
+        //context.goNamed(AppRoutes.otpRoute,pathParameters:  {'mobileNumber': numberController.value.text, 'countryCode': countryCode});
+        Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(mobileNumber: emailController.value.text, countryCode: countryCode)));
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(mobileNumber: numberController.value.text, countryCode: countryCode)));
+      } else {
+        showSnackBar(loginResponse.message, context);
+      }
+
+      if(mounted)
+      {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+
+
+    }
+    catch(e)
+    {
+      print("Failed to fetch send otp : $e");
+      if(mounted)
+      {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 

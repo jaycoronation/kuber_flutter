@@ -447,9 +447,10 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
     final url = Uri.parse(MAIN_URL + verifyOtp);
 
     Map<String, String> jsonBody = {
-      'mobile': widget.mobileNumber.toString(),
+      // 'mobile': widget.mobileNumber.toString(),
+      'email_id': widget.mobileNumber.toString(),
       'otp': otp,
-      'country_code' : widget.countryCode.toString()
+      //'country_code' : widget.countryCode.toString()
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -505,8 +506,9 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
     final url = Uri.parse(MAIN_URL + generateOtp);
 
     Map<String, String> jsonBody = {
-      'mobile': widget.mobileNumber.toString(),
-      'county_code' :widget.countryCode.toString()
+      // 'mobile': widget.mobileNumber.toString(),
+      'email_id': widget.mobileNumber.toString(),
+      //'county_code' :widget.countryCode.toString()
     };
 
     final response = await http.post(url, body: jsonBody);
