@@ -4,11 +4,13 @@ import '../constant/colors.dart';
 
 class GradientTextButton extends StatelessWidget {
   final String text;
+  final bool isLoading;
   final VoidCallback onPressed;
 
   const GradientTextButton({
     Key? key,
     required this.text,
+    required this.isLoading,
     required this.onPressed,
   }) : super(key: key);
 
@@ -17,13 +19,13 @@ class GradientTextButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all(Colors.transparent),
-        minimumSize: MaterialStateProperty.all(Size.zero),
-        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        overlayColor: WidgetStateProperty.all(Colors.transparent),
+        minimumSize: WidgetStateProperty.all(Size.zero),
+        padding: WidgetStateProperty.all(EdgeInsets.zero),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        side: MaterialStateProperty.all(BorderSide.none),
-        foregroundColor: MaterialStateProperty.all(Colors.transparent),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        side: WidgetStateProperty.all(BorderSide.none),
+        foregroundColor: WidgetStateProperty.all(Colors.transparent),
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
         ),
       ),
@@ -37,14 +39,20 @@ class GradientTextButton extends StatelessWidget {
               ],
             )
         ),
-        child: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.fromLTRB(12, 16, 12, 16),
-          child: Text(
-            text,
-            style: const TextStyle(color: darkbrown, fontSize: 14,fontWeight: FontWeight.w600)
-          ),
-        ),
+        child: isLoading
+            ? Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(top: 13,bottom: 13),
+              child: SizedBox(width: 16,height: 16,child: CircularProgressIndicator(color: white,strokeWidth: 2)),
+            )
+            :  Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(top: 11,bottom: 11),
+              child: Text(
+                text,
+                style: const TextStyle(color: darkbrown, fontSize: 14,fontWeight: FontWeight.w600)
+              ),
+            ),
       ),
     );
   }

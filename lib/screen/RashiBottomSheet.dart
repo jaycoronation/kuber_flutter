@@ -453,7 +453,7 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                 ),
 
                                 Container(height: 22,),
-                                getCommonButton('Review Request', () {
+                                getCommonButton('Review Request', _isLoading,() {
                                   if(rashiMothersNameController.text.isEmpty)
                                   {
                                     showToast('Please enter mother name', context);
@@ -1614,9 +1614,9 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Expanded(child: getCommonButton('Edit Request', () { Navigator.pop(context); })),
+                          Expanded(child: getCommonButton('Edit Request', false,() { Navigator.pop(context); })),
                           Container(width: 12,),
-                          Expanded(child: getCommonButton('Submit Request', () { saveRashiRequestApi(""); }))
+                          Expanded(child: getCommonButton('Submit Request', _isLoading,() { saveRashiRequestApi(""); }))
                           /*GestureDetector(
                             onTap: (){
                               Navigator.pop(context);

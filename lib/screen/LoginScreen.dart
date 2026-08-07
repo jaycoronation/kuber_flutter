@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -9,6 +10,9 @@ import 'package:flutter/widgets.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/screen/LoginWithEmailScreen.dart';
 import 'package:kuber/screen/WebViewContainer.dart';
+import 'package:kuber/utils/AppleAuthService.dart';
+import 'package:kuber/utils/FacebookAuthService.dart';
+import 'package:kuber/utils/GoogleAuthService.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:http/http.dart' as http;
@@ -26,7 +30,7 @@ import 'MyPofileScreen.dart';
 import 'VerifyOtpScreen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreen();
@@ -83,7 +87,7 @@ class _LoginScreen extends State<LoginScreen> {
             titleSpacing: 0,
             centerTitle: true,
             title: const Center(
-              child: Text("Login or Sign up",
+              child: Text("Login",
                   style: TextStyle(fontWeight: FontWeight.w600, color: darkbrown, fontSize: 18),
                   textAlign: TextAlign.center),
             ),
@@ -94,9 +98,7 @@ class _LoginScreen extends State<LoginScreen> {
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
-                    child: _isLoading
-                        ? const LoadingWidget()
-                        : Column(
+                    child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Column(
@@ -231,17 +233,8 @@ class _LoginScreen extends State<LoginScreen> {
                               Container(height: 12,),
                               Padding(
                                 padding: const EdgeInsets.only(left: 18.0, right: 18),
-                                child: getCommonButton('Continue', () {
+                                child: getCommonButton('Continue',_isLoading, () {
                                   FocusScope.of(context).unfocus();
-                                  // if (numberController.text.isEmpty) {
-                                  //   showToast('Please enter mobile number', context);
-                                  // }
-                                  // else if (numberController.text.length <= 7) {
-                                  //   showToast('Please enter valid mobile number', context);
-                                  // }
-                                  // else if (numberController.text.length >= 13) {
-                                  //   showToast('Please enter valid mobile number', context);
-                                  // }
                                   if(emailController.text.isEmpty)
                                   {
                                     showToast("Please enter email address", context);
@@ -334,112 +327,135 @@ class _LoginScreen extends State<LoginScreen> {
                               Container(height: 22,),
                               GestureDetector(
                                 onTap: () async {
-                                  print("GOOGLE LOGIN");
-                                  signInWithGoogle(context: context);
+                                  final result = await GoogleAuthService.signInWithGoogle(context: context);
+                                  if (result.isSuccess) {
+                                    _makeSocialLoginRequest(
+                                      "2",
+                                      result.firstName,
+                                      result.lastName,
+                                      result.email,
+                                      result.profilePic,
+                                    );
+                                  }
                                 },
                                 child: Container(
-                                  margin: const EdgeInsets.only( right: 20, left: 20),
+                                  margin: const EdgeInsets.only(right: 20, left: 20),
                                   decoration: BoxDecoration(
                                     color: kuber,
-                                    border: Border.all(
-                                      color: const Color(0xffd8d8cc),
-                                      width: 1,
-                                    ),
+                                    border: Border.all(color: const Color(0xffd8d8cc), width: 1),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Stack(
                                     alignment: Alignment.center,
-                                    children:  <Widget>[
+                                    children: <Widget>[
                                       Align(
                                         alignment: Alignment.centerLeft,
-                                        child:Container(
-                                            margin: const EdgeInsets.all(12),
-                                            child: Image.asset("assets/images/Google-icon.png",width: 25,height: 29,)),
+                                        child: Container(
+                                          margin: const EdgeInsets.all(12),
+                                          child: Image.asset("assets/images/Google-icon.png", width: 25, height: 29),
+                                        ),
                                       ),
                                       const Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Continue with Google",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
-                                          ))
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Continue with Google",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
                               ),
-                              Container(height: 18,),
-                              /*GestureDetector(
-                                onTap: () {
-                                  loginFB();
+                              Container(height: 18),
+                              GestureDetector(
+                                onTap: () async {
+                                  final result = await FacebookAuthService.signInWithFacebook(context: context);
+                                  if (result.isSuccess) {
+                                    _makeSocialLoginRequest(
+                                      "3",
+                                      result.firstName,
+                                      result.lastName,
+                                      result.email,
+                                      result.profilePic,
+                                    );
+                                  }
                                 },
                                 child: Container(
-                                  margin: const EdgeInsets.only( right: 20, left: 20),
+                                  margin: const EdgeInsets.only(right: 20, left: 20),
                                   decoration: BoxDecoration(
                                     color: kuber,
-                                    border: Border.all(
-                                      color: const Color(0xffd8d8cc),
-                                      width: 1,
-                                    ),
+                                    border: Border.all(color: const Color(0xffd8d8cc), width: 1),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Stack(
                                     alignment: Alignment.center,
-                                    children:  <Widget>[
+                                    children: <Widget>[
                                       Align(
                                         alignment: Alignment.centerLeft,
-                                        child:Container(
-                                            margin: const EdgeInsets.all(12),
-                                            child: Image.asset("assets/images/Facebook-icon.png",width: 25,height: 29,)),
+                                        child: Container(
+                                          margin: const EdgeInsets.all(12),
+                                          child: Image.asset("assets/images/Facebook-icon.png", width: 25, height: 29),
+                                        ),
                                       ),
                                       const Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Continue with Facebook",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
-                                          ))
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Continue with Facebook",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
                               ),
-                              Container(height: 18,),
+                              Container(height: 18),
                               Visibility(
                                 visible: Platform.isIOS,
                                 child: GestureDetector(
-                                  onTap: () {
-                                    loginFB();
+                                  onTap: () async {
+                                    final result = await AppleAuthService.signInWithApple(context: context);
+                                    if (result.isSuccess) {
+                                      _makeSocialLoginRequest(
+                                        "4",
+                                        result.firstName,
+                                        result.lastName,
+                                        result.email,
+                                        result.profilePic,
+                                      );
+                                    }
                                   },
                                   child: Container(
-                                    margin: const EdgeInsets.only( right: 20, left: 20, bottom: 18),
+                                    margin: const EdgeInsets.only(right: 20, left: 20, bottom: 18),
                                     decoration: BoxDecoration(
                                       color: kuber,
-                                      border: Border.all(
-                                        color: const Color(0xffd8d8cc),
-                                        width: 1,
-                                      ),
+                                      border: Border.all(color: const Color(0xffd8d8cc), width: 1),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Stack(
                                       alignment: Alignment.center,
-                                      children:  <Widget>[
+                                      children: <Widget>[
                                         Align(
                                           alignment: Alignment.centerLeft,
-                                          child:Container(
-                                              margin: const EdgeInsets.all(12),
-                                              child: Image.asset("assets/images/Apple-icon.png",width: 25,height: 29,)),
+                                          child: Container(
+                                            margin: const EdgeInsets.all(12),
+                                            child: Image.asset("assets/images/Apple-icon.png", width: 25, height: 29),
+                                          ),
                                         ),
                                         const Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              "Continue with Apple",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
-                                            ))
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "Continue with Apple",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),
                                 ),
-                              ),*/
+                              ),
 /*
                               GestureDetector(
                                 onTap: () {
@@ -477,169 +493,6 @@ class _LoginScreen extends State<LoginScreen> {
                               ),
 */
                               Container(height: 18,),
-
-
-                           /*   Container(
-                                margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
-                                child: TextButton(
-                                  onPressed: () async {
-                                    signInWithGoogle(context: context);
-                                    //FirebaseCrashlytics.instance.crash();
-                                  },
-                                  style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(18.0),
-                                        ),
-                                      ),
-                                      backgroundColor: MaterialStateProperty.all<Color>(sky_blue)
-                                  ),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Container(
-                                            margin: const EdgeInsets.all(6),
-                                            child: Image.asset("assets/images/ic_google_new.png", width: 25, height: 29,)),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Continue with Google",
-                                            textAlign: TextAlign.center,
-                                            style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
-                                child: TextButton(
-                                  onPressed: () {
-                                    loginWithFaceBook();
-                                  },
-                                  style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(18.0),
-                                        ),
-                                      ),
-                                      backgroundColor: MaterialStateProperty.all<Color>(darkblue)
-                                  ),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Container(
-                                            margin: const EdgeInsets.all(6),
-                                            child: Image.asset("assets/images/ic_facebook_new.png", width: 25, height: 29,)),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Continue with Facebook",
-                                            textAlign: TextAlign.center,
-                                            style: getTextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 14),
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Visibility(
-                                visible: Platform.isIOS,
-                                child: Container(
-                                  margin: const EdgeInsets.only(top: 8, bottom: 8, right: 30, left: 30),
-                                  child: TextButton(
-                                    onPressed: () {
-                                      logIn();
-                                    },
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(18.0),
-                                          ),
-                                        ),
-                                        backgroundColor: MaterialStateProperty.all<Color>(Colors.black)
-                                    ),
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: <Widget>[
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Container(
-                                              margin: const EdgeInsets.all(6),
-                                              child: const Icon(
-                                                Icons.apple_sharp,
-                                                color: white,
-                                              )),
-                                        ),
-                                        Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              "Continue with Apple",
-                                              textAlign: TextAlign.center,
-                                              style: getTextStyle(fontWeight: FontWeight.w500, color: white, fontSize: 14),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
-                                  margin: const EdgeInsets.only(top: 14, bottom: 14, right: 30, left: 30),
-                                  child: TextButton(
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(18.0),
-                                          ),
-                                        ),
-                                        backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginWithOtpScreen()));
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text("Connect with Mobile",
-                                        style: getTextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                                      ),
-                                    ),
-                                  )
-                              ),
-                              Container(
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
-                                  margin: const EdgeInsets.only(bottom: 14, right: 30, left: 30),
-                                  child: TextButton(
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(18.0),
-                                          ),
-                                        ),
-                                        backgroundColor: MaterialStateProperty.all<Color>(black)
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginWithEmailScreen()));
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text("Login With Email",
-                                        style: getTextStyle(fontWeight: FontWeight.w500, color: skin, fontSize: 14),
-                                      ),
-                                    ),
-                                  )
-                              ), */
                             ],
                           ),
                           const Spacer(),
@@ -970,8 +823,6 @@ class _LoginScreen extends State<LoginScreen> {
 
     signOut(context: context);
 
-    
-
     final url = Uri.parse(MAIN_URL + socialLogin);
 
     Map<String, String> jsonBody = {
@@ -1037,7 +888,7 @@ class _LoginScreen extends State<LoginScreen> {
 
       Map<String, String> jsonBody = {
         // 'mobile': numberController.value.text,
-        'email_id': emailController.value.text,
+        'email': emailController.value.text,
         // 'country_code': countryCode
       };
 
@@ -1052,9 +903,7 @@ class _LoginScreen extends State<LoginScreen> {
 
       if (statusCode == 200 && loginResponse.success == 1)
       {
-        //context.goNamed(AppRoutes.otpRoute,pathParameters:  {'mobileNumber': numberController.value.text, 'countryCode': countryCode});
         Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(mobileNumber: emailController.value.text, countryCode: countryCode)));
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyOtpScreen(mobileNumber: numberController.value.text, countryCode: countryCode)));
       } else {
         showSnackBar(loginResponse.message, context);
       }

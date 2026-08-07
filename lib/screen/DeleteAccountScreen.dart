@@ -64,7 +64,7 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
                     ),
                     Container(
                       margin: const EdgeInsets.all(12),
-                      child: getCommonButton('Delete my account now', () {_showDeleteBottomSheet(); }),
+                      child: getCommonButton('Delete my account now', false,() {_showDeleteBottomSheet(); }),
                     ),
                     Visibility(
                       visible: false,

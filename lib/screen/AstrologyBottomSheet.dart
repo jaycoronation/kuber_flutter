@@ -684,7 +684,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                             ), */
 
                                   Container(height: 22,),
-                                  getCommonButton('Get For 21\$', () {
+                                  getCommonButton('Get For 21\$', _isLoading,() {
                                     if(astroFnameController.text.isEmpty)
                                     {
                                       showToast("Please enter first name", context);
@@ -1990,75 +1990,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Expanded(child: getCommonButton("Edit Request", () { Navigator.pop(context); })),
+                        Expanded(child: getCommonButton("Edit Request",false, () { Navigator.pop(context); })),
                         Container(width: 12,),
-                        // Expanded(child: getCommonButton('Submit Request', () { Navigator.pop(context,true);
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute(
-                        //     builder: (BuildContext context) => UsePaypal(
-                        //         sandboxMode: SANDBOX,
-                        //         clientId: PAYPAL_CLIENT_ID,
-                        //         secretKey:PAYPAL_CLIENT_SECRET,
-                        //         returnURL: "https://www.panditbookings.com/return",
-                        //         cancelURL: "http://www.panditbookings.com/cancel",
-                        //         transactions: [
-                        //           {
-                        //             "amount": {
-                        //               "total": "21",
-                        //               "currency": "USD",
-                        //               "details": const {
-                        //                 "subtotal": '21',
-                        //                 "shipping": '0',
-                        //                 "shipping_discount": 0
-                        //               }
-                        //             },
-                        //             "description": "The payment transaction description.",
-                        //             // "payment_options": {
-                        //             //   "allowed_payment_method":
-                        //             //       "INSTANT_FUNDING_SOURCE"
-                        //             // },
-                        //             "item_list": {
-                        //               "items": const [
-                        //                 {
-                        //                   "name": "Astrology Request",
-                        //                   "quantity": 1,
-                        //                   "price": '21',
-                        //                   "currency": "USD"
-                        //                 }
-                        //               ],
-                        //               // shipping address is not required though
-                        //               "shipping_address": {
-                        //                 "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
-                        //                 "line1": "2 Gila Crescent",
-                        //                 "line2": "",
-                        //                 "city": "Johannesburg",
-                        //                 "country_code": "SA",
-                        //                 "postal_code": "2090",
-                        //                 "phone": "+00000000",
-                        //                 "state": 'Gauteng'
-                        //               },
-                        //             }
-                        //           }
-                        //         ],
-                        //         note: "Contact us for any questions on your order.",
-                        //         onSuccess: (Map params) async {
-                        //           print("onSuccess: $params");
-                        //           paymentId = params['paymentId'];
-                        //
-                        //           callAstrologySaveApi();
-                        //         },
-                        //         onError: (error) {
-                        //           print("onError: $error");
-                        //         },
-                        //         onCancel: (params) {
-                        //           print('cancelled: $params');
-                        //         }
-                        //     ),
-                        //   ),
-                        // );
-                        // })),
                         Expanded(
-                          child: getCommonButton('Submit Request', () {
+                          child: getCommonButton('Submit Request',_isLoading, () {
                             Navigator.pop(context, true);
                             Navigator.of(context).push(
                               MaterialPageRoute(

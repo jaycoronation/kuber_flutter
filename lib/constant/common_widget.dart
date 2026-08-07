@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../widget/GradientTextButton.dart';
 import 'colors.dart';
 
-getCommonButton(String text , VoidCallback onPressed){
-  return GradientTextButton(text: text,onPressed: onPressed);
+getCommonButton(String text, bool isLoading, VoidCallback onPressed){
+  return GradientTextButton(text: text,onPressed: onPressed,isLoading: isLoading,);
 }
 
 Widget getBackArrow(){

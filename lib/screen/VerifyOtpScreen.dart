@@ -440,17 +440,11 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       _isLoading = true;
     });
 
-
-
-    
-
     final url = Uri.parse(MAIN_URL + verifyOtp);
 
     Map<String, String> jsonBody = {
-      // 'mobile': widget.mobileNumber.toString(),
-      'email_id': widget.mobileNumber.toString(),
+      'mobile': widget.mobileNumber.toString(),
       'otp': otp,
-      //'country_code' : widget.countryCode.toString()
     };
 
     final response = await http.post(url, body: jsonBody);
@@ -465,13 +459,10 @@ class _VerifyOtpScreen extends State<VerifyOtpScreen> {
       setState(() {
         _isLoading = false;
       });
-      await sessionManager.createLoginSession(dataResponse.profile!);
-      sessionManager.setUserId(dataResponse.profile?.userId.toString() ?? "");
-      print(dataResponse.profile!.mobile.toString());
-      print(dataResponse.profile!.email.toString());
+      await sessionManager.createLoginSession(dataResponse.profile ?? Profile());
+      sessionManager.setUserId(dataResponse.profile?.userId ?? "");
 
       getNextScreen(dataResponse);
-
     }
     else {
       setState(() {

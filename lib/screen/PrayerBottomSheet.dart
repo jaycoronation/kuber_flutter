@@ -400,7 +400,7 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                                         ),
 
                                         Container(height: 22,),
-                                        getCommonButton('Review Request', () {
+                                        getCommonButton('Review Request', false,() {
                                           if (prayerFNameController.value.text.isEmpty)
                                           {
                                             showToast("Please enter first name", context);
@@ -1542,11 +1542,11 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Expanded(
-                                    child: getCommonButton('Edit Request', () {  Navigator.pop(context);})
+                                    child: getCommonButton('Edit Request', false,() {  Navigator.pop(context);})
                                 ),
                                 Container(width: 12,),
                                 Expanded(
-                                    child: getCommonButton('Submit Request', () {
+                                    child: getCommonButton('Submit Request', _isLoading,() {
                                       Navigator.pop(context);
                                       _savePrayerRequest();
                                     })

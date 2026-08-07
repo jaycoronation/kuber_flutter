@@ -970,7 +970,7 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                       ),
                       Container(
                         margin: const EdgeInsets.only(bottom: 20, top: 22),
-                        child: getCommonButton("Update Profile", () {
+                        child: getCommonButton("Update Profile", _isLoading,() {
                           if(firstNameController.text.isEmpty)
                           {
                             showToast('Please enter first name', context);
