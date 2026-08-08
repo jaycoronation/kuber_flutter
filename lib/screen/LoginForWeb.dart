@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kuber/screen/DashboardForWeb.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
@@ -24,7 +22,7 @@ import 'MyPofileScreen.dart';
 import 'VerifyOtpScreen.dart';
 
 class LoginScreenForWeb extends StatefulWidget {
-  const LoginScreenForWeb({Key? key}) : super(key: key);
+  const LoginScreenForWeb({super.key});
 
   @override
   State<LoginScreenForWeb> createState() => _LoginScreenForWeb();
@@ -286,46 +284,6 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
                     ),
                   ),
                 ),
-                //Container(height: 18,),
-                /*Container(
-                  width: 700,
-                  child: GestureDetector(
-                    onTap: () {
-                      //loginFB();
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only( right: 20, left: 20),
-                      decoration: BoxDecoration(
-                        color: kuber,
-                        border: Border.all(
-                          color: const Color(0xffd8d8cc),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children:  <Widget>[
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child:Container(
-                                margin: const EdgeInsets.all(12),
-                                child: Image.asset("assets/images/Facebook-icon.png",width: 25,height: 29,)
-                            ),
-                          ),
-                          const Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                "Continue with Facebook",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
-                              )
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),*/
                 Container(height: 32,),
               ],
             ),
@@ -739,7 +697,7 @@ class _LoginScreenForWeb extends State<LoginScreenForWeb> {
 
     signOut(context: context);
 
-    
+
 
     final url = Uri.parse(MAIN_URL + socialLogin);
 

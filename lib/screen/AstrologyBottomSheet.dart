@@ -11,8 +11,6 @@ import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
-import '../constant/global_context.dart';
-import '../model/CommonResponseModel.dart';
 import '../model/CountryListResponseModel.dart';
 import '../model/DonationResonseModel.dart';
 import '../utils/app_utils.dart';
@@ -162,32 +160,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                       )
                                   ),
 
-                                  /* TextField(
-                              controller: astroFnameController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "First Name",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
-
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
@@ -209,33 +181,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                           labelStyle: const TextStyle(color: text_new),                                     ),
                                       )
                                   ),
-
-                                  /*  TextField(
-                              controller: astroLnameController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Last Name",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
-
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
@@ -257,34 +202,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                           labelStyle: const TextStyle(color: text_new),                                     ),
                                       )
                                   ),
-
-                                  /* TextField(
-                              controller: astroEmailController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Email",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
-
-
                                   Container(
                                     margin: const EdgeInsets.only(top: 10),
                                     alignment: Alignment.center,
@@ -348,67 +265,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                       ],
                                     ),
                                   ),
-
-
-                                  /*  Container(
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.only(left: 14, right: 10),
-                              decoration: const BoxDecoration(
-                                color: white_blue,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  InkWell(
-                                    child: Text(countryCode,
-                                        style: const TextStyle(
-                                            color: text_dark,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14)
-                                    ),
-                                    onTap: (){
-                                      countryDialog(setState);
-                                    },
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(left: 10),
-                                    height: 20,
-                                    width: 1,
-                                    color: text_light,
-                                  ),
-                                  Flexible(
-                                    child: TextField(
-                                      controller: astroMobileNumberController,
-                                      maxLength: 10,
-                                      keyboardType: TextInputType.number,
-                                      cursorColor: text_dark,
-                                      style: const TextStyle(
-                                          color: title,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                      decoration: InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(10.0),
-                                            borderSide: const BorderSide(
-                                                width: 0, style: BorderStyle.none)),
-                                        filled: true,
-                                        hintText: "Mobile Number",
-                                        hintStyle: const TextStyle(
-                                          color: text_dark,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w900,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ), */
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
@@ -429,40 +285,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                             borderSide: const BorderSide(color: Colors.grey,),
                                           ),
                                           labelText: "Birth date",
-                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                          labelStyle: const TextStyle(color: text_new),
+                                        ),
                                       )
                                   ),
-
-                                  /*  TextField(
-                              onTap: () async {
-                                _setDatePicker(astroGirlBirthDateController);
-                              },
-                              controller: astroGirlBirthDateController,
-                              keyboardType: TextInputType.text,
-                              readOnly: true,
-                              cursorColor: text_dark,
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Birth date",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
-
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
@@ -483,39 +309,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                             borderSide: const BorderSide(color: Colors.grey,),
                                           ),
                                           labelText: "Birth Time",
-                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                          labelStyle: const TextStyle(color: text_new),
+                                        ),
                                       )
                                   ),
-
-                                  /* TextField(
-                              controller: astroBirthTimeController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              readOnly: true,
-                              onTap: () async {
-                                _setTimePicker(astroBirthTimeController);
-                              },
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Birth Time",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
@@ -536,40 +333,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                             borderSide: const BorderSide(color: Colors.grey,),
                                           ),
                                           labelText: "Birth Place",
-                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                          labelStyle: const TextStyle(color: text_new),
+                                        ),
                                       )
                                   ),
-
-                                  /* TextField(
-                              readOnly: true,
-                              controller: astroBirthPlaceController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              onTap: (){
-                                placesDialog(astroBirthPlaceController, setState);
-                              },
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Birth Place",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
-
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
@@ -588,100 +355,16 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                             borderSide: const BorderSide(color: Colors.grey,),
                                           ),
                                           hintText: "Notes",
-                                          hintStyle: const TextStyle(color: text_new),                                     ),
+                                          hintStyle: const TextStyle(color: text_new),
+                                        ),
                                       )
                                   ),
-                                  /*  TextField(
-                              minLines: 4,
-                              maxLines: 4,
-                              controller: astroNotesController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                counterText: "",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Notes",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
                                   Container(height: 10),
                                   const Divider(
                                     thickness: 1,
                                     color: text_light,
                                     endIndent: 1,
                                   ),
-
-                                  /* InkWell(
-                              onTap:(){
-                                if(astroFnameController.text.isEmpty)
-                                {
-                                  showToast("Please enter first name", context);
-                                }
-                                else if(astroLnameController.text.isEmpty)
-                                {
-                                  showToast("Please enter last name", context);
-                                }
-                                else if(astroEmailController.text.isEmpty)
-                                {
-                                  showToast("Please enter email address", context);
-                                }
-                                else if(astroMobileNumberController.text.isEmpty)
-                                {
-                                  showToast("Please enter mobile number", context);
-                                }
-                                else if(astroGirlBirthDateController.text.isEmpty)
-                                {
-                                  showToast("Please enter birth date", context);
-                                }
-                                else if (astroBirthTimeController.text.isEmpty)
-                                {
-                                  showToast("Please enter birth time ", context);
-                                }
-                                else if(astroBirthPlaceController.text.isEmpty)
-                                {
-                                  showToast("Please enter birth place", context);
-                                }
-                                else
-                                {
-                                  _confirmAstrology();
-                                }
-                              },
-                              child: Container(
-                                alignment: Alignment.bottomRight,
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  ),
-                                  color: light_yellow,
-                                  elevation: 10,
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(14.0),
-                                    child: Text(
-                                      "Review Request",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: title,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ), */
 
                                   Container(height: 22,),
                                   getCommonButton('Get For 21\$', _isLoading,() {
@@ -859,33 +542,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                         ),
                                       )
                                   ),
-
-                                  /* TextField(
-                              controller: astroFnameController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "First Name",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
-
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
@@ -904,35 +560,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                             borderSide: const BorderSide(color: Colors.grey,),
                                           ),
                                           labelText: "Last Name",
-                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                          labelStyle: const TextStyle(color: text_new),
+                                        ),
                                       )
                                   ),
-
-                                  /*  TextField(
-                              controller: astroLnameController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Last Name",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
 
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
@@ -956,33 +587,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                         ),
                                       )
                                   ),
-
-                                  /* TextField(
-                              controller: astroEmailController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Email",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
-
 
                                   Container(
                                     margin: const EdgeInsets.only(top: 10),
@@ -1050,66 +654,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                     ),
                                   ),
 
-                                  /*  Container(
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.only(left: 14, right: 10),
-                              decoration: const BoxDecoration(
-                                color: white_blue,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  InkWell(
-                                    child: Text(countryCode,
-                                        style: const TextStyle(
-                                            color: text_dark,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14)
-                                    ),
-                                    onTap: (){
-                                      countryDialog(setState);
-                                    },
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(left: 10),
-                                    height: 20,
-                                    width: 1,
-                                    color: text_light,
-                                  ),
-                                  Flexible(
-                                    child: TextField(
-                                      controller: astroMobileNumberController,
-                                      maxLength: 10,
-                                      keyboardType: TextInputType.number,
-                                      cursorColor: text_dark,
-                                      style: const TextStyle(
-                                          color: title,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                      decoration: InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(10.0),
-                                            borderSide: const BorderSide(
-                                                width: 0, style: BorderStyle.none)),
-                                        filled: true,
-                                        hintText: "Mobile Number",
-                                        hintStyle: const TextStyle(
-                                          color: text_dark,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w900,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ), */
-
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
@@ -1148,40 +692,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                             borderSide: const BorderSide(color: Colors.grey,),
                                           ),
                                           labelText: "Birth date",
-                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                          labelStyle: const TextStyle(color: text_new),
+                                        ),
                                       )
                                   ),
-
-                                  /*  TextField(
-                              onTap: () async {
-                                _setDatePicker(astroGirlBirthDateController);
-                              },
-                              controller: astroGirlBirthDateController,
-                              keyboardType: TextInputType.text,
-                              readOnly: true,
-                              cursorColor: text_dark,
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Birth date",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
-
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
@@ -1224,37 +738,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                         ),
                                       )
                                   ),
-
-                                  /* TextField(
-                              controller: astroBirthTimeController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              readOnly: true,
-                              onTap: () async {
-                                _setTimePicker(astroBirthTimeController);
-                              },
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Birth Time",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
-
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
@@ -1275,40 +758,10 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                             borderSide: const BorderSide(color: Colors.grey,),
                                           ),
                                           labelText: "Birth Place",
-                                          labelStyle: const TextStyle(color: text_new),                                     ),
+                                          labelStyle: const TextStyle(color: text_new),
+                                        ),
                                       )
                                   ),
-
-                                  /* TextField(
-                              readOnly: true,
-                              controller: astroBirthPlaceController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              onTap: (){
-                                placesDialog(astroBirthPlaceController, setState);
-                              },
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                counterText: "",
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Birth Place",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
-
                                   Container(
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
@@ -1327,103 +780,16 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                             borderSide: const BorderSide(color: Colors.grey,),
                                           ),
                                           hintText: "Notes",
-                                          hintStyle: const TextStyle(color: text_new),                                     ),
+                                          hintStyle: const TextStyle(color: text_new),
+                                        ),
                                       )
                                   ),
-
-                                  /*  TextField(
-                              minLines: 4,
-                              maxLines: 4,
-                              controller: astroNotesController,
-                              keyboardType: TextInputType.text,
-                              cursorColor: text_dark,
-                              style: const TextStyle(
-                                  color: title,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              decoration: InputDecoration(
-                                fillColor: white_blue,
-                                contentPadding: const EdgeInsets.only(left:15,top:5,bottom:5),
-                                counterText: "",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: const BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                filled: true,
-                                hintText: "Notes",
-                                hintStyle: const TextStyle(
-                                  color: text_dark,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ), */
-
                                   Container(height: 10),
                                   const Divider(
                                     thickness: 1,
                                     color: text_light,
                                     endIndent: 1,
                                   ),
-
-                                  /* InkWell(
-                              onTap:(){
-                                if(astroFnameController.text.isEmpty)
-                                {
-                                  showToast("Please enter first name", context);
-                                }
-                                else if(astroLnameController.text.isEmpty)
-                                {
-                                  showToast("Please enter last name", context);
-                                }
-                                else if(astroEmailController.text.isEmpty)
-                                {
-                                  showToast("Please enter email address", context);
-                                }
-                                else if(astroMobileNumberController.text.isEmpty)
-                                {
-                                  showToast("Please enter mobile number", context);
-                                }
-                                else if(astroGirlBirthDateController.text.isEmpty)
-                                {
-                                  showToast("Please enter birth date", context);
-                                }
-                                else if (astroBirthTimeController.text.isEmpty)
-                                {
-                                  showToast("Please enter birth time ", context);
-                                }
-                                else if(astroBirthPlaceController.text.isEmpty)
-                                {
-                                  showToast("Please enter birth place", context);
-                                }
-                                else
-                                {
-                                  _confirmAstrology();
-                                }
-                              },
-                              child: Container(
-                                alignment: Alignment.bottomRight,
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  ),
-                                  color: light_yellow,
-                                  elevation: 10,
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(14.0),
-                                    child: Text(
-                                      "Review Request",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: title,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ), */
-
                                   Container(height: 22,),
                                   TextButton(
                                     onPressed:(){
@@ -1495,7 +861,7 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
 
   }
 
-  countryDialog(StateSetter updateState) {
+  void countryDialog(StateSetter updateState) {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -1657,34 +1023,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
               initialDateTime: DateTime.now(),
               minimumYear: 1900,
               maximumYear: int.parse(getCurrentYear()),
-            ),
-          );
-        }
-    );
-  }
-
-  _setPickDate(TextEditingController controller, StateSetter setState){
-    showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext builder) {
-          return Container(
-            height: MediaQuery.of(context).copyWith().size.height*0.25,
-            color: Colors.white,
-            child: CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.date,
-              onDateTimeChanged: (value) {
-                if (value != null && value != selectedDate) {
-                  setState(()
-                  {
-                    String formattedDate = DateFormat('MMM dd, yyyy').format(value);
-                    // controller.text = formattedDate;
-                    selectedDate = formattedDate;
-                  });
-                }
-              },
-              initialDateTime: DateTime.now(),
-              minimumYear: 2023,
-              maximumYear: 2035,
             ),
           );
         }
@@ -2193,40 +1531,6 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
     }
   }
 
-
-  _showAlertDialog(String image, String text) {
-    Widget okButton = Image.asset(image,height: 160,width:160);
-
-    AlertDialog alert = AlertDialog(
-      content: Wrap(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 12,right: 12),
-            child: Column(
-              children: [
-                okButton,
-                Container(height: 12,),
-                Text(text,style: const TextStyle(fontSize: 18,color: text_new,fontWeight: FontWeight.w900),textAlign: TextAlign.center),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pop(context);
-    },);
-  }
-
   Future<void> placesDialog(
       TextEditingController controller,
       StateSetter updateState,
@@ -2244,6 +1548,4 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
       });
     }
   }
-
 }
-

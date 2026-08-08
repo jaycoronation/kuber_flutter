@@ -9,7 +9,6 @@ import 'package:kuber/widget/loading.dart';
 import 'package:like_button/like_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -18,7 +17,7 @@ import '../model/FeedListResponseModel.dart';
 import '../widget/loading_more.dart';
 
 class FeedScreen extends StatefulWidget {
-  const FeedScreen({Key? key}) : super(key: key);
+  const FeedScreen({super.key});
 
   @override
   State<FeedScreen> createState() => _FeedScreen();
@@ -165,11 +164,6 @@ class _FeedScreen extends State<FeedScreen> {
                                               behavior: HitTestBehavior.opaque,
                                               onTap: () async {
                                                 Share.share(listFeed[index].shareUrl.toString());
-
-                                                // if (await canLaunchUrl(Uri.parse(listFeed[index].shareUrl.toString())))
-                                                // {
-                                                //   await launchUrl(Uri.parse(listFeed[index].shareUrl.toString()),mode: LaunchMode.externalApplication);
-                                                // }
                                               },
                                               child: Image.asset("assets/images/share.png",width: 20,)
                                           ),

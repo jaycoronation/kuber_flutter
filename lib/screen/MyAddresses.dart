@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
@@ -15,7 +14,7 @@ import '../constant/common_widget.dart';
 import '../utils/app_utils.dart';
 
 class MyAddresses extends StatefulWidget {
-  const MyAddresses({Key? key}) : super(key: key);
+  const MyAddresses({super.key});
 
   @override
   State<MyAddresses> createState() => _MyAddresses();

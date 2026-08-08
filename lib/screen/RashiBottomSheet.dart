@@ -138,34 +138,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                       ),
                                     )
                                 ),
-
-                                /* Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiMothersNameController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Mother's Name",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ), */
-
                                 Container(
                                   margin: const EdgeInsets.only(top: 16),
                                   child: TextField(
@@ -230,7 +202,8 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
                                         labelText: "Date of Birth",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
                                     )
                                 ),
 
@@ -254,41 +227,10 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
                                         labelText: "Time of Birth",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
                                     )
                                 ),
-
-
-                                /*  Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiTOBController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    readOnly: true,
-                                    onTap: () async {
-                                      _setTimePicker(rashiTOBController);
-                                    },
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText:  "Time of Birth",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ), */
 
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
@@ -310,40 +252,10 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
                                         labelText: "Place of Birth",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
                                     )
                                 ),
-
-                                /* Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiPOBController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    readOnly: true,
-                                    onTap: () async {
-                                      placesDialog(rashiPOBController,setState);
-                                    },
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Place of Birth",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ),*/
 
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
@@ -367,35 +279,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                       ),
                                     )
                                 ),
-
-                                /* Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    minLines: 4,
-                                    maxLines: 4,
-                                    controller: rashiNotesController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Leave Your Detail",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ), */
 
                                 Container(
                                     alignment: Alignment.topLeft,
@@ -539,63 +422,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                               ],
                             ),
                           ),
-
-                          /*   Padding(
-                          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                          child: Container(
-                            alignment: Alignment.bottomRight,
-                            child: InkWell(
-                              onTap: (){
-                                if(rashiMothersNameController.text.isEmpty)
-                                {
-                                  showToast('Please enter mother name', context);
-                                }
-                                else if(rashiFathersNameController.text.isEmpty)
-                                {
-                                  showToast("Please enter father name", context);
-                                }
-                                else if(rashiEmailController.text.isEmpty)
-                                {
-                                  showToast("Please enter email", context);
-                                }
-                                else if(rashiDOBController.text.isEmpty)
-                                {
-                                  showToast("Please enter birth date ", context);
-                                }
-                                else if(rashiPOBController.text.isEmpty)
-                                {
-                                  showToast("Please enter a place of birth", context);
-                                }
-                                else if(rashiTOBController.text.isEmpty)
-                                {
-                                  showToast("Please enter your birth time", context);
-                                }
-                                else
-                                {
-                                  reviewRashiDialog();
-                                }
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(bottom: 20),
-                                child: Card(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                  color: light_yellow,
-                                  elevation: 10,
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(14.0,),
-                                    child: Text("Review Request",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: title,
-                                          fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ) */
-
                         ],
                       ),
                     ),
@@ -672,34 +498,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                       ),
                                     )
                                 ),
-
-                                /* Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiMothersNameController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Mother's Name",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ), */
-
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
                                     child: TextField(
@@ -723,34 +521,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                     )
                                 ),
 
-                                /* Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiFathersNameController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Father's Name",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ),*/
-
-
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
                                     child: TextField(
@@ -773,34 +543,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                       ),
                                     )
                                 ),
-
-                                /*  Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiEmailController,
-                                    keyboardType: TextInputType.emailAddress,
-                                    cursorColor: text_dark,
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Email",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ), */
-
 
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
@@ -840,41 +582,10 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
                                         labelText: "Date of Birth",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
                                     )
                                 ),
-
-                                /*  Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiDOBController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    readOnly: true,
-                                    onTap: () async {
-                                      _setDatePicker(rashiDOBController);
-                                    },
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Date of Birth",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ), */
-
 
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
@@ -914,41 +625,10 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
                                         labelText: "Time of Birth",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
                                     )
                                 ),
-
-
-                                /*  Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiTOBController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    readOnly: true,
-                                    onTap: () async {
-                                      _setTimePicker(rashiTOBController);
-                                    },
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText:  "Time of Birth",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ), */
 
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
@@ -970,40 +650,10 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
                                         labelText: "Place of Birth",
-                                        labelStyle: const TextStyle(color: text_new),                                     ),
+                                        labelStyle: const TextStyle(color: text_new),
+                                      ),
                                     )
                                 ),
-
-                                /* Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    controller: rashiPOBController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    readOnly: true,
-                                    onTap: () async {
-                                      placesDialog(rashiPOBController,setState);
-                                    },
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Place of Birth",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ),*/
 
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
@@ -1023,38 +673,10 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                           borderSide: const BorderSide(color: Colors.grey,),
                                         ),
                                         hintText: "Leave Your Detail",
-                                        hintStyle: const TextStyle(color: text_new),                                     ),
+                                        hintStyle: const TextStyle(color: text_new),
+                                      ),
                                     )
                                 ),
-
-                                /* Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    color: white_blue),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 14,right: 10,top: 4,bottom: 4),
-                                  child: TextField(
-                                    minLines: 4,
-                                    maxLines: 4,
-                                    controller: rashiNotesController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: text_dark,
-                                    style: const TextStyle(
-                                        color: text_dark, fontSize: 14, fontWeight: FontWeight.w600),
-                                    decoration: const InputDecoration(
-                                        fillColor: white_blue,
-                                        counterText: "",
-                                        border: InputBorder.none,
-                                        hintText: "Leave Your Detail",
-                                        hintStyle: TextStyle(
-                                            color: text_dark,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w900)),
-                                  ),
-                                ),
-                        ), */
 
                                 Container(
                                     alignment: Alignment.topLeft,
@@ -1169,62 +791,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                             ),
                           ),
 
-                          /*   Padding(
-                          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                          child: Container(
-                            alignment: Alignment.bottomRight,
-                            child: InkWell(
-                              onTap: (){
-                                if(rashiMothersNameController.text.isEmpty)
-                                {
-                                  showToast('Please enter mother name', context);
-                                }
-                                else if(rashiFathersNameController.text.isEmpty)
-                                {
-                                  showToast("Please enter father name", context);
-                                }
-                                else if(rashiEmailController.text.isEmpty)
-                                {
-                                  showToast("Please enter email", context);
-                                }
-                                else if(rashiDOBController.text.isEmpty)
-                                {
-                                  showToast("Please enter birth date ", context);
-                                }
-                                else if(rashiPOBController.text.isEmpty)
-                                {
-                                  showToast("Please enter a place of birth", context);
-                                }
-                                else if(rashiTOBController.text.isEmpty)
-                                {
-                                  showToast("Please enter your birth time", context);
-                                }
-                                else
-                                {
-                                  reviewRashiDialog();
-                                }
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(bottom: 20),
-                                child: Card(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                  color: light_yellow,
-                                  elevation: 10,
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(14.0,),
-                                    child: Text("Review Request",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: title,
-                                          fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ) */
-
                         ],
                       ),
                     ),
@@ -1262,33 +828,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
     );
   }
 
-  _setPickDate(TextEditingController controller, StateSetter setState){
-    showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext builder) {
-          return Container(
-            height: MediaQuery.of(context).copyWith().size.height*0.25,
-            color: Colors.white,
-            child: CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.date,
-              onDateTimeChanged: (value) {
-                if (value != null && value != selectedDate) {
-                  setState(()
-                  {
-                    String formattedDate = DateFormat('MMM dd, yyyy').format(value);
-                    // controller.text = formattedDate;
-                    selectedDate = formattedDate;
-                  });
-                }
-              },
-              initialDateTime: DateTime.now(),
-              minimumYear: 2023,
-              maximumYear: 2035,
-            ),
-          );
-        }
-    );
-  }
 
   _setTimePicker(TextEditingController controller, StateSetter setState){
     showCupertinoModalPopup(
@@ -1617,122 +1156,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                           Expanded(child: getCommonButton('Edit Request', false,() { Navigator.pop(context); })),
                           Container(width: 12,),
                           Expanded(child: getCommonButton('Submit Request', _isLoading,() { saveRashiRequestApi(""); }))
-                          /*GestureDetector(
-                            onTap: (){
-                              Navigator.pop(context);
-                            },
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              color: light_yellow,
-                              elevation: 10,
-                              child: const Padding(
-                                padding: EdgeInsets.all(14.0),
-                                child: Text(
-                                  "Edit Request",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: title,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(width: 8,),
-                          GestureDetector(
-                            onTap: (){
-                              *//*Navigator.pop(context);
-                              saveRashiRequestApi();*//*
-                              saveRashiRequestApi("");
-                              *//*Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) => UsePaypal(
-                                      sandboxMode: true,
-                                      clientId: PAYPAL_CLIENT_ID,
-                                      secretKey:PAYPAL_CLIENT_SECRET,
-                                      returnURL: "https://panditbookings.com/return",
-                                      cancelURL: "http://panditbookings.com/cancel",
-                                      transactions: [
-                                        {
-                                          "amount": {
-                                            "total": rashiPrice,
-                                            "currency": "USD",
-                                            "details": const {
-                                              "subtotal": '1',
-                                              "shipping": '0',
-                                              "shipping_discount": 0
-                                            }
-                                          },
-                                          "description":
-                                          "The payment transaction description.",
-                                          // "payment_options": {
-                                          //   "allowed_payment_method":
-                                          //       "INSTANT_FUNDING_SOURCE"
-                                          // },
-                                          "item_list": {
-                                            "items": const [
-                                              {
-                                                "name": "Rashi Request",
-                                                "quantity": 1,
-                                                "price": '1',
-                                                "currency": "USD"
-                                              }
-                                            ],
-                                            // shipping address is not required though
-                                            "shipping_address": {
-                                              "recipient_name": "${sessionManager.getName()} ${sessionManager.getLastName()}",
-                                              "line1": "2 Gila Crescent",
-                                              "line2": "",
-                                              "city": "Johannesburg",
-                                              "country_code": "SA",
-                                              "postal_code": "2090",
-                                              "phone": "+00000000",
-                                              "state": 'Gauteng'
-                                            },
-                                          }
-                                        }
-                                      ],
-                                      note: "Contact us for any questions on your order.",
-                                      onSuccess: (Map params) async {
-                                        print("onSuccess: $params");
-                                        print(params['paymentId']);
-                                        String paymentId = "";
-                                        paymentId = params['paymentId'];
-                                        saveRashiRequestApi(paymentId);
-                                      },
-                                      onError: (error) {
-                                        print("onError: $error");
-                                      },
-                                      onCancel: (params) {
-                                        print('cancelled: $params');
-                                      }
-                                      ),
-                                ),
-                              );*//*
-                            },
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              color: light_yellow,
-                              elevation: 10,
-                              child: const Padding(
-                                padding: EdgeInsets.all(14.0),
-                                child: Text(
-                                  "Submit Request",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: title,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ),*/
                         ],
                       ),
                     )
@@ -1799,39 +1222,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
       });
       showToast(dataResponse.message, context);
     }
-  }
-
-  _showAlertDialog(String image, String text) {
-    Widget okButton = Image.asset(image,height: 160,width:160);
-
-    AlertDialog alert = AlertDialog(
-      content: Wrap(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 12,right: 12),
-            child: Column(
-              children: [
-                okButton,
-                Container(height: 12,),
-                Text(text,style: const TextStyle(fontSize: 18,color: text_new,fontWeight: FontWeight.w900),textAlign: TextAlign.center),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pop(context);
-    },);
   }
 
   void afterMethod() {

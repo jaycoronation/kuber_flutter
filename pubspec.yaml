@@ -19,7 +19,7 @@ version: 1.0.0+1
 
 environment:
 #  sdk: '>=2.18.2 <3.0.0'
-  sdk: ">=3.11.0 <4.0.0"
+  sdk: ^3.7.0
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -44,7 +44,7 @@ dependencies:
 
   google_sign_in: ^7.2.0
   sign_in_with_apple: ^7.0.1
-  flutter_facebook_auth: ^7.2.0
+#  flutter_facebook_auth: ^7.2.0
 
   geolocator: ^14.0.2
   geocoding: ^4.0.0
@@ -77,7 +77,9 @@ dependencies:
   photo_view: ^0.15.0
   fluttertoast: ^8.2.14
   audioplayers: ^6.5.1
-  flutter_google_places_sdk: ^0.4.2
+  flutter_google_places_sdk: ^0.3.0
+  flutter_facebook_auth: ^7.1.6
+#  flutter_google_places_sdk: ^0.4.2
 
 dev_dependencies:
   flutter_test:

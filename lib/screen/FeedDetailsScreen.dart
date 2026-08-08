@@ -15,8 +15,7 @@ import '../utils/session_manager.dart';
 
 class FeedDetailsScreen extends StatefulWidget {
   final Feeds getSet;
-  const FeedDetailsScreen(this.getSet, {Key? key}) : super(key: key);
-
+  const FeedDetailsScreen(this.getSet, {super.key});
 
   @override
   State<FeedDetailsScreen> createState() => _FeedDetailsScreen();
@@ -135,9 +134,6 @@ class _FeedDetailsScreen extends State<FeedDetailsScreen> {
   }
 
   _likeFeeds(Feeds listFeed) async {
-
-    
-
     final url = Uri.parse(MAIN_URL + likeFeeds);
 
     Map<String, String> jsonBody = {
@@ -165,12 +161,7 @@ class _FeedDetailsScreen extends State<FeedDetailsScreen> {
     }
   }
 
-
-
   getFeed() async {
-
-    
-
     final url = Uri.parse(MAIN_URL + getUserFeed);
 
     Map<String, String> jsonBody = {
@@ -199,5 +190,4 @@ class _FeedDetailsScreen extends State<FeedDetailsScreen> {
     setState(() {
     });
   }
-
 }

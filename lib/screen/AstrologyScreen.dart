@@ -21,7 +21,7 @@ import 'package:http/http.dart' as http;
 import '../widget/no_data_new.dart';
 
 class AstrologyScreen extends StatefulWidget {
-  const AstrologyScreen({Key? key}) : super(key: key);
+  const AstrologyScreen({super.key});
 
   @override
   State<AstrologyScreen> createState() => _AstrologyScreen();

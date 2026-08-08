@@ -1,21 +1,17 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/screen/AstrologyScreen.dart';
 import 'package:kuber/screen/BookedPujaScreen.dart';
-import 'package:kuber/screen/ChangePassWordScreen.dart';
 import 'package:kuber/screen/DeleteAccountScreen.dart';
 import 'package:kuber/screen/FeedScreen.dart';
 import 'package:kuber/screen/LoginScreen.dart';
-import 'package:kuber/screen/MyAddresses.dart';
 import 'package:kuber/screen/MyPofileScreen.dart';
 import 'package:kuber/screen/PrayerRequestScreen.dart';
 import 'package:kuber/screen/RashiScreen.dart';
 import 'package:kuber/screen/ThoughtsScreen.dart';
-import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/utils/session_manager_methods.dart';
 import 'package:kuber/widget/loading.dart';
@@ -29,7 +25,7 @@ import 'MatchMakingScreen.dart';
 import 'WebViewContainer.dart';
 
 class MyAccountScreenNew extends StatefulWidget {
-  const MyAccountScreenNew({Key? key}) : super(key: key);
+  const MyAccountScreenNew({super.key});
 
   @override
   State<MyAccountScreenNew> createState() => _MyAccountScreenNew();
@@ -169,36 +165,6 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                                   ),
                                 ),
                               ),
-                              // InkWell(
-                              //   child: Container(
-                              //     alignment: Alignment.center,
-                              //       margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                              //     child: Column(
-                              //       children: [
-                              //         Padding(
-                              //           padding: const EdgeInsets.only(top: 6,bottom: 6),
-                              //           child: Row(
-                              //             children: [
-                              //               Image.asset("assets/images/ic_address_new.png",height: 20,),
-                              //               Container(
-                              //                   margin: const EdgeInsets.only(left: 14,right: 14),
-                              //                   child: const Text('My Addresses',style: TextStyle(fontWeight: FontWeight.w400,color: text_dark,fontSize: 16),)),
-                              //               const Spacer(),
-                              //               Image.asset("assets/images/ic_right.png",height: 14,),
-                              //             ],
-                              //           ),
-                              //         ),
-                              //         Container(
-                              //           margin: const EdgeInsets.only(top: 14),
-                              //           child: const Divider(color: darkbrown,height: 0.5,),
-                              //         ),
-                              //       ],
-                              //     ),
-                              //   ),
-                              //   onTap: (){
-                              //     Navigator.push(context, MaterialPageRoute(builder: (context) => const MyAddresses()));
-                              //   },
-                              // ),
                               InkWell(
                                 child: Container(
                                   alignment: Alignment.center,
@@ -506,41 +472,6 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountScreen()));
                                 },
                               ),
-/*
-                                  Visibility(
-                                    visible: _sessionManager.getType().toString() != "User",
-                                    child: InkWell(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                              child: Row(
-                                                children: [
-                                                  Image.asset("assets/images/ic_help.png",height: 20,),
-                                                  Container(
-                                                      margin: const EdgeInsets.only(left: 14,right: 14),
-                                                      child: const Text('Change Password',style: TextStyle(fontWeight: FontWeight.w400,color: text_dark,fontSize: 16),)),
-                                                  const Spacer(),
-
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.only(top: 14),
-                                              child: const Divider(color: darkbrown,height: 0.5,),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePassWordScreen()));
-                                      },
-                                    ),
-                                  ),
-*/
                               Container(
                                 alignment: Alignment.center,
                                 margin: const EdgeInsets.only(top: 16,),
@@ -814,41 +745,6 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
                                             Navigator.push(context, MaterialPageRoute(builder: (context) => const DeleteAccountScreen()));
                                           },
                                         ),
-                                          /*
-                                            Visibility(
-                                              visible: _sessionManager.getType().toString() != "User",
-                                              child: InkWell(
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  margin: const EdgeInsets.only(top: 16,left: 22,right: 18),
-                                                  child: Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                                        child: Row(
-                                                          children: [
-                                                            Image.asset("assets/images/ic_help.png",height: 20,),
-                                                            Container(
-                                                                margin: const EdgeInsets.only(left: 14,right: 14),
-                                                                child: const Text('Change Password',style: TextStyle(fontWeight: FontWeight.w400,color: text_dark,fontSize: 16),)),
-                                                            const Spacer(),
-
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        margin: const EdgeInsets.only(top: 14),
-                                                        child: const Divider(color: darkbrown,height: 0.5,),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                onTap: (){
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePassWordScreen()));
-                                                },
-                                              ),
-                                            ),
-          */
                                         Container(
                                           alignment: Alignment.center,
                                           margin: const EdgeInsets.only(top: 16,),
@@ -962,16 +858,6 @@ class _MyAccountScreenNew extends State<MyAccountScreenNew> {
       ),
       centerTitle: true,
       title: getTitle("My Account"),
-      /*actions: [
-        IconButton(
-          icon: Image.asset("assets/images/ic_logout_new.png",
-              width: 18, height: 18),
-          iconSize: 28,
-          onPressed: () {
-            _showLogoutBottomSheet();
-          },
-        )
-      ],*/
     );
   }
 

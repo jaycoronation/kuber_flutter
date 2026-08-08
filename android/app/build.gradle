@@ -23,19 +23,23 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'dev.flutter.flutter-gradle-plugin'
+//apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 33
+    namespace "com.coronation.kuber"
+    compileSdkVersion 36
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     sourceSets {
@@ -47,18 +51,29 @@ android {
         applicationId "com.coronation.kuber"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 21
-        targetSdkVersion 33
-        versionCode 15
-        versionName '2.4'
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion 36
+        versionCode 18
+        versionName '2.7'
         multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("C:/Users/Priyanka/Documents/JksFileInfo/kuber/kuber.jks")
+            storePassword "kuber123"
+            keyAlias "kuber"
+            keyPassword "kuber123"
+        }
     }
 
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
+            shrinkResources false
+            minifyEnabled true
         }
     }
 }
@@ -68,11 +83,26 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-messaging:23.4.1'
+
+    // Add core library desugaring
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
+
+    // Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+    implementation 'com.google.firebase:firebase-analytics-ktx:22.0.2'
+    implementation 'com.google.firebase:firebase-messaging-ktx:24.0.0'
+
+    // Facebook & MultiDex
     implementation 'com.facebook.android:facebook-android-sdk:8.2.0'
-    implementation platform('com.google.firebase:firebase-bom:32.7.2')
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("androidx.multidex:multidex:2.0.1")
+    implementation 'androidx.multidex:multidex:2.0.1'
 }
+
+//dependencies {
+//    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
+//    implementation 'com.google.firebase:firebase-analytics-ktx'
+//    implementation 'com.google.firebase:firebase-messaging:23.4.1'
+//    implementation 'com.facebook.android:facebook-android-sdk:8.2.0'
+//    implementation platform('com.google.firebase:firebase-bom:32.7.2')
+//    implementation("com.google.firebase:firebase-analytics")
+//    implementation("androidx.multidex:multidex:2.0.1")
+//}

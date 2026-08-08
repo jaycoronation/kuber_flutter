@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/screen/LoginWithEmailScreen.dart';
 import 'package:kuber/screen/WebViewContainer.dart';
@@ -14,7 +12,6 @@ import 'package:kuber/utils/AppleAuthService.dart';
 import 'package:kuber/utils/FacebookAuthService.dart';
 import 'package:kuber/utils/GoogleAuthService.dart';
 import 'package:kuber/utils/session_manager.dart';
-import 'package:kuber/widget/loading.dart';
 import 'package:http/http.dart' as http;
 
 import '../constant/api_end_point.dart';
@@ -47,6 +44,9 @@ class _LoginScreen extends State<LoginScreen> {
   SessionManager sessionManager = SessionManager();
   var loginType = "";
   bool _isLoading = false;
+  bool isLoadingGoogle = false;
+  bool isLoadingFacebook = false;
+  bool isLoadingApple = false;
   String errorMessage = "";
 
   @override
@@ -339,13 +339,23 @@ class _LoginScreen extends State<LoginScreen> {
                                   }
                                 },
                                 child: Container(
+                                  width: MediaQuery.of(context).size.width,
                                   margin: const EdgeInsets.only(right: 20, left: 20),
                                   decoration: BoxDecoration(
                                     color: kuber,
                                     border: Border.all(color: const Color(0xffd8d8cc), width: 1),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
-                                  child: Stack(
+                                  child: isLoadingGoogle ?
+                                      Center(
+                                        child: Container(
+                                          height: 20,
+                                          width: 20,
+                                          margin: const EdgeInsets.all(14),
+                                          child: CircularProgressIndicator(strokeWidth: 2,),
+                                        ),
+                                      ) :
+                                  Stack(
                                     alignment: Alignment.center,
                                     children: <Widget>[
                                       Align(
@@ -380,6 +390,10 @@ class _LoginScreen extends State<LoginScreen> {
                                       result.profilePic,
                                     );
                                   }
+                                  else
+                                  {
+                                    print("Facebook login failed : ");
+                                  }
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.only(right: 20, left: 20),
@@ -388,7 +402,16 @@ class _LoginScreen extends State<LoginScreen> {
                                     border: Border.all(color: const Color(0xffd8d8cc), width: 1),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
-                                  child: Stack(
+                                  child: isLoadingFacebook ?
+                                  Center(
+                                    child: Container(
+                                      height: 20,
+                                      width: 20,
+                                      margin: const EdgeInsets.all(14),
+                                      child: CircularProgressIndicator(strokeWidth: 2,),
+                                    ),
+                                  ) :
+                                  Stack(
                                     alignment: Alignment.center,
                                     children: <Widget>[
                                       Align(
@@ -433,7 +456,16 @@ class _LoginScreen extends State<LoginScreen> {
                                       border: Border.all(color: const Color(0xffd8d8cc), width: 1),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
-                                    child: Stack(
+                                    child: isLoadingApple ?
+                                    Center(
+                                      child: Container(
+                                        height: 20,
+                                        width: 20,
+                                        margin: const EdgeInsets.all(14),
+                                        child: CircularProgressIndicator(strokeWidth: 2,),
+                                      ),
+                                    ) :
+                                    Stack(
                                       alignment: Alignment.center,
                                       children: <Widget>[
                                         Align(
@@ -456,42 +488,6 @@ class _LoginScreen extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-/*
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginWithEmailScreen()));
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only( right: 20, left: 20),
-                                  decoration: BoxDecoration(
-                                    color: kuber,
-                                    border: Border.all(
-                                      color: const Color(0xffd8d8cc),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children:  <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child:Container(
-                                            margin: const EdgeInsets.all(12),
-                                            child: Image.asset("assets/images/Email-icon.png",width: 25,height: 29,)),
-                                      ),
-                                      const Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Continue with Email",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(fontWeight: FontWeight.w500, color: darkbrown, fontSize: 16),
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                              ),
-*/
                               Container(height: 18,),
                             ],
                           ),
@@ -818,7 +814,22 @@ class _LoginScreen extends State<LoginScreen> {
 
   _makeSocialLoginRequest(String loginType, String firstName, String lastName, String email, String image) async {
     setState(() {
-      _isLoading = true;
+      if(loginType == "2")
+      {
+        isLoadingGoogle = true;
+      }
+      else if(loginType == "3")
+      {
+        isLoadingFacebook = true;
+      }
+      else if(loginType == "4")
+      {
+        isLoadingApple = true;
+      }
+      else
+      {
+        _isLoading = true;
+      }
     });
 
     signOut(context: context);
@@ -870,11 +881,41 @@ class _LoginScreen extends State<LoginScreen> {
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const DashboardScreen()), (route) => false);
       }
       setState(() {
-        _isLoading = false;
+        if(loginType == "2")
+        {
+          isLoadingGoogle = false;
+        }
+        else if(loginType == "3")
+        {
+          isLoadingFacebook = false;
+        }
+        else if(loginType == "4")
+        {
+          isLoadingApple = false;
+        }
+        else
+        {
+          _isLoading = false;
+        }
       });
     } else {
       setState(() {
-        _isLoading = false;
+        if(loginType == "2")
+        {
+          isLoadingGoogle = false;
+        }
+        else if(loginType == "3")
+        {
+          isLoadingFacebook = false;
+        }
+        else if(loginType == "4")
+        {
+          isLoadingApple = false;
+        }
+        else
+        {
+          _isLoading = false;
+        }
       });
       showToast(dataResponse.message, context);
     }

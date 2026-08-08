@@ -87,26 +87,6 @@ class _TempleListScreen extends State<TempleListScreen> {
               ),
               title: getTitle("Temple List"),
               actions: [
-                // GestureDetector(
-                //   behavior: HitTestBehavior.opaque,
-                //   onTap: () async {
-                //     Prediction? prediction = await PlacesAutocomplete.show(
-                //       context: context,
-                //       apiKey: API_KEY,
-                //       mode: Mode.fullscreen,
-                //       components: [],
-                //       strictbounds: false,
-                //       region: "",
-                //       decoration: const InputDecoration(
-                //         hintText: 'Search',
-                //       ),
-                //       types: [],
-                //       language: "en",
-                //     );
-                //     displayPrediction(prediction);
-                //   },
-                //   child: Image.asset("assets/images/ic_search.png",height: 24,width: 24),
-                // ),
                 Container(width: 12,)
               ],
               centerTitle: true,
@@ -420,25 +400,6 @@ class _TempleListScreen extends State<TempleListScreen> {
         });
 
   }
-
-  // Future<void> displayPrediction(Prediction? p) async {
-  //   if (p != null) {
-  //     GoogleMapsPlaces _places = GoogleMapsPlaces(
-  //       apiKey: API_KEY,
-  //       apiHeaders: await const GoogleApiHeaders().getHeaders(),
-  //     );
-  //     PlacesDetailsResponse detail =
-  //     await _places.getDetailsByPlaceId(p.placeId!);
-  //     final latitude = detail.result?.geometry!.location.lat;
-  //     final longitude = detail.result?.geometry!.location.lng;
-  //
-  //     lat = latitude!;
-  //     long = longitude!;
-  //     nextPageToken = "";
-  //
-  //     getTempleList(true);
-  //   }
-  // }
 
   void checkPermission() async {
     permission = await Geolocator.checkPermission();

@@ -1,16 +1,13 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/constant/colors.dart';
-import 'package:kuber/screen/DashboardScreen.dart';
 import 'package:kuber/screen/ForgotPasswordScreen.dart';
 import 'package:kuber/screen/PujariDashboard.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
-import 'package:kuber/widget/loading.dart';
 import 'package:http/http.dart' as http;
 
 import '../constant/common_widget.dart';
@@ -20,7 +17,7 @@ import '../utils/responsive.dart';
 import 'SignUpScreen.dart';
 
 class LoginWithEmailScreen extends StatefulWidget {
-  const LoginWithEmailScreen({Key? key}) : super(key: key);
+  const LoginWithEmailScreen({super.key});
 
   @override
   State<LoginWithEmailScreen> createState() => _LoginWithEmailScreen();
@@ -98,10 +95,6 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                 ),
                                 contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
                                 fillColor: Colors.transparent,
-                                // border: OutlineInputBorder(
-                                //     borderRadius: BorderRadius.circular(12.0),
-                                //     borderSide: const BorderSide(
-                                //         width: 0, style: BorderStyle.none)),
                                 filled: true,
                                 hintText: 'Email',
                                 hintStyle: const TextStyle(
@@ -139,10 +132,6 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                     borderSide: const BorderSide(color: Colors.grey,),
                                   ),
                                   counterText: "",
-                                  // border: OutlineInputBorder(
-                                  //     borderRadius: BorderRadius.circular(12.0),
-                                  //     borderSide: const BorderSide(
-                                  //         width: 0, style: BorderStyle.none)),
                                   filled: true,
                                   fillColor: Colors.transparent,
                                   hintText: 'Password',
@@ -219,46 +208,7 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                               child: const Text('Log in', style: TextStyle(color: darkbrown, fontSize: 16),),
                             ),
                           ),
-
-
-
-                          /* Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.only(right: 18, left: 18),
-                              child: TextButton(
-                                style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(18.0),
-                                      ),
-                                    ),
-                                    backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
-                                ),
-                                onPressed: () {
-                                  if(emailController.text.isEmpty)
-                                  {
-                                    showToast("Please enter email address", context);
-                                  }
-                                  else if(passwordController.text.isEmpty)
-                                  {
-                                    showToast("Please enter password", context);
-                                  }
-                                  else
-                                  {
-                                    setState(() {
-                                      _isLoading = true;
-                                    });
-                                    _loginApi();
-                                  }
-                                },
-                                child: const Text("Log In",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: black,
-                                        fontWeight: FontWeight.w600)),
-                              )),*/
                           Spacer(),
-
                           GestureDetector(
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
@@ -284,38 +234,6 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                 )
                             ),
                           )
-/*
-                            GestureDetector(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
-                              },
-                              child: Container(
-                                  margin: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 18),
-                                  child: RichText(
-                                    textAlign: TextAlign.center,
-                                    text: TextSpan(children: <TextSpan>[
-                                      const TextSpan(
-                                        text:
-                                        "Already have an account?",
-                                        style: TextStyle(
-                                            color: title,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      TextSpan(
-                                          text: " Sing Up",
-                                          style: const TextStyle(
-                                              color: black,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w900),
-                                          ),
-                                    ]),
-                                  )),
-                            ),
-*/
-
-
-
                         ],
                       ),
                     ),
@@ -395,10 +313,6 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 8),
                                     fillColor: Colors.transparent,
-                                    // border: OutlineInputBorder(
-                                    //     borderRadius: BorderRadius.circular(12.0),
-                                    //     borderSide: const BorderSide(
-                                    //         width: 0, style: BorderStyle.none)),
                                     filled: true,
                                     hintText: 'Email',
                                     hintStyle: const TextStyle(
@@ -437,10 +351,6 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                         borderSide: const BorderSide(color: Colors.grey,),
                                       ),
                                       counterText: "",
-                                      // border: OutlineInputBorder(
-                                      //     borderRadius: BorderRadius.circular(12.0),
-                                      //     borderSide: const BorderSide(
-                                      //         width: 0, style: BorderStyle.none)),
                                       filled: true,
                                       fillColor: Colors.transparent,
                                       hintText: 'Password',
@@ -519,77 +429,6 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                                 ),
                               ),
                               Container(height: 36,),
-
-
-                              /* Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: const EdgeInsets.only(right: 18, left: 18),
-                                  child: TextButton(
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(18.0),
-                                          ),
-                                        ),
-                                        backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
-                                    ),
-                                    onPressed: () {
-                                      if(emailController.text.isEmpty)
-                                      {
-                                        showToast("Please enter email address", context);
-                                      }
-                                      else if(passwordController.text.isEmpty)
-                                      {
-                                        showToast("Please enter password", context);
-                                      }
-                                      else
-                                      {
-                                        setState(() {
-                                          _isLoading = true;
-                                        });
-                                        _loginApi();
-                                      }
-                                    },
-                                    child: const Text("Log In",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: black,
-                                            fontWeight: FontWeight.w600)),
-                                  )),*/
-
-
-                             /*
-                                GestureDetector(
-                                  onTap: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen("Priest")));
-                                  },
-                                  child: Container(
-                                      margin: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 18),
-                                      child: RichText(
-                                        textAlign: TextAlign.center,
-                                        text: TextSpan(children: <TextSpan>[
-                                          const TextSpan(
-                                            text:
-                                            "Already have an account?",
-                                            style: TextStyle(
-                                                color: title,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          TextSpan(
-                                              text: " Sing Up",
-                                              style: const TextStyle(
-                                                  color: black,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w900),
-                                              ),
-                                        ]),
-                                      )),
-                                ),
-    */
-
-
-
                             ],
                           ),
                         ),

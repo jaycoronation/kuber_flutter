@@ -1,10 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:intl/intl.dart';
-import 'package:kuber/model/RashiListResponseModel.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:http/http.dart' as http;
@@ -12,13 +8,11 @@ import 'package:http/http.dart' as http;
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
 import '../constant/common_widget.dart';
-import '../model/CommonResponseModel.dart';
 import '../model/DonationListResponseModel.dart';
-import '../utils/app_utils.dart';
 import '../widget/no_data_new.dart';
 
 class DonationListScreen extends StatefulWidget {
-  const DonationListScreen({Key? key}) : super(key: key);
+  const DonationListScreen({super.key});
 
   @override
   State<DonationListScreen> createState() => _DonationListScreen();
@@ -169,8 +163,6 @@ class _DonationListScreen extends State<DonationListScreen> {
     setState(() {
       _isLoading = true;
     });
-
-    
 
     final url = Uri.parse(MAIN_URL + getDonationList);
 

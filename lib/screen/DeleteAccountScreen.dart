@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/constant/colors.dart';
@@ -15,7 +14,7 @@ import 'package:http/http.dart' as http;
 import '../constant/common_widget.dart';
 
 class DeleteAccountScreen extends StatefulWidget {
-  const DeleteAccountScreen({Key? key}) : super(key: key);
+  const DeleteAccountScreen({super.key});
 
   @override
   State<DeleteAccountScreen> createState() => _DeleteAccountScreen();
@@ -91,11 +90,6 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
                           )
                       ),
                     ),
-                    // Container(
-                    //   alignment: Alignment.center,
-                    //   margin: const EdgeInsets.only(top:12,left: 12,right: 12),
-                    //   child: const Text("Back to Settings",style: TextStyle(color: black,fontWeight: FontWeight.w900,fontSize: 14)),
-                    // )
                   ],
                 )
           ),
@@ -154,12 +148,12 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
                               Navigator.pop(context);
                             },
                             style: ButtonStyle(
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(6.0),
                                   ),
                                 ),
-                                backgroundColor: MaterialStateProperty.all<Color>(orange)
+                                backgroundColor: WidgetStateProperty.all<Color>(orange)
                             ),
                             child: const Padding(
                               padding: EdgeInsets.all(4.0),
@@ -181,12 +175,12 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
                               _getDeleteAccountApi();
                             },
                             style: ButtonStyle(
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(6.0),
                                   ),
                                 ),
-                                backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
+                                backgroundColor: WidgetStateProperty.all<Color>(light_yellow)
                             ),
                             child: const Padding(
                               padding: EdgeInsets.all(4.0),
@@ -209,14 +203,12 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
     );
   }
 
-
-
   _getDeleteAccountApi() async {
     setState(() {
       _isLoading = true;
     });
 
-    print("User Id"+ sessionManager.getUserId().toString());
+    print("User Id${sessionManager.getUserId()}");
 
     var  userType = "";
     if(sessionManager.getIsPujrai() == true){
@@ -226,8 +218,6 @@ class _DeleteAccountScreen extends State<DeleteAccountScreen> {
     }else {
       userType =  "User";
     }
-
-    
 
     final url = Uri.parse(MAIN_URL + deletAccount);
 

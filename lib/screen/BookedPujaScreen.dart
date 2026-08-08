@@ -6,7 +6,6 @@ import 'package:kuber/constant/colors.dart';
 import 'package:kuber/constant/common_widget.dart';
 import 'package:kuber/model/BookingListResponseModel.dart';
 import 'package:kuber/screen/BookingDetailsScreen.dart';
-import 'package:kuber/screen/MyAccountScreen.dart';
 import 'package:kuber/screen/PujaReviewScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';

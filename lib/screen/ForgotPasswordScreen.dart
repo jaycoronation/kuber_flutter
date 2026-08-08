@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kuber/constant/api_end_point.dart';
@@ -13,7 +12,7 @@ import 'package:http/http.dart' as http;
 import '../constant/common_widget.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({Key? key}) : super(key: key);
+  const ForgotPasswordScreen({super.key});
 
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreen();
@@ -104,12 +103,12 @@ class _ForgotPasswordScreen extends State<ForgotPasswordScreen> {
                             margin: const EdgeInsets.only(top: 40, bottom: 14, right: 30, left: 30),
                             child: TextButton(
                               style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18.0),
                                     ),
                                   ),
-                                  backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
+                                  backgroundColor: WidgetStateProperty.all<Color>(light_yellow)
                               ),
                               onPressed: () {
                                _forgotPasswordApi();
@@ -139,8 +138,6 @@ class _ForgotPasswordScreen extends State<ForgotPasswordScreen> {
     setState(() {
       _isLoading = true;
     });
-
-    
 
     final url = Uri.parse(MAIN_URL + forgotPassword);
 

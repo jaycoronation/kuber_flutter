@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/screen/AstrologyScreen.dart';
@@ -27,7 +26,7 @@ import 'LoginForWeb.dart';
 import 'NewProfileScreen.dart';
 
 class DashboardForWeb extends StatefulWidget {
-  const DashboardForWeb({Key? key}) : super(key: key);
+  const DashboardForWeb({super.key});
 
   @override
   State<DashboardForWeb> createState() => _DashboardForWeb();
@@ -46,34 +45,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
   @override
   void initState(){
     super.initState();
-    /*var url = window.location.href;
-
-    print("Current Url === $url");
-    log("Current Url === $url");
-
-    if (url.contains("success_donation"))
-      {
-        paymentId = Uri.parse(url).queryParameters['paymentId'] ?? "" ;
-        print(Uri.parse(url).queryParameters['paymentId']);
-        print(Uri.parse(url).queryParameters['token']);
-        DonationDetail();
-      }
-
-    if (url.contains("success_match"))
-      {
-        paymentId = Uri.parse(url).queryParameters['paymentId'] ?? "";
-        print(Uri.parse(url).queryParameters['paymentId']);
-        print(Uri.parse(url).queryParameters['token']);
-        MatchDetail();
-      }
-
-     if (url.contains("success_astro"))
-       {
-         paymentId = Uri.parse(url).queryParameters['paymentId'] ?? "";
-         print(Uri.parse(url).queryParameters['paymentId']);
-         print(Uri.parse(url).queryParameters['token']);
-         AstrologyDetail();
-       }*/
   }
 
   @override
@@ -108,18 +79,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Center(
-                                //   child: Image.asset(
-                                //     "assets/images/ic_guru_web.png",width: 160,
-                                //   ),
-                                // ),
-                                // Container(height: 12,),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(top: 14, bottom: 14, left: 32),
-                                //   child: Text(sessionManager.firstName.toString(),
-                                //   style: const TextStyle(fontWeight: FontWeight.w800, color: listActionColor, fontSize: 18)),
-                                // ),
-                                //   Container(height: 12,),
                                 GestureDetector(
                                   onTap: (){
                                     setState(() {
@@ -181,10 +140,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 1 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 32),
-                                      // decoration:  BoxDecoration(
-                                      //     border: currentIndex == 1 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -209,10 +164,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 2 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 32),
-                                      // decoration:  BoxDecoration(
-                                      //     border: currentIndex == 2 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -238,10 +189,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 3 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 3 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -267,10 +214,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 4 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 32),
-                                      // decoration:  BoxDecoration(
-                                      //     border: currentIndex == 4 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -297,10 +240,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 5 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 5 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -327,10 +266,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 6 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 5 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -357,10 +292,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 7 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 5 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -387,10 +318,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 8 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 5 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -415,10 +342,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 9 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 5 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -516,18 +439,7 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Center(
-                                //   child: Image.asset(
-                                //     "assets/images/ic_guru_web.png",width: 160,
-                                //   ),
-                                // ),
                                 Container(height: 12,),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(top: 14, bottom: 14, left: 32),
-                                //   child: Text(sessionManager.firstName.toString(),
-                                //   style: const TextStyle(fontWeight: FontWeight.w800, color: listActionColor, fontSize: 18)),
-                                // ),
-                                //   Container(height: 12,),
                                 GestureDetector(
                                   onTap: (){
                                     setState(() {
@@ -589,10 +501,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 1 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 32),
-                                      // decoration:  BoxDecoration(
-                                      //     border: currentIndex == 1 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -618,10 +526,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 2 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 32),
-                                      // decoration:  BoxDecoration(
-                                      //     border: currentIndex == 2 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -647,10 +551,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 3 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 14, bottom: 14, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 3 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -676,10 +576,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 4 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 14, bottom: 14, left: 32),
-                                      // decoration:  BoxDecoration(
-                                      //     border: currentIndex == 4 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -705,10 +601,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 5 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 14, bottom: 14, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 5 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -734,10 +626,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 6 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 14, bottom: 14, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 5 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -763,10 +651,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 7 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 14, bottom: 14, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 5 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -792,10 +676,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 8 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 14, bottom: 14, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 5 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -819,10 +699,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                                   child: Container(
                                       color: currentIndex == 9 ? darkbrown : kuber,
                                       padding: const EdgeInsets.only(top: 14, bottom: 14, left: 32),
-                                      // decoration: BoxDecoration(
-                                      //     border: currentIndex == 5 ? Border.all(color: blue, width: 1) : Border.all(width: 0),
-                                      //     color: white, borderRadius: BorderRadius.all(Radius.circular(15))
-                                      // ),
                                       child: Row(
                                         children: [
                                           Container(
@@ -898,31 +774,6 @@ class _DashboardForWeb extends State<DashboardForWeb> {
     Widget okButton = Image.asset(image,height: 160,width:160);
 
     showToast(text, context);
-   /* AlertDialog alert = AlertDialog(
-      content: Wrap(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 12,right: 12),
-            child: Column(
-              children: [
-                okButton,
-                Container(height: 12,),
-                Text(text,style: const TextStyle(fontSize: 18,color: text_new,fontWeight: FontWeight.w900),textAlign: TextAlign.center),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );*/
   }
 
   void _showLogoutBottomSheet() {
@@ -972,12 +823,12 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                               Navigator.pop(context);
                             },
                             style: ButtonStyle(
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(6.0),
                                   ),
                                 ),
-                                backgroundColor: MaterialStateProperty.all<Color>(orange)
+                                backgroundColor: WidgetStateProperty.all<Color>(orange)
                             ),
                             child: const Padding(
                               padding: EdgeInsets.only(left: 4.0, right: 4, top: 12, bottom: 12),
@@ -1001,12 +852,12 @@ class _DashboardForWeb extends State<DashboardForWeb> {
                               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginScreenForWeb()), (Route<dynamic> route) => true);
                             },
                             style: ButtonStyle(
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(6.0),
                                   ),
                                 ),
-                                backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
+                                backgroundColor: WidgetStateProperty.all<Color>(light_yellow)
                             ),
                             child: const Padding(
                               padding: EdgeInsets.only(left: 4.0, right: 4, top: 12, bottom: 12),
@@ -1029,12 +880,10 @@ class _DashboardForWeb extends State<DashboardForWeb> {
     );
   }
 
-  callsaveMatchdataAPI(Match getSet) async {
+  Future<void> callsaveMatchdataAPI(Match getSet) async {
     setState(() {
       _isLoading = true;
     });
-
-    
 
     final url = Uri.parse(MAIN_URL + matchmakingsave);
 
@@ -1085,12 +934,10 @@ class _DashboardForWeb extends State<DashboardForWeb> {
     }
   }
 
-  _callAstrologySaveApi(Astrology getSet) async {
+  Future<void> _callAstrologySaveApi(Astrology getSet) async {
     setState(() {
       _isLoading = true;
     });
-
-    
 
     final url = Uri.parse(MAIN_URL + astrologySave);
 
@@ -1132,12 +979,10 @@ class _DashboardForWeb extends State<DashboardForWeb> {
     }
   }
 
-  AstrologyDetail() async {
+  Future<void> AstrologyDetail() async {
     setState(() {
       _isLoading = true;
     });
-
-    
 
     final url = Uri.parse(MAIN_URL + getAstrologyDetail);
 
@@ -1164,12 +1009,10 @@ class _DashboardForWeb extends State<DashboardForWeb> {
 
   }
 
-  MatchDetail() async {
+  Future<void> MatchDetail() async {
     setState(() {
       _isLoading = true;
     });
-
-    
 
     final url = Uri.parse(MAIN_URL + getMatchDetail);
 
@@ -1196,12 +1039,10 @@ class _DashboardForWeb extends State<DashboardForWeb> {
 
   }
 
-  DonationDetail() async {
+  Future<void> DonationDetail() async {
     setState(() {
       _isLoading = true;
     });
-
-    
 
     final url = Uri.parse(MAIN_URL + getDonationDetail);
 
@@ -1229,7 +1070,7 @@ class _DashboardForWeb extends State<DashboardForWeb> {
 
   }
 
-  callsDonationAPI(Donation getSet) async {
+  Future<void> callsDonationAPI(Donation getSet) async {
     setState(() {
       _isLoading = true;
     });

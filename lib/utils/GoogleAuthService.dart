@@ -9,9 +9,11 @@ class GoogleAuthService {
 
   static Future<void> _ensureInitialized() async {
     if (_initialized) return;
-    await _googleSignIn.initialize(
-      // serverClientId: 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
-    );
+    await _googleSignIn.initialize();
+    // await _googleSignIn.initialize(
+    //   serverClientId: '951814205337-13k5hcfo294qrkq2ktuvla63sin0j4ol.apps.googleusercontent.com'
+    //   // serverClientId: 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
+    // );
     _initialized = true;
   }
 
@@ -24,11 +26,16 @@ class GoogleAuthService {
       final GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
       final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
-      final GoogleSignInClientAuthorization? authorization =
-      await googleUser.authorizationClient.authorizationForScopes(['email']);
+      // final GoogleSignInClientAuthorization? authorization =
+      // await googleUser.authorizationClient.authorizationForScopes(['email']);
+
+      if (googleAuth.idToken == null) {
+        print('ERROR: Google ID token is null');
+        return SocialLoginResult.empty;
+      }
 
       final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: authorization?.accessToken,
+        //accessToken: authorization?.accessToken,
         idToken: googleAuth.idToken,
       );
 
@@ -43,6 +50,8 @@ class GoogleAuthService {
         profilePic: user?.photoURL ?? '',
       );
     } on GoogleSignInException catch (e) {
+      print("<><><><><><><><> catch GoogleSignInException : $e <><><><><><><><>");
+
       if (e.code != GoogleSignInExceptionCode.canceled) {
         debugPrint('GoogleSignInException: ${e.code.name} - ${e.description}');
         if (context.mounted) {
@@ -53,9 +62,13 @@ class GoogleAuthService {
       }
       return SocialLoginResult.empty;
     } on FirebaseAuthException catch (e) {
+      print("<><><><><><><><> catch FirebaseAuthException : $e <><><><><><><><>");
+
       debugPrint('FirebaseAuthException: ${e.code}');
       return SocialLoginResult.empty;
     } catch (e) {
+      print("<><><><><><><><> catch Works :$e <><><><><><><><>");
+
       debugPrint('Unexpected sign-in error: $e');
       return SocialLoginResult.empty;
     }

@@ -36,7 +36,7 @@ import 'PujariDashboard.dart';
 
 class MyProfileScreen extends StatefulWidget {
   final bool isFromLogin;
-  const MyProfileScreen(this.isFromLogin, {Key? key}) : super(key: key);
+  const MyProfileScreen(this.isFromLogin, {super.key});
 
   @override
   State<MyProfileScreen> createState() => _MyProfileScreen();
@@ -1137,30 +1137,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 )
                             ),
 
-                            /* Container(
-                                        margin: const EdgeInsets.only(top: 14),
-                                        child: TextField(
-                                          onTap: (){
-                                          },
-                                          controller: emailController,
-                                          keyboardType: TextInputType.text,
-                                          cursorColor: Colors.grey,
-                                          readOnly: sessionManager.getEmail().toString().length>0 ,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(20),
-                                                borderSide: const BorderSide(color: Colors.grey)
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(20),
-                                              borderSide: const BorderSide(color: Colors.grey,),
-                                            ),
-                                            labelText: "Email Address",
-                                            labelStyle: const TextStyle(color: text_new),                                     ),
-                                        )
-                                    ),*/
-
-
                             Container(
                                 margin: const EdgeInsets.only(top: 14),
                                 child: TextField(
@@ -1180,7 +1156,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                       borderSide: const BorderSide(color: Colors.grey,),
                                     ),
                                     labelText: "Email Address",
-                                    labelStyle: const TextStyle(color: darkbrown),                                     ),
+                                    labelStyle: const TextStyle(color: darkbrown),
+                                  ),
                                 )
                             ),
 
@@ -1250,66 +1227,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                                 ],
                               ),
                             ),
-
-
-                            /*
-                                    Container(
-                                      alignment: Alignment.center,
-                                      margin: const EdgeInsets.only(
-                                          top: 10, right: 10, left: 10),
-                                      padding: const EdgeInsets.only(left: 14, right: 14),
-                                      decoration: const BoxDecoration(
-                                        color: white_blue,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(18),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          GestureDetector(
-                                            behavior: HitTestBehavior.opaque,
-                                            onTap:(){
-                                              print("IS DONE === ");
-                                              countryDialog();
-                                            },
-                                            child: Text(countryCode,
-                                                style: const TextStyle(
-                                                    color: text_dark,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 14)),
-                                          ),
-                                          Container(
-                                            margin: const EdgeInsets.only(left: 10,right:10),
-                                            height: 20,
-                                            width: 1,
-                                            color: text_light,
-                                          ),
-                                          Flexible(
-                                            child: TextField(
-                                                controller: numberController,
-                                                keyboardType: TextInputType.number,
-                                                cursorColor: text_dark,
-                                                maxLength: 12,
-                                                readOnly: numberController.value.text.isEmpty ? false : true,
-                                                style: const TextStyle(
-                                                  color: text_dark,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                                decoration: const InputDecoration(
-                                                    counterText: "",
-                                                    border: InputBorder.none,
-                                                    labelText: "Mobile number",
-                                                    labelStyle: TextStyle(
-                                                      color: text_dark,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w600,
-                                                    ))),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-          */
                             Visibility(
                                 visible: sessionManager.getIsTemple() ?? false ? false : true,
                                 child: setUpTextDate()

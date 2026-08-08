@@ -1,12 +1,9 @@
-
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:http/http.dart' as http;
-
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -14,10 +11,9 @@ import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
 import '../utils/session_manager.dart';
 import '../widget/loading.dart';
-import 'SignUpScreen.dart';
 
 class ChangePassWordScreen extends StatefulWidget {
-  const ChangePassWordScreen({Key? key}) : super(key: key);
+  const ChangePassWordScreen({super.key});
 
   @override
   State<ChangePassWordScreen> createState() => _ChangePassWordScreen();
@@ -171,12 +167,12 @@ class _ChangePassWordScreen extends State<ChangePassWordScreen> {
                  width: MediaQuery.of(context).size.width,
                  child: TextButton(
                    style: ButtonStyle(
-                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                       shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                          RoundedRectangleBorder(
                            borderRadius: BorderRadius.circular(18.0),
                          ),
                        ),
-                       backgroundColor: MaterialStateProperty.all<Color>(light_yellow)
+                       backgroundColor: WidgetStateProperty.all<Color>(light_yellow)
                    ),
                    onPressed: (){
                      validation();
@@ -217,7 +213,7 @@ class _ChangePassWordScreen extends State<ChangePassWordScreen> {
      changePasswordApi();
    }
 
-  changePasswordApi() async {
+  Future<void> changePasswordApi() async {
     setState(()
     {
       _isLoading = true;

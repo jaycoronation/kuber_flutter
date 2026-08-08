@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,8 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/CommonResponseModel.dart';
-import 'package:kuber/screen/LoginScreen.dart';
-import 'package:kuber/screen/VerifyOtpScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/widget/loading.dart';
 import 'package:http/http.dart' as http;
@@ -20,7 +17,7 @@ import '../utils/routes.dart';
 import 'WebViewContainer.dart';
 
 class LoginWithOtpScreen extends StatefulWidget {
-  const LoginWithOtpScreen({Key? key}) : super(key: key);
+  const LoginWithOtpScreen({super.key});
 
   @override
   State<LoginWithOtpScreen> createState() => _LoginWithOtpScreen();
@@ -193,9 +190,6 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
   }
 
   _sendOTPApi() async {
-
-    
-
     final url = Uri.parse(MAIN_URL + generateOtp);
 
     Map<String, String> jsonBody = {
@@ -315,8 +309,6 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
                                   }
                                 }
                               });
-                                /*adapterCountry = AdapterCountry(activity, listSearchCountryName, dialog)
-                              rvCountry.adapter = adapterCountry*/
                             },
                             decoration: InputDecoration(
                               fillColor: white_blue,
@@ -374,7 +366,6 @@ class _LoginWithOtpScreen extends State<LoginWithOtpScreen> {
                             ),
                           ),
                         )
-
                       ],
                     ),
                   );
