@@ -35,8 +35,7 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
 
   SessionManager sessionManager = SessionManager();
 
-  final FlutterGooglePlacesSdk _places =
-  FlutterGooglePlacesSdk(API_KEY);
+  late FlutterGooglePlacesSdk _places;
 
   String prayerID = "";
   bool priest = false;
@@ -60,6 +59,11 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
 
   @override
   void initState() {
+
+    print("API_KEY ==== $API_KEY");
+
+    _places = FlutterGooglePlacesSdk(API_KEY);
+
     rashiEmailController.text= sessionManager.getEmail().toString();
     rashiDOBController.text= universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", sessionManager.getDob().toString());
 
@@ -860,18 +864,89 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
       TextEditingController controller,
       StateSetter updateState,
       ) async {
-    final prediction = await _places.findAutocompletePredictions(
-      " ",
-      countries: [],
+    print("IS IN DIALOG");
+
+    final searchController = TextEditingController();
+
+    await showDialog(
+      context: context,
+      builder: (dialogContext) {
+        List<AutocompletePrediction> predictions = [];
+
+        return StatefulBuilder(
+          builder: (context, dialogSetState) {
+            return AlertDialog(
+              title: const Text("Select Place of Birth"),
+              content: SizedBox(
+                width: double.maxFinite,
+                height: 400,
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: searchController,
+                      autofocus: true,
+                      decoration: const InputDecoration(
+                        hintText: "Search place...",
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                      onChanged: (value) async {
+                        if (value.trim().isEmpty) {
+                          dialogSetState(() {
+                            predictions = [];
+                          });
+                          return;
+                        }
+
+                        try {
+                          final result = await _places.findAutocompletePredictions(
+                            value,
+                            countries: [],
+                          );
+
+                          dialogSetState(() {
+                            predictions = result.predictions;
+                          });
+                        } catch (e) {
+                          print("Places API error: $e");
+                        }
+                      },
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: predictions.length,
+                        itemBuilder: (context, index) {
+                          final prediction = predictions[index];
+
+                          return ListTile(
+                            leading: const Icon(Icons.location_on),
+                            title: Text(
+                              prediction.fullText ?? "",
+                            ),
+                            onTap: () {
+                              controller.text =
+                                  prediction.fullText ?? "";
+
+                              updateState(() {});
+
+                              Navigator.pop(dialogContext);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
 
-    if (prediction.predictions.isNotEmpty) {
-      final place = prediction.predictions.first;
-
-      updateState(() {
-        controller.text = place.fullText ?? "";
-      });
-    }
+    searchController.dispose();
   }
 
   void reviewRashiDialog() {

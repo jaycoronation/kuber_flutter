@@ -1212,13 +1212,20 @@ class _PrayerBottomSheetState extends State<PrayerBottomSheet> {
       _isLoading = true;
     });
 
-    
-
     final url = Uri.parse(MAIN_URL + savePrayerRequest);
     print(prayerDOBController.value.text);
 
     Map<String, String> jsonBody = {
-
+      'user_id' : sessionManager.getUserId().toString(),
+      'name' : prayerFNameController.value.text,
+      'surname' : prayerLNameController.value.text,
+      'date_of_birth' : universalDateConverter("dd MMM,yyyy", "dd-MM-yyyy", prayerDOBController.value.text),
+      'email' : prayerEmailController.value.text,
+      'mobile' : prayerMobileController.value.text,
+      'prayer_id' : prayerID,
+      'notes' : prayerNotesController.value.text,
+      "country_code" : countryCode,
+      // 'request_id': getSet.requestId.toString()
     };
 
     final response = await http.post(url, body: jsonBody);
