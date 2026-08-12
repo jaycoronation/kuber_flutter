@@ -1,11 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/model/PujaDetailsResponseModel.dart';
-import 'package:kuber/screen/PujaListScreen.dart';
 import 'package:http/http.dart' as http;
 
 import '../constant/colors.dart';

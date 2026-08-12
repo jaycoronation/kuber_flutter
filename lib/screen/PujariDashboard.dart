@@ -8,13 +8,11 @@ import 'package:http/http.dart' as http;
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
-import '../model/DonationListResponseModel.dart';
 import '../model/PujariDashboardResponseModel.dart';
 import 'MyAccountScreen.dart';
-import 'NewProfileScreen.dart';
 
 class PujariDashboard extends StatefulWidget {
-  const PujariDashboard({Key? key}) : super(key: key);
+  const PujariDashboard({super.key});
 
   @override
   State<PujariDashboard> createState() => _PujariDashboard();

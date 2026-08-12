@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -9,9 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import '../constant/global_context.dart';
 import '../firebase_options.dart';
-import '../utils/app_utils.dart';
 import '../utils/session_manager.dart';
-import 'package:http/http.dart' as http;
 
 // ignore: slash_for_doc_comments
 /**

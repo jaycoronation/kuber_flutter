@@ -153,7 +153,7 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
                                     startActivity(context, PujaReviewScreen(_bookingList[i]));
                                   },
                                   style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
                                           side: const BorderSide(
                                               color: black,
@@ -163,7 +163,7 @@ class _BookedPujaScreen extends State<BookedPujaScreen> {
                                           borderRadius: BorderRadius.circular(8.0),
                                         ),
                                       ),
-                                      backgroundColor: MaterialStateProperty.all<Color>(priest_light)
+                                      backgroundColor: WidgetStateProperty.all<Color>(priest_light)
                                   ),
                                   child: const Padding(
                                     padding: EdgeInsets.all(6.0),

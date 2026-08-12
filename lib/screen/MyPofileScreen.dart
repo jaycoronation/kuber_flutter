@@ -522,7 +522,8 @@ class _MyProfileScreen extends State<MyProfileScreen> {
                             fontWeight: FontWeight.w600,
                           ),
                           onTap: () async {
-                            placesDialog(addressController, setState);
+                            showLocationDialog(context, addressController);
+                            //placesDialog(addressController, setState);
                           },
 
                           decoration: InputDecoration(
@@ -1702,12 +1703,9 @@ class _MyProfileScreen extends State<MyProfileScreen> {
         );
   }
 
-  Future<void> placesDialog(
-      TextEditingController controller,
-      StateSetter updateState,
-      ) async {
+  Future<void> placesDialog(TextEditingController controller, StateSetter updateState,) async {
     final prediction = await _places.findAutocompletePredictions(
-      " ",
+      "",
       countries: [],
     );
 
@@ -1719,7 +1717,6 @@ class _MyProfileScreen extends State<MyProfileScreen> {
       });
     }
   }
-
 
   Widget setUpTextDate() {
     return Container(

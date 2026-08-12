@@ -58,7 +58,6 @@ String getCurrentYear() {
   var formatter = DateFormat('yyyy');
   formattedDate = formatter.format(now);
   return formattedDate;
-  print(formattedDate); // 2016-01-25
 }
 
 String getCurrentDate(){

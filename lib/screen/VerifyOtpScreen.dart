@@ -3,14 +3,11 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kuber/constant/api_end_point.dart';
 import 'package:kuber/constant/colors.dart';
 import 'package:kuber/model/VerifyOtpResponseModel.dart';
 import 'package:kuber/screen/DashboardScreen.dart';
-import 'package:kuber/screen/LoginScreen.dart';
 import 'package:kuber/utils/app_utils.dart';
 import 'package:kuber/utils/session_manager.dart';
 import 'package:kuber/widget/loading.dart';
@@ -21,7 +18,6 @@ import '../constant/common_widget.dart';
 import '../model/CommonResponseModel.dart';
 import '../utils/responsive.dart';
 import '../utils/routes.dart';
-import 'DashboardForWeb.dart';
 import 'MyPofileScreen.dart';
 
 class VerifyOtpScreen extends StatefulWidget {

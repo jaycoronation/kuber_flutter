@@ -204,33 +204,85 @@ class _DonationScreenState extends State<DonationScreen> {
 
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => PaypalCheckoutView(
-                                  sandboxMode: SANDBOX,
-                                  clientId: PAYPAL_CLIENT_ID,
-                                  secretKey: PAYPAL_CLIENT_SECRET,
-                                  amount: selectedItem == "Custom"
-                                      ? donateController.value.text
-                                      : selectedItem.replaceAll("\$ ", ""),
-                                  currency: "USD",
-                                  description: "Donation",
-                                  returnURL: "https://www.panditbookings.com/return",
-                                  cancelURL: "https://www.panditbookings.com/cancel",
-                                  onSuccess: (Map<String, dynamic> params) async {
-                                    print("onSuccess: $params");
-                                    paymentId = params['orderId'] as String;
-                                    callsDonationAPI();
-                                  },
-                                  onError: (error) {
-                                    print("onError: $error");
-                                  },
-                                  onCancel: () {
-                                    print('cancelled');
+                            if(selectedItem.isEmpty)
+                            {
+                              showToast("Please select one amount option", context);
+                            }
+                            else if(customSelection && donateController.text.isEmpty)
+                            {
+                              showToast("Please enter custom donation amount", context);
+                            }
+                            else if(reasonController.text.isEmpty)
+                            {
+                              showToast("Please enter reason for donation", context);
+                            }
+                            else
+                            {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                        primaryColor:gredient2,
+                                        colorScheme: Theme.of(context).colorScheme.copyWith(
+                                          primary:gredient2,
+                                        ),
+                                      ),
+                                      child: PaypalCheckoutView(
+                                        sandboxMode: SANDBOX,
+                                        clientId: PAYPAL_CLIENT_ID,
+                                        secretKey: PAYPAL_CLIENT_SECRET,
+                                        amount: selectedItem == "Custom"
+                                            ? donateController.value.text
+                                            : selectedItem.replaceAll("\$ ", ""),
+                                        currency: "USD",
+                                        description: "Donation",
+                                        returnURL: "https://www.panditbookings.com/return",
+                                        cancelURL: "https://www.panditbookings.com/cancel",
+                                        onSuccess: (Map<String, dynamic> params) async {
+                                          print("onSuccess: $params");
+                                          paymentId = params['orderId'] as String;
+                                          callsDonationAPI();
+                                        },
+                                        onError: (error) {
+                                          print("onError: $error");
+                                        },
+                                        onCancel: () {
+                                          print('cancelled');
+                                        },
+                                      ),
+                                    );
                                   },
                                 ),
-                              ),
-                            );
+                              );
+                              // Navigator.of(context).push(
+                              //   MaterialPageRoute(
+                              //     builder: (BuildContext context) => PaypalCheckoutView(
+                              //       sandboxMode: SANDBOX,
+                              //       clientId: PAYPAL_CLIENT_ID,
+                              //       secretKey: PAYPAL_CLIENT_SECRET,
+                              //       amount: selectedItem == "Custom"
+                              //           ? donateController.value.text
+                              //           : selectedItem.replaceAll("\$ ", ""),
+                              //       currency: "USD",
+                              //       description: "Donation",
+                              //       returnURL: "https://www.panditbookings.com/return",
+                              //       cancelURL: "https://www.panditbookings.com/cancel",
+                              //       onSuccess: (Map<String, dynamic> params) async {
+                              //         print("onSuccess: $params");
+                              //         paymentId = params['orderId'] as String;
+                              //         callsDonationAPI();
+                              //       },
+                              //       onError: (error) {
+                              //         print("onError: $error");
+                              //       },
+                              //       onCancel: () {
+                              //         print('cancelled');
+                              //       },
+                              //     ),
+                              //   ),
+                              // );
+                            }
                           },
                           style: ButtonStyle(
                             shape: WidgetStateProperty.all<RoundedRectangleBorder>(

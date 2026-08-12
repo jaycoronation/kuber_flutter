@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:kuber/constant/common_widget.dart';
 
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
@@ -389,7 +390,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                       readOnly: true,
                                       onTap: (){
                                         FocusScope.of(context).requestFocus(FocusNode());
-                                        placesDialog(matchGirlBirthPlaceController, setState);
+                                        showLocationDialog(context, matchGirlBirthPlaceController);
+                                        //placesDialog(matchGirlBirthPlaceController, setState);
                                       },
                                       controller: matchGirlBirthPlaceController,
                                       keyboardType: TextInputType.text,
@@ -513,7 +515,8 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                     child: TextField(
                                       onTap: (){
                                         FocusScope.of(context).requestFocus(FocusNode());
-                                        placesDialog(matchBoyBirthPlaceController, setState);
+                                        showLocationDialog(context, matchBoyBirthPlaceController);
+                                        //placesDialog(matchBoyBirthPlaceController, setState);
                                       },
                                       controller: matchBoyBirthPlaceController,
                                       readOnly: true,
@@ -626,10 +629,10 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                     }
                                   },
                                   style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
                                     ),
-                                    backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
+                                    backgroundColor: WidgetStateProperty.all<Color>(light_yellow),
                                   ),
 
                                   child: Padding(
@@ -2076,32 +2079,67 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
                                 }
                               else
                                 {
-
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (BuildContext context) => PaypalCheckoutView(
-                                        sandboxMode: SANDBOX,
-                                        clientId: PAYPAL_CLIENT_ID,
-                                        secretKey: PAYPAL_CLIENT_SECRET,
-                                        amount: '11',
-                                        currency: 'USD',
-                                        description: 'Match Making Request',
-                                        returnURL: 'https://www.panditbookings.com/return',
-                                        cancelURL: 'https://www.panditbookings.com/cancel',
-                                        onSuccess: (Map<String, dynamic> params) async {
-                                          print('onSuccess: $params');
-                                          final String paymentId = params['orderId'] as String;
-                                          _callsaveMatchdataAPI(paymentId);
-                                        },
-                                        onError: (error) {
-                                          print('onError: $error');
-                                        },
-                                        onCancel: () {
-                                          print('cancelled');
-                                        },
-                                      ),
+                                      builder: (BuildContext context) {
+                                        return Theme(
+                                          data: Theme.of(context).copyWith(
+                                            primaryColor:gredient2,
+                                            colorScheme: Theme.of(context).colorScheme.copyWith(
+                                              primary:gredient2,
+                                            ),
+                                          ),
+                                          child: PaypalCheckoutView(
+                                            sandboxMode: SANDBOX,
+                                            clientId: PAYPAL_CLIENT_ID,
+                                            secretKey: PAYPAL_CLIENT_SECRET,
+                                            amount: '11',
+                                            currency: 'USD',
+                                            description: 'Match Making Request',
+                                            returnURL: 'https://www.panditbookings.com/return',
+                                            cancelURL: 'https://www.panditbookings.com/cancel',
+                                            onSuccess: (Map<String, dynamic> params) async {
+                                              print('onSuccess: $params');
+                                              final String paymentId = params['orderId'] as String;
+                                              _callsaveMatchdataAPI(paymentId);
+                                            },
+                                            onError: (error) {
+                                              print('onError: $error');
+                                            },
+                                            onCancel: () {
+                                              print('cancelled');
+                                            },
+                                          ),
+                                        );
+                                      },
                                     ),
                                   );
+
+                                  // Navigator.of(context).push(
+                                  //   MaterialPageRoute(
+                                  //     builder: (BuildContext context) => PaypalCheckoutView(
+                                  //       sandboxMode: SANDBOX,
+                                  //       clientId: PAYPAL_CLIENT_ID,
+                                  //       secretKey: PAYPAL_CLIENT_SECRET,
+                                  //       amount: '11',
+                                  //       currency: 'USD',
+                                  //       description: 'Match Making Request',
+                                  //       returnURL: 'https://www.panditbookings.com/return',
+                                  //       cancelURL: 'https://www.panditbookings.com/cancel',
+                                  //       onSuccess: (Map<String, dynamic> params) async {
+                                  //         print('onSuccess: $params');
+                                  //         final String paymentId = params['orderId'] as String;
+                                  //         _callsaveMatchdataAPI(paymentId);
+                                  //       },
+                                  //       onError: (error) {
+                                  //         print('onError: $error');
+                                  //       },
+                                  //       onCancel: () {
+                                  //         print('cancelled');
+                                  //       },
+                                  //     ),
+                                  //   ),
+                                  // );
                                 }
                             },
                             child: Card(
@@ -2199,12 +2237,9 @@ class _MatchaMakingBottomSheetState extends State<MatchaMakingBottomSheet> {
     }
   }
 
-  Future<void> placesDialog(
-      TextEditingController controller,
-      StateSetter updateState,
-      ) async {
+  Future<void> placesDialog(TextEditingController controller, StateSetter updateState,) async {
     final prediction = await _places.findAutocompletePredictions(
-      " ",
+      "",
       countries: [],
     );
 

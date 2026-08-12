@@ -11,6 +11,7 @@ const Color lightBlue= Color(0xffe0f9f6);
 const Color white_blue= Color(0xffedf1fb);
 const Color light_yellow= Color(0xffFFF294);
 const Color black= Color(0xff000000);
+const Color blackLight = Color(0xff1E1E1E);
 const Color bg_skin= Color(0Xfffbfbef);
 const Color yellow= Color(0xfffee006);
 const Color orange= Color(0xffff7352);

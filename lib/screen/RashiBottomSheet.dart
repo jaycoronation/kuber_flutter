@@ -10,12 +10,10 @@ import 'package:http/http.dart' as http;
 import '../constant/api_end_point.dart';
 import '../constant/colors.dart';
 import '../model/CommonResponseModel.dart';
-import '../model/PrayerListResponseModel.dart';
 import '../utils/app_utils.dart';
 import '../utils/responsive.dart';
 import '../utils/session_manager.dart';
 import '../widget/loading.dart';
-import 'PujaListScreen.dart';
 
 class RashiBottomSheet extends StatefulWidget {
 
@@ -35,8 +33,7 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
 
   SessionManager sessionManager = SessionManager();
 
-  final FlutterGooglePlacesSdk _places =
-  FlutterGooglePlacesSdk(API_KEY);
+  late FlutterGooglePlacesSdk _places;
 
   String prayerID = "";
   bool priest = false;
@@ -60,6 +57,11 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
 
   @override
   void initState() {
+
+    print("API_KEY ==== $API_KEY");
+
+    _places = FlutterGooglePlacesSdk(API_KEY);
+
     rashiEmailController.text= sessionManager.getEmail().toString();
     rashiDOBController.text= universalDateConverter("dd-MM-yyyy", "dd MMM,yyyy", sessionManager.getDob().toString());
 
@@ -237,7 +239,8 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                     child: TextField(
                                       readOnly: true,
                                       onTap: () async {
-                                        placesDialog(rashiPOBController,setState);
+                                        showLocationDialog(context, rashiPOBController);
+                                        //placesDialog(rashiPOBController,setState);
                                       },
                                       controller: rashiPOBController,
                                       keyboardType: TextInputType.text,
@@ -400,10 +403,10 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                       }
                                     },
                                     style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
                                       ),
-                                      backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
+                                      backgroundColor: WidgetStateProperty.all<Color>(light_yellow),
                                     ),
 
                                     child: Padding(
@@ -766,10 +769,10 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                     }
                                   },
                                   style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: light_yellow, width: 0.5)),
                                     ),
-                                    backgroundColor: MaterialStateProperty.all<Color>(light_yellow),
+                                    backgroundColor: WidgetStateProperty.all<Color>(light_yellow),
                                   ),
 
                                   child: Padding(
@@ -856,12 +859,9 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
     );
   }
 
-  Future<void> placesDialog(
-      TextEditingController controller,
-      StateSetter updateState,
-      ) async {
+  Future<void> placesDialog(TextEditingController controller, StateSetter updateState,) async {
     final prediction = await _places.findAutocompletePredictions(
-      " ",
+      "",
       countries: [],
     );
 

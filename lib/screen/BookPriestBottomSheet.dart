@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:kuber/constant/common_widget.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -138,7 +139,8 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
                               Container(height: 14,),
                               TextField(
                                 onTap: (){
-                                  placesDialog(addressController,setState);
+                                  showLocationDialog(context, addressController);
+                                  //placesDialog(addressController,setState);
                                 },
                                 controller: addressController,
                                 keyboardType: TextInputType.text,
@@ -1472,12 +1474,9 @@ class _BookPriestBottomSheetState extends State<BookPriestBottomSheet> {
     );
   }
 
-  Future<void> placesDialog(
-      TextEditingController controller,
-      StateSetter updateState,
-      ) async {
+  Future<void> placesDialog(TextEditingController controller, StateSetter updateState,) async {
     final prediction = await _places.findAutocompletePredictions(
-      " ",
+      "",
       countries: [],
     );
 

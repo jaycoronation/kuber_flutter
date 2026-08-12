@@ -694,63 +694,6 @@ class _AstrologyScreen extends State<AstrologyScreen> {
                                     ),
                                   ),
                                 ),
-
-
-                              /*  TextField(
-                                  controller: astroBirthTimeController,
-                                  keyboardType: TextInputType.text,
-                                  cursorColor: text_dark,
-                                  readOnly: true,
-                                  onTap: () async {
-                                    _setTimePicker(astroBirthTimeController);
-
-                                   *//* FocusScope.of(context).requestFocus(FocusNode());
-                                    final TimeOfDay? picked_s = await showTimePicker(
-                                        context: context,
-                                        initialTime: TimeOfDay.now(),
-                                        builder: (BuildContext context, Widget? child) {
-                                          return Theme(
-                                            data: ThemeData.dark().copyWith(
-                                              colorScheme: const ColorScheme.dark(
-                                                primary: white,
-                                                onPrimary: white,
-                                                surface: text_light,
-                                                onSurface: black,
-                                              ),
-                                              dialogBackgroundColor: white,
-                                            ),
-                                            child: child!,
-                                          );
-                                        });
-
-                                    if (picked_s != null && picked_s != TimeOfDay ) {
-                                      setState(() {
-                                        selectedTime = ("${picked_s.hour}:${picked_s.minute} ${picked_s.period.name}").toString();
-                                        astroBirthTimeController.text = selectedTime;
-                                      });
-                                    }*//*
-
-                                  },
-                                  style: const TextStyle(
-                                      color: title,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600),
-                                  decoration: InputDecoration(
-                                    fillColor: white_blue,
-                                    counterText: "",
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        borderSide: const BorderSide(
-                                            width: 0, style: BorderStyle.none)),
-                                    filled: true,
-                                    hintText: "Birth Time",
-                                    hintStyle: const TextStyle(
-                                      color: text_dark,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w900,
-                                    ),
-                                  ),
-                                ),*/
                                 Container(height: 10),
                                 TextField(
                                   readOnly: true,
@@ -1128,7 +1071,7 @@ class _AstrologyScreen extends State<AstrologyScreen> {
       StateSetter updateState,
       ) async {
     final prediction = await _places.findAutocompletePredictions(
-      " ",
+      "",
       countries: [],
     );
 

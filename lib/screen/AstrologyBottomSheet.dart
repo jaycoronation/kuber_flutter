@@ -317,7 +317,8 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                                       margin: const EdgeInsets.only(top: 14),
                                       child: TextField(
                                         onTap: (){
-                                          placesDialog(astroBirthPlaceController, setState);
+                                          showLocationDialog(context, astroBirthPlaceController);
+                                          //placesDialog(astroBirthPlaceController, setState);
                                         },
                                         readOnly: true,
                                         controller: astroBirthPlaceController,
@@ -1335,29 +1336,65 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
                             Navigator.pop(context, true);
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (BuildContext context) => PaypalCheckoutView(
-                                  sandboxMode: SANDBOX,
-                                  clientId: PAYPAL_CLIENT_ID,
-                                  secretKey: PAYPAL_CLIENT_SECRET,
-                                  amount: '21',
-                                  currency: "USD",
-                                  description: "Astrology Request",
-                                  returnURL: "https://www.panditbookings.com/return",
-                                  cancelURL: "https://www.panditbookings.com/cancel",
-                                  onSuccess: (Map<String, dynamic> params) async {
-                                    print("onSuccess: $params");
-                                    paymentId = params['orderId'] as String;
-                                    callAstrologySaveApi();
-                                  },
-                                  onError: (error) {
-                                    print("onError: $error");
-                                  },
-                                  onCancel: () {
-                                    print('cancelled');
-                                  },
-                                ),
+                                builder: (BuildContext context) {
+                                  return Theme(
+                                    data: Theme.of(context).copyWith(
+                                      primaryColor:gredient2,
+                                      colorScheme: Theme.of(context).colorScheme.copyWith(
+                                        primary:gredient2,
+                                      ),
+                                    ),
+                                    child: PaypalCheckoutView(
+                                      sandboxMode: SANDBOX,
+                                      clientId: PAYPAL_CLIENT_ID,
+                                      secretKey: PAYPAL_CLIENT_SECRET,
+                                      amount: '21',
+                                      currency: "USD",
+                                      description: "Astrology Request",
+                                      returnURL: "https://www.panditbookings.com/return",
+                                      cancelURL: "https://www.panditbookings.com/cancel",
+                                      onSuccess: (Map<String, dynamic> params) async {
+                                        print("onSuccess: $params");
+                                        paymentId = params['orderId'] as String;
+                                        callAstrologySaveApi();
+                                      },
+                                      onError: (error) {
+                                        print("onError: $error");
+                                      },
+                                      onCancel: () {
+                                        print('cancelled');
+                                      },
+                                    ),
+                                  );
+                                },
                               ),
                             );
+
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (BuildContext context) => PaypalCheckoutView(
+                            //       sandboxMode: SANDBOX,
+                            //       clientId: PAYPAL_CLIENT_ID,
+                            //       secretKey: PAYPAL_CLIENT_SECRET,
+                            //       amount: '21',
+                            //       currency: "USD",
+                            //       description: "Astrology Request",
+                            //       returnURL: "https://www.panditbookings.com/return",
+                            //       cancelURL: "https://www.panditbookings.com/cancel",
+                            //       onSuccess: (Map<String, dynamic> params) async {
+                            //         print("onSuccess: $params");
+                            //         paymentId = params['orderId'] as String;
+                            //         callAstrologySaveApi();
+                            //       },
+                            //       onError: (error) {
+                            //         print("onError: $error");
+                            //       },
+                            //       onCancel: () {
+                            //         print('cancelled');
+                            //       },
+                            //     ),
+                            //   ),
+                            // );
                           }),
                         ),
                       ],
@@ -1531,16 +1568,14 @@ class _AstrologyBottomSheetState extends State<AstrologyBottomSheet> {
     }
   }
 
-  Future<void> placesDialog(
-      TextEditingController controller,
-      StateSetter updateState,
-      ) async {
+  Future<void> placesDialog(TextEditingController controller, StateSetter updateState,) async {
     final prediction = await _places.findAutocompletePredictions(
-      " ",
+      "",
       countries: [],
     );
 
-    if (prediction.predictions.isNotEmpty) {
+    if (prediction.predictions.isNotEmpty)
+    {
       final place = prediction.predictions.first;
 
       updateState(() {
