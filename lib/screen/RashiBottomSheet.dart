@@ -71,7 +71,7 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget.isSmallScreen(context)
-      ?  Wrap(
+        ?  Wrap(
         children: [
           StatefulBuilder(
               builder: (context,setState){
@@ -141,26 +141,26 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                     )
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.only(top: 16),
-                                  child: TextField(
-                                    onTap: (){
-                                    },
-                                    controller: rashiFathersNameController,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: Colors.grey,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
+                                    margin: const EdgeInsets.only(top: 16),
+                                    child: TextField(
+                                      onTap: (){
+                                      },
+                                      controller: rashiFathersNameController,
+                                      keyboardType: TextInputType.text,
+                                      cursorColor: Colors.grey,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                            borderSide: const BorderSide(color: Colors.grey)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(20),
-                                          borderSide: const BorderSide(color: Colors.grey)
+                                          borderSide: const BorderSide(color: Colors.grey,),
+                                        ),
+                                        labelText: "Father's Name",
+                                        labelStyle: const TextStyle(color: text_new),
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: const BorderSide(color: Colors.grey,),
-                                      ),
-                                      labelText: "Father's Name",
-                                      labelStyle: const TextStyle(color: text_new),
-                                    ),
-                                  )
+                                    )
                                 ),
                                 Container(
                                     margin: const EdgeInsets.only(top: 16),
@@ -896,14 +896,14 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: 50,
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.only(top: 12),
-                          child: const Divider(
-                            height: 1.5,
-                            thickness: 1.5,
-                            color: Colors.grey,
-                          )
+                            width: 50,
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(top: 12),
+                            child: const Divider(
+                              height: 1.5,
+                              thickness: 1.5,
+                              color: Colors.grey,
+                            )
                         ),
                       ],
                     ),
@@ -913,9 +913,9 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                       child: const Text(
                         "Confirm Rashi Calculator",
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: title,
-                          fontSize: 18
+                            fontWeight: FontWeight.bold,
+                            color: title,
+                            fontSize: 18
                         ),
                       ),
                     ),
@@ -945,12 +945,12 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    rashiMothersNameController.value.text,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        color: title,
-                                        fontSize: 14
-                                    )
+                                      rashiMothersNameController.value.text,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: title,
+                                          fontSize: 14
+                                      )
                                   ),
                                 )
                               ],
@@ -1015,9 +1015,9 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                     child: Text(
                                       "Email",
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700,
-                                        color: text_light
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: text_light
                                       ),
                                     ),
                                   ),
@@ -1104,12 +1104,12 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    isBoy ? "Boy" : "Girl" ,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      color: title,
-                                      fontSize: 14
-                                    )
+                                      isBoy ? "Boy" : "Girl" ,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: title,
+                                          fontSize: 14
+                                      )
                                   ),
                                 )
                               ],
@@ -1132,12 +1132,12 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
                                   Padding(
                                     padding: const EdgeInsets.all(12),
                                     child: Text(
-                                      rashiNotesController.value.text,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        color: title,
-                                        fontSize: 14
-                                      )
+                                        rashiNotesController.value.text,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            color: title,
+                                            fontSize: 14
+                                        )
                                     ),
                                   )
                                 ],
@@ -1173,7 +1173,7 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
     });
     Navigator.pop(context);
 
-    
+
 
     final url = Uri.parse(MAIN_URL + saveRashiRequest);
 
@@ -1228,6 +1228,6 @@ class _RashiBottomSheetState extends State<RashiBottomSheet> {
     Navigator.pop(context, true);
   }
 
-  
+
 }
 
